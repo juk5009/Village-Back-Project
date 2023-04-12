@@ -27,9 +27,8 @@ public class Notice {
     @Comment("호스트 아이디")
     private Long placeId;
     @Comment("결제의 총 금액")
-    @OneToOne
     // 결제테이블과 조인해서 총금액 받아오기
-    private Payment paymentTotalPrice;
+    private Integer paymentTotalPrice;
     @Comment("결제 내용")
     private String content;
     @Comment("알림 상태")

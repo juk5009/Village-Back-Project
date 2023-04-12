@@ -32,7 +32,7 @@ public class Review {
     @Comment("리뷰 사진")
     private String image;
     @Comment("좋아요 수")
-    private int likeCount;
+    private Integer likeCount;
     @Comment("리뷰 시간")
     private Timestamp createdAt;
 }

@@ -12,12 +12,14 @@ import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.util.type.RoleType;
 
 @Entity
 @Table(name = "user_tb")
 @Getter
+@Setter
 @NoArgsConstructor
 public class User {
     @Id

@@ -13,16 +13,16 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ACCOUNT")
+@Table(name = "account_tb")
 public class Account {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("계좌 아이디")
-    private Integer id;
+    private Long id;
 
     @Comment("계좌 유저아이디")
-    private Integer userId;
+    private Long userId;
 
     @Comment("계좌번호")
-    private String account;
+    private String accountNum;
 }
