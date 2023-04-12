@@ -1,9 +1,9 @@
-package shop.mtcoding.village.dto;
+package shop.mtcoding.village.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
 import shop.mtcoding.village.core.util.MyDateUtils;
-import shop.mtcoding.village.model.User;
+import shop.mtcoding.village.model.user.User;
 
 public class UserResponse {
     
@@ -19,7 +19,7 @@ public class UserResponse {
 
         public JoinDTO(User user) {
             this.id = user.getId();
-            this.username = user.getUsername();
+            this.username = user.getName();
             this.email = user.getEmail();
             this.role = user.getRole();
             this.createdAt = MyDateUtils.toStringFormat(user.getCreatedAt());
