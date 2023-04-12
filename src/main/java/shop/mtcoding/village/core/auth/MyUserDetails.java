@@ -7,7 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
-import shop.mtcoding.village.model.User;
+import shop.mtcoding.village.model.user.User;
+import shop.mtcoding.village.util.type.RoleType;
 
 
 @Getter
@@ -15,7 +16,7 @@ public class MyUserDetails implements UserDetails{
 
     private User user;
 
-    
+
     public MyUserDetails(User user) {
         this.user = user;
     }
@@ -29,32 +30,32 @@ public class MyUserDetails implements UserDetails{
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return null;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isEnabled() {
-        return user.getStatus();
+        return false;
     }
-    
+
 }

@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import shop.mtcoding.village.model.User;
-import shop.mtcoding.village.model.UserRepository;
+import shop.mtcoding.village.model.user.User;
+import shop.mtcoding.village.model.user.UserRepository;
 
 
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService{
     // loadUserByUsername 를 구현해야함
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOP = userRepository.findbyUsername(username);
+        Optional<User> userOP = userRepository.findbyName(username);
         if(userOP.isPresent()){
             return new MyUserDetails(userOP.get());
         }else{
