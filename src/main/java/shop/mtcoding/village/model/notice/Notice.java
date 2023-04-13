@@ -1,9 +1,6 @@
 package shop.mtcoding.village.model.notice;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.place.Place;
@@ -16,7 +13,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "notice_tb")
 public class Notice {
 
@@ -44,6 +40,12 @@ public class Notice {
     @Comment("알림 상태")
     private NoticeStatus status;
 
-
-
+    @Builder
+    public Notice(User user, Place place, Payment payment, String content, NoticeStatus status) {
+        this.user = user;
+        this.place = place;
+        this.payment = payment;
+        this.content = content;
+        this.status = status;
+    }
 }

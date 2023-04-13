@@ -35,9 +35,7 @@ public class SearchRepositoryTest {
     public void init() {
         em.createNativeQuery("ALTER TABLE search_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
 
-        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-
-        setUpBySearch(user, "keyword4");
+        setUpBySearch("keyword4");
     }
 
     @Test
@@ -72,9 +70,9 @@ public class SearchRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
+//        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
 
-        Search search = setUpBySearch(user, "keyword4");
+        Search search = setUpBySearch("keyword4");
         Optional<Search> findUser = this.searchRepository.findById(search.getId());
 
         if(findUser.isPresent()) {
@@ -90,19 +88,10 @@ public class SearchRepositoryTest {
         }
     }
 
-    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setTel(tel);
-        user.setRole(role);
-        user.setProfile(profile);
-        return this.entityManager.persist(user);
-    }
+    private Search setUpBySearch(String keyword) {
+        User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
+        this.entityManager.persist(user);
 
-
-    private Search setUpBySearch(User user, String keyword) {
         Search search = new Search();
         search.setUser(user);
         search.setKeyword(keyword);

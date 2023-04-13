@@ -1,10 +1,7 @@
 package shop.mtcoding.village.model.address;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
@@ -13,7 +10,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "address_tb")
 public class Address {
 
@@ -31,4 +27,13 @@ public class Address {
     private String lat;
     @Comment("위도")
     private String lng;
+
+    @Builder
+    public Address(String roadFullAddr, String sggNm, String zipNo, String lat, String lng) {
+        this.roadFullAddr = roadFullAddr;
+        this.sggNm = sggNm;
+        this.zipNo = zipNo;
+        this.lat = lat;
+        this.lng = lng;
+    }
 }

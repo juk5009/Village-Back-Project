@@ -1,9 +1,6 @@
 package shop.mtcoding.village.model.category;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
@@ -12,7 +9,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "category_tb")
 public class Category {
 
@@ -23,4 +19,9 @@ public class Category {
     @Comment("카테고리 이름")
     // 연습실, 스터디룸, 공유오피스
     private String name;
+
+    @Builder
+    public Category(String name) {
+        this.name = name;
+    }
 }

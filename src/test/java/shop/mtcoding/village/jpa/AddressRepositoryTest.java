@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.address.AddressRepository;
+import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;

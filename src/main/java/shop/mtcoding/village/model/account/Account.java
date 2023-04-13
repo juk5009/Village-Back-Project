@@ -1,9 +1,6 @@
 package shop.mtcoding.village.model.account;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.user.User;
 
@@ -13,7 +10,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "account_tb")
 public class Account {
 
@@ -27,4 +23,10 @@ public class Account {
 
     @Comment("계좌번호")
     private String accountNum;
+
+    @Builder
+    public Account(User user, String accountNum) {
+        this.user = user;
+        this.accountNum = accountNum;
+    }
 }

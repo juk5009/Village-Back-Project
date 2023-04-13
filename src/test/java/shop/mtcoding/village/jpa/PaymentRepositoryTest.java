@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.payment.PaymentRepository;
 import shop.mtcoding.village.model.place.Place;
@@ -40,14 +41,7 @@ public class PaymentRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE payment_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-
-        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-        Review review = setUpByReview(user, 5, "내용4", "image4", 4);
-        Address address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
-        Place place = setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
-                "해쉬태그3", "image3", 5, 30, LocalDateTime.now(), LocalDateTime.now());
-        Reservation reservation = setUpByReservation(user, place, LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 3, ReservationStatus.WAIT);
-        setUpByPayment(user, place, reservation, PaymentStatus.WAIT, 40000);
+        setUpByPayment(PaymentStatus.WAIT, 40000);
     }
 
     @Test
@@ -82,21 +76,7 @@ public class PaymentRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        User user = new User();
-        user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-
-        Review review = new Review();
-        review = setUpByReview(user, 5, "내용4", "image4", 4);
-
-        Address address = new Address();
-        address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
-
-        Place place = setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
-                "해쉬태그3", "image5", 5, 30, LocalDateTime.now(), LocalDateTime.now());
-
-        Reservation reservation = setUpByReservation(user, place, LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 5, ReservationStatus.WAIT);
-
-        Payment payment = setUpByPayment(user, place, reservation, PaymentStatus.WAIT, 50000);
+        Payment payment = setUpByPayment (PaymentStatus.WAIT, 50000);
         Optional<Payment> findPayment = this.paymentRepository.findById(payment.getId());
 
         if(findPayment.isPresent()) {
@@ -173,8 +153,28 @@ public class PaymentRepositoryTest {
         return  this.entityManager.persist(reservation);
     }
 
-    private Payment setUpByPayment(
-            User user, Place place, Reservation reservation, PaymentStatus status, Integer totalPrice){
+    private Payment setUpByPayment(PaymentStatus status, Integer totalPrice){
+        User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
+        this.entityManager.persist(user);
+
+        Address address = new Address().builder().roadFullAddr("도로명주소").sggNm("시군구").zipNo("우편번호").lat("경도").lng("위도").build();
+        this.entityManager.persist(address);
+
+        Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
+        this.entityManager.persist(review);
+
+        Category category = new Category().builder().name("이름").build();
+        this.entityManager.persist(category);
+
+        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").review(review)
+                .placeIntroductionInfo("공간정보").guide("공간소개").facilityInfo("시설정보").hashtag("해시태그").image("사진").maxPeople(4).pricePerHour(30)
+                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now()).category(category).build();
+        this.entityManager.persist(place);
+
+        Reservation reservation = new Reservation().builder().user(user).place(place).date(LocalDateTime.now()).startTime(LocalDateTime.now()).endTime(LocalDateTime.now())
+                .peopleNum(3).status(ReservationStatus.WAIT).build();
+        this.entityManager.persist(reservation);
+
         Payment payment = new Payment();
         payment.setUser(user);
         payment.setPlace(place);

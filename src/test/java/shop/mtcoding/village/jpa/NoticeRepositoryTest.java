@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.notice.Notice;
 import shop.mtcoding.village.model.notice.NoticeRepository;
 import shop.mtcoding.village.model.payment.Payment;
@@ -43,23 +44,7 @@ public class NoticeRepositoryTest {
     public void init() {
         em.createNativeQuery("ALTER TABLE notice_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
 
-        User user = new User();
-        user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-
-        Review review = new Review();
-        review = setUpByReview(user, 5, "내용4", "image4", 4);
-
-        Address address = new Address();
-        address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
-
-        Place place = setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
-                "해쉬태그3", "image5", 5, 30, LocalDateTime.now(), LocalDateTime.now());
-
-        Reservation reservation = setUpByReservation(user, place, LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 3, ReservationStatus.WAIT);
-
-        Payment payment = setUpByPayment(user, place, reservation, PaymentStatus.WAIT, 40000);
-
-        setUpByNotice(user, place, payment,"내용4", NoticeStatus.WAIT);
+        setUpByNotice("내용4", NoticeStatus.WAIT);
     }
 
     @Test
@@ -69,7 +54,7 @@ public class NoticeRepositoryTest {
         Assertions.assertNotEquals(notices.size(), 0);
 
         Notice notice = notices.get(0);
-        Assertions.assertEquals(notice.getUser().getName(), "love");
+        Assertions.assertEquals(notice.getContent(), "내용4");
     }
 
     @Test
@@ -95,26 +80,13 @@ public class NoticeRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-
-        Review review = setUpByReview(user, 5, "내용4", "image4", 4);
-
-        Address address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
-
-        Place place = setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
-                "해쉬태그3", "image5", 5, 30, LocalDateTime.now(), LocalDateTime.now());
-
-        Reservation reservation = setUpByReservation(user, place, LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 3, ReservationStatus.WAIT);
-
-        Payment payment = setUpByPayment(user, place, reservation, PaymentStatus.WAIT, 40000);
-
-        Notice notice = setUpByNotice(user, place, payment, "내용5", NoticeStatus.WAIT);
+        Notice notice = setUpByNotice("내용5", NoticeStatus.WAIT);
 
         Optional<Notice> findNotice = this.noticeRepository.findById(notice.getId());
 
         if(findNotice.isPresent()) {
             var result = findNotice.get();
-            Assertions.assertEquals(result.getPayment().getTotalPrice(), 40000);
+            Assertions.assertEquals(result.getPayment().getTotalPrice(), 50000);
             entityManager.remove(notice);
             Optional<Notice> deleteAccount = this.noticeRepository.findById(notice.getId());
             if (deleteAccount.isPresent()) {
@@ -125,79 +97,35 @@ public class NoticeRepositoryTest {
         }
     }
 
-    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setTel(tel);
-        user.setRole(role);
-        user.setProfile(profile);
-        return this.entityManager.persist(user);
-    }
+    private Notice setUpByNotice(String content, NoticeStatus status) {
+        User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
+        this.entityManager.persist(user);
+
+        Address address = new Address().builder().roadFullAddr("도로명주소").sggNm("시군구").zipNo("우편번호").lat("경도").lng("위도").build();
+        this.entityManager.persist(address);
+
+        Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
+        this.entityManager.persist(review);
+
+        Category category = new Category().builder().name("이름").build();
+        this.entityManager.persist(category);
 
 
-    private Review setUpByReview(User user, Integer starRating, String content, String image, Integer likeCount) {
-        Review review = new Review();
-        review.setUser(user);
-        review.setStarRating(starRating);
-        review.setContent(content);
-        review.setImage(image);
-        review.setLikeCount(likeCount);
-        return this.entityManager.persist(review);
-    }
-    private Address setUpByAddress(String roadFullAddr, String sggNm, String zipNo, String lat, String lng) {
-        var address = new Address();
-        address.setRoadFullAddr(roadFullAddr);
-        address.setSggNm(sggNm);
-        address.setZipNo(zipNo);
-        address.setLat(lat);
-        address.setLng(lng);
-        return this.entityManager.persist(address);
-    }
-    private Place setUpByPlace(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide, String facilityInfo,
-                               String hashtag, String image, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
-        var place = new Place();
-        place.setUser(user);
-        place.setTitle(title);
-        place.setAddress(address);
-        place.setTel(tel);
-        place.setReview(review);
-        place.setPlaceIntroductionInfo(placeIntroductionInfo);
-        place.setGuide(guide);
-        place.setFacilityInfo(facilityInfo);
-        place.setHashtag(hashtag);
-        place.setImage(image);
-        place.setMaxPeople(maxPeople);
-        place.setPricePerHour(pricePerHour);
-        place.setStartTime(startTime);
-        place.setEndTime(endTime);
-        return this.entityManager.persist(place);
-    }
-    private Reservation setUpByReservation(User user, Place place, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, Integer peopleNum, ReservationStatus status) {
-        var reservation = new Reservation();
-        reservation.setUser(user);
-        reservation.setPlace(place);
-        reservation.setDate(date);
-        reservation.setStartTime(startTime);
-        reservation.setEndTime(endTime);
-        reservation.setPeopleNum(peopleNum);
-        reservation.setStatus(status);
-        return  this.entityManager.persist(reservation);
-    }
+        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").review(review)
+                .placeIntroductionInfo("공간정보").guide("공간소개").facilityInfo("시설정보").hashtag("해시태그").image("사진").maxPeople(4).pricePerHour(30)
+                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now()).category(category).build();
+        this.entityManager.persist(place);
 
-    private Payment setUpByPayment(
-            User user, Place place, Reservation reservation, PaymentStatus status, Integer totalPrice){
-        Payment payment = new Payment();
-        payment.setUser(user);
-        payment.setPlace(place);
-        payment.setReservation(reservation);
-        payment.setStatus(status);
-        payment.setTotalPrice(totalPrice);
-        return this.entityManager.persist(payment);
-    }
+        Reservation reservation = new Reservation().builder().user(user).place(place).date(LocalDateTime.now()).startTime(LocalDateTime.now()).endTime(LocalDateTime.now())
+                .peopleNum(3).status(ReservationStatus.WAIT).build();
+        this.entityManager.persist(reservation);
 
-    private Notice setUpByNotice(User user, Place place, Payment payment, String content, NoticeStatus status) {
+
+        Payment payment = new Payment().builder().user(user).place(place).reservation(reservation).status(
+                PaymentStatus.WAIT
+        ).totalPrice(50000).build();
+        this.entityManager.persist(payment);
+
         Notice notice = new Notice();
         notice.setUser(user);
         notice.setPlace(place);

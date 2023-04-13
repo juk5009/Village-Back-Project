@@ -34,6 +34,6 @@ public class HostSaveDto{
     public Host toEntity() {
         User user = new User();
         user.setName(hostName);
-        return new Host(null, user, address, businessNum);
+        return new Host(user, address, businessNum);
     }
 }
