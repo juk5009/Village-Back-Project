@@ -16,6 +16,8 @@ import shop.mtcoding.village.dto.user.UserResponse;
 import shop.mtcoding.village.model.user.UserRepository;
 import shop.mtcoding.village.service.UserService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RestController
 public class UserController {
@@ -36,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO joinDTO) {
+    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO) {
         // select 됨
         UserResponse.JoinDTO data = userService.회원가입(joinDTO);
         // select 안됨
@@ -45,17 +47,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO loginDTO){
+    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO) {
         String jwt = userService.로그인(loginDTO);
         return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("로그인 성공");
     }
 
     @GetMapping("/ct/users/1")
     public ResponseEntity<?> userCheck(
-            @AuthenticationPrincipal MyUserDetails myUserDetails){
+            @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
-        Long id =myUserDetails.getUser().getId();
+        Long id = myUserDetails.getUser().getId();
         String role = myUserDetails.getUser().getRole();
-        return ResponseEntity.ok().body(id+" : "+role);
+        return ResponseEntity.ok().body(id + " : " + role);
     }
 }
