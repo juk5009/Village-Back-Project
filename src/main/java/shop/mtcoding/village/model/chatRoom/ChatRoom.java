@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.model.place.Place;
+import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,9 +24,11 @@ public class ChatRoom {
     @Comment("채팅방 아이디")
     private Long id;
     @Comment("유저 아이디")
-    private Long userId;
+    @OneToOne
+    private User user;
     @Comment("호스트 아이디")
-    private Long placeId;
+    @OneToOne
+    private Place place;
     @Comment("채팅방 시간")
     private Timestamp createdAt;
 }

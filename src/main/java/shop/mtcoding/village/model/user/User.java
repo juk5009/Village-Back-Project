@@ -1,23 +1,15 @@
 package shop.mtcoding.village.model.user;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
-import shop.mtcoding.village.util.type.RoleType;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_tb")
 @Getter
+@Setter
 @NoArgsConstructor
 public class User {
     @Id
@@ -49,11 +41,11 @@ public class User {
         this.profile = profile;
         this.createdAt = createdAt;
     }
-
-    @PrePersist // insert시 동작 / 비영속 -> 영속
-    public void onCreate(){
-        this.createdAt = LocalDateTime.now();
-    }
+//
+//    @PrePersist // insert시 동작 / 비영속 -> 영속
+//    public void onCreate(){
+//        this.createdAt = LocalDateTime.now();
+//    }
 
 
 }
