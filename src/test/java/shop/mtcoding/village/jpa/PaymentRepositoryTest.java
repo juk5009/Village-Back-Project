@@ -13,20 +13,20 @@ import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.payment.PaymentRepository;
 import shop.mtcoding.village.model.place.Place;
-import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.PaymentStatus;
 import shop.mtcoding.village.util.status.ReservationStatus;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-public class PaymenetRepositoryTest {
+public class PaymentRepositoryTest {
 
     @Autowired
     private PaymentRepository paymentRepository;
@@ -34,8 +34,13 @@ public class PaymenetRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    @Autowired
+    private EntityManager em;
+
     @BeforeEach
     public void init() {
+        em.createNativeQuery("ALTER TABLE payment_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+
         User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
         Review review = setUpByReview(user, 5, "내용4", "image4", 4);
         Address address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");

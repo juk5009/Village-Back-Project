@@ -40,7 +40,7 @@ public class PlaceRepositoryTest {
         User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
         Review review = setUpByReview(user, 5, "내용4", "image4", 4);
         Address address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
-        setUp(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
+        setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
                 "해쉬태그3", "image3", 5, 30, LocalDateTime.now(), LocalDateTime.now());
     }
 
@@ -85,7 +85,7 @@ public class PlaceRepositoryTest {
         Address address = new Address();
         address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
 
-        Place place = setUp(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
+        Place place = setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
                 "해쉬태그3", "image5", 5, 30, LocalDateTime.now(), LocalDateTime.now());
         Optional<Place> findPlace = this.placeRepository.findById(place.getId());
 
@@ -131,7 +131,7 @@ public class PlaceRepositoryTest {
         address.setLng(lng);
         return this.entityManager.persist(address);
     }
-    private Place setUp(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide, String facilityInfo,
+    private Place setUpByPlace(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide, String facilityInfo,
                         String hashtag, String image, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
         var place = new Place();
         place.setUser(user);

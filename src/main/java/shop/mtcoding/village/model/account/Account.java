@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
 
@@ -21,7 +22,8 @@ public class Account {
     private Long id;
 
     @Comment("계좌 유저아이디")
-    private Long userId;
+    @ManyToOne
+    private User user;
 
     @Comment("계좌번호")
     private String accountNum;

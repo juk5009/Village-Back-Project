@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.search.Search;
 import shop.mtcoding.village.model.search.SearchRepository;
 import shop.mtcoding.village.model.user.User;
-import shop.mtcoding.village.model.user.UserRepository;
 
-import javax.naming.directory.SearchControls;
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +27,17 @@ public class SearchRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    @Autowired
+    private EntityManager em;
+
+
     @BeforeEach
     public void init() {
-        setUp(4L, "keyword4");
+        em.createNativeQuery("ALTER TABLE search_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+
+        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
+
+        setUpBySearch(user, "keyword4");
     }
 
     @Test
@@ -52,11 +59,11 @@ public class SearchRepositoryTest {
             var result = optionalSearch.get();
             Assertions.assertEquals(result.getKeyword(), "keyword4");
 
-            var userId = 4L;
-            result.setUserId(userId);
+            var keyword = "keyword55";
+            result.setKeyword(keyword);
             Search merge = entityManager.merge(result);
 
-            Assertions.assertEquals(merge.getUserId(), 4L);
+            Assertions.assertEquals(merge.getKeyword(), "keyword55");
         } else {
             Assertions.assertNotNull(optionalSearch.get());
         }
@@ -65,7 +72,9 @@ public class SearchRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        Search search = setUp(4L, "keyword4");
+        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
+
+        Search search = setUpBySearch(user, "keyword4");
         Optional<Search> findUser = this.searchRepository.findById(search.getId());
 
         if(findUser.isPresent()) {
@@ -81,11 +90,21 @@ public class SearchRepositoryTest {
         }
     }
 
+    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setTel(tel);
+        user.setRole(role);
+        user.setProfile(profile);
+        return this.entityManager.persist(user);
+    }
 
 
-    private Search setUp(Long userId, String keyword) {
+    private Search setUpBySearch(User user, String keyword) {
         Search search = new Search();
-        search.setUserId(userId);
+        search.setUser(user);
         search.setKeyword(keyword);
         return this.entityManager.persist(search);
     }

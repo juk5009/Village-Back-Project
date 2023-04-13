@@ -7,31 +7,31 @@ insert into address_tb(roadFullAddr, sggNm, zipNo, lat, lng) values ('부산 부
 insert into address_tb(roadFullAddr, sggNm, zipNo, lat, lng) values ('부산 부산진구 중앙대로 688 한준빌딩 22층', '사하구', '27296', '412', '125')
 
 
-insert into chatRoom_tb(userId, placeId) values (1L,1L)
-insert into chatRoom_tb(userId, placeId) values (2L,2L)
-insert into chatRoom_tb(userId, placeId) values (3L,3L)
+insert into chatRoom_tb(user, place) values (User, place)
+insert into chatRoom_tb(user, place) values (User, place)
+insert into chatRoom_tb(user, place) values (User, place)
 
-insert into search_tb(userId, keyword) values (1L, 'keyword1')
-insert into search_tb(userId, keyword) values (2L, 'keyword2')
-insert into search_tb(userId, keyword) values (3L, 'keyword3')
+insert into search_tb(user, keyword) values (User, 'keyword1')
+insert into search_tb(user, keyword) values (User, 'keyword2')
+insert into search_tb(user, keyword) values (User, 'keyword3')
 
 
-insert into search_tb(userId, placeId, count) values (1L, 1L, 1)
-insert into search_tb(userId, placeId, count) values (2L, 2L, 2)
-insert into search_tb(userId, placeId, count) values (3L, 3L, 3)
+insert into search_tb(user, place, count) values (User, Place, 1)
+insert into search_tb(user, place, count) values (User, Place, 2)
+insert into search_tb(user, place, count) values (User, Place, 3)
 
-insert into chat_tb(userId, send, chatRoomId) values (1L , '안녕', 1L)
-insert into chat_tb(userId, send, chatRoomId) values (2L , '반가워', 2L)
-insert into chat_tb(userId, send, chatRoomId) values (3L , '잘가', 3L)
+insert into chat_tb(user, send, chatRoom) values (User , '안녕', ChatRoom)
+insert into chat_tb(user, send, chatRoom) values (User , '반가워',ChatRoom)
+insert into chat_tb(user, send, chatRoom) values (User , '잘가', ChatRoom)
 
 insert into category_tb(name) values ('스터디룸')
 insert into category_tb(name) values ('연습실')
 insert into category_tb(name) values ('공유 오피스')
 
 
-insert into account_tb(userId, accountNum) values (1L,'123456789123')
-insert into account_tb(userId, accountNum) values (2L,'1234545848721')
-insert into account_tb(userId, accountNum) values (3L,'4556415615154')
+insert into account_tb(user, accountNum) values (User,'123456789123')
+insert into account_tb(user, accountNum) values (User,'1234545848721')
+insert into account_tb(user, accountNum) values (User,'4556415615154')
 
 insert into review_tb(user, starRating, content, image, likeCount) values(User, '5', '내용1', 'image1', 1)
 insert into review_tb(user, starRating, content, image, likeCount) values(User, '5', '내용2', 'image2', 2)
@@ -55,7 +55,7 @@ insert into payment_tb(user, place, reservation, status, totalPrice) values(User
 insert into payment_tb(user, place, reservation, status, totalPrice) values(User, Place, Reservation, 'WAIT', 30000)
 
 
-insert into notice_tb(userId, placeId, paymentTotalPrice, content, status) values(1, 1, 50000, '내용1','WAIT')
-insert into notice_tb(userId, placeId, paymentTotalPrice, content, status) values(2, 2, 40000, '내용2','WAIT')
-insert into notice_tb(userId, placeId, paymentTotalPrice, content, status) values(3, 3, 30000, '내용3','WAIT')
+insert into notice_tb(user, place, payment, content, status) values(User, Place, Payment, '내용1','WAIT')
+insert into notice_tb(user, place, payment, content, status) values(User, Place, Payment, '내용2','WAIT')
+insert into notice_tb(user, place, payment, content, status) values(User, Place, Payment, '내용3','WAIT')
 

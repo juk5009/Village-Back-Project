@@ -13,6 +13,7 @@ import shop.mtcoding.village.model.account.Account;
 import shop.mtcoding.village.model.account.AccountRepository;
 import shop.mtcoding.village.model.chatRoom.ChatRoom;
 import shop.mtcoding.village.model.chatRoom.ChatRoomRepository;
+import shop.mtcoding.village.model.user.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,8 @@ public class AccountRepositoryTest {
 
     @BeforeEach
     public void init() {
-        setUp(4L, "45456451651651");
+        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
+        setUp(user, "45456451651651");
     }
 
     @Test
@@ -39,7 +41,7 @@ public class AccountRepositoryTest {
         Assertions.assertNotEquals(accounts.size(), 0);
 
         Account account = accounts.get(0);
-        Assertions.assertEquals(account.getUserId(), 4L);
+        Assertions.assertEquals(account.getUser().getName(), "love");
     }
 
     @Test
@@ -49,7 +51,7 @@ public class AccountRepositoryTest {
 
         if(optionalAccount.isPresent()) {
             var result = optionalAccount.get();
-            Assertions.assertEquals(result.getUserId(),4L);
+            Assertions.assertEquals(result.getUser().getName(), "love");
 
             var accountNum = "4516515161516";
             result.setAccountNum(accountNum);
@@ -64,12 +66,15 @@ public class AccountRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        Account account = setUp(5L, "84845161515165");
+        User user = new User();
+        user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
+
+        Account account = setUp(user, "84845161515165");
         Optional<Account> findAccount = this.accountRepository.findById(account.getId());
 
         if(findAccount.isPresent()) {
             var result = findAccount.get();
-            Assertions.assertEquals(result.getUserId(),5L);
+            Assertions.assertEquals(result.getUser().getName(), "love");
             entityManager.remove(account);
             Optional<Account> deleteAccount = this.accountRepository.findById(account.getId());
             if (deleteAccount.isPresent()) {
@@ -80,9 +85,19 @@ public class AccountRepositoryTest {
         }
     }
 
-    private Account setUp(Long userId, String accountNum) {
+    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setTel(tel);
+        user.setRole(role);
+        user.setProfile(profile);
+        return this.entityManager.persist(user);
+    }
+    private Account setUp(User user, String accountNum) {
         Account account = new Account();
-        account.setUserId(userId);
+        account.setUser(user);
         account.setAccountNum(accountNum);
         return this.entityManager.persist(account);
     }

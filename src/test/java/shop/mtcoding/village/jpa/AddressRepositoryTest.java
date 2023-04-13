@@ -31,7 +31,7 @@ public class AddressRepositoryTest {
 
     @BeforeEach
     public void init() {
-        em.createNativeQuery("ALTER TABLE reservation_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+        em.createNativeQuery("ALTER TABLE address_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
         setUp("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
     }
 
