@@ -1,6 +1,6 @@
 package shop.mtcoding.village.model.place;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "place_tb")
 public class Place {
 
@@ -60,5 +59,23 @@ public class Place {
     @OneToOne
     private Category category;
 
-
+    @Builder
+    public Place(Long id, User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide, String facilityInfo, String hashtag, String image, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime, Category category) {
+        this.id = id;
+        this.user = user;
+        this.title = title;
+        this.address = address;
+        this.tel = tel;
+        this.review = review;
+        this.placeIntroductionInfo = placeIntroductionInfo;
+        this.guide = guide;
+        this.facilityInfo = facilityInfo;
+        this.hashtag = hashtag;
+        this.image = image;
+        this.maxPeople = maxPeople;
+        this.pricePerHour = pricePerHour;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.category = category;
+    }
 }
