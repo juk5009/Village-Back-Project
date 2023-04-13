@@ -9,17 +9,13 @@ public class UserRequest {
     @Getter
     @Setter
     public static class JoinDTO {
-        private String name;
-        private String password;
         private String email;
-        private String role;
+        private String password;
 
         public User toEntity() {
             return User.builder()
-                    .name(name)
-                    .password(password)
                     .email(email)
-                    .role(role)
+                    .password(password)
                     .build();
         }
     }
@@ -28,7 +24,7 @@ public class UserRequest {
     @Getter
     @Setter
     public static class LoginDTO {
-        private String username;
+        private String email;
         private String password;
     }
 }

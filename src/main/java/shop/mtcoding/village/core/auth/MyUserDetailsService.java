@@ -21,14 +21,14 @@ public class MyUserDetailsService implements UserDetailsService{
     // /login + Post + FormUrlEncoded + username,password 모두 성립하면
     // 즉 스프링 시큐리티 준수하면 UserDetails를 리턴한다. -> Authentication 객체를 만든다.
     // loadUserByUsername 를 구현해야함
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOP = userRepository.findbyName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> userOP = userRepository.findByEmail(email);
         if(userOP.isPresent()){
             return new MyUserDetails(userOP.get());
         }else{
             return null;
         }
     }
-    
 }
