@@ -44,15 +44,15 @@ public class User {
         this.password = password;
         this.email = email;
         this.tel = tel;
-        this.role = role;
+        this.role = "USER";
         this.profile = profile;
         this.createdAt = createdAt;
     }
 
-//    @PrePersist // insert시 동작 / 비영속 -> 영속
-//    public void onCreate(){
-//        this.createdAt = LocalDateTime.now();
-//    }
+    @PrePersist // insert시 동작 / 비영속 -> 영속
+    public void onCreate(){
+        this.createdAt = LocalDateTime.now();
+    }
 
 
 }

@@ -11,6 +11,8 @@ public class UserRequest {
     @Getter
     @Setter
     public static class JoinDTO {
+        @NotEmpty(message = "nickname을 입력해주세요.")
+        private String name;
         @NotEmpty(message = "E-mail을 입력해주세요.")
         private String email;
         @NotEmpty(message = "Password를 입력해주세요.")
@@ -18,6 +20,7 @@ public class UserRequest {
 
         public User toEntity() {
             return User.builder()
+                    .name(name)
                     .email(email)
                     .password(password)
                     .build();
