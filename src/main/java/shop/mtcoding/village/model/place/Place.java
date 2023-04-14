@@ -84,9 +84,10 @@ public class Place {
     private Category category;
 
     @Builder
-    public Place(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide
-            , List<FacilityInfo> facilityInfo, List<Hashtag> hashtag, List<FileInfo> fileInfo, Integer maxPeople, Integer pricePerHour
-            , LocalDateTime startTime, LocalDateTime endTime, Category category) {
+
+   public Place(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide
+            , List<Date> dayOfWeek, List<FacilityInfo> facilityInfo, List<Hashtag> hashtag, List<FileInfo> fileInfo, Integer maxPeople
+            , Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime, Category category) {
         this.user = user;
         this.title = title;
         this.address = address;
@@ -94,6 +95,7 @@ public class Place {
         this.review = review;
         this.placeIntroductionInfo = placeIntroductionInfo;
         this.guide = guide;
+        this.dayOfWeek = dayOfWeek;
         this.facilityInfo = facilityInfo;
         this.hashtag = hashtag;
         this.fileInfo = fileInfo;
