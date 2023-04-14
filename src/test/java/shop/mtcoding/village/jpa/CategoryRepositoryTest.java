@@ -14,6 +14,7 @@ import shop.mtcoding.village.model.category.CategoryRepository;
 import shop.mtcoding.village.model.chatRoom.ChatRoom;
 import shop.mtcoding.village.model.chatRoom.ChatRoomRepository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +28,12 @@ public class CategoryRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    @Autowired
+    private EntityManager em;
+
     @BeforeEach
     public void init() {
+        em.createNativeQuery("ALTER TABLE category_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
         setUp("운동시설");
     }
 

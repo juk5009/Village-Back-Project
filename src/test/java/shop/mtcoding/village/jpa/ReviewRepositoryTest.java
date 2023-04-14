@@ -33,8 +33,7 @@ public class ReviewRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE review_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-        setUp(user, 5, "내용4", "image4", 4);
+        setUp( 5, "내용4", "image4", 4);
     }
 
     @Test
@@ -69,9 +68,7 @@ public class ReviewRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        User user = new User();
-        user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-        Review review =  setUp(user, 5, "내용5", "image5", 5);
+        Review review =  setUp(5, "내용5", "image5", 5);
         Optional<Review> findUser = this.reviewRepository.findById(review.getId());
 
         if(findUser.isPresent()) {
@@ -87,17 +84,10 @@ public class ReviewRepositoryTest {
         }
     }
 
-    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setTel(tel);
-        user.setRole(role);
-        user.setProfile(profile);
-        return this.entityManager.persist(user);
-    }
-    private Review setUp(User user, Integer starRating, String content, String image, Integer likeCount) {
+    private Review setUp(Integer starRating, String content, String image, Integer likeCount) {
+        User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
+        this.entityManager.persist(user);
+
         Review review = new Review();
         review.setUser(user);
         review.setStarRating(starRating);

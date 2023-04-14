@@ -1,9 +1,6 @@
 package shop.mtcoding.village.model.search;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.user.User;
 
@@ -13,7 +10,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "search_tb")
 public class Search {
 
@@ -28,4 +24,10 @@ public class Search {
 
     @Comment("검색 키워드")
     private String keyword;
+
+    @Builder
+    public Search(User user, String keyword) {
+        this.user = user;
+        this.keyword = keyword;
+    }
 }

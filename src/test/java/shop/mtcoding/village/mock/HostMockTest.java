@@ -15,7 +15,6 @@ import shop.mtcoding.village.dto.host.HostSaveDto;
 import shop.mtcoding.village.service.HostService;
 
 import static org.mockito.BDDMockito.given;
-//import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -70,7 +69,6 @@ public class HostMockTest {
 
 
         // given
-        int id = 0;
         HostSaveDto saveDto = new HostSaveDto("", "내용", "1234567891");
 
         // When
@@ -87,7 +85,6 @@ public class HostMockTest {
         perform
                 .andExpect(status().isBadRequest())
                 .andDo(print())
-                .andExpect(jsonPath("$.hostName").value("호스트 이름을 입력해주세요."))
-        ;
+                .andExpect(jsonPath("$.hostName").value("호스트 이름을 입력해주세요."));
     }
 }
