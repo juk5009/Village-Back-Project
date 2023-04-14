@@ -1,6 +1,7 @@
 package shop.mtcoding.village.model.hashtag;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,4 +24,12 @@ public class Hashtag {
     @Comment("해시태그 이름")
     private String hashtagName;
 
+    @Comment("공간의 아이디")
+    private Long placeId;
+
+    @Builder
+    public Hashtag(String hashtagName, Long placeId) {
+        this.hashtagName = hashtagName;
+        this.placeId = placeId;
+    }
 }

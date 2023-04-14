@@ -1,6 +1,5 @@
 package shop.mtcoding.village.model.address;
 
-
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
