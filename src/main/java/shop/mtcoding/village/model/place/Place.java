@@ -4,11 +4,15 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
+import shop.mtcoding.village.model.file.FileInfo;
+import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -47,13 +51,16 @@ public class Place {
     private String guide;
 
     @Comment("시설 정보")
-    private String facilityInfo;
+    @OneToMany()
+    private List<FacilityInfo> facilityInfo;
 
     @Comment("공간 해시태그")
-    private String hashtag;
+    @OneToMany()
+    private List<Hashtag> hashtag;
 
     @Comment("공간 사진")
-    private String image;
+    @OneToMany()
+    private List<FileInfo> fileInfo;
 
     @Comment("공간의 최대 인원수")
     private Integer maxPeople;
@@ -72,9 +79,9 @@ public class Place {
     private Category category;
 
     @Builder
-    public Place(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide,
-                 String facilityInfo, String hashtag, String image, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime,
-                 LocalDateTime endTime, Category category) {
+    public Place(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide
+            , List<FacilityInfo> facilityInfo, List<Hashtag> hashtag, List<FileInfo> fileInfo, Integer maxPeople, Integer pricePerHour
+            , LocalDateTime startTime, LocalDateTime endTime, Category category) {
         this.user = user;
         this.title = title;
         this.address = address;
@@ -84,7 +91,7 @@ public class Place {
         this.guide = guide;
         this.facilityInfo = facilityInfo;
         this.hashtag = hashtag;
-        this.image = image;
+        this.fileInfo = fileInfo;
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
         this.startTime = startTime;
