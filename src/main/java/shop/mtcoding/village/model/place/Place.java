@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
+import shop.mtcoding.village.model.date.Date;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.file.FileInfo;
 import shop.mtcoding.village.model.hashtag.Hashtag;
@@ -49,6 +50,10 @@ public class Place {
 
     @Comment("공간 소개")
     private String guide;
+
+    @Comment("요일 정보")
+    @OneToMany()
+    private List<Date> dayOfWeek;
 
     @Comment("시설 정보")
     @OneToMany()
