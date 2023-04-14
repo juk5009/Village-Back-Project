@@ -30,8 +30,7 @@ public class AccountRepositoryTest {
 
     @BeforeEach
     public void init() {
-        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-        setUp(user, "45456451651651");
+        setUp("45456451651651");
     }
 
     @Test
@@ -66,10 +65,7 @@ public class AccountRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        User user = new User();
-        user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-
-        Account account = setUp(user, "84845161515165");
+        Account account = setUp("84845161515165");
         Optional<Account> findAccount = this.accountRepository.findById(account.getId());
 
         if(findAccount.isPresent()) {
@@ -85,17 +81,9 @@ public class AccountRepositoryTest {
         }
     }
 
-    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setTel(tel);
-        user.setRole(role);
-        user.setProfile(profile);
-        return this.entityManager.persist(user);
-    }
-    private Account setUp(User user, String accountNum) {
+    private Account setUp(String accountNum) {
+        User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
+        this.entityManager.persist(user);
         Account account = new Account();
         account.setUser(user);
         account.setAccountNum(accountNum);

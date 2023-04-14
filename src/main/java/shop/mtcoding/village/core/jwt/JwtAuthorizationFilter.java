@@ -22,6 +22,7 @@ import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.model.user.User;
 
 // 모든 주소에서 발동
+
 @Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -57,10 +58,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             log.error("토큰 검증 실패");
         } catch (TokenExpiredException tee) {
             log.error("토큰 만료됨");
-        } finally {
-            chain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Token expired");
+            return;
         }
+        chain.doFilter(request, response);
     }
 }
+
 // 토큰이 있으면 홀더에 임시 세션을 넣는다.
 // 컨트롤러로 요청은 들어가지만 세션의 권한을 얻을 수는 없다.

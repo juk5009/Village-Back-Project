@@ -69,11 +69,11 @@ public class SecurityConfig {
 
         // 5. Form 로긴 해제
         // OAuth2, SAML 또는 JWT 토큰과 같은 다른 인증 메커니즘을 사용하려는 경우.
-        // ajax 요청 처리할 경우 
+        // ajax 요청 처리할 경우
         http.formLogin().disable();
 
         // 6. http bagic 인증 해제 - 모든 페이지마다 로그인을 해야함.. 안전하지만 너무 불편하다
-        // BasinAuthenticationFilter 해제 
+        // BasinAuthenticationFilter 해제
         // http.httpBasic().disable();
 
         // 2가지 방법 disable 안하고 addFilterAt 사용해서 바꿔치는 방법도 있음
@@ -83,7 +83,7 @@ public class SecurityConfig {
 
         // 8 .커스텀 필터 적용 ( 시큐리티 필터 교환 )
         http.apply(new CustomSecurityFilterManager());
-        
+
         // 9. 인증 실패 처리
         http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
             // config는 DS 보다 앞에 있기 때문에 익셉션 핸들러 사용 불가
@@ -121,8 +121,8 @@ public class SecurityConfig {
 
         // 11 .인증, 권한 필터 설정 ( 스프링 문서 참고 )
         http.authorizeRequests((authorize) -> {
-            authorize.antMatchers("/users/**").authenticated()
-                    .antMatchers("/manager/**").access("hasRole('ADMIN') or hasRole('MANAGER')")
+            authorize.antMatchers("/ct/**").authenticated()
+                    .antMatchers("/host/**").access("hasRole('ADMIN') or hasRole('HOST')")
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().permitAll(); // /users 는 인증이 필요 나머지는 허용
         });

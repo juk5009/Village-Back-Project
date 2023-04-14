@@ -36,12 +36,8 @@ public class UserRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE user_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-//        new User(4L, "love", "1234", "love@nate.com", "010-7474-1212", "USER","profile", LocalDateTime.of(2023, 04, 12, 07, 28));
-//        User.builder().build();
         setUp("love", "1234", "love@nate.com", "010-7474-1212", "USER","profile");
-
     }
-
     @Test
     @Transactional
     void selectAll() {
@@ -91,7 +87,7 @@ public class UserRepositoryTest {
     }
 
 
-    private User setUp(String name, String password, String email, String tel, String role, String profile) {
+    public User setUp(String name, String password, String email, String tel, String role, String profile) {
         User user = new User();
         user.setName(name);
         user.setPassword(password);

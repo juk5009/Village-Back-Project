@@ -1,10 +1,7 @@
 package shop.mtcoding.village.model.scrap;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
@@ -15,7 +12,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "scrap_tb")
 public class Scrap {
 
@@ -34,4 +30,11 @@ public class Scrap {
 
     @Comment("스크랩 수")
     private int count;
+
+    @Builder
+    public Scrap(User user, Place place, int count) {
+        this.user = user;
+        this.place = place;
+        this.count = count;
+    }
 }

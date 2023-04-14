@@ -15,18 +15,25 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Comment("유저 이름")
     private String name;
+
     @Comment("유저 비밀번호")
     private String password;
+
     @Comment("유저 이메일")
     private String email;
+
     @Comment("유저 전화번호")
     private String tel;
+
     @Comment("권한")
     private String role; //USER, MANAGER, ADMIN
+
     @Comment("프로필")
     private String profile;
+
     @Comment("시간")
     private LocalDateTime createdAt; // db에는 timestamp로 변경되어 들어감
 
@@ -41,7 +48,7 @@ public class User {
         this.profile = profile;
         this.createdAt = createdAt;
     }
-//
+
 //    @PrePersist // insert시 동작 / 비영속 -> 영속
 //    public void onCreate(){
 //        this.createdAt = LocalDateTime.now();

@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.review.Review;
@@ -37,10 +38,7 @@ public class PlaceRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE place_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
-        Review review = setUpByReview(user, 5, "내용4", "image4", 4);
-        Address address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
-        setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
+        setUpByPlace("제목3","전번3", "공간정보3", "공간소개3", "시설정보3",
                 "해쉬태그3", "image3", 5, 30, LocalDateTime.now(), LocalDateTime.now());
     }
 
@@ -76,16 +74,8 @@ public class PlaceRepositoryTest {
     @Test
     @Transactional
     void insertAndDelete() {
-        User user = new User();
-        user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
 
-        Review review = new Review();
-        review = setUpByReview(user, 5, "내용4", "image4", 4);
-
-        Address address = new Address();
-        address = setUpByAddress("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
-
-        Place place = setUpByPlace(user, "제목3", address, "전번3", review, "공간정보3", "공간소개3", "시설정보3",
+        Place place = setUpByPlace("제목3","전번3", "공간정보3", "공간소개3", "시설정보3",
                 "해쉬태그3", "image5", 5, 30, LocalDateTime.now(), LocalDateTime.now());
         Optional<Place> findPlace = this.placeRepository.findById(place.getId());
 
@@ -102,37 +92,20 @@ public class PlaceRepositoryTest {
         }
     }
 
-
-    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setTel(tel);
-        user.setRole(role);
-        user.setProfile(profile);
-        return this.entityManager.persist(user);
-    }
-    private Review setUpByReview(User user, Integer starRating, String content, String image, Integer likeCount) {
-        Review review = new Review();
-        review.setUser(user);
-        review.setStarRating(starRating);
-        review.setContent(content);
-        review.setImage(image);
-        review.setLikeCount(likeCount);
-        return this.entityManager.persist(review);
-    }
-    private Address setUpByAddress(String roadFullAddr, String sggNm, String zipNo, String lat, String lng) {
-        var address = new Address();
-        address.setRoadFullAddr(roadFullAddr);
-        address.setSggNm(sggNm);
-        address.setZipNo(zipNo);
-        address.setLat(lat);
-        address.setLng(lng);
-        return this.entityManager.persist(address);
-    }
-    private Place setUpByPlace(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide, String facilityInfo,
+    private Place setUpByPlace(String title, String tel, String placeIntroductionInfo, String guide, String facilityInfo,
                         String hashtag, String image, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
+        User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
+        this.entityManager.persist(user);
+
+        Address address = new Address().builder().roadFullAddr("도로명주소").sggNm("시군구").zipNo("우편번호").lat("경도").lng("위도").build();
+        this.entityManager.persist(address);
+
+        Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
+        this.entityManager.persist(review);
+
+        Category category = new Category().builder().name("이름").build();
+
+
         var place = new Place();
         place.setUser(user);
         place.setTitle(title);

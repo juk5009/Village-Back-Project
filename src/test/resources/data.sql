@@ -1,5 +1,5 @@
 insert into user_tb(name, password, email, tel, role, profile) values ('cos', '1234', 'cos@nate.com', '010-1111-2222', 'USER', 'profile1')
-insert into user_tb(name, password, email, tel, role, profile) values ('ssar', '1234', 'ssar@nate.com', '010-1244-2232', 'USER', 'profile2')
+insert into user_tb(name, password, email, tel, role, profile) values ('ssar1', '1234', 'ssar@nate.com', '010-1244-2232', 'USER', 'profile2')
 insert into user_tb(name, password, email, tel, role, profile) values ('tan', '1234', 'tan@nate.com', '010-1411-2422', 'USER', 'profile3')
 
 insert into address_tb(roadFullAddr, sggNm, zipNo, lat, lng) values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산진구', '47296', '12', '15')
