@@ -1,4 +1,4 @@
-package shop.mtcoding.village.controller;
+package shop.mtcoding.village.controller.user;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

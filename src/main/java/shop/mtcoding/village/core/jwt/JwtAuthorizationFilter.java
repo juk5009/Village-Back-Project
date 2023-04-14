@@ -19,7 +19,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 import lombok.extern.slf4j.Slf4j;
 import shop.mtcoding.village.core.auth.MyUserDetails;
-import shop.mtcoding.village.model.User;
+import shop.mtcoding.village.model.user.User;
 
 // 모든 주소에서 발동
 @Slf4j
