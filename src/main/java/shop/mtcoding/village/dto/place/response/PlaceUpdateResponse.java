@@ -1,7 +1,6 @@
 package shop.mtcoding.village.dto.place.response;
 
 import lombok.Getter;
-import lombok.ToString;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.date.Dates;
@@ -10,9 +9,8 @@ import shop.mtcoding.village.model.hashtag.Hashtag;
 
 import java.util.List;
 
-@ToString
 @Getter
-public class PlaceSaveResponse {
+public class PlaceUpdateResponse {
     private String title;
 
     private Address placeAddress;
@@ -44,8 +42,8 @@ public class PlaceSaveResponse {
 //    private List<Review> review;
 
 
-    public PlaceSaveResponse(String title, Address roadFullAddr, String tel, String startTime, String endTime, String placeIntroductionInfo, List<Dates> dayOfWeekName
-           , List<Hashtag> hashtag, List<FacilityInfo> facilityInfo, String notice, Integer maxPeople, Integer pricePerHour, Category name) {
+    public PlaceUpdateResponse(String title, Address roadFullAddr, String tel, String startTime, String endTime, String placeIntroductionInfo, List<Dates> dayOfWeekName
+            , List<Hashtag> hashtag, List<FacilityInfo> facilityInfo, String notice, Integer maxPeople, Integer pricePerHour, Category name) {
         this.title = title;
         this.placeAddress = roadFullAddr;
         this.tel = tel;

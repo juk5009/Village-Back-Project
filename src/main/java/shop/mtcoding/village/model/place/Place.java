@@ -2,7 +2,6 @@ package shop.mtcoding.village.model.place;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
-import shop.mtcoding.village.dto.date.DateSaveResponse;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
@@ -14,7 +13,7 @@ import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class Place {
     private String title;
 
     @Comment("공간 주소")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     @Comment("공간 전화번호")
@@ -58,21 +57,22 @@ public class Place {
     private String notice;
 
     @Comment("요일 정보")
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dayOfWeek")
     private Dates dayOfWeek;
 
-//    @Comment("시설 정보")
-//    @OneToMany()
-//    private List<FacilityInfo> facilityInfo;
-//
-//    @Comment("공간 해시태그")
-//    @OneToMany()
-//    private List<Hashtag> hashtag;
-//
-//    @Comment("공간 사진")
-//    @OneToMany()
-//    private List<FileInfo> fileInfo;
+    @Comment("시설 정보")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private FacilityInfo facilityInfo;
+
+    @Comment("공간 해시태그")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "hashtag")
+    private Hashtag hashtag;
+
+    @Comment("공간 사진")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private FileInfo fileInfo;
 
     @Comment("공간의 최대 인원수")
     private Integer maxPeople;
@@ -81,19 +81,19 @@ public class Place {
     private Integer pricePerHour;
 
     @Comment("시작 시간")
-    private LocalDateTime startTime;
+    private LocalTime startTime;
 
     @Comment("마감 시간")
-    private LocalDateTime endTime;
+    private LocalTime endTime;
 
     @Comment("공간별 카테고리")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Category category;
 
     @Builder
     public Place(User user, String title, Address address, String tel, List<Review> review, String placeIntroductionInfo, String notice, Dates dayOfWeek
-            , List<FacilityInfo> facilityInfo, List<Hashtag> hashtag, List<FileInfo> fileInfo, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime
-            , LocalDateTime endTime, Category category) {
+            , FacilityInfo facilityInfo, Hashtag hashtag, FileInfo fileInfo, Integer maxPeople, Integer pricePerHour, LocalTime startTime
+            , LocalTime endTime, Category category) {
         this.user = user;
         this.title = title;
         this.address = address;
@@ -102,9 +102,9 @@ public class Place {
         this.notice = notice;
         this.dayOfWeek = dayOfWeek;
 //        this.review = review;
-//        this.facilityInfo = facilityInfo;
-//        this.hashtag = hashtag;
-//        this.fileInfo = fileInfo;
+        this.facilityInfo = facilityInfo;
+        this.hashtag = hashtag;
+        this.fileInfo = fileInfo;
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
         this.startTime = startTime;
@@ -112,9 +112,9 @@ public class Place {
         this.category = category;
     }
 
-    public Place(String title, Address address, String tel, LocalDateTime startTime, LocalDateTime endTime,
+    public Place(String title, Address address, String tel, LocalTime startTime, LocalTime endTime,
                  String placeIntroductionInfo,
-                 Dates dayOfWeek,
+                 Dates dayOfWeek, Hashtag hashtag, FacilityInfo facilityInfo,
                  String notice, Integer maxPeople, Category category, Integer pricePerHour) {
         this.title = title;
         this.address = address;
@@ -127,11 +127,14 @@ public class Place {
         this.pricePerHour = pricePerHour;
         this.category = category;
         this.dayOfWeek = dayOfWeek;
+        this.hashtag = hashtag;
+//        this.fileInfo = fileInfo;
+        this.facilityInfo = facilityInfo;
     }
 
     public PlaceSaveResponse toResponse() {
-        return new PlaceSaveResponse(title, address, tel, startTime, endTime, placeIntroductionInfo
-                , Collections.singletonList(dayOfWeek), notice, maxPeople, pricePerHour, category);
+        return new PlaceSaveResponse(title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, Collections.singletonList(dayOfWeek)
+                , Collections.singletonList(hashtag), Collections.singletonList(facilityInfo), notice, maxPeople, pricePerHour, category);
     }
 
 

@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "address_tb")
 public class Address {
 
