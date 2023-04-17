@@ -1,5 +1,7 @@
 package shop.mtcoding.village.dto.place.request;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
@@ -12,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 public class PlaceSaveRequest {
@@ -34,7 +37,7 @@ public class PlaceSaveRequest {
     private String placeIntroductionInfo;
 
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
-    private List<String> dayOfWeek;
+    private String dayOfWeek;
 
     private List<String> hashtag;
 
@@ -61,7 +64,16 @@ public class PlaceSaveRequest {
     private String category;
 
 
-    public Place toEntity() {
+    public Place toEntity() throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, List<Map<String, String>>> data = mapper.readValue(dayOfWeek, Map.class);
+
+        List<Map<String, String>> dayOfWeek = data.get("dayOfWeek");
+        for (Map<String, String> day : dayOfWeek) {
+            String dayOfWeekName = day.get("dayOfWeekName");
+            System.out.println(dayOfWeekName);
+        }
 
         Address address = new Address();
         address.setRoadFullAddr(placeAddress);
@@ -70,8 +82,9 @@ public class PlaceSaveRequest {
         categoryName.setName(category);
 
         Dates date = new Dates();
-        String dayOfWeekAsString = String.join(",", dayOfWeek);
-        date.setDayOfWeekName(dayOfWeekAsString);
+        date.setDayOfWeekName(dayOfWeek.toString());
+//        String dayOfWeekAsString = String.join(",", dayOfWeek);
+//        date.setDayOfWeekName(dayOfWeekAsString);
 
         FacilityInfo facilityName = new FacilityInfo();
         String facilityAsString = String.join(",", facilityInfo);
@@ -84,7 +97,7 @@ public class PlaceSaveRequest {
 //        FileInfo fileType = new FileInfo();
 //        String fileInfoAsString = String.join(",", fileInfo);
 //        fileType.setType(FileType.valueOf(fileInfoAsString));
-
+//
 //        Review reviewList = new Review();
 
         Place place = new Place();
