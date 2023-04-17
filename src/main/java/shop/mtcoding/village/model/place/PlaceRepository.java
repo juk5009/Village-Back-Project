@@ -14,8 +14,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 public interface PlaceRepository extends JpaRepository<Place,Long> {
 
-    @Query("SELECT p, d.dayOfWeekName FROM Place p JOIN Dates d WHERE d.placeId = :id")
-    List<Object[]> findAllWithDate(@Param("id") Long id);
-
+    @Query("SELECT p, d.dayOfWeekName FROM Place p LEFT JOIN Dates d ON p.id = d.placeId WHERE p.id = :id")
+    Place findAllWithDate(@Param("id") Long id);
 
 }

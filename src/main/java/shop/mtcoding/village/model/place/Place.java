@@ -1,9 +1,9 @@
 package shop.mtcoding.village.model.place;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 import org.hibernate.annotations.Comment;
-import shop.mtcoding.village.dto.place.PlaceSaveDto;
+import shop.mtcoding.village.dto.date.DateSaveResponse;
+import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.date.Dates;
@@ -15,6 +15,7 @@ import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -23,6 +24,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "place_tb")
 public class Place {
 
@@ -56,9 +58,9 @@ public class Place {
     private String notice;
 
     @Comment("요일 정보")
-    @OneToMany(mappedBy = "place_tb")
-    @JoinColumn(name = "date_tb")
-    private List<Dates> dayOfWeek;
+    @OneToOne
+    @JoinColumn(name = "dayOfWeek")
+    private Dates dayOfWeek;
 
 //    @Comment("시설 정보")
 //    @OneToMany()
@@ -89,10 +91,8 @@ public class Place {
     private Category category;
 
     @Builder
-    public Place(User user, String title, Address address, String tel, List<Review> review, String placeIntroductionInfo, String notice,
-                 Dates dayOfWeek
-            , List<FacilityInfo
-            > facilityInfo, List<Hashtag> hashtag, List<FileInfo> fileInfo, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime
+    public Place(User user, String title, Address address, String tel, List<Review> review, String placeIntroductionInfo, String notice, Dates dayOfWeek
+            , List<FacilityInfo> facilityInfo, List<Hashtag> hashtag, List<FileInfo> fileInfo, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime
             , LocalDateTime endTime, Category category) {
         this.user = user;
         this.title = title;
@@ -100,8 +100,8 @@ public class Place {
         this.tel = tel;
         this.placeIntroductionInfo = placeIntroductionInfo;
         this.notice = notice;
+        this.dayOfWeek = dayOfWeek;
 //        this.review = review;
-//        this.dayOfWeek = dayOfWeek;
 //        this.facilityInfo = facilityInfo;
 //        this.hashtag = hashtag;
 //        this.fileInfo = fileInfo;
@@ -114,7 +114,7 @@ public class Place {
 
     public Place(String title, Address address, String tel, LocalDateTime startTime, LocalDateTime endTime,
                  String placeIntroductionInfo,
-//                 Date dayOfWeek,
+                 Dates dayOfWeek,
                  String notice, Integer maxPeople, Category category, Integer pricePerHour) {
         this.title = title;
         this.address = address;
@@ -126,14 +126,14 @@ public class Place {
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
         this.category = category;
-//        this.dayOfWeek = dayOfWeek;
+        this.dayOfWeek = dayOfWeek;
     }
 
-    public PlaceSaveDto toResponse() {
-        return new PlaceSaveDto(title, address.getRoadFullAddr(), tel, startTime, endTime, placeIntroductionInfo
-                , notice, maxPeople, pricePerHour, category.getName(), dayOfWeek);
-//                dayOfWeek.getDayOfWeekName().name()
-
+    public PlaceSaveResponse toResponse() {
+        return new PlaceSaveResponse(title, address, tel, startTime, endTime, placeIntroductionInfo
+                , Collections.singletonList(dayOfWeek), notice, maxPeople, pricePerHour, category);
     }
+
+
 
 }

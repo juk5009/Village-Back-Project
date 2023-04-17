@@ -1,4 +1,4 @@
-package shop.mtcoding.village.dto.place;
+package shop.mtcoding.village.dto.place.request;
 
 import lombok.Getter;
 import shop.mtcoding.village.model.address.Address;
@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-public class PlaceSaveDto {
+public class PlaceUpdateRequest {
 
     @NotBlank(message = "제목을 입력해주세요.")
     private String title;
 
     @NotBlank(message = "주소을 입력해주세요.")
-    private String placeAddress;   // Address 타입으로 변경 해야함
+    private String placeAddress;
 
     private String tel;
 
@@ -32,20 +32,20 @@ public class PlaceSaveDto {
     private String placeIntroductionInfo;
 
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
-    private List<Dates> dayOfWeek;    // List<Date> 타입으로 변경 해야함
+    private List<String> dayOfWeek;
 
 
 //    @Null
-//    private List<FacilityInfo> facilityInfo;  // List<FacilityInfo> 타입으로 변경 해야함
+//    private List<FacilityInfo> facilityInfo;
 //
 //    @Null
-//    private List<Hashtag> hashtag;  // List<Hashtag> 타입으로 변경 해야함
+//    private List<Hashtag> hashtag;
 //
 //    @Size(min = 1, message = "사진을 하나이상 등록해주세요.")
-//    private List<FileInfo> fileInfo;   //  List<FileInfo>
+//    private List<FileInfo> fileInfo;
 //
 //    @Null
-//    private List<Review> review;  // List<Review> 타입으로 변경 해야함
+//    private List<Review> review;
     @NotBlank(message = "유의사항에 대해 입력해주세요.")
     private String notice;
 
@@ -57,28 +57,8 @@ public class PlaceSaveDto {
 
 
     @NotNull(message = "카테고리를 등록해주세요.")
-    private String category; // Category 타입으로 변경 해야함
+    private String category;
 
-
-    public PlaceSaveDto(String title, String placeAddress, String tel, LocalDateTime startTime, LocalDateTime endTime, String placeIntroductionInfo
-            , String notice, Integer maxPeople, Integer pricePerHour, String category,
-                        List<Dates> dayOfWeek) {
-        this.title = title;
-        this.placeAddress = placeAddress;
-        this.tel = tel;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.placeIntroductionInfo = placeIntroductionInfo;
-        this.dayOfWeek = dayOfWeek;
-//        this.facilityInfo = facilityInfo;
-//        this.hashtag = hashtag;
-//        this.fileInfo = fileInfo;
-//        this.review = review;
-        this.notice = notice;
-        this.maxPeople = maxPeople;
-        this.pricePerHour = pricePerHour;
-        this.category = category;
-    }
 
     public Place toEntity() {
 
@@ -88,8 +68,9 @@ public class PlaceSaveDto {
         Category categoryName = new Category();
         categoryName.setName(category);
 
-//        Date date = new Date();
-//        date.setDayOfWeekName(dayOfWeek);
+        Dates date = new Dates();
+        String dayOfWeekAsString = String.join(",", dayOfWeek);
+        date.setDayOfWeekName(dayOfWeekAsString);
 
 //        FacilityInfo facilityName = new FacilityInfo();
 //        facilityName.setFacilityName(facilityInfo.toString());
@@ -109,7 +90,7 @@ public class PlaceSaveDto {
         place.setStartTime(startTime);
         place.setEndTime(endTime);
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
-//        place.setDayOfWeek(date);
+        place.setDayOfWeek(date);
 //        place.setFacilityInfo((List<FacilityInfo>) facilityName);
 //        place.setHashtag((List<Hashtag>) hashtagName);
 //        place.setFileInfo((List<FileInfo>) fileType);
@@ -119,7 +100,7 @@ public class PlaceSaveDto {
         place.setPricePerHour(pricePerHour);
         place.setCategory(categoryName);
         return new Place(title, address, tel, startTime, endTime, placeIntroductionInfo
-//                ,date
+                , date
                 , notice, maxPeople, categoryName, pricePerHour);
     }
 
