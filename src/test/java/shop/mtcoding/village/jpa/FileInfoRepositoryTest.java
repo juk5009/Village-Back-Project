@@ -31,7 +31,7 @@ public class FileInfoRepositoryTest {
 
     @BeforeEach
     public void init(){
-        setUp(FileType.IMAGE);
+        setUp(FileType.PLACE);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class FileInfoRepositoryTest {
         Assertions.assertNotEquals(fileInfoList.size(), 0);
 
         FileInfo fileInfo = fileInfoList.get(0);
-        Assertions.assertEquals(fileInfo.getType(), FileType.IMAGE);
+        Assertions.assertEquals(fileInfo.getType(), FileType.PLACE);
     }
 
     @Test
@@ -53,15 +53,15 @@ public class FileInfoRepositoryTest {
 
         if(optionalFileInfoList.isPresent()) {
             var result = optionalFileInfoList.get();
-            Assertions.assertEquals(result.getType(), FileType.IMAGE);
+            Assertions.assertEquals(result.getType(), FileType.PLACE);
 
-            var fileType = FileType.FILE;
+            var fileType = FileType.MAP;
             result.setType(fileType);
             FileInfo merge = entityManager.merge(result);
 
-            Assertions.assertEquals(merge.getType(), FileType.FILE);
+            Assertions.assertEquals(merge.getType(), FileType.MAP);
         } else {
-            Assertions.assertNotNull(optionalFileInfoList.equals(FileType.FILE));
+            Assertions.assertNotNull(optionalFileInfoList.equals(FileType.PLACE));
         }
     }
 
@@ -69,12 +69,12 @@ public class FileInfoRepositoryTest {
     @Transactional
     @DisplayName("파일 정보 삽입 및 삭제")
     void insertAndDelete() {
-        FileInfo fileInfo = setUp(FileType.IMAGE);
+        FileInfo fileInfo = setUp(FileType.PROFILE);
         Optional<FileInfo> findNotice = this.fileInfoRepository.findById(fileInfo.getId());
 
         if(findNotice.isPresent()) {
             var result = findNotice.get();
-            Assertions.assertEquals(result.getType(), FileType.IMAGE);
+            Assertions.assertEquals(result.getType(), FileType.PROFILE);
             entityManager.remove(fileInfo);
             Optional<FileInfo> deleteFileInfo = this.fileInfoRepository.findById(fileInfo.getId());
             if (deleteFileInfo.isPresent()) {

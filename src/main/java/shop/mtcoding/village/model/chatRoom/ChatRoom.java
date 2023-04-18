@@ -21,11 +21,11 @@ public class ChatRoom {
     private Long id;
 
     @Comment("유저 아이디")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Comment("호스트 아이디")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Place place;
 
     @Comment("채팅방 시간")

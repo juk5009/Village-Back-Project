@@ -18,6 +18,7 @@ public class Category {
     @Comment("카테고리 아이디")
     @JsonIgnore
     private Long id;
+
     @Comment("카테고리 이름")
     // 연습실, 스터디룸, 공유오피스
     private String name;

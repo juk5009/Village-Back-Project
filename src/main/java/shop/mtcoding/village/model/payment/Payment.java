@@ -22,15 +22,15 @@ public class Payment {
     private Long id;
 
     @Comment("유저 정보")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Comment("공간 정보")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Place place;
 
     @Comment("예약 정보")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Reservation reservation;
 
     @Comment("결제 상태")

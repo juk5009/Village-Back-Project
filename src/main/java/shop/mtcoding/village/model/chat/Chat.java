@@ -22,14 +22,14 @@ public class Chat {
     private Long id;
 
     @Comment("유저(호스트)아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Comment("채팅글")
     private String send;
 
     @Comment("채팅방 아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ChatRoom chatRoom;
 
     @Comment("채팅한 시간")

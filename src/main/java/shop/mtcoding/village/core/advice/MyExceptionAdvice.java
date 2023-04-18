@@ -16,6 +16,15 @@ import shop.mtcoding.village.dto.ResponseDTO;
 @RestControllerAdvice
 public class MyExceptionAdvice {
 
+//    @ExceptionHandler(Exception400.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    ProblemDetail onException400(Exception400 exception400) {
+//        return ProblemDetail.forStatusAndDetail(
+//                HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()),
+//                exception400.getMessage()
+//        );
+//    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> ex(Exception e){
         ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(500, e.getMessage().toLowerCase(), HttpStatus.INTERNAL_SERVER_ERROR);

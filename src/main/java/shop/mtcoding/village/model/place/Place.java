@@ -33,14 +33,14 @@ public class Place {
     private Long id;
 
     @Comment("유저(호스트) 정보")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Comment("공간 제목")
     private String title;
 
     @Comment("공간 주소")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private Address address;
 
     @Comment("공간 전화번호")
@@ -57,21 +57,21 @@ public class Place {
     private String notice;
 
     @Comment("요일 정보")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dayOfWeek")
     private Dates dayOfWeek;
 
     @Comment("시설 정보")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private FacilityInfo facilityInfo;
 
     @Comment("공간 해시태그")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hashtag")
     private Hashtag hashtag;
 
     @Comment("공간 사진")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private FileInfo fileInfo;
 
     @Comment("공간의 최대 인원수")
@@ -87,7 +87,7 @@ public class Place {
     private LocalTime endTime;
 
     @Comment("공간별 카테고리")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private Category category;
 
     @Builder

@@ -28,8 +28,8 @@ public class FileRepositoryTest {
 
     @BeforeEach
     public void init(){
-        FileInfo fileInfo = setUpByFileInfo(FileType.FILE);
-        setUpByFile(fileInfo, "image", "jsadjwnqjkdnjskandjskandjka", FileStatus.Image);
+        FileInfo fileInfo = setUpByFileInfo(FileType.PLACE);
+        setUpByFile(fileInfo, "image", "jsadjwnqjkdnjskandjskandjka", FileStatus.WAIT);
     }
 
     @Test
@@ -40,18 +40,18 @@ public class FileRepositoryTest {
         Assertions.assertNotEquals(files.size(), 0);
 
         File file = files.get(0);
-        Assertions.assertEquals(file.getFileName(), "image");
+        Assertions.assertEquals(file.getFileName(), "8.jpg");
     }
 
     @Test
     @Transactional
     @DisplayName("파일 조회 및 수정")
     void selectAndUpdate() {
-        var optionalFiles = this.fileRepository.findById(4L);
+        var optionalFiles = this.fileRepository.findById(1L);
 
         if(optionalFiles.isPresent()) {
             var result = optionalFiles.get();
-            Assertions.assertEquals(result.getFileName(),"image");
+            Assertions.assertEquals(result.getFileName(),"8.jpg");
 
             var fileUrl = "jsadjwnqjkdnjskandjskandjka111";
             result.setFileUrl(fileUrl);
@@ -67,8 +67,8 @@ public class FileRepositoryTest {
     @Transactional
     @DisplayName("파일 삽입 및 삭제")
     void insertAndDelete() {
-        FileInfo fileInfo = setUpByFileInfo(FileType.IMAGE);
-        File file = setUpByFile(fileInfo, "image", "jsadjwnqjkdnjskandjskandjka", FileStatus.Image);
+        FileInfo fileInfo = setUpByFileInfo(FileType.PLACE);
+        File file = setUpByFile(fileInfo, "image", "jsadjwnqjkdnjskandjskandjka", FileStatus.WAIT);
         Optional<File> findFile = this.fileRepository.findById(file.getId());
 
         if(findFile.isPresent()) {
@@ -100,8 +100,8 @@ public class FileRepositoryTest {
     }
 
      File createFileInfo() {
-        FileInfo fileInfo = setUpByFileInfo(FileType.FILE);
-        File file = setUpByFile(fileInfo, "image", "jsadjwnqjkdnjskandjskandjka", FileStatus.Image);
+        FileInfo fileInfo = setUpByFileInfo(FileType.PLACE);
+        File file = setUpByFile(fileInfo, "image", "jsadjwnqjkdnjskandjskandjka", FileStatus.WAIT);
         return file;
     }
 }

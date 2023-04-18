@@ -19,7 +19,7 @@ public class Host {
 
     // User에서 role이 HOST인 유저의 NAME
     @Comment("호스트 이름")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     // 현재는 주소만 받아 오고 추후에 공간정보 추가

@@ -21,10 +21,10 @@ public class Scrap {
     private Long id;
 
     @Comment("유저 아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @Comment("공간 아이디")
     private Place place;
 
