@@ -19,6 +19,7 @@ public class Account {
 
     @Comment("계좌 유저아이디")
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("계좌번호")

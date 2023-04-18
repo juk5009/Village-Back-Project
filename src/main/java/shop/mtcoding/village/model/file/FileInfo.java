@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "fileInfo_tb")
+@Table(name = "file_info_tb")
 public class FileInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

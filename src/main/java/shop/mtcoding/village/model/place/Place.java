@@ -29,6 +29,7 @@ public class Place {
 
     @Comment("유저(호스트) 정보")
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("공간 제목")
@@ -36,6 +37,7 @@ public class Place {
 
     @Comment("공간 주소")
     @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Comment("공간 전화번호")
@@ -43,6 +45,7 @@ public class Place {
 
     @Comment("공간 리뷰정보")
     @ManyToOne
+    @JoinColumn(name = "review_id")
     private Review review;
 
     @Comment("공간 정보")
@@ -81,11 +84,11 @@ public class Place {
 
     @Comment("공간별 카테고리")
     @OneToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Builder
-
-   public Place(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide
+    public Place(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide
             , List<Date> dayOfWeek, List<FacilityInfo> facilityInfo, List<Hashtag> hashtag, List<FileInfo> fileInfo, Integer maxPeople
             , Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime, Category category) {
         this.user = user;

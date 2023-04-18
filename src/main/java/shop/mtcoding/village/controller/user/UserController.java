@@ -1,7 +1,6 @@
 package shop.mtcoding.village.controller.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -76,7 +75,7 @@ public class UserController {
             return ResponseEntity.badRequest().body("올바른 접근이 아닙니다. ");
         }
 
-        return ResponseEntity.ok().body(principalId + " : " + role);
+        return ResponseEntity.ok().body("id : "+ principalId + " role : " + role);
     }
 
 
