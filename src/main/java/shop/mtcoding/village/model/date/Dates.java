@@ -1,12 +1,9 @@
-package shop.mtcoding.village.model.hashtag;
-
+package shop.mtcoding.village.model.date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.dto.date.DateSaveResponse;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
@@ -16,16 +13,18 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "hashtag_tb")
-public class Hashtag {
+@ToString
+@Table(name = "dates_tb")
+public class Dates {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("해시태그 아이디")
+    @Comment("날짜 아이디")
+    @JsonIgnore
     private Long id;
 
-    @Comment("해시태그 이름")
-    private String hashtagName;
+    @Comment("요일")
+    private String dayOfWeekName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,9 +32,14 @@ public class Hashtag {
     @JsonIgnore
     private Place placeId;
 
+
     @Builder
-    public Hashtag(List<String> hashtagNames, Place placeId) {
-        this.hashtagName = hashtagNames.toString();
+    public Dates(List<String> dayOfWeekName, Place placeId) {
+        this.dayOfWeekName = dayOfWeekName.toString();
         this.placeId = placeId;
+    }
+
+    public DateSaveResponse toResponse() {
+        return new DateSaveResponse(dayOfWeekName);
     }
 }
