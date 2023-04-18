@@ -1,4 +1,4 @@
-package shop.mtcoding.village.controller;
+package shop.mtcoding.village.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

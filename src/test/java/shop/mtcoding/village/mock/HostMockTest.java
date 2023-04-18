@@ -1,7 +1,6 @@
 package shop.mtcoding.village.mock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import shop.mtcoding.village.controller.HostController;
+import shop.mtcoding.village.controller.host.HostController;
 import shop.mtcoding.village.dto.host.HostSaveDto;
 import shop.mtcoding.village.service.HostService;
 

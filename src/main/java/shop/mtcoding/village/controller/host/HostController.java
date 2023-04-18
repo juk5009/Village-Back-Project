@@ -1,4 +1,4 @@
-package shop.mtcoding.village.controller;
+package shop.mtcoding.village.controller.host;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

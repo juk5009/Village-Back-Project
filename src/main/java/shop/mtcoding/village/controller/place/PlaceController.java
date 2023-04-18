@@ -1,4 +1,4 @@
-package shop.mtcoding.village.controller;
+package shop.mtcoding.village.controller.place;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
