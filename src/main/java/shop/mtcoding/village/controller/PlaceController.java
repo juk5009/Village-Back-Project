@@ -3,10 +3,12 @@ package shop.mtcoding.village.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
@@ -34,7 +36,7 @@ public class PlaceController {
     }
 
     @PostMapping
-    public ResponseEntity<PlaceSaveResponse> savePlace(
+    public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
             @Valid @RequestBody PlaceSaveRequest placeSaveDto, BindingResult result
     ) {
 
@@ -44,11 +46,11 @@ public class PlaceController {
 
         var savePlace = placeService.공간등록하기(placeSaveDto);
 
-        return ResponseEntity.ok(savePlace.toResponse());
+        return new ResponseEntity<>(new ResponseDTO<>(1, "공간 데이터 등록 완료", savePlace), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<String> updatePlace(
+    public ResponseEntity<ResponseDTO> updatePlace(
             @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, BindingResult result
         ){
 
@@ -56,8 +58,8 @@ public class PlaceController {
             throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
         }
 
-        placeService.공간수정하기(placeUpdateRequest);
-        return ResponseEntity.ok("수정이 완료 되었습니다.");
+        Place updatePlace = placeService.공간수정하기(placeUpdateRequest);
+        return new ResponseEntity<>(new ResponseDTO<>(1, "공간 데이터 수정 완료", updatePlace), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
