@@ -2,7 +2,7 @@ package shop.mtcoding.village.model.host;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
-import shop.mtcoding.village.dto.host.HostSaveDto;
+import shop.mtcoding.village.dto.host.request.HostSaveRequest;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
@@ -38,7 +38,7 @@ public class Host {
         this.businessNum = businessNum;
     }
 
-    public HostSaveDto toResponse() {
-        return new HostSaveDto(user.getName(), address, businessNum);
+    public HostSaveRequest toResponse() {
+        return new HostSaveRequest(user.getName(), address, businessNum);
     }
 }

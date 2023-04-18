@@ -1,4 +1,4 @@
-package shop.mtcoding.village.dto.host;
+package shop.mtcoding.village.dto.host.request;
 
 import lombok.Getter;
 import shop.mtcoding.village.model.host.Host;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 
 @Getter
-public class HostSaveDto{
+public class HostSaveRequest {
 
     @NotBlank(message = "호스트의 이름을 다시 확인해주세요.")
     private String hostName;
@@ -23,7 +23,7 @@ public class HostSaveDto{
 
 
 
-    public HostSaveDto(String hostName, String address, String businessNum) {
+    public HostSaveRequest(String hostName, String address, String businessNum) {
         this.hostName = hostName;
         this.address = address;
         this.businessNum = businessNum;

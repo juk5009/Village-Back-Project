@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("검색 JPA 테스트")
 public class SearchRepositoryTest {
 
     @Autowired
@@ -40,6 +42,7 @@ public class SearchRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("검색 조회 테스트")
     void selectAll() {
         List<Search> searches = searchRepository.findAll();
         Assertions.assertNotEquals(searches.size(), 0);
@@ -50,6 +53,7 @@ public class SearchRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("검색 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalSearch = this.searchRepository.findById(4L);
 
@@ -69,6 +73,7 @@ public class SearchRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("검색 삽입 및 삭제 테스트")
     void insertAndDelete() {
 //        User user = setUpByUser("love", "1234", "love@nate.com", "010-7474-1212", "USER", "profile");
 

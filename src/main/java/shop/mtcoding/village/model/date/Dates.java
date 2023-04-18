@@ -3,11 +3,10 @@ package shop.mtcoding.village.model.date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
-import shop.mtcoding.village.dto.date.DateSaveResponse;
+import shop.mtcoding.village.dto.date.response.DateSaveResponse;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -34,7 +33,7 @@ public class Dates {
 
 
     @Builder
-    public Dates(List<String> dayOfWeekName, Place placeId) {
+    public Dates(String dayOfWeekName, Place placeId) {
         this.dayOfWeekName = dayOfWeekName.toString();
         this.placeId = placeId;
     }

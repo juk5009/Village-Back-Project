@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public class HashtagSaveRequest {
 
-    private List<String> hashtagName;
+    private String hashtagName;
 
     public Hashtag toEntity() {
         return new Hashtag(hashtagName, null);

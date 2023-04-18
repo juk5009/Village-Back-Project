@@ -34,7 +34,7 @@ public class Hashtag {
     private Place placeId;
 
     @Builder
-    public Hashtag(List<String> hashtagNames, Place placeId) {
+    public Hashtag(String hashtagNames, Place placeId) {
         this.hashtagName = hashtagNames.toString();
         this.placeId = placeId;
     }

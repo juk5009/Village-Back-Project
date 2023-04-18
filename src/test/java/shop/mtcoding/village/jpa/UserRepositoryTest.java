@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("유저 JPA 테스트")
 public class UserRepositoryTest {
 
     @Autowired
@@ -40,6 +42,7 @@ public class UserRepositoryTest {
     }
     @Test
     @Transactional
+    @DisplayName("유저 조회 테스트")
     void selectAll() {
         List<User> users = userRepository.findAll();
         Assertions.assertNotEquals(users.size(), 0);
@@ -50,6 +53,7 @@ public class UserRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("유저 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalUser = this.userRepository.findById(4L);
 
@@ -69,6 +73,7 @@ public class UserRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("유저 삽입 및 삭제 테스트")
     void insertAndDelete() {
         User user = setUp("love1", "12341", "love1@nate.com", "010-7474-12121", "USER","profile");
         Optional<User> findUser = this.userRepository.findById(user.getId());

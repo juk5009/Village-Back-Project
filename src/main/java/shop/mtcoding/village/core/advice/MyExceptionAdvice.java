@@ -31,14 +31,22 @@ public class MyExceptionAdvice {
     @ExceptionHandler(Exception400.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<?> ex400(Exception e){
-        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(400, e.getMessage(), HttpStatus.BAD_REQUEST);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(-1, e.getMessage(), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+//    @ExceptionHandler(Exception400.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ResponseEntity<?> ex401(MyValidationException e){
+//        String errMsg = e.getErroMap().toString();
+//        String devideMsg = errMsg.split("=")[1].split(",")[0].split("}")[0];
+//        return new ResponseEntity<>(new ResponseDTO<>(-1,devideMsg,null), HttpStatus.BAD_REQUEST);
+//    }
 
     @ExceptionHandler(MyValidationException.class)
     public ResponseEntity<?> error(MyValidationException e){
         String errMsg = e.getErroMap().toString();
         String devideMsg = errMsg.split("=")[1].split(",")[0].split("}")[0];
-        return new ResponseEntity<>((devideMsg), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseDTO<>(-1,devideMsg,null), HttpStatus.BAD_REQUEST);
     }
 }

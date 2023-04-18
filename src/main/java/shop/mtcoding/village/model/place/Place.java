@@ -91,7 +91,7 @@ public class Place {
     private Category category;
 
     @Builder
-    public Place(User user, String title, Address address, String tel, List<Review> review, String placeIntroductionInfo, String notice, Dates dayOfWeek
+    public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, Dates dayOfWeek
             , FacilityInfo facilityInfo, Hashtag hashtag, FileInfo fileInfo, Integer maxPeople, Integer pricePerHour, LocalTime startTime
             , LocalTime endTime, Category category) {
         this.user = user;
@@ -101,7 +101,6 @@ public class Place {
         this.placeIntroductionInfo = placeIntroductionInfo;
         this.notice = notice;
         this.dayOfWeek = dayOfWeek;
-//        this.review = review;
         this.facilityInfo = facilityInfo;
         this.hashtag = hashtag;
         this.fileInfo = fileInfo;

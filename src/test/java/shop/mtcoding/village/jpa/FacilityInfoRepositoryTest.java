@@ -12,11 +12,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
-import shop.mtcoding.village.model.chatRoom.ChatRoom;
-import shop.mtcoding.village.model.chatRoom.ChatRoomRepository;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfoRepository;
 import shop.mtcoding.village.model.hashtag.Hashtag;
+import shop.mtcoding.village.model.hashtag.HashtagInfoRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
@@ -29,11 +29,11 @@ import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-@DisplayName("채팅방 JPA 테스트")
-public class ChatRoomRepositoryTest {
+@DisplayName("편의시설 JPA 테스트")
+public class FacilityInfoRepositoryTest {
 
     @Autowired
-    private ChatRoomRepository chatRoomRepository;
+    private FacilityInfoRepository facilityInfoRepository;
 
     @Autowired
     private TestEntityManager entityManager;
@@ -43,65 +43,63 @@ public class ChatRoomRepositoryTest {
 
     @BeforeEach
     public void init() {
-        em.createNativeQuery("ALTER TABLE chat_room_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-
-        setUpByChatRoom();
+        em.createNativeQuery("ALTER TABLE facility_info_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+        setUp("화장실");
     }
 
     @Test
     @Transactional
-    @DisplayName("채팅방 조회 테스트")
+    @DisplayName("편의시설 조회 테스트")
     void selectAll() {
-        List<ChatRoom> chatRooms = chatRoomRepository.findAll();
-        Assertions.assertNotEquals(chatRooms.size(), 0);
+        List<FacilityInfo> facilityInfos = facilityInfoRepository.findAll();
+        Assertions.assertNotEquals(facilityInfos.size(), 0);
 
-        ChatRoom chatRoom = chatRooms.get(0);
-        Assertions.assertEquals(chatRoom.getUser().getName(), "love");
+        FacilityInfo facilityInfo = facilityInfos.get(0);
+        Assertions.assertEquals(facilityInfo.getFacilityName(), "화장실");
     }
 
     @Test
     @Transactional
-    @DisplayName("채팅방 조회 및 수정 테스트")
+    @DisplayName("편의시설 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalChatRoom = this.chatRoomRepository.findById(4L);
+        var optionalFacilityInfo = this.facilityInfoRepository.findById(4L);
 
-        if (optionalChatRoom.isPresent()) {
-            var result = optionalChatRoom.get();
-            Assertions.assertEquals(result.getUser().getName(), "love");
+        if (optionalFacilityInfo.isPresent()) {
+            var result = optionalFacilityInfo.get();
+            Assertions.assertEquals(result.getFacilityName(), "화장실");
 
-            Place title = new Place();
-            title.setTitle("제목555");
-            result.setPlace(title);
-            ChatRoom merge = entityManager.merge(result);
+            String facilityInfo = "매점";
+            result.setFacilityName(facilityInfo);
+            FacilityInfo merge = entityManager.merge(result);
 
-            Assertions.assertEquals(merge.getPlace().getTitle(), "제목555");
+            Assertions.assertEquals(merge.getFacilityName(), "매점");
         } else {
-            Assertions.assertNotNull(optionalChatRoom.get());
+            Assertions.assertNotNull(optionalFacilityInfo.get());
         }
     }
 
     @Test
     @Transactional
-    @DisplayName("채팅방 삽입 및 삭제 테스트")
+    @DisplayName("편의시설 삽입 및 삭제 테스트")
     void insertAndDelete() {
-        ChatRoom chatRoom = setUpByChatRoom();
-        Optional<ChatRoom> findAddress = this.chatRoomRepository.findById(chatRoom.getId());
+        FacilityInfo facilityInfo = setUp("공부방");
+        Optional<FacilityInfo> findfacilityInfo = this.facilityInfoRepository.findById(facilityInfo.getId());
 
-        if (findAddress.isPresent()) {
-            var result = findAddress.get();
-            Assertions.assertEquals(result.getPlace().getTel(), "123123");
-            entityManager.remove(chatRoom);
-            Optional<ChatRoom> deleteAddress = this.chatRoomRepository.findById(chatRoom.getId());
-            if (deleteAddress.isPresent()) {
-                Assertions.assertNull(deleteAddress.get());
+        if (findfacilityInfo.isPresent()) {
+            var result = findfacilityInfo.get();
+            Assertions.assertEquals(result.getFacilityName(), "화장실");
+            entityManager.remove(facilityInfo);
+            Optional<FacilityInfo> deleteDate = this.facilityInfoRepository.findById(facilityInfo.getId());
+            if (deleteDate.isPresent()) {
+                Assertions.assertNull(deleteDate.get());
             }
         } else {
-            Assertions.assertNotNull(findAddress.get());
+            Assertions.assertNotNull(findfacilityInfo.get());
         }
     }
 
+    private FacilityInfo setUp(String facilityInfoName) {
 
-    private ChatRoom setUpByChatRoom() {
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
 
@@ -118,20 +116,17 @@ public class ChatRoomRepositoryTest {
         this.entityManager.persist(dates);
 
         FacilityInfo facilityName = new FacilityInfo().builder().facilityName("화장실").build();
-        this.entityManager.persist(facilityName);
 
         Hashtag hashtagName = new Hashtag().builder().hashtagNames("연습실").build();
         this.entityManager.persist(hashtagName);
-
 
         Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개").facilityInfo(facilityName)
                 .hashtag(hashtagName).startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).category(category).build();
         this.entityManager.persist(place);
 
-        ChatRoom chatRoom = new ChatRoom();
-        this.entityManager.persist(category);
-        chatRoom.setUser(user);
-        chatRoom.setPlace(place);
-        return this.entityManager.persist(chatRoom);
+        dates.setPlaceId(place);
+        hashtagName.setPlaceId(place);
+
+        return this.entityManager.persist(facilityName);
     }
 }

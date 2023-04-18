@@ -11,9 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.address.AddressRepository;
 import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.chatRoom.ChatRoom;
-import shop.mtcoding.village.model.chatRoom.ChatRoomRepository;
+import shop.mtcoding.village.model.date.DateRepository;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.hashtag.Hashtag;
@@ -29,11 +30,11 @@ import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-@DisplayName("채팅방 JPA 테스트")
-public class ChatRoomRepositoryTest {
+@DisplayName("요일 JPA 테스트")
+public class DatesRepositoryTest {
 
     @Autowired
-    private ChatRoomRepository chatRoomRepository;
+    private DateRepository dateRepository;
 
     @Autowired
     private TestEntityManager entityManager;
@@ -43,65 +44,63 @@ public class ChatRoomRepositoryTest {
 
     @BeforeEach
     public void init() {
-        em.createNativeQuery("ALTER TABLE chat_room_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-
-        setUpByChatRoom();
+        em.createNativeQuery("ALTER TABLE dates_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+        setUp("월요일");
     }
 
     @Test
     @Transactional
-    @DisplayName("채팅방 조회 테스트")
+    @DisplayName("요일 조회 테스트")
     void selectAll() {
-        List<ChatRoom> chatRooms = chatRoomRepository.findAll();
-        Assertions.assertNotEquals(chatRooms.size(), 0);
+        List<Dates> dates = dateRepository.findAll();
+        Assertions.assertNotEquals(dates.size(), 0);
 
-        ChatRoom chatRoom = chatRooms.get(0);
-        Assertions.assertEquals(chatRoom.getUser().getName(), "love");
+        Dates date = dates.get(0);
+        Assertions.assertEquals(date.getDayOfWeekName(), "월요일");
     }
 
     @Test
     @Transactional
-    @DisplayName("채팅방 조회 및 수정 테스트")
+    @DisplayName("요일 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalChatRoom = this.chatRoomRepository.findById(4L);
+        var optionalDates = this.dateRepository.findById(4L);
 
-        if (optionalChatRoom.isPresent()) {
-            var result = optionalChatRoom.get();
-            Assertions.assertEquals(result.getUser().getName(), "love");
+        if (optionalDates.isPresent()) {
+            var result = optionalDates.get();
+            Assertions.assertEquals(result.getDayOfWeekName(), "월요일");
 
-            Place title = new Place();
-            title.setTitle("제목555");
-            result.setPlace(title);
-            ChatRoom merge = entityManager.merge(result);
+            String day = "화요일";
+            result.setDayOfWeekName(day);
+            Dates merge = entityManager.merge(result);
 
-            Assertions.assertEquals(merge.getPlace().getTitle(), "제목555");
+            Assertions.assertEquals(merge.getDayOfWeekName(), "화요일");
         } else {
-            Assertions.assertNotNull(optionalChatRoom.get());
+            Assertions.assertNotNull(optionalDates.get());
         }
     }
 
     @Test
     @Transactional
-    @DisplayName("채팅방 삽입 및 삭제 테스트")
+    @DisplayName("요일 삽입 및 삭제 테스트")
     void insertAndDelete() {
-        ChatRoom chatRoom = setUpByChatRoom();
-        Optional<ChatRoom> findAddress = this.chatRoomRepository.findById(chatRoom.getId());
+        Dates dates = setUp("수요일");
+        Optional<Dates> findDate = this.dateRepository.findById(dates.getId());
 
-        if (findAddress.isPresent()) {
-            var result = findAddress.get();
-            Assertions.assertEquals(result.getPlace().getTel(), "123123");
-            entityManager.remove(chatRoom);
-            Optional<ChatRoom> deleteAddress = this.chatRoomRepository.findById(chatRoom.getId());
-            if (deleteAddress.isPresent()) {
-                Assertions.assertNull(deleteAddress.get());
+        if (findDate.isPresent()) {
+            var result = findDate.get();
+            Assertions.assertEquals(result.getDayOfWeekName(), "월요일");
+            entityManager.remove(dates);
+            Optional<Dates> deleteDate = this.dateRepository.findById(dates.getId());
+            if (deleteDate.isPresent()) {
+                Assertions.assertNull(deleteDate.get());
             }
         } else {
-            Assertions.assertNotNull(findAddress.get());
+            Assertions.assertNotNull(findDate.get());
         }
     }
 
+    private Dates setUp(String dayOfWeekName) {
 
-    private ChatRoom setUpByChatRoom() {
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
 
@@ -115,7 +114,6 @@ public class ChatRoomRepositoryTest {
         this.entityManager.persist(category);
 
         Dates dates = new Dates().builder().dayOfWeekName("월요일").build();
-        this.entityManager.persist(dates);
 
         FacilityInfo facilityName = new FacilityInfo().builder().facilityName("화장실").build();
         this.entityManager.persist(facilityName);
@@ -128,10 +126,9 @@ public class ChatRoomRepositoryTest {
                 .hashtag(hashtagName).startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).category(category).build();
         this.entityManager.persist(place);
 
-        ChatRoom chatRoom = new ChatRoom();
-        this.entityManager.persist(category);
-        chatRoom.setUser(user);
-        chatRoom.setPlace(place);
-        return this.entityManager.persist(chatRoom);
+        dates.setPlaceId(place);
+        return this.entityManager.persist(dates);
     }
+
+
 }

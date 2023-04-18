@@ -8,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.dto.ResponseDTO;
-import shop.mtcoding.village.dto.host.HostSaveDto;
+import shop.mtcoding.village.dto.host.request.HostSaveRequest;
 import shop.mtcoding.village.model.host.Host;
 import shop.mtcoding.village.service.HostService;
 
@@ -23,7 +23,7 @@ public class HostController {
     private final HostService hostService;
 
     @PostMapping
-    public @ResponseBody ResponseEntity<ResponseDTO> saveHost(@Valid @RequestBody HostSaveDto hostSaveDto, BindingResult result){
+    public @ResponseBody ResponseEntity<ResponseDTO> saveHost(@Valid @RequestBody HostSaveRequest hostSaveDto, BindingResult result){
 
         if (result.hasErrors()) {
             throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());

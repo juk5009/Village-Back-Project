@@ -1,4 +1,4 @@
-package shop.mtcoding.village.dto.date;
+package shop.mtcoding.village.dto.date.response;
 
 import lombok.Getter;
 import lombok.ToString;

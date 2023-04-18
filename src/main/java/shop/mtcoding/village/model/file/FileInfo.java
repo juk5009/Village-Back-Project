@@ -1,9 +1,6 @@
 package shop.mtcoding.village.model.file;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
@@ -18,12 +15,17 @@ public class FileInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("고유번호")
-    private Integer id;
+    private Long id;
 
     @Comment("파일 출처")
     private FileType type;
 
-
     @Comment("공간의 아이디")
     private Long placeId;
+
+    @Builder
+    public FileInfo(FileType type, Long placeId) {
+        this.type = type;
+        this.placeId = placeId;
+    }
 }
