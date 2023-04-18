@@ -19,6 +19,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(HostController.class)
@@ -59,10 +60,10 @@ public class HostMockTest {
         // Then
         perform
                 .andExpect(status().isOk())
-                .andDo(print());
-//                .andExpect(jsonPath("$.hostName").value("김호스트"))
-//                .andExpect(jsonPath("$.address").value("부산 부산진구 중앙대로 688 한준빌딩 2층"))
-//                .andExpect(jsonPath("$.businessNum").value("481-12-45612"));
+                .andDo(print())
+                .andExpect(jsonPath("$.hostName").value("김호스트"))
+                .andExpect(jsonPath("$.address").value("부산 부산진구 중앙대로 688 한준빌딩 2층"))
+                .andExpect(jsonPath("$.businessNum").value("481-12-45612"));
     }
 
     @Test
@@ -87,7 +88,7 @@ public class HostMockTest {
         // Then
         perform
                 .andExpect(status().is5xxServerError())
-                .andDo(print());
-//                .andExpect(jsonPath("$.hostName").value("호스트 이름을 입력해주세요."));
+                .andDo(print())
+                .andExpect(jsonPath("$.hostName").value("호스트 이름을 입력해주세요."));
     }
 }

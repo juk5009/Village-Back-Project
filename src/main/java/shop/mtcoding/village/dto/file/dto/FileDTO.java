@@ -1,5 +1,8 @@
 package shop.mtcoding.village.dto.file.dto;
 
+import lombok.Getter;
+
+@Getter
 public class FileDTO{
 
         private Long id;

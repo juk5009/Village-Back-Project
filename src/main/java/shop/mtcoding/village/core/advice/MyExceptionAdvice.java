@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.Exception500;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.exception.MyValidationException;
 import shop.mtcoding.village.dto.ResponseDTO;
 
@@ -57,5 +58,12 @@ public class MyExceptionAdvice {
         String errMsg = e.getErroMap().toString();
         String devideMsg = errMsg.split("=")[1].split(",")[0].split("}")[0];
         return new ResponseEntity<>(new ResponseDTO<>(-1,devideMsg,null), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MyConstException.class)
+    public ResponseEntity<?> error(MyConstException e){
+        String detail = e.getMessage();
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(400, detail, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 }

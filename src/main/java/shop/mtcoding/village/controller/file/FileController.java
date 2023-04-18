@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.file.dto.FileDTO;
 import shop.mtcoding.village.dto.file.request.FileSaveRequest;
 import shop.mtcoding.village.dto.file.request.FileUpdateRequest;
@@ -16,6 +17,7 @@ import shop.mtcoding.village.service.FileService;
 import shop.mtcoding.village.model.file.File;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/files")
@@ -43,7 +45,7 @@ public class FileController {
     public ResponseEntity<FileResponse> getFile (@PathVariable Long id) {
         var optionalFile = fileService.getFile(id);
         if (optionalFile.isEmpty()) {
-            throw new Exception400(FileConst.notfound);
+            throw new MyConstException(FileConst.notfound);
         }
 
         return ResponseEntity.ok(

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.file.dto.FileInfoDTO;
 import shop.mtcoding.village.dto.file.request.FileInfoSaveRequest;
 import shop.mtcoding.village.dto.file.response.FileInfoResponse;
@@ -44,7 +45,7 @@ public class FileInfoController {
     public ResponseEntity<FileInfoResponse> getFileInfo (@PathVariable Long id) {
         var optionalFileInfo = fileInfoService.getFileInfo(id);
         if (optionalFileInfo.isEmpty()) {
-            throw new Exception400(FileInfoConst.notfound);
+            throw new MyConstException(FileInfoConst.notfound);
         }
 
         return ResponseEntity.ok(optionalFileInfo.get().toResponse());
@@ -56,7 +57,7 @@ public class FileInfoController {
             Errors error
     ) {
         if (error.hasErrors()) {
-            throw new Exception400(error.getAllErrors().get(0).getDefaultMessage());
+            throw new MyConstException(error.getAllErrors().get(0).getDefaultMessage());
         }
 
         var fileInfo = fileInfoService.save(request);

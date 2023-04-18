@@ -102,7 +102,7 @@ public class FileInfoMockTest {
         perform
                 .andExpect(status().isBadRequest())
                 .andDo(print())
-                .andExpect(jsonPath("$.detail").value("파일 정보를 받을 수 없습니다."))
+                .andExpect(jsonPath("$.msg").value("파일 정보를 받을 수 없습니다."))
         ;
     }
 
@@ -141,7 +141,7 @@ public class FileInfoMockTest {
     void saveFileInfoFail() throws Exception {
 
         // given
-        FileInfoSaveRequest request = new FileInfoSaveRequest("PLACE");
+        FileInfoSaveRequest request = new FileInfoSaveRequest("");
 
         // When
         ResultActions perform = this.mvc.perform(
@@ -156,7 +156,7 @@ public class FileInfoMockTest {
         perform
                 .andExpect(status().isBadRequest())
                 .andDo(print())
-                .andExpect(jsonPath("$.detail").value("파일 출처를 입력해주세요"))
+                .andExpect(jsonPath("$.msg").value("파일 출처를 입력해주세요"))
         ;
     }
 

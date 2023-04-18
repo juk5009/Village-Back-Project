@@ -52,8 +52,9 @@ public class FileMockTest {
     @WithMockUser
     void getPage() throws Exception {
         FileInfo fileInfo = new FileInfo();
-        fileInfo.setId(1l);
+        fileInfo.setId(1L);
         fileInfo.setType(FileType.PLACE);
+
 
         Pageable pageable = PageRequest.of(1, 10);
         Page<File> page = new PageImpl<>(
@@ -79,16 +80,16 @@ public class FileMockTest {
         perform
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(jsonPath("$.content[0].id").value(1))
-                .andExpect(jsonPath("$.content[0].fileInfo.id").value(1))
-                .andExpect(jsonPath("$.content[0].fileInfo.type").value("BANNER"))
+                .andExpect(jsonPath("$.content[0].id").value(1L))
+                .andExpect(jsonPath("$.content[0].fileInfo.id").value(1L))
+                .andExpect(jsonPath("$.content[0].fileInfo.type").value("PLACE"))
                 .andExpect(jsonPath("$.content[0].fileName").value("파일이름"))
                 .andExpect(jsonPath("$.content[0].fileUrl").value("파일URL"))
-                .andExpect(jsonPath("$.content[0].status").value("ACTIVE"))
+                .andExpect(jsonPath("$.content[0].status").value("WAIT"))
 
-                .andExpect(jsonPath("$.content[1].id").value(2))
-                .andExpect(jsonPath("$.content[1].fileInfo.id").value(1))
-                .andExpect(jsonPath("$.content[1].fileInfo.type").value("BANNER"))
+                .andExpect(jsonPath("$.content[1].id").value(2L))
+                .andExpect(jsonPath("$.content[1].fileInfo.id").value(1L))
+                .andExpect(jsonPath("$.content[1].fileInfo.type").value("PLACE"))
                 .andExpect(jsonPath("$.content[1].fileName").value("파일이름2"))
                 .andExpect(jsonPath("$.content[1].fileUrl").value("파일URL2"))
                 .andExpect(jsonPath("$.content[1].status").value("WAIT"))
@@ -116,7 +117,7 @@ public class FileMockTest {
         perform
                 .andExpect(status().isBadRequest())
                 .andDo(print())
-                .andExpect(jsonPath("$.detail").value("파일을 넣어주세요"))
+                .andExpect(jsonPath("$.msg").value("파일을 넣어주세요"))
         ;
     }
 
@@ -126,7 +127,7 @@ public class FileMockTest {
     void saveFileFail() throws Exception {
 
         FileInfo fileInfo = new FileInfo();
-        fileInfo.setId(1l);
+        fileInfo.setId(1L);
         fileInfo.setType(FileType.PLACE);
 
 
@@ -146,7 +147,7 @@ public class FileMockTest {
         perform
                 .andExpect(status().isBadRequest())
                 .andDo(print())
-                .andExpect(jsonPath("$.detail").value("파일 이름을 입력해주세요"))
+                .andExpect(jsonPath("$.msg").value("파일 이름을 입력해주세요"))
         ;
     }
 

@@ -39,7 +39,8 @@ public class File extends BaseTime {
     private FileStatus status;
 
     @Builder
-    public File(Long l, FileInfo fileInfo, String fileName, String fileUrl, FileStatus status) {
+    public File(Long id, FileInfo fileInfo, String fileName, String fileUrl, FileStatus status) {
+        this.id = id;
         this.fileInfo = fileInfo;
         this.fileName = fileName;
         this.fileUrl = fileUrl;
