@@ -1,11 +1,13 @@
 package shop.mtcoding.village.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.model.place.Place;
@@ -33,7 +35,7 @@ public class PlaceController {
 
     @PostMapping
     public ResponseEntity<PlaceSaveResponse> savePlace(
-            @Valid @RequestBody PlaceUpdateRequest placeSaveDto, BindingResult result
+            @Valid @RequestBody PlaceSaveRequest placeSaveDto, BindingResult result
     ) {
 
         if (result.hasErrors()) {

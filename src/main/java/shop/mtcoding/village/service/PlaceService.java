@@ -1,8 +1,10 @@
 package shop.mtcoding.village.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceRepository;
@@ -19,7 +21,7 @@ public class PlaceService {
 
 
     @Transactional
-    public Place 공간등록하기(PlaceUpdateRequest placeRequest) {
+    public Place 공간등록하기(PlaceSaveRequest placeRequest) {
 
         Place save = placeRepository.save(placeRequest.toEntity());
 

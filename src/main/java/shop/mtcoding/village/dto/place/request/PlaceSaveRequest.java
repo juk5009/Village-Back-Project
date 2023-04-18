@@ -1,7 +1,6 @@
 package shop.mtcoding.village.dto.place.request;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
@@ -13,8 +12,8 @@ import shop.mtcoding.village.model.place.Place;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 public class PlaceSaveRequest {
@@ -37,7 +36,7 @@ public class PlaceSaveRequest {
     private String placeIntroductionInfo;
 
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
-    private String dayOfWeek;
+    private List<String> dayOfWeek;
 
     private List<String> hashtag;
 
@@ -64,16 +63,7 @@ public class PlaceSaveRequest {
     private String category;
 
 
-    public Place toEntity() throws JsonProcessingException {
-
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, List<Map<String, String>>> data = mapper.readValue(dayOfWeek, Map.class);
-
-        List<Map<String, String>> dayOfWeek = data.get("dayOfWeek");
-        for (Map<String, String> day : dayOfWeek) {
-            String dayOfWeekName = day.get("dayOfWeekName");
-            System.out.println(dayOfWeekName);
-        }
+    public Place toEntity(){
 
         Address address = new Address();
         address.setRoadFullAddr(placeAddress);
@@ -82,9 +72,17 @@ public class PlaceSaveRequest {
         categoryName.setName(category);
 
         Dates date = new Dates();
-        date.setDayOfWeekName(dayOfWeek.toString());
-//        String dayOfWeekAsString = String.join(",", dayOfWeek);
-//        date.setDayOfWeekName(dayOfWeekAsString);
+        String dayOfWeekAsString = String.join(",", dayOfWeek);
+        date.setDayOfWeekName(dayOfWeekAsString);
+        System.out.println("디버그 : " + date);
+
+//        for (String element : dayOfWeek) {
+//            String[] split = element.split(":");
+//            String key = split[0];
+//            String value = split[1];
+//            System.out.println(key + " is " + value);
+//            date.setDayOfWeekName(element);
+//        }
 
         FacilityInfo facilityName = new FacilityInfo();
         String facilityAsString = String.join(",", facilityInfo);
