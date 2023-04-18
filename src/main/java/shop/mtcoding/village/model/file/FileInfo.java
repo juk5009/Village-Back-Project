@@ -22,4 +22,8 @@ public class FileInfo {
 
     @Comment("파일 출처")
     private FileType type;
+
+
+    @Comment("공간의 아이디")
+    private Long placeId;
 }

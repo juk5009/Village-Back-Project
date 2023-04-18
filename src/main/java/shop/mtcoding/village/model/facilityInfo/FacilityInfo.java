@@ -1,5 +1,6 @@
 package shop.mtcoding.village.model.facilityInfo;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,4 +22,13 @@ public class FacilityInfo {
 
     @Comment("편의시설 이름")
     private String facilityName;
+
+    @Comment("공간의 아이디")
+    private Long placeId;
+
+    @Builder
+    public FacilityInfo(String facilityName, Long placeId) {
+        this.facilityName = facilityName;
+        this.placeId = placeId;
+    }
 }

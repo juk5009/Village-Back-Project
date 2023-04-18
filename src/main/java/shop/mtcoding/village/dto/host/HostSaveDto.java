@@ -1,13 +1,11 @@
 package shop.mtcoding.village.dto.host;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import shop.mtcoding.village.model.host.Host;
 import shop.mtcoding.village.model.user.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 
 @Getter
