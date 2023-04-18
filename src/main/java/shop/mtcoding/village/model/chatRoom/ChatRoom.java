@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "chatRoom_tb")
+@Table(name = "chatroom_tb")
 public class ChatRoom {
 
     @Id
@@ -22,10 +22,12 @@ public class ChatRoom {
 
     @Comment("유저 아이디")
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("호스트 아이디")
     @OneToOne
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("채팅방 시간")

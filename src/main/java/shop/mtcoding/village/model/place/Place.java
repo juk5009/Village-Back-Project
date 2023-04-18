@@ -34,6 +34,7 @@ public class Place {
 
     @Comment("유저(호스트) 정보")
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("공간 제목")
@@ -46,9 +47,13 @@ public class Place {
     @Comment("공간 전화번호")
     private String tel;
 
+
+  
+
 //    @Comment("공간 리뷰정보")
 //    @OneToMany
 //    private List<Review> review;
+
 
     @Comment("공간 정보")
     private String placeIntroductionInfo;
@@ -87,6 +92,9 @@ public class Place {
     private LocalTime endTime;
 
     @Comment("공간별 카테고리")
+
+   
+
     @OneToOne(cascade = CascadeType.ALL)
     private Category category;
 
@@ -94,6 +102,7 @@ public class Place {
     public Place(User user, String title, Address address, String tel, List<Review> review, String placeIntroductionInfo, String notice, Dates dayOfWeek
             , FacilityInfo facilityInfo, Hashtag hashtag, FileInfo fileInfo, Integer maxPeople, Integer pricePerHour, LocalTime startTime
             , LocalTime endTime, Category category) {
+
         this.user = user;
         this.title = title;
         this.address = address;

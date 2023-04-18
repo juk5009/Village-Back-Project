@@ -1,14 +1,133 @@
--- create table user_tb (
---     id int auto_increment primary key,
---     name varchar(30) unique not null,
---     password varchar(30) unique not null,
---     email varchar(30) unique not null,
---     tel varchar(30) unique not nu,
---     role enum
---     profile varchar(30),
---     account_id unique,
---     created_at timestamp
+create table user_tb (
+    id int auto_increment primary key,
+    name varchar(30) unique not null,
+    password varchar(30) not null,
+    email varchar(30) unique not null,
+    tel varchar(30),
+    role varchar,
+    profile varchar(30),
+    created_at timestamp
+);
+
+
+create table address_tb (
+    id int primary key auto_increment,
+    road_full_addr varchar(255),
+    sgg_nm varchar(30),
+    zip_no varchar(30),
+    lat varchar(30),
+    lng varchar(30)
+);
+
+create table facility_info_tb (
+    id int primary key AUTO_INCREMENT,
+    facility_name varchar(30)
+);
+
+create table hashtag_tb (
+    id int primary key AUTO_INCREMENT,
+    hashtag_name VARCHAR(255)
+);
+
+
+create table account_tb (
+    id int primary key AUTO_INCREMENT,
+    user_id int,
+    account_num VARCHAR(30)
+
+);
+
+create table category_tb (
+    id int primary key AUTO_INCREMENT,
+    category_name VARCHAR
+);
+
+create table review_tb (
+    id int primary key AUTO_INCREMENT,
+    user_id int,
+    star_rating int,
+    content VARCHAR(255),
+    image VARCHAR(255),
+    like_count int,
+    created_at TIMESTAMP
+);
+
+-- create table place_tb (
+--     id int primary key AUTO_INCREMENT,
+--     user_id int,
+--     title VARCHAR(255),
+--     address_id int,
+--     tel VARCHAR(255),
+--     review_id int,
+--     place_introduction_info VARCHAR,
+--     guide VARCHAR,
+--     max_people int,
+--     price_per_hour int,
+--     start_time timestamp,
+--     end_time timestamp,
+--     category_id int
 -- );
+
+
+
+
+--
+--
+-- create table chatroom_tb (
+--     id int primary key auto_increment,
+--     user_id int,
+--     place_id int,
+--     created_at timestamp not null,
+-- );
+--
+--
+create table search_tb (
+    id int AUTO_INCREMENT primary key,
+    user_id int,
+    keyword varchar(30),
+
+);
+--
+-- create table chat_tb (
+--     id int PRIMARY KEY AUTO_INCREMENT,
+--     user_id int,
+--     send varchar,
+--     chatroom_id int,
+--     created_at timestamp
+--
+-- );
+--
+--
+-- create table payment_tb (
+--     id int AUTO_INCREMENT PRIMARY KEY,
+--     user_id int,
+--     place_id int,
+--     reservation_id int,
+--     status VARCHAR(20) NOT NULL,
+--     total_price int NOT NULL,
+--     created_at TIMESTAMP
+--
+-- );
+--
+--
+-- create table notice_tb (
+--     id int AUTO_INCREMENT PRIMARY KEY,
+--     user_id int,
+--     place_id int,
+--     payment_id int,
+--     content VARCHAR(255) NOT NULL,
+--     status VARCHAR(20) NOT NULL,
+--
+-- );
+--
+create table date_tb
+(
+    id int PRIMARY KEY AUTO_INCREMENT
+    day_of_week varchar NOT NULL
+);
+--
+-- commit;
+
 
 -- 예약
 -- id pk int
@@ -19,16 +138,7 @@
 -- end_time string - 예약 마감 시간
 -- people_num int - 사람 수
 -- status enum - 예약 상태
--- -> 
-
--- 결제
--- id pk int
--- user User  - 유저 정보
--- place Place  - 공간 정보
--- reservation Reservation FK >- place.id - 예약 정보
--- status string FK >- Reservation.id - 결제 상태
--- total_price int - 전체 금액
--- -> 
+-- ->
 
 
 -- 계좌
@@ -67,14 +177,7 @@
 -- -> 
 
 
--- 주소
--- id pk int FK >- place.address
--- roadFullAddr string  - 도로명 주소
--- sggNm string  - 시군구명
--- zipNo string null - 우편번호
--- lat string null - 위도
--- lng string null - 경도
--- -> 
+
 
 -- 카테고리
 -- name - 카테고리별   - 이름 Enum
@@ -95,24 +198,14 @@
 -- chat_room_id int FK >- Chat_room.id - 채팅방 정보
 -- created_at timestamp - 시간
 
--- 채팅기록
--- chat_room_id int FK >- Chat_room.id - 채팅방 정보
 
 
--- 검색
--- id pk int
--- user_id int - 유저아이디
--- keyword string - 키워드  
--- ->enum으로 만들어서 키워드 정하고 클릭시 이동????
 
 
--- 알림
--- id pk int
--- user_id int FK >- User.id  - 유저아이디
--- place_id int FK >- Place.id  - 공간(호스트)아이디
--- Payment_total_price int FK >- Payment."..."  - 총결제금액
--- content string - 알림내용
--- status enum - 알림상태
+
+
+
+
 
 -- 스크랩
 -- id pk int

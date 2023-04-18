@@ -23,14 +23,17 @@ public class Notice {
 
     @Comment("유저 아이디")
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("호스트 아이디")
     @ManyToOne
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("결제의 총 금액")
     @OneToOne
+    @JoinColumn(name = "payment_id")
     // 결제테이블과 조인해서 총금액 받아오기
     private Payment payment;
 

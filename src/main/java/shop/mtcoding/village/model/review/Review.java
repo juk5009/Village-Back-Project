@@ -21,6 +21,7 @@ public class Review {
 
     @Comment("유저 정보")
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("별점")

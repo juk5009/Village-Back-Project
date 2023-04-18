@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import shop.mtcoding.village.model.user.User;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 public class UserRequest {
@@ -13,9 +14,10 @@ public class UserRequest {
     public static class JoinDTO {
         @NotEmpty(message = "nickname을 입력해주세요.")
         private String name;
-        @NotEmpty(message = "E-mail을 입력해주세요.")
+        @Email(message = "유효한 email 형식이 아닙니다.")
+        @NotEmpty(message = "email을 입력해주세요.")
         private String email;
-        @NotEmpty(message = "Password를 입력해주세요.")
+        @NotEmpty(message = "password 입력해주세요.")
         private String password;
 
         public User toEntity() {
@@ -32,6 +34,7 @@ public class UserRequest {
     @Setter
     public static class LoginDTO {
         @NotEmpty(message = "E-mail을 입력해주세요.")
+        @Email(message = "유효한 email 형식이 아닙니다.")
         private String email;
         @NotEmpty(message = "Password를 입력해주세요.")
         private String password;
