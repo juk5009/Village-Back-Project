@@ -69,32 +69,25 @@ public class Place {
     @Comment("마감 시간")
     private LocalTime endTime;
 
-    @Builder
-    public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, Dates dayOfWeek
-            , FacilityInfo facilityInfo, Hashtag hashtag, FileInfo fileInfo, Integer maxPeople, Integer pricePerHour, LocalTime startTime
-            , LocalTime endTime, Category category) {
-
+    public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople
+            , Integer pricePerHour, LocalTime startTime, LocalTime endTime) {
         this.user = user;
         this.title = title;
         this.address = address;
         this.tel = tel;
         this.placeIntroductionInfo = placeIntroductionInfo;
         this.notice = notice;
-        this.dayOfWeek = dayOfWeek;
-        this.facilityInfo = facilityInfo;
-        this.hashtag = hashtag;
         this.fileInfo = fileInfo;
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.category = category;
     }
 
+    @Builder
     public Place(String title, Address address, String tel, LocalTime startTime, LocalTime endTime,
                  String placeIntroductionInfo,
-                 Dates dayOfWeek, Hashtag hashtag, FacilityInfo facilityInfo,
-                 String notice, Integer maxPeople, Category category, Integer pricePerHour) {
+                 String notice, Integer maxPeople, Integer pricePerHour) {
         this.title = title;
         this.address = address;
         this.tel = tel;
@@ -104,16 +97,11 @@ public class Place {
         this.notice = notice;
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
-        this.category = category;
-        this.dayOfWeek = dayOfWeek;
-        this.hashtag = hashtag;
 //        this.fileInfo = fileInfo;
-        this.facilityInfo = facilityInfo;
     }
 
     public PlaceSaveResponse toResponse() {
-        return new PlaceSaveResponse(title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, Collections.singletonList(dayOfWeek)
-                , Collections.singletonList(hashtag), Collections.singletonList(facilityInfo), notice, maxPeople, pricePerHour, category);
+        return new PlaceSaveResponse(title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, notice);
     }
 
 

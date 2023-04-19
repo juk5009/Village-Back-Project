@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
-import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.core.exception.MyConstException;
 

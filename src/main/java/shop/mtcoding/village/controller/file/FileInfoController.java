@@ -17,6 +17,7 @@ import shop.mtcoding.village.service.FileInfoService;
 import shop.mtcoding.village.model.file.FileInfo;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/fileInfo")
@@ -34,7 +35,8 @@ public class FileInfoController {
         var content = page.getContent()
                 .stream()
                 .map(FileInfo::toDTO)
-                .toList();
+                .collect(Collectors.toList());
+
 
         return ResponseEntity.ok(
                 new PageImpl<>(content, pageable, page.getTotalElements())

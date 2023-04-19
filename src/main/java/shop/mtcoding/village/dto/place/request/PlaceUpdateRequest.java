@@ -94,9 +94,6 @@ public class PlaceUpdateRequest {
         place.setStartTime(startTime);
         place.setEndTime(endTime);
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
-        place.setDayOfWeek(date);
-        place.setFacilityInfo(facilityName);
-        place.setHashtag(hashtagName);
 //        place.setFileInfo(fileType);
 //        place.setReview((List<Review>) reviewList);
         place.setNotice(notice);
@@ -104,8 +101,7 @@ public class PlaceUpdateRequest {
         place.setPricePerHour(pricePerHour);
 //        place.setCategory(categoryName);
         return new Place(title, address, tel, startTime, endTime, placeIntroductionInfo
-                , date, hashtagName, facilityName
-                , notice, maxPeople, categoryName, pricePerHour);
+                , notice, maxPeople, pricePerHour);
     }
 
 
