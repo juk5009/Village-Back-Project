@@ -29,7 +29,7 @@ public class Hashtag {
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "placeId")
+    @JoinColumn(name = "place_id")
     @JsonIgnore
     private Place placeId;
 

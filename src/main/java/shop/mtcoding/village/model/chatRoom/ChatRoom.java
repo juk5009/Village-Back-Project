@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "chatRoom_tb")
+@Table(name = "chat_room_tb")
 public class ChatRoom {
 
     @Id

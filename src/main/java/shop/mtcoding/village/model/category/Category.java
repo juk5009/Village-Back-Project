@@ -21,10 +21,10 @@ public class Category {
 
     @Comment("카테고리 이름")
     // 연습실, 스터디룸, 공유오피스
-    private String name;
+    private String categoryName;
 
     @Builder
-    public Category(String name) {
-        this.name = name;
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

@@ -67,7 +67,7 @@ public class PlaceUpdateRequest {
         address.setRoadFullAddr(placeAddress);
 
         Category categoryName = new Category();
-        categoryName.setName(category);
+        categoryName.setCategoryName(category);
 
         Dates date = new Dates();
         String dayOfWeekAsString = String.join(",", dayOfWeek);

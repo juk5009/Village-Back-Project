@@ -9,13 +9,11 @@ import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.file.FileInfo;
 import shop.mtcoding.village.model.hashtag.Hashtag;
-import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.Collections;
-import java.util.List;
 
 
 @Entity
