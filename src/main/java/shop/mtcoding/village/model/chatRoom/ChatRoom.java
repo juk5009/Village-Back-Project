@@ -12,7 +12,8 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "chatroom_tb")
+@Table(name = "chat_room_tb")
+
 public class ChatRoom {
 
     @Id
@@ -21,12 +22,12 @@ public class ChatRoom {
     private Long id;
 
     @Comment("유저 아이디")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("호스트 아이디")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
 

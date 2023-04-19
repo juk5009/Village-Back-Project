@@ -20,7 +20,7 @@ public class Review {
     private Long id;
 
     @Comment("유저 정보")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

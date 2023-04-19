@@ -23,14 +23,13 @@ public class Category {
     // 연습실, 스터디룸, 공유오피스
     private String categoryName;
 
-//    @Comment("공간의 아이디")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "place_id")
-//    private Place placeId;
+    @Comment("공간의 아이디")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
+    private Place place;
 
     @Builder
     public Category(String categoryName) {
         this.categoryName = categoryName;
-
     }
 }

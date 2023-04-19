@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("계좌 JPA 테스트")
 public class AccountRepositoryTest {
 
     @Autowired
@@ -35,6 +37,7 @@ public class AccountRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("계좌 조회 테스트")
     void selectAll() {
         List<Account> accounts = accountRepository.findAll();
         Assertions.assertNotEquals(accounts.size(), 0);
@@ -45,6 +48,7 @@ public class AccountRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("계좌 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalAccount = this.accountRepository.findById(4L);
 
@@ -64,6 +68,7 @@ public class AccountRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("계좌 삽입 및 삭제 테스트")
     void insertAndDelete() {
         Account account = setUp("84845161515165");
         Optional<Account> findAccount = this.accountRepository.findById(account.getId());

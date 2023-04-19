@@ -2,6 +2,7 @@ package shop.mtcoding.village.model.reservation;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.core.jpa.BaseTime;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.ReservationStatus;
@@ -14,19 +15,23 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "reservation_tb")
-public class Reservation {
+public class Reservation extends BaseTime {
+
+    @Comment("예약 상태")
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("예약 아이디")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @Comment("예약한 유저 정보")
     private User user;
 
     @Comment("공간 정보")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
 
@@ -42,8 +47,7 @@ public class Reservation {
     @Comment("예약 인원수")
     private Integer peopleNum;
 
-    @Comment("예약 상태")
-    private ReservationStatus status;
+
 
     @Builder
     public Reservation(User user, Place place, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, Integer peopleNum, ReservationStatus status) {

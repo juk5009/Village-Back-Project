@@ -1,6 +1,6 @@
-package shop.mtcoding.village.dto.host;
+package shop.mtcoding.village.dto.host.response;
 
-public class HostResponse {
+public class HostSaveResponse {
     private String hostName;
 
     private String address;

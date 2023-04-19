@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,22 @@ import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.chat.Chat;
 import shop.mtcoding.village.model.chat.ChatRepository;
 import shop.mtcoding.village.model.chatRoom.ChatRoom;
+import shop.mtcoding.village.model.date.Dates;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
+import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("채팅 JPA 테스트")
 public class ChatRepositoryTest {
 
     @Autowired
@@ -44,6 +50,7 @@ public class ChatRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("채팅 조회 테스트")
     void selectAll() {
         List<Chat> chatList = chatRepository.findAll();
         Assertions.assertNotEquals(chatList.size(), 0);
@@ -54,6 +61,7 @@ public class ChatRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("채팅 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalChat = this.chatRepository.findById(4L);
 
@@ -74,6 +82,7 @@ public class ChatRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("채팅 삽입 및 삭제 테스트")
     void insertAndDelete() {
         Chat chat = setUpByChat("ssar");
         Optional<Chat> findAddress = this.chatRepository.findById(chat.getId());
@@ -104,14 +113,23 @@ public class ChatRepositoryTest {
         Category category = new Category().builder().name("이름").build();
         this.entityManager.persist(category);
 
+        Dates dates = new Dates().builder().dayOfWeekName("월요일").build();
+        this.entityManager.persist(dates);
 
-        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").review(review)
-                .placeIntroductionInfo("공간정보").guide("공간소개").facilityInfo("시설정보").hashtag("해시태그").image("사진").maxPeople(4).pricePerHour(30)
-                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now()).category(category).build();
+        FacilityInfo facilityName = new FacilityInfo().builder().facilityName("화장실").build();
+        this.entityManager.persist(facilityName);
+
+        Hashtag hashtagName = new Hashtag().builder().hashtagNames("연습실").build();
+        this.entityManager.persist(hashtagName);
+
+
+        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개").facilityInfo(facilityName)
+                .hashtag(hashtagName).startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).category(category).build();
         this.entityManager.persist(place);
 
         ChatRoom chatRoom = new ChatRoom(user, place);
         this.entityManager.persist(chatRoom);
+
         Chat chat = new Chat();
         chat.setUser(user);
         chat.setSend(send);

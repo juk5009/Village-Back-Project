@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
+import shop.mtcoding.village.model.date.Dates;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
+import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.review.Review;
@@ -19,11 +23,13 @@ import shop.mtcoding.village.model.user.UserRepository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("공간 JPA 테스트")
 public class PlaceRepositoryTest {
 
     @Autowired
@@ -38,28 +44,30 @@ public class PlaceRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE place_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        setUpByPlace("제목3","전번3", "공간정보3", "공간소개3", "시설정보3",
-                "해쉬태그3", "image3", 5, 30, LocalDateTime.now(), LocalDateTime.now());
+        setUpByPlace("공간 제목","010-1245-7878", "공간 정보", "공간 소개", "시설 정보",
+                "월요일", "해시태그", 5, 30, LocalDateTime.now(), LocalDateTime.now());
     }
 
     @Test
     @Transactional
+    @DisplayName("공간 조회 테스트")
     void selectAll() {
         List<Place> places = placeRepository.findAll();
         Assertions.assertNotEquals(places.size(), 0);
 
         Place place = places.get(0);
-        Assertions.assertEquals(place.getTitle(), "제목3");
+        Assertions.assertEquals(place.getTitle(), "공간 제목");
     }
 
     @Test
     @Transactional
+    @DisplayName("공간 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalPlace = this.placeRepository.findById(4L);
 
         if(optionalPlace.isPresent()) {
             var result = optionalPlace.get();
-            Assertions.assertEquals(result.getTitle(), "제목3");
+            Assertions.assertEquals(result.getTitle(), "공간 제목");
 
             var tel = "787878787778";
             result.setTel(tel);
@@ -73,6 +81,7 @@ public class PlaceRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("공간 삽입 및 삭제 테스트")
     void insertAndDelete() {
 
         Place place = setUpByPlace("제목3","전번3", "공간정보3", "공간소개3", "시설정보3",
@@ -81,7 +90,7 @@ public class PlaceRepositoryTest {
 
         if(findPlace.isPresent()) {
             var result = findPlace.get();
-            Assertions.assertEquals(result.getImage(), "image5");
+            Assertions.assertEquals(result.getTitle(), "제목3");
             entityManager.remove(place);
             Optional<Place> deleteReview = this.placeRepository.findById(place.getId());
             if (deleteReview.isPresent()) {
@@ -92,8 +101,8 @@ public class PlaceRepositoryTest {
         }
     }
 
-    private Place setUpByPlace(String title, String tel, String placeIntroductionInfo, String guide, String facilityInfo,
-                        String hashtag, String image, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
+    private Place setUpByPlace(String title, String tel, String placeIntroductionInfo, String facilityInfo, String notice, String dayOfWeek,
+                        String hashtag, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
 
@@ -104,23 +113,31 @@ public class PlaceRepositoryTest {
         this.entityManager.persist(review);
 
         Category category = new Category().builder().name("이름").build();
+        this.entityManager.persist(category);
 
+        Dates dates = new Dates().builder().dayOfWeekName(dayOfWeek).build();
+        this.entityManager.persist(dates);
+
+        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(facilityInfo).build();
+        this.entityManager.persist(facilityName);
+
+        Hashtag hashtagName = new Hashtag().builder().hashtagNames(hashtag).build();
+        this.entityManager.persist(hashtagName);
 
         var place = new Place();
         place.setUser(user);
         place.setTitle(title);
         place.setAddress(address);
         place.setTel(tel);
-        place.setReview(review);
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
-        place.setGuide(guide);
-        place.setFacilityInfo(facilityInfo);
-        place.setHashtag(hashtag);
-        place.setImage(image);
+        place.setNotice(notice);
+        place.setDayOfWeek(dates);
+        place.setFacilityInfo(facilityName);
+        place.setHashtag(hashtagName);
         place.setMaxPeople(maxPeople);
         place.setPricePerHour(pricePerHour);
-        place.setStartTime(startTime);
-        place.setEndTime(endTime);
+        place.setStartTime(LocalTime.from(startTime));
+        place.setEndTime(LocalTime.from(endTime));
         return this.entityManager.persist(place);
     }
 }

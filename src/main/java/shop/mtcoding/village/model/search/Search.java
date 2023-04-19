@@ -19,7 +19,7 @@ public class Search {
     private Long id;
 
     @Comment("유저 아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

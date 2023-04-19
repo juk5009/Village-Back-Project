@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
+import shop.mtcoding.village.model.date.Dates;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
+import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.payment.PaymentRepository;
 import shop.mtcoding.village.model.place.Place;
@@ -22,11 +26,13 @@ import shop.mtcoding.village.util.status.ReservationStatus;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("결제 JPA 테스트")
 public class PaymentRepositoryTest {
 
     @Autowired
@@ -46,6 +52,7 @@ public class PaymentRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("결제 조회 테스트")
     void selectAll() {
         List<Payment> paymentList = paymentRepository.findAll();
         Assertions.assertNotEquals(paymentList.size(), 0);
@@ -56,6 +63,7 @@ public class PaymentRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("결제 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalPayment = this.paymentRepository.findById(4L);
 
@@ -75,6 +83,7 @@ public class PaymentRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("결제 삽입 및 삭제 테스트")
     void insertAndDelete() {
         Payment payment = setUpByPayment (PaymentStatus.WAIT, 50000);
         Optional<Payment> findPayment = this.paymentRepository.findById(payment.getId());
@@ -94,65 +103,6 @@ public class PaymentRepositoryTest {
 
 
 
-    private User setUpByUser(String name, String password, String email, String tel, String role, String profile) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setTel(tel);
-        user.setRole(role);
-        user.setProfile(profile);
-        return this.entityManager.persist(user);
-    }
-    private Review setUpByReview(User user, Integer starRating, String content, String image, Integer likeCount) {
-        Review review = new Review();
-        review.setUser(user);
-        review.setStarRating(starRating);
-        review.setContent(content);
-        review.setImage(image);
-        review.setLikeCount(likeCount);
-        return this.entityManager.persist(review);
-    }
-    private Address setUpByAddress(String roadFullAddr, String sggNm, String zipNo, String lat, String lng) {
-        var address = new Address();
-        address.setRoadFullAddr(roadFullAddr);
-        address.setSggNm(sggNm);
-        address.setZipNo(zipNo);
-        address.setLat(lat);
-        address.setLng(lng);
-        return this.entityManager.persist(address);
-    }
-    private Place setUpByPlace(User user, String title, Address address, String tel, Review review, String placeIntroductionInfo, String guide, String facilityInfo,
-                        String hashtag, String image, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
-        var place = new Place();
-        place.setUser(user);
-        place.setTitle(title);
-        place.setAddress(address);
-        place.setTel(tel);
-        place.setReview(review);
-        place.setPlaceIntroductionInfo(placeIntroductionInfo);
-        place.setGuide(guide);
-        place.setFacilityInfo(facilityInfo);
-        place.setHashtag(hashtag);
-        place.setImage(image);
-        place.setMaxPeople(maxPeople);
-        place.setPricePerHour(pricePerHour);
-        place.setStartTime(startTime);
-        place.setEndTime(endTime);
-        return this.entityManager.persist(place);
-    }
-    private Reservation setUpByReservation(User user, Place place, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, Integer peopleNum, ReservationStatus status) {
-        var reservation = new Reservation();
-        reservation.setUser(user);
-        reservation.setPlace(place);
-        reservation.setDate(date);
-        reservation.setStartTime(startTime);
-        reservation.setEndTime(endTime);
-        reservation.setPeopleNum(peopleNum);
-        reservation.setStatus(status);
-        return  this.entityManager.persist(reservation);
-    }
-
     private Payment setUpByPayment(PaymentStatus status, Integer totalPrice){
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
@@ -166,9 +116,18 @@ public class PaymentRepositoryTest {
         Category category = new Category().builder().name("이름").build();
         this.entityManager.persist(category);
 
-        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").review(review)
-                .placeIntroductionInfo("공간정보").guide("공간소개").facilityInfo("시설정보").hashtag("해시태그").image("사진").maxPeople(4).pricePerHour(30)
-                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now()).category(category).build();
+        Dates dates = new Dates().builder().dayOfWeekName("월요일").build();
+        this.entityManager.persist(dates);
+
+        FacilityInfo facilityName = new FacilityInfo().builder().facilityName("화장실").build();
+        this.entityManager.persist(facilityName);
+
+        Hashtag hashtagName = new Hashtag().builder().hashtagNames("연습실").build();
+        this.entityManager.persist(hashtagName);
+
+
+        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개").facilityInfo(facilityName)
+                .hashtag(hashtagName).startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).category(category).build();
         this.entityManager.persist(place);
 
         Reservation reservation = new Reservation().builder().user(user).place(place).date(LocalDateTime.now()).startTime(LocalDateTime.now()).endTime(LocalDateTime.now())

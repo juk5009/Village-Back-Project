@@ -43,25 +43,19 @@ insert into scrap_tb (user_id, place_id, count) values(1, 1, 3);
 insert into scrap_tb (user_id, place_id, count) values(1, 2, 5);
 insert into scrap_tb (user_id, place_id, count) values(2, 1, 4);
 
-
-
-
-
-insert into chatroom_tb (user_id, place_id, created_at) values (1, 1, NOW());
-insert into chatroom_tb (user_id, place_id, created_at) values (2, 2, NOW());
-insert into chatroom_tb (user_id, place_id, created_at) values (3, 3, NOW());
-
+insert into chat_room_tb (user_id, place_id, created_at) values (1, 1, NOW());
+insert into chat_room_tb (user_id, place_id, created_at) values (2, 2, NOW());
+insert into chat_room_tb (user_id, place_id, created_at) values (3, 3, NOW());
 
 insert into search_tb (user_id, keyword) values (1, '연습실');
 insert into search_tb (user_id, keyword) values (1, '스터디룸');
 insert into search_tb (user_id, keyword) values (1, '커피숍');
---
-insert into chat_tb (user_id, send, chatroom_id, created_at) values (1, '안녕하세요!', 1, NOW());
-insert into chat_tb (user_id, send, chatroom_id, created_at) values (2, '반갑습니다!', 1, NOW());
-insert into chat_tb (user_id, send, chatroom_id, created_at) values (1, '어디에 계시나요?', 1, NOW());
-insert into chat_tb (user_id, send, chatroom_id, created_at) values (2, '서울에 있습니다.', 1, NOW());
---
---
+
+insert into chat_tb (user_id, send, chat_room_id, created_at) values (1, '안녕하세요!', 1, NOW());
+insert into chat_tb (user_id, send, chat_room_id, created_at) values (2, '반갑습니다!', 1, NOW());
+insert into chat_tb (user_id, send, chat_room_id, created_at) values (1, '어디에 계시나요?', 1, NOW());
+insert into chat_tb (user_id, send, chat_room_id, created_at) values (2, '서울에 있습니다.', 1, NOW());
+
 -- insert into payment_tb (user_id, place_id, reservation_id, status, total_price) values (1, 1, 1, '결제완료', 30000);
 -- insert into payment_tb (user_id, place_id, reservation_id, status, total_price) values (1, 1, 1, '결제대기', 20000);
 -- insert into payment_tb (user_id, place_id, reservation_id, status, total_price) values (1, 1, 1, '환불완료', 10000);
@@ -70,11 +64,6 @@ insert into dates_tb (day_of_week_name) values ('월요일');
 insert into dates_tb (day_of_week_name) values ('화요일');
 insert into dates_tb (day_of_week_name) values ('수요일');
 
-
-
-
-
---
 -- insert into notice_tb (user_id, place_id, payment_id, content, status) values (1, 1, 1, '내용1', 'WAIT');
 -- insert into notice_tb (user_id, place_id, payment_id, content, status) values (2, 2, 2, '내용2', 'WAIT');
 -- insert into notice_tb (user_id, place_id, payment_id, content, status) values (3, 3, 3, '내용3', 'WAIT');

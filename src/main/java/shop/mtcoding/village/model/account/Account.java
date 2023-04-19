@@ -18,7 +18,7 @@ public class Account {
     private Long id;
 
     @Comment("계좌 유저아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

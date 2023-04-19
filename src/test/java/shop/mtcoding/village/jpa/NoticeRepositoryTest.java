@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
+import shop.mtcoding.village.model.date.Dates;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
+import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.notice.Notice;
 import shop.mtcoding.village.model.notice.NoticeRepository;
 import shop.mtcoding.village.model.payment.Payment;
@@ -24,11 +28,13 @@ import shop.mtcoding.village.util.status.ReservationStatus;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("알림 JPA 테스트")
 public class NoticeRepositoryTest {
 
     @Autowired
@@ -49,6 +55,7 @@ public class NoticeRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("알림 조회 테스트")
     void selectAll() {
         List<Notice> notices = noticeRepository.findAll();
         Assertions.assertNotEquals(notices.size(), 0);
@@ -59,6 +66,7 @@ public class NoticeRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("알림 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalNotice = this.noticeRepository.findById(4L);
 
@@ -79,6 +87,7 @@ public class NoticeRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("알림 삽입 및 삭제 테스트")
     void insertAndDelete() {
         Notice notice = setUpByNotice("내용5", NoticeStatus.WAIT);
 
@@ -110,10 +119,18 @@ public class NoticeRepositoryTest {
         Category category = new Category().builder().name("이름").build();
         this.entityManager.persist(category);
 
+        Dates dates = new Dates().builder().dayOfWeekName("월요일").build();
+        this.entityManager.persist(dates);
 
-        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").review(review)
-                .placeIntroductionInfo("공간정보").guide("공간소개").facilityInfo("시설정보").hashtag("해시태그").image("사진").maxPeople(4).pricePerHour(30)
-                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now()).category(category).build();
+        FacilityInfo facilityName = new FacilityInfo().builder().facilityName("화장실").build();
+        this.entityManager.persist(facilityName);
+
+        Hashtag hashtagName = new Hashtag().builder().hashtagNames("연습실").build();
+        this.entityManager.persist(hashtagName);
+
+
+        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개").facilityInfo(facilityName)
+                .hashtag(hashtagName).startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).category(category).build();
         this.entityManager.persist(place);
 
         Reservation reservation = new Reservation().builder().user(user).place(place).date(LocalDateTime.now()).startTime(LocalDateTime.now()).endTime(LocalDateTime.now())

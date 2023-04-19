@@ -22,7 +22,7 @@ public class Chat {
     private Long id;
 
     @Comment("유저(호스트)아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -30,7 +30,7 @@ public class Chat {
     private String send;
 
     @Comment("채팅방 아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chatroom_id")
     private ChatRoom chatRoom;
 

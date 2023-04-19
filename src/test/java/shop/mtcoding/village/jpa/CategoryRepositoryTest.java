@@ -2,6 +2,7 @@ package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
+@DisplayName("카테고리 JPA 테스트")
 public class CategoryRepositoryTest {
 
     @Autowired
@@ -39,6 +41,7 @@ public class CategoryRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("카테고리 조회 테스트")
     void selectAll() {
         List<Category> categories = categoryRepository.findAll();
         Assertions.assertNotEquals(categories.size(), 0);
@@ -49,6 +52,7 @@ public class CategoryRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("카테고리 조회 및 수정 테스트")
     void selectAndUpdate() {
         var optionalCategory = this.categoryRepository.findById(4L);
 
@@ -68,6 +72,7 @@ public class CategoryRepositoryTest {
 
     @Test
     @Transactional
+    @DisplayName("카테고리 삽입 및 삭제 테스트")
     void insertAndDelete() {
         Category category = setUp("운동시설3");
         Optional<Category> findAddress = this.categoryRepository.findById(category.getId());

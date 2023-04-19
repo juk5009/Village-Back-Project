@@ -2,6 +2,7 @@ package shop.mtcoding.village.model.notice;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.core.jpa.BaseTime;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "notice_tb")
-public class Notice {
+public class Notice extends BaseTime{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +23,17 @@ public class Notice {
     private Long id;
 
     @Comment("유저 아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("호스트 아이디")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("결제의 총 금액")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     // 결제테이블과 조인해서 총금액 받아오기
     private Payment payment;
@@ -41,6 +42,7 @@ public class Notice {
     private String content;
 
     @Comment("알림 상태")
+    @Enumerated(EnumType.STRING)
     private NoticeStatus status;
 
     @Builder
