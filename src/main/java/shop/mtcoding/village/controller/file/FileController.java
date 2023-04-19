@@ -34,7 +34,7 @@ public class FileController {
         var content = page.getContent()
                 .stream()
                 .map(File::toDTO)
-                .toList();
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(
                 new PageImpl<>(content, pageable, page.getTotalElements())

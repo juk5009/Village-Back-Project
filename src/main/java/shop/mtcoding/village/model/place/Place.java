@@ -14,6 +14,7 @@ import shop.mtcoding.village.model.user.User;
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.Collections;
+import java.util.List;
 
 
 @Entity
@@ -39,7 +40,7 @@ public class Place {
     private String title;
 
     @Comment("공간 주소")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -101,9 +102,25 @@ public class Place {
     }
 
     public PlaceSaveResponse toResponse() {
-        return new PlaceSaveResponse(title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, notice);
-    }
 
+        Dates dates = new Dates();
+        System.out.println("디버그@@@@@" + dates);
+        List<String> dayOfWeek = dates.getDayOfWeekName();
+
+        Hashtag hashtag = new Hashtag();
+        List<String> hashtagName = hashtag.getHashtagName();
+
+        FacilityInfo facilityInfo = new FacilityInfo();
+        List<String> facilityName = facilityInfo.getFacilityName();
+
+        Category category = new Category();
+        String categoryName = category.getCategoryName();
+
+        return new PlaceSaveResponse(
+                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, notice,
+                dayOfWeek, hashtagName, facilityName, categoryName
+        );
+    }
 
 
 }

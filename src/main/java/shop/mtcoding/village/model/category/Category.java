@@ -6,6 +6,7 @@ import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,7 +21,6 @@ public class Category {
     private Long id;
 
     @Comment("카테고리 이름")
-    // 연습실, 스터디룸, 공유오피스
     private String categoryName;
 
     @Comment("공간의 아이디")
@@ -29,7 +29,9 @@ public class Category {
     private Place place;
 
     @Builder
-    public Category(String categoryName) {
+
+    public Category(String categoryName, Place place) {
         this.categoryName = categoryName;
+        this.place = place;
     }
 }

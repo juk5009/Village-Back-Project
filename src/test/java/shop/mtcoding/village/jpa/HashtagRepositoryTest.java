@@ -13,11 +13,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
-import shop.mtcoding.village.model.date.DateRepository;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.hashtag.Hashtag;
-import shop.mtcoding.village.model.hashtag.HashtagInfoRepository;
+import shop.mtcoding.village.model.hashtag.HashtagRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
@@ -34,7 +33,7 @@ import java.util.Optional;
 public class HashtagRepositoryTest {
 
     @Autowired
-    private HashtagInfoRepository hashtagInfoRepository;
+    private HashtagRepository hashtagInfoRepository;
 
     @Autowired
     private TestEntityManager entityManager;

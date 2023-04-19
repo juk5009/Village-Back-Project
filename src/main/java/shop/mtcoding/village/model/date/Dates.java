@@ -7,6 +7,7 @@ import shop.mtcoding.village.dto.date.response.DateSaveResponse;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,23 +23,22 @@ public class Dates {
 //    @JsonIgnore
     private Long id;
 
+    @ElementCollection
+    @CollectionTable(name = "day_of_week_name", joinColumns = @JoinColumn(name = "dates_id"))
+    @Column(name = "name")
     @Comment("요일")
-    private String dayOfWeekName;
+    private List<String> dayOfWeekName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "placeId")
     @JsonIgnore
-    private Place placeId;
-
+    private Place place;
 
     @Builder
-    public Dates(String dayOfWeekName, Place placeId) {
-        this.dayOfWeekName = dayOfWeekName.toString();
-        this.placeId = placeId;
+    public Dates(List<String> dayOfWeekName, Place place) {
+        this.dayOfWeekName = dayOfWeekName;
+        this.place = place;
     }
 
-    public DateSaveResponse toResponse() {
-        return new DateSaveResponse(dayOfWeekName);
-    }
 }

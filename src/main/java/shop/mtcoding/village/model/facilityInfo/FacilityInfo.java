@@ -9,6 +9,7 @@ import org.hibernate.annotations.Comment;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,17 +24,20 @@ public class FacilityInfo {
     private Long id;
 
     @Comment("편의시설 이름")
-    private String facilityName;
+    @ElementCollection
+    @CollectionTable(name = "facility_name", joinColumns = @JoinColumn(name = "facility_id"))
+    @Column(name = "name")
+    private List<String> facilityName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     @JsonIgnore
-    private Place placeId;
+    private Place place;
 
     @Builder
-    public FacilityInfo(String facilityName, Place placeId) {
+    public FacilityInfo(List<String> facilityName, Place place) {
         this.facilityName = facilityName;
-        this.placeId = placeId;
+        this.place = place;
     }
 }

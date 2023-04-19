@@ -1,14 +1,26 @@
 package shop.mtcoding.village.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
+import shop.mtcoding.village.dto.date.request.DateSaveDTO;
+import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
+import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
+import shop.mtcoding.village.model.category.CategoryRepository;
+import shop.mtcoding.village.model.date.DateRepository;
+import shop.mtcoding.village.model.date.Dates;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfoRepository;
+import shop.mtcoding.village.model.hashtag.HashtagRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceRepository;
+import shop.mtcoding.village.model.review.ReviewRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,14 +30,33 @@ public class PlaceService {
 
     private final PlaceRepository placeRepository;
 
+    private final DateRepository dateRepository;
 
+    private final HashtagRepository hashtagRepository;
+
+    private final FacilityInfoRepository facilityInfoRepository;
+
+    private final ReviewRepository reviewRepository;
+
+    private final CategoryRepository categoryRepository;
 
     @Transactional
     public Place 공간등록하기(PlaceSaveRequest placeRequest) {
 
-        Place save = placeRepository.save(placeRequest.toEntity());
+        // 카테고리 insert
+        categoryRepository.save(placeRequest.getCategory().toEntity());
 
-        return placeRepository.findAllWithDate(save.getId());
+        // 요일 날짜 insert
+        dateRepository.save(placeRequest.getDayOfWeek().toEntity());
+        System.out.println("디버그 service : " + placeRequest.getDayOfWeek().toEntity());
+
+        // 해시태그 insert
+        hashtagRepository.save(placeRequest.getHashtag().toEntity());
+
+        // 편의 시설 insert
+        facilityInfoRepository.save(placeRequest.getFacilityInfo().toEntity());
+
+        return placeRepository.save(placeRequest.toEntity());
 
     }
 
@@ -43,5 +74,7 @@ public class PlaceService {
         return placeRepository.save(placeUpdateRequest.toEntity());
     }
 
-
+    public Page<Place> getPage(Pageable pageable) {
+        return placeRepository.findAll(pageable);
+    }
 }

@@ -16,7 +16,6 @@ import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfoRepository;
 import shop.mtcoding.village.model.hashtag.Hashtag;
-import shop.mtcoding.village.model.hashtag.HashtagInfoRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
