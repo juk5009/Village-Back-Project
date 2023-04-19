@@ -22,10 +22,12 @@ public class Scrap {
 
     @Comment("유저 아이디")
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
     @Comment("공간 아이디")
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("스크랩 수")

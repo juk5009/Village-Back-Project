@@ -1,10 +1,12 @@
 package shop.mtcoding.village.model.facilityInfo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
 
@@ -24,10 +26,13 @@ public class FacilityInfo {
     private String facilityName;
 
     @Comment("공간의 아이디")
-    private Long placeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
+    @JsonIgnore
+    private Place placeId;
 
     @Builder
-    public FacilityInfo(String facilityName, Long placeId) {
+    public FacilityInfo(String facilityName, Place placeId) {
         this.facilityName = facilityName;
         this.placeId = placeId;
     }

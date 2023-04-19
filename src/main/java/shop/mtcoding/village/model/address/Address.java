@@ -16,26 +16,26 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("주소 아이디")
-    @JsonIgnore
+//    @JsonIgnore
     private Long id;
 
     @Comment("도로명 주소")
     private String roadFullAddr;
 
     @Comment("시군구명")
-    @JsonIgnore
+//    @JsonIgnore
     private String sggNm;
 
     @Comment("우편번호")
-    @JsonIgnore
+//    @JsonIgnore
     private String zipNo;
 
     @Comment("경도")
-    @JsonIgnore
+//    @JsonIgnore
     private String lat;
 
     @Comment("위도")
-    @JsonIgnore
+//    @JsonIgnore
     private String lng;
 
     @Builder

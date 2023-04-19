@@ -67,7 +67,7 @@ public class PlaceUpdateRequest {
         address.setRoadFullAddr(placeAddress);
 
         Category categoryName = new Category();
-        categoryName.setName(category);
+        categoryName.setCategoryName(category);
 
         Dates date = new Dates();
         String dayOfWeekAsString = String.join(",", dayOfWeek);
@@ -102,7 +102,7 @@ public class PlaceUpdateRequest {
         place.setNotice(notice);
         place.setMaxPeople(maxPeople);
         place.setPricePerHour(pricePerHour);
-        place.setCategory(categoryName);
+//        place.setCategory(categoryName);
         return new Place(title, address, tel, startTime, endTime, placeIntroductionInfo
                 , date, hashtagName, facilityName
                 , notice, maxPeople, categoryName, pricePerHour);
