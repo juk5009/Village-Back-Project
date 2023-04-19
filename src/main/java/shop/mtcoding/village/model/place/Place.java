@@ -42,6 +42,7 @@ public class Place {
 
     @Comment("공간 주소")
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Comment("공간 전화번호")
@@ -63,20 +64,22 @@ public class Place {
 
     @Comment("요일 정보")
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dayOfWeek")
+    @JoinColumn(name = "day_of_week_id")
     private Dates dayOfWeek;
 
     @Comment("시설 정보")
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "facility_info_id")
     private FacilityInfo facilityInfo;
 
     @Comment("공간 해시태그")
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "hashtag")
+    @JoinColumn(name = "hashtag_id")
     private Hashtag hashtag;
 
     @Comment("공간 사진")
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_info_id")
     private FileInfo fileInfo;
 
     @Comment("공간의 최대 인원수")
@@ -92,10 +95,8 @@ public class Place {
     private LocalTime endTime;
 
     @Comment("공간별 카테고리")
-
-   
-
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Builder

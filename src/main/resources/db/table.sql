@@ -1,11 +1,11 @@
 create table user_tb (
     id int auto_increment primary key,
-    name varchar(30) unique not null,
-    password varchar(30) not null,
-    email varchar(30) unique not null,
-    tel varchar(30),
+    name varchar(255) unique not null,
+    password varchar(255) not null,
+    email varchar(255) unique not null,
+    tel varchar(255),
     role varchar,
-    profile varchar(30),
+    profile varchar(255),
     created_at timestamp
 );
 
@@ -13,15 +13,15 @@ create table user_tb (
 create table address_tb (
     id int primary key auto_increment,
     road_full_addr varchar(255),
-    sgg_nm varchar(30),
-    zip_no varchar(30),
-    lat varchar(30),
-    lng varchar(30)
+    sgg_nm varchar(255),
+    zip_no varchar(255),
+    lat varchar(255),
+    lng varchar(255)
 );
 
 create table facility_info_tb (
     id int primary key AUTO_INCREMENT,
-    facility_name varchar(30)
+    facility_name varchar(255)
 );
 
 create table hashtag_tb (
@@ -32,14 +32,15 @@ create table hashtag_tb (
 
 create table account_tb (
     id int primary key AUTO_INCREMENT,
-    user_id int,
-    account_num VARCHAR(30)
+    user_id int not null,
+    account_num VARCHAR(255) not null
 
 );
 
 create table category_tb (
     id int primary key AUTO_INCREMENT,
-    category_name VARCHAR
+    category_name VARCHAR,
+
 );
 
 create table review_tb (
@@ -52,50 +53,62 @@ create table review_tb (
     created_at TIMESTAMP
 );
 
--- create table place_tb (
---     id int primary key AUTO_INCREMENT,
---     user_id int,
---     title VARCHAR(255),
---     address_id int,
---     tel VARCHAR(255),
---     review_id int,
---     place_introduction_info VARCHAR,
---     guide VARCHAR,
---     max_people int,
---     price_per_hour int,
---     start_time timestamp,
---     end_time timestamp,
---     category_id int
--- );
+create table place_tb (
+    id int primary key AUTO_INCREMENT,
+    user_id int,
+    title varchar(255),
+    address_id int,
+    tel varchar(255),
+    notice varchar,
+    place_introduction_info varchar,
+    max_people int,
+    price_per_hour int,
+    start_time timestamp,
+    end_time timestamp,
+    category_id int
+);
+
+create table reservation_tb (
+    id int primary key AUTO_INCREMENT,
+    user_id int,
+    place_id int,
+    date timestamp,
+    start_time timestamp,
+    end_time timestamp,
+    people_num int
+);
+
+CREATE TABLE scrap_tb (
+    id int primary key AUTO_INCREMENT,
+    user_id int,
+    place_id int,
+    count int
+);
 
 
-
-
---
---
--- create table chatroom_tb (
---     id int primary key auto_increment,
---     user_id int,
---     place_id int,
---     created_at timestamp not null,
--- );
+create table chatroom_tb (
+    id int primary key auto_increment,
+    user_id int not null,
+    place_id int not null,
+    created_at timestamp not null,
+);
 --
 --
 create table search_tb (
     id int AUTO_INCREMENT primary key,
     user_id int,
-    keyword varchar(30),
+    keyword varchar(255),
 
 );
---
--- create table chat_tb (
---     id int PRIMARY KEY AUTO_INCREMENT,
---     user_id int,
---     send varchar,
---     chatroom_id int,
---     created_at timestamp
---
--- );
+
+create table chat_tb (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    user_id int not null,
+    send varchar,
+    chatroom_id int not null,
+    created_at timestamp
+
+);
 --
 --
 -- create table payment_tb (
@@ -120,10 +133,10 @@ create table search_tb (
 --
 -- );
 --
-create table date_tb
+create table dates_tb
 (
-    id int PRIMARY KEY AUTO_INCREMENT
-    day_of_week varchar NOT NULL
+    id int PRIMARY KEY AUTO_INCREMENT,
+    day_of_week_name varchar NOT NULL,
 );
 --
 -- commit;

@@ -27,6 +27,7 @@ public class Reservation {
 
     @Comment("공간 정보")
     @ManyToOne
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("예약 날짜")
