@@ -32,6 +32,7 @@ public class Reservation extends BaseTime {
 
     @Comment("공간 정보")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("예약 날짜")

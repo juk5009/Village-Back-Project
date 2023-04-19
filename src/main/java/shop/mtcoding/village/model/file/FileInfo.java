@@ -15,6 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "file_info_tb")
 public class FileInfo extends BaseTime {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("고유번호")

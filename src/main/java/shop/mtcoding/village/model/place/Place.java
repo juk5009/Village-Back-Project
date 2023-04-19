@@ -32,6 +32,7 @@ public class Place {
 
     @Comment("유저(호스트) 정보")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("공간 제목")
@@ -39,14 +40,11 @@ public class Place {
 
     @Comment("공간 주소")
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Comment("공간 전화번호")
     private String tel;
-
-//    @Comment("공간 리뷰정보")
-//    @OneToMany
-//    private List<Review> review;
 
     @Comment("공간 정보")
     private String placeIntroductionInfo;
@@ -54,22 +52,9 @@ public class Place {
     @Comment("공간 소개")
     private String notice;
 
-    @Comment("요일 정보")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dayOfWeek")
-    private Dates dayOfWeek;
-
-    @Comment("시설 정보")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FacilityInfo facilityInfo;
-
-    @Comment("공간 해시태그")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hashtag")
-    private Hashtag hashtag;
-
     @Comment("공간 사진")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_info_id")
     private FileInfo fileInfo;
 
     @Comment("공간의 최대 인원수")
@@ -84,14 +69,11 @@ public class Place {
     @Comment("마감 시간")
     private LocalTime endTime;
 
-    @Comment("공간별 카테고리")
-    @OneToOne(fetch = FetchType.LAZY)
-    private Category category;
-
     @Builder
     public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, Dates dayOfWeek
             , FacilityInfo facilityInfo, Hashtag hashtag, FileInfo fileInfo, Integer maxPeople, Integer pricePerHour, LocalTime startTime
             , LocalTime endTime, Category category) {
+
         this.user = user;
         this.title = title;
         this.address = address;

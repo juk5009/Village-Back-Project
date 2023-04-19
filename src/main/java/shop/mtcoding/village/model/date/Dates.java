@@ -19,7 +19,7 @@ public class Dates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("날짜 아이디")
-    @JsonIgnore
+//    @JsonIgnore
     private Long id;
 
     @Comment("요일")

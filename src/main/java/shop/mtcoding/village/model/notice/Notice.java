@@ -24,14 +24,17 @@ public class Notice extends BaseTime{
 
     @Comment("유저 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("호스트 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("결제의 총 금액")
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_id")
     // 결제테이블과 조인해서 총금액 받아오기
     private Payment payment;
 

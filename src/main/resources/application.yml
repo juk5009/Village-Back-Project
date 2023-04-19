@@ -1,3 +1,13 @@
+sentry:
+  enable-tracing: true
+  integrations:
+    - io.sentry.spring.boot.SentrySpringBootIntegration
+  environment: development
+  logging:
+    minimum-event-level: "WARN"
+    minimum-breadcrumb-level: "INFO"  
+  dsn: https://56ab2b3b2d344c9cac66ca3d3fa4efe1@o4504986976124928.ingest.sentry.io/4504986986217472
+
 server:
   port: 8080
   # port: 80
@@ -36,12 +46,12 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-  #  sql:
-  #    init:
-  #      schema-locations:
-  #         - classpath:db/table.sql
-  #      data-locations:
-  #       - classpath:db/data.sql
+#  sql:
+#    init:
+#      schema-locations:
+#         - classpath:db/table.sql
+#      data-locations:
+#       - classpath:db/data.sql
   h2:
     console:
       enabled: true

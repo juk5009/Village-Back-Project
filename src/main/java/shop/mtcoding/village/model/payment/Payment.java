@@ -23,14 +23,17 @@ public class Payment {
 
     @Comment("유저 정보")
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("공간 정보")
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @Comment("예약 정보")
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
     @Comment("결제 상태")

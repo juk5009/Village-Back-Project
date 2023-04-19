@@ -20,6 +20,7 @@ public class Search {
 
     @Comment("유저 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("검색 키워드")

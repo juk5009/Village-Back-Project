@@ -23,6 +23,7 @@ public class Chat {
 
     @Comment("유저(호스트)아이디")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("채팅글")
@@ -30,6 +31,7 @@ public class Chat {
 
     @Comment("채팅방 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chatroom_id")
     private ChatRoom chatRoom;
 
     @Comment("채팅한 시간")
