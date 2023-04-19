@@ -31,7 +31,7 @@ public class Chat {
 
     @Comment("채팅방 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chatroom_id")
+    @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
     @Comment("채팅한 시간")

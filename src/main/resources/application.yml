@@ -1,7 +1,7 @@
 sentry:
   enable-tracing: true
-  integrations:
-    - io.sentry.spring.boot.SentrySpringBootIntegration
+#  integrations:
+#    - io.sentry.spring.boot.SentrySpringBootIntegration
   environment: development
   logging:
     minimum-event-level: "WARN"

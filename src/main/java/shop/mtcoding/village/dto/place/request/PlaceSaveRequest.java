@@ -105,18 +105,13 @@ public class PlaceSaveRequest {
         place.setStartTime(startTime);
         place.setEndTime(endTime);
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
-        place.setDayOfWeek(date);
-        place.setFacilityInfo(facilityName);
-        place.setHashtag(hashtagName);
 //        place.setFileInfo(fileType);
 //        place.setReview((List<Review>) reviewList);
         place.setNotice(notice);
         place.setMaxPeople(maxPeople);
         place.setPricePerHour(pricePerHour);
 //        place.setCategory(categoryName);
-        return new Place(title, address, tel, startTime, endTime, placeIntroductionInfo
-                , date, hashtagName, facilityName
-                , notice, maxPeople, categoryName, pricePerHour);
+        return new Place(title, address, tel, startTime, endTime, placeIntroductionInfo, notice, maxPeople, pricePerHour);
     }
 
 

@@ -25,40 +25,28 @@ public class PlaceSaveResponse {
 
     private String placeIntroductionInfo;
 
-    private List<Dates> dayOfWeek;
-
     private Integer maxPeople;
 
     private Integer pricePerHour;
 
-    private Category category;
-
     private String notice;
-
-    private List<FacilityInfo> facilityInfo;
-
-    private List<Hashtag> hashtag;
 //
 //    private List<FileInfo> fileInfo;
 //    @Null
 //    private List<Review> review;
 
 
-    public PlaceSaveResponse(String title, Address roadFullAddr, String tel, String startTime, String endTime, String placeIntroductionInfo, List<Dates> dayOfWeekName
-           , List<Hashtag> hashtag, List<FacilityInfo> facilityInfo, String notice, Integer maxPeople, Integer pricePerHour, Category name) {
+    public PlaceSaveResponse(String title, Address placeAddress, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople
+            , Integer pricePerHour, String notice) {
         this.title = title;
-        this.placeAddress = roadFullAddr;
+        this.placeAddress = placeAddress;
         this.tel = tel;
         this.startTime = startTime;
         this.endTime = endTime;
         this.placeIntroductionInfo = placeIntroductionInfo;
-        this.dayOfWeek = dayOfWeekName;
-        this.hashtag = hashtag;
-        this.facilityInfo = facilityInfo;
-//        this.fileInfo = fileInfo;
-        this.notice = notice;
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
-        this.category = name;
+        this.notice = notice;
     }
+
 }
