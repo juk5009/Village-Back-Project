@@ -1,8 +1,12 @@
 package shop.mtcoding.village.model.place;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
+import shop.mtcoding.village.dto.place.response.PlaceUpdateResponse;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.date.Dates;
@@ -34,6 +38,7 @@ public class Place {
     @Comment("유저(호스트) 정보")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @Comment("공간 제목")
@@ -42,6 +47,7 @@ public class Place {
     @Comment("공간 주소")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Address address;
 
     @Comment("공간 전화번호")
@@ -101,22 +107,33 @@ public class Place {
 //        this.fileInfo = fileInfo;
     }
 
-    public PlaceSaveResponse toResponse() {
+    public PlaceSaveResponse toResponse(Dates dates, Hashtag hashtag, FacilityInfo facilityInfo, Category category) {
 
-        Dates dates = new Dates();
-        System.out.println("디버그@@@@@" + dates);
         List<String> dayOfWeek = dates.getDayOfWeekName();
 
-        Hashtag hashtag = new Hashtag();
         List<String> hashtagName = hashtag.getHashtagName();
 
-        FacilityInfo facilityInfo = new FacilityInfo();
         List<String> facilityName = facilityInfo.getFacilityName();
 
-        Category category = new Category();
         String categoryName = category.getCategoryName();
 
         return new PlaceSaveResponse(
+                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, notice,
+                dayOfWeek, hashtagName, facilityName, categoryName
+        );
+    }
+
+    public PlaceUpdateResponse toUpdateResponse(Dates dates, Hashtag hashtag, FacilityInfo facilityInfo, Category category) {
+
+        List<String> dayOfWeek = dates.getDayOfWeekName();
+
+        List<String> hashtagName = hashtag.getHashtagName();
+
+        List<String> facilityName = facilityInfo.getFacilityName();
+
+        String categoryName = category.getCategoryName();
+
+        return new PlaceUpdateResponse(
                 title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, notice,
                 dayOfWeek, hashtagName, facilityName, categoryName
         );

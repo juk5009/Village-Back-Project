@@ -1,6 +1,10 @@
 package shop.mtcoding.village.dto.place.request;
 
 import lombok.Getter;
+import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
+import shop.mtcoding.village.dto.date.request.DateSaveDTO;
+import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
+import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.date.Dates;
@@ -8,6 +12,7 @@ import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
 
+import javax.persistence.ElementCollection;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
@@ -23,6 +28,7 @@ public class PlaceUpdateRequest {
     @NotBlank(message = "주소을 입력해주세요.")
     private String placeAddress;
 
+    //    @Null
     private String tel;
 
     @NotNull(message = "대여 가능 시작시간을 입력해주세요.")
@@ -46,46 +52,22 @@ public class PlaceUpdateRequest {
     // 다른 엔티티들
 
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
-    private List<String> dayOfWeek;
+    @ElementCollection
+    private DateSaveDTO dayOfWeek;
 
-    private List<String> hashtag;
+    //    @Null
+    private HashtagSaveDTO hashtag;
 
-    private List<String> facilityInfo;
+    //    @Null
+    private FacilityInfoSaveDTO facilityInfo;
 
     @NotNull(message = "카테고리를 등록해주세요.")
-    private String category;
+    private CategorySaveDTO category;
 
-    public Place toEntity() {
+    public Place toEntity(){
 
         Address address = new Address();
         address.setRoadFullAddr(placeAddress);
-
-        Category categoryName = new Category();
-        categoryName.setCategoryName(category);
-
-        Dates date = new Dates();
-        List<String> dates = new ArrayList<>();
-        String[] dayOfWeeks = {""};
-        for (String dayOfWeek : dayOfWeeks) {
-            dates.add(dayOfWeek);
-        }
-        date.setDayOfWeekName(dayOfWeek);
-
-        FacilityInfo facilityName = new FacilityInfo();
-        List<String> facility = new ArrayList<>();
-        String[] facilityNames = {""};
-        for (String facilityInfo : facilityNames) {
-            facility.add(facilityInfo);
-        }
-        facilityName.setFacilityName(facilityInfo);
-
-        Hashtag hashtagName = new Hashtag();
-        List<String> hashtags = new ArrayList<>();
-        String[] hashtagNames = {""};
-        for (String hashtag : hashtagNames) {
-            hashtags.add(hashtag);
-        }
-        hashtagName.setHashtagName(hashtag);
 
         Place place = new Place();
         place.setTitle(title);
@@ -101,6 +83,7 @@ public class PlaceUpdateRequest {
                 title, address, tel, startTime, endTime, placeIntroductionInfo, notice, maxPeople, pricePerHour
         );
 
+        // , categoryName, date, facilityName, hashtagName
     }
 
 }

@@ -2,6 +2,8 @@ package shop.mtcoding.village.model.reservation;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.core.jpa.BaseTime;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
@@ -33,6 +35,7 @@ public class Reservation extends BaseTime {
     @Comment("공간 정보")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Comment("예약 날짜")

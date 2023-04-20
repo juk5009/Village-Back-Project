@@ -3,6 +3,8 @@ package shop.mtcoding.village.model.date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.dto.date.response.DateSaveResponse;
 import shop.mtcoding.village.model.place.Place;
 
@@ -25,13 +27,14 @@ public class Dates {
 
     @ElementCollection
     @CollectionTable(name = "day_of_week_name", joinColumns = @JoinColumn(name = "dates_id"))
-    @Column(name = "name")
+    @Column(name = "dayOfWeekName")
     @Comment("요일")
     private List<String> dayOfWeekName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "placeId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Place place;
 

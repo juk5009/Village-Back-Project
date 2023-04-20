@@ -11,6 +11,7 @@ import java.util.List;
 
 @Getter
 public class PlaceUpdateResponse {
+
     private String title;
 
     private Address placeAddress;
@@ -23,40 +24,34 @@ public class PlaceUpdateResponse {
 
     private String placeIntroductionInfo;
 
-    private List<Dates> dayOfWeek;
-
     private Integer maxPeople;
 
     private Integer pricePerHour;
 
-    private Category category;
-
     private String notice;
 
-    private List<FacilityInfo> facilityInfo;
+    private List<String> dayOfWeek;
 
-    private List<Hashtag> hashtag;
-//
-//    private List<FileInfo> fileInfo;
-//    @Null
-//    private List<Review> review;
+    private List<String> hashtagName;
 
+    private List<String> facilityName;
 
-    public PlaceUpdateResponse(String title, Address roadFullAddr, String tel, String startTime, String endTime, String placeIntroductionInfo, List<Dates> dayOfWeekName
-            , List<Hashtag> hashtag, List<FacilityInfo> facilityInfo, String notice, Integer maxPeople, Integer pricePerHour, Category name) {
+    private String categoryName;
+
+    public PlaceUpdateResponse(String title, Address placeAddress, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople
+            , Integer pricePerHour, String notice, List<String> dayOfWeek, List<String> hashtagName, List<String> facilityName, String categoryName) {
         this.title = title;
-        this.placeAddress = roadFullAddr;
+        this.placeAddress = placeAddress;
         this.tel = tel;
         this.startTime = startTime;
         this.endTime = endTime;
         this.placeIntroductionInfo = placeIntroductionInfo;
-        this.dayOfWeek = dayOfWeekName;
-        this.hashtag = hashtag;
-        this.facilityInfo = facilityInfo;
-//        this.fileInfo = fileInfo;
-        this.notice = notice;
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
-        this.category = name;
+        this.notice = notice;
+        this.dayOfWeek = dayOfWeek;
+        this.hashtagName = hashtagName;
+        this.facilityName = facilityName;
+        this.categoryName = categoryName;
     }
 }

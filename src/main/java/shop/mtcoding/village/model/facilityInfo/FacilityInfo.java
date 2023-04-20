@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
@@ -32,6 +34,7 @@ public class FacilityInfo {
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Place place;
 

@@ -13,6 +13,8 @@ import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -54,6 +56,7 @@ public class PlaceSaveRequest {
     // 다른 엔티티들
 
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
+    @ElementCollection
     private DateSaveDTO dayOfWeek;
 
 //    @Null
@@ -64,7 +67,6 @@ public class PlaceSaveRequest {
 
     @NotNull(message = "카테고리를 등록해주세요.")
     private CategorySaveDTO category;
-
 
     public Place toEntity(){
 

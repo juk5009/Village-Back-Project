@@ -3,6 +3,8 @@ package shop.mtcoding.village.model.category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Table(name = "category_tb")
 public class Category {
 
@@ -26,6 +29,7 @@ public class Category {
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Builder

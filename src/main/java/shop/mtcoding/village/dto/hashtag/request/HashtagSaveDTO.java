@@ -14,15 +14,9 @@ public class HashtagSaveDTO {
     private List<String> hashtagName;
 
     public Hashtag toEntity() {
-
         Hashtag hashtag = new Hashtag();
-        List<String> hashtags = new ArrayList<>();
-        String[] hashtagNames = {""};
-        for (String hashtagName : hashtagNames) {
-            hashtags.add(hashtagName);
-        }
         hashtag.setHashtagName(hashtagName);
-        return new Hashtag(hashtagName, null);
+        return hashtag;
     }
 
 }
