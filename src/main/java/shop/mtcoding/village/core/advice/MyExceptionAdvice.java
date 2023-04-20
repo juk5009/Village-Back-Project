@@ -20,23 +20,12 @@ import shop.mtcoding.village.dto.ResponseDTO;
 @RestControllerAdvice
 public class MyExceptionAdvice {
 
-<<<<<<< HEAD
    @ExceptionHandler(Exception400.class)
    public ResponseEntity<?> badRequest(Exception400 e) {
        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(-1, 400, e.getMessage(), "Null");
        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
    }
-=======
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<?> ex(Exception e){
-//        Sentry.captureException(e);
-//        String message = e.getMessage();
-//        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(1, message, HttpStatus.BAD_REQUEST);
-//        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
-//    }
-<<<<<<< HEAD
->>>>>>> cb21803 (Reservation save 완료)
 
    //TODO 월요일가서 물어봐라이 결과를 카톡방에 올려라이
    @ExceptionHandler(DataIntegrityViolationException.class)
@@ -68,42 +57,13 @@ public class MyExceptionAdvice {
    }
 
 
-<<<<<<< HEAD
    @ExceptionHandler(MyConstException.class)
    public ResponseEntity<?> error(MyConstException e) {
        String detail = e.getMessage();
        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(-1, 400, detail, HttpStatus.BAD_REQUEST);
        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
    }
-=======
-//    @ExceptionHandler(Exception400.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ResponseEntity<?> ex400(Exception e){
-//
-//        Sentry.captureException(e);
-//        String message = e.getMessage();
-//        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(1, message, HttpStatus.BAD_REQUEST);
-//        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
-//
-//    }
-//
-////    @ExceptionHandler(Exception400.class)
-////    @ResponseStatus(HttpStatus.BAD_REQUEST)
-////    public ResponseEntity<?> ex401(MyValidationException e){
-////        String errMsg = e.getErroMap().toString();
-////        String devideMsg = errMsg.split("=")[1].split(",")[0].split("}")[0];
-////        return new ResponseEntity<>(new ResponseDTO<>(-1,devideMsg,null), HttpStatus.BAD_REQUEST);
-////    }
-//
-//    @ExceptionHandler(MyValidationException.class)
-//    public ResponseEntity<?> error(MyValidationException e){
-//        Sentry.captureException(e);
-//        String errMsg = e.getErroMap().toString();
-//        String devideMsg = errMsg.split("=")[1].split(",")[0].split("}")[0];
-//        return new ResponseEntity<>(new ResponseDTO<>(-1,devideMsg,null), HttpStatus.BAD_REQUEST);
-//    }
-<<<<<<< HEAD
->>>>>>> cb21803 (Reservation save 완료)
+
 
    @ExceptionHandler(Exception.class)
    public ResponseEntity<?> serverError(Exception e){
