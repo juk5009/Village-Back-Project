@@ -1,18 +1,30 @@
 package shop.mtcoding.village.controller.reservation;
 package shop.mtcoding.village.controller.reservation;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import okhttp3.Response;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
-import shop.mtcoding.village.core.auth.MyUserDetails;
-import shop.mtcoding.village.core.exception.MyConstException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import shop.mtcoding.village.api.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.api.firebase.RequestDTO;
+import shop.mtcoding.village.core.auth.MyUserDetails;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.reservation.ReservationDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
@@ -26,12 +38,6 @@ import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.notFoundConst.ReservationConst;
 import shop.mtcoding.village.service.ReservationService;
 import shop.mtcoding.village.util.DateUtils;
-
-import javax.validation.Valid;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/reservation")
@@ -104,7 +110,7 @@ public class ReservationController {
                 requestDTO.getTitle(),
                 requestDTO.getBody());
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toResponse()), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toDTOResponse()), HttpStatus.OK);
     }
 
 }

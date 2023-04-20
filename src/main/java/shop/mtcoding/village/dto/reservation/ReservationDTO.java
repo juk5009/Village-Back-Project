@@ -1,12 +1,12 @@
 package shop.mtcoding.village.dto.reservation;
 
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.ToString;
 import shop.mtcoding.village.model.place.Place;
+import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
-
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 @Getter
 @ToString
@@ -26,14 +26,11 @@ public class ReservationDTO {
 
     private LocalDateTime endTime;
 
-<<<<<<< HEAD
-
     public ReservationDTO() {
 
     }
 
-=======
->>>>>>> cb21803 (Reservation save 완료)
+
     public ReservationDTO(User user, Place place, Integer peopleNum, Integer totalPrice, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime) {
         this.user = user;
         this.place = place;
