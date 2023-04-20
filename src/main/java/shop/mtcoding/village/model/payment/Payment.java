@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import shop.mtcoding.village.core.jpa.BaseTime;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
@@ -40,6 +41,7 @@ public class Payment {
     private Reservation reservation;
 
     @Comment("결제 상태")
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
     @Comment("총결제 금액")

@@ -8,51 +8,6 @@ create table user_tb (
     profile varchar(255),
     created_at timestamp
 );
-
-
-create table address_tb (
-    id int primary key auto_increment,
-    road_full_addr varchar(255),
-    sgg_nm varchar(255),
-    zip_no varchar(255),
-    lat varchar(255),
-    lng varchar(255)
-);
-
-create table facility_info_tb (
-    id int primary key AUTO_INCREMENT,
-    facility_name varchar(255)
-);
-
-create table hashtag_tb (
-    id int primary key AUTO_INCREMENT,
-    hashtag_name VARCHAR(255)
-);
-
-
-create table account_tb (
-    id int primary key AUTO_INCREMENT,
-    user_id int not null,
-    account_num VARCHAR(255) not null
-
-);
-
-create table category_tb (
-    id int primary key AUTO_INCREMENT,
-    category_name VARCHAR,
-
-);
-
-create table review_tb (
-    id int primary key AUTO_INCREMENT,
-    user_id int,
-    star_rating int,
-    content VARCHAR(255),
-    image VARCHAR(255),
-    like_count int,
-    created_at TIMESTAMP
-);
-
 create table place_tb (
     id int primary key AUTO_INCREMENT,
     user_id int,
@@ -67,6 +22,54 @@ create table place_tb (
     end_time timestamp,
     category_id int
 );
+
+
+create table address_tb (
+    id int primary key auto_increment,
+    road_full_addr varchar(255),
+    sgg_nm varchar(255),
+    zip_no varchar(255),
+    lat varchar(255),
+    lng varchar(255)
+);
+
+-- create table facility_info_tb (
+--     id int primary key AUTO_INCREMENT,
+--     facility_name varchar(255),
+--     place_Id int
+--
+-- );
+
+-- create table hashtag_tb (
+--     id int primary key AUTO_INCREMENT,
+--     hashtag_name VARCHAR(255)
+-- );
+
+
+create table account_tb (
+    id int primary key AUTO_INCREMENT,
+    user_id int not null,
+    account_num VARCHAR(255) not null
+
+);
+
+create table category_tb (
+    id int primary key AUTO_INCREMENT,
+    category_name VARCHAR,
+    place_id int,
+);
+
+create table review_tb (
+    id int primary key AUTO_INCREMENT,
+    user_id int,
+    star_rating int,
+    content VARCHAR(255),
+    image VARCHAR(255),
+    like_count int,
+    created_at TIMESTAMP
+);
+
+
 
 create table reservation_tb (
     id int primary key AUTO_INCREMENT,
@@ -111,33 +114,34 @@ create table chat_tb (
 );
 --
 --
--- create table payment_tb (
---     id int AUTO_INCREMENT PRIMARY KEY,
---     user_id int,
---     place_id int,
---     reservation_id int,
---     status VARCHAR(20) NOT NULL,
---     total_price int NOT NULL,
---     created_at TIMESTAMP
---
--- );
---
---
--- create table notice_tb (
---     id int AUTO_INCREMENT PRIMARY KEY,
---     user_id int,
---     place_id int,
---     payment_id int,
---     content VARCHAR(255) NOT NULL,
---     status VARCHAR(20) NOT NULL,
---
--- );
---
-create table dates_tb
-(
-    id int PRIMARY KEY AUTO_INCREMENT,
-    day_of_week_name varchar NOT NULL,
+create table payment_tb (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    user_id int,
+    place_id int,
+    reservation_id int,
+    status VARCHAR(20) NOT NULL,
+    total_price int NOT NULL,
+    created_at TIMESTAMP
+
 );
+--
+--
+create table notice_tb (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    user_id int,
+    place_id int,
+    payment_id int,
+    content VARCHAR(255) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+
+);
+--
+-- create table dates_tb
+-- (
+--     id int PRIMARY KEY AUTO_INCREMENT,
+--     day_of_week_name varchar NOT NULL,
+--     place_id int
+-- );
 --
 -- commit;
 

@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "notice_tb")
-public class Notice extends BaseTime{
+public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
