@@ -26,14 +26,14 @@ public class Dates {
     private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "day_of_week_name", joinColumns = @JoinColumn(name = "dates_id"))
+    @CollectionTable(name = "dates_tb", joinColumns = @JoinColumn(name = "dates_id"))
     @Column(name = "day_of_week_name")
     @Comment("요일")
     private List<String> dayOfWeekName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "placeId")
+    @JoinColumn(name = "place_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Place place;

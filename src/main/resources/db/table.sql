@@ -33,17 +33,20 @@ create table address_tb (
     lng varchar(255)
 );
 
--- create table facility_info_tb (
---     id int primary key AUTO_INCREMENT,
---     facility_name varchar(255),
---     place_Id int
---
--- );
+create table facility_info_tb (
+    id int primary key AUTO_INCREMENT,
+    facility_name varchar(255),
+    facility_info_id,
+    place_id int
 
--- create table hashtag_tb (
---     id int primary key AUTO_INCREMENT,
---     hashtag_name VARCHAR(255)
--- );
+);
+
+create table hashtag_tb (
+    id int primary key AUTO_INCREMENT,
+    hashtag_name VARCHAR(255),
+    hashtag_id int,
+    place_id int
+);
 
 
 create table account_tb (
@@ -136,14 +139,15 @@ create table notice_tb (
 
 );
 --
--- create table dates_tb
--- (
---     id int PRIMARY KEY AUTO_INCREMENT,
---     day_of_week_name varchar NOT NULL,
---     place_id int
--- );
---
--- commit;
+create table dates_tb
+(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    day_of_week_name varchar NOT NULL,
+    place_id int,
+    dates_id int
+);
+
+commit;
 
 
 -- 예약
