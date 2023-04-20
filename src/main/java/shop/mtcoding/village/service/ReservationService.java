@@ -1,5 +1,6 @@
 package shop.mtcoding.village.service;
 
+<<<<<<< HEAD
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,16 @@ import shop.mtcoding.village.model.reservation.ReservationRepository;
 
 import java.util.List;
 
+=======
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
+import shop.mtcoding.village.model.reservation.Reservation;
+import shop.mtcoding.village.model.reservation.ReservationRepository;
+
+>>>>>>> cb21803 (Reservation save 완료)
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
@@ -22,6 +33,7 @@ public class ReservationService {
 
     @Transactional
     public Reservation 예약신청(ReservationSaveRequest reservationSaveRequest) {
+<<<<<<< HEAD
 
         try {
             return reservationRepository.save(reservationSaveRequest.toEntity());
@@ -30,4 +42,8 @@ public class ReservationService {
         }
     }
 
+=======
+        return reservationRepository.save(reservationSaveRequest.toEntity());
+    }
+>>>>>>> cb21803 (Reservation save 완료)
 }

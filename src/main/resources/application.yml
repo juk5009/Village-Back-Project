@@ -40,10 +40,13 @@ server:
       timeout: 3600
 
 spring:
+<<<<<<< HEAD
   mvc:
     view:
       prefix: /WEB-INF/view/
       suffix: .jsp
+=======
+>>>>>>> cb21803 (Reservation save 완료)
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
