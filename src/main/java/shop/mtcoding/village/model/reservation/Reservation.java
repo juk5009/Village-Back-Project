@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "reservation_tb")
-public class Reservation extends BaseTime {
+public class Reservation {
 
     @Comment("예약 상태")
     @Enumerated(EnumType.STRING)

@@ -29,11 +29,9 @@ public class Category {
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Builder
-
     public Category(String categoryName, Place place) {
         this.categoryName = categoryName;
         this.place = place;

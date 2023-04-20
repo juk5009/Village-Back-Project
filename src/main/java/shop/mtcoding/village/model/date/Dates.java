@@ -27,7 +27,7 @@ public class Dates {
 
     @ElementCollection
     @CollectionTable(name = "day_of_week_name", joinColumns = @JoinColumn(name = "dates_id"))
-    @Column(name = "dayOfWeekName")
+    @Column(name = "day_of_week_name")
     @Comment("요일")
     private List<String> dayOfWeekName;
 
