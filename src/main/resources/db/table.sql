@@ -34,11 +34,13 @@ create table address_tb (
 );
 
 
+
 create table facility_info_tb (
     id int primary key AUTO_INCREMENT,
     facility_name varchar(255),
     facility_info_id,
     place_id int
+
 
 );
 
@@ -148,6 +150,8 @@ create table dates_tb
 );
 
 commit;
+
+
 
 
 
