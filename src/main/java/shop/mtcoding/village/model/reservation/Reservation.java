@@ -61,8 +61,6 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
-
-
     @Builder
     public Reservation(User user, Place place, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, Integer peopleNum, ReservationStatus status) {
         this.user = user;
@@ -88,15 +86,30 @@ public class Reservation {
 
         return new ReservationSaveResponse(userName, peopleNum, date, startTime, endTime);
     }
-
-    public List<ReservationDTO> toDTOResponse() {
-        User userBuild = new User().builder().build();
-
-        Place placeBuild = new Place().builder().build();
-
-        Integer totalPrice = TotalPrice.calculateTotalPrice(Reservation.builder().build());
-
-        return new List<ReservationDTO>(userBuild, placeBuild, peopleNum, totalPrice, date, startTime, endTime);
+//
+//    public ReservationDTO toDTOResponse() {
+//
+//        User userBuild = User.builder().build();
+//
+//        Place placeBuild = Place.builder().build();
+//
+//        Integer totalPrice = TotalPrice.calculateTotalPrice(Reservation.builder().build());
+//
+//        return new ReservationDTO(userBuild, placeBuild, peopleNum, totalPrice, date, startTime, endTime);
+//    }
+//
+    public ReservationDTO toDTOResponse() {
+        Integer totalPrice = TotalPrice.calculateTotalPrice(this);
+        System.out.println("디버그 : " + totalPrice);
+        return new ReservationDTO(
+                this.getUser(),
+                this.getPlace(),
+                this.getPeopleNum(),
+                totalPrice,
+                this.getDate(),
+                this.getStartTime(),
+                this.getEndTime()
+        );
     }
 
 }

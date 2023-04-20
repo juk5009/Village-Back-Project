@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.reservation.ReservationDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
+import shop.mtcoding.village.notFoundConst.ReservationConst;
 import shop.mtcoding.village.service.ReservationService;
 
 import javax.validation.Valid;
@@ -31,7 +33,7 @@ public class ReservationController {
     private final ReservationRepository reservationRepository;
 
     @GetMapping
-    public ResponseEntity<?> getReservation(ReservationDTO reservationDTO){
+    public ResponseEntity<?> getReservation(){
 
         List<Reservation> allReservation = reservationRepository.findAll();
 
@@ -39,15 +41,20 @@ public class ReservationController {
                 .map(reservation -> new ModelMapper().map(reservation, ReservationDTO.class))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, "예약내역 조회완료",allReservationDTO), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO<>(1, "예약내역 조회완료",allReservation), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
 
-        Optional<Reservation> userId = reservationRepository.findById(id);
+        Optional<Reservation> optionalUser = reservationRepository.findById(id);
+        System.out.println("디버그 : " + optionalUser);
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, "유저 예약내역 조회완료", userId), HttpStatus.OK);
+        if (!optionalUser.isPresent()) {
+            throw new MyConstException(ReservationConst.notFound);
+        }
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, "유저 예약내역 조회완료", optionalUser.get().toDTOResponse()), HttpStatus.OK);
     }
 
     @PostMapping
