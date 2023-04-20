@@ -2,6 +2,8 @@ package shop.mtcoding.village.model.notice;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.core.jpa.BaseTime;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.place.Place;
@@ -30,6 +32,7 @@ public class Notice extends BaseTime{
     @Comment("호스트 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Comment("결제의 총 금액")

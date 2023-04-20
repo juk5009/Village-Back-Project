@@ -1,6 +1,5 @@
 package shop.mtcoding.village.controller.place;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -8,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
-import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.notFoundConst.PlaceConst;
@@ -29,24 +28,40 @@ public class PlaceController {
     private final PlaceService placeService;
 
     private final PlaceRepository placeRepository;
+
     @GetMapping
     public ResponseEntity<List<Place>> getPlace() {
         List<Place> allPlace = placeRepository.findAll();
-        return ResponseEntity.ok(allPlace);
+        System.out.println("등록 페이지 전체 보기 : " + allPlace);
+        return ResponseEntity.ok().body(allPlace);
     }
+
+//    @GetMapping
+//    public ResponseEntity<Page<PlaceSaveResponse>> getPage(Pageable pageable) {
+//        var page = placeService.getPage(pageable);
+//        var content = page.getContent()
+//                .stream()
+//                .map(Place::toDTO)
+//                .toList();
+//
+//        return ResponseEntity.ok(
+//                new PageImpl<>(content, pageable, page.getTotalElements())
+//        );
+//    }
 
     @PostMapping
     public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
-            @Valid @RequestBody PlaceSaveRequest placeSaveDto, BindingResult result
+            @Valid @RequestBody PlaceSaveRequest placeSaveRequest, BindingResult result
     ) {
-
         if (result.hasErrors()) {
             throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
         }
 
-        var savePlace = placeService.공간등록하기(placeSaveDto);
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, "공간 데이터 등록 완료", savePlace), HttpStatus.OK);
+        var save = placeService.공간등록하기(placeSaveRequest);
+
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, "공간 데이터 등록 완료", save), HttpStatus.OK);
     }
 
     @PutMapping
@@ -58,22 +73,23 @@ public class PlaceController {
             throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
         }
 
-        Place updatePlace = placeService.공간수정하기(placeUpdateRequest);
-        return new ResponseEntity<>(new ResponseDTO<>(1, "공간 데이터 수정 완료", updatePlace), HttpStatus.OK);
+        var update = placeService.공간수정하기(placeUpdateRequest);
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, "공간 데이터 수정 완료", update), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePlace(
+    public ResponseEntity<?> deletePlace(
             @PathVariable Long id
     ){
         var optionalPlace = placeService.getPlace(id);
         if (optionalPlace.isEmpty()) {
-            throw new Exception400(PlaceConst.notFound);
+            throw new MyConstException(PlaceConst.notFound);
         }
 
         placeService.공간삭제하기(optionalPlace.get());
 
-        return ResponseEntity.ok("삭제가 완료되었습니다.");
+        return new ResponseEntity<>(new ResponseDTO<>(1, "공간 데이터 삭제 완료", null), HttpStatus.OK);
     }
 
 }

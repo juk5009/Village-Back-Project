@@ -2,6 +2,8 @@ package shop.mtcoding.village.model.chatRoom;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
 
@@ -29,6 +31,7 @@ public class ChatRoom {
     @Comment("호스트 아이디")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Comment("채팅방 시간")

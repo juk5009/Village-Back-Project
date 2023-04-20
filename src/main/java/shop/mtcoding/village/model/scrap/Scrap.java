@@ -3,6 +3,8 @@ package shop.mtcoding.village.model.scrap;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
 
@@ -28,6 +30,7 @@ public class Scrap {
     @ManyToOne(fetch = FetchType.LAZY)
     @Comment("공간 아이디")
     @JoinColumn(name = "place_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Comment("스크랩 수")

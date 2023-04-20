@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
@@ -25,17 +27,21 @@ public class Hashtag {
     private Long id;
 
     @Comment("해시태그 이름")
-    private String hashtagName;
+    @ElementCollection
+    @CollectionTable(name = "hashtag_name", joinColumns = @JoinColumn(name = "hashtag_id"))
+    @Column(name = "name")
+    private List<String> hashtagName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Place placeId;
+    private Place place;
 
     @Builder
-    public Hashtag(String hashtagNames, Place placeId) {
-        this.hashtagName = hashtagNames.toString();
-        this.placeId = placeId;
+    public Hashtag(List<String> hashtagName, Place place) {
+        this.hashtagName = hashtagName;
+        this.place = place;
     }
 }

@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface DateRepository extends JpaRepository<Dates,Long> {
 
-    @Query("select d from Dates d where d.placeId = :placeId")
-    List<Dates> findByPlaceId(@Param("placeId") Long placeId);
+//    @Query("select d from Dates d where d.placeId = :placeId")
+//    List<Dates> findByPlaceId(@Param("placeId") Long placeId);
 }

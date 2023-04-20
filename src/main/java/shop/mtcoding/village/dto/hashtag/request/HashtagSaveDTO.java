@@ -4,16 +4,19 @@ import lombok.Getter;
 import lombok.ToString;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ToString
 @Getter
-public class HashtagSaveRequest {
+public class HashtagSaveDTO {
 
-    private String hashtagName;
+    private List<String> hashtagName;
 
     public Hashtag toEntity() {
-        return new Hashtag(hashtagName, null);
+        Hashtag hashtag = new Hashtag();
+        hashtag.setHashtagName(hashtagName);
+        return hashtag;
     }
 
 }

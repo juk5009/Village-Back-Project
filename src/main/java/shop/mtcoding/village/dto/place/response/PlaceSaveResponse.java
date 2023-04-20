@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @Getter
 public class PlaceSaveResponse {
+
     private String title;
 
     private Address placeAddress;
@@ -30,14 +31,17 @@ public class PlaceSaveResponse {
     private Integer pricePerHour;
 
     private String notice;
-//
-//    private List<FileInfo> fileInfo;
-//    @Null
-//    private List<Review> review;
 
+    private List<String> dayOfWeek;
+
+    private List<String> hashtagName;
+
+    private List<String> facilityName;
+
+    private String categoryName;
 
     public PlaceSaveResponse(String title, Address placeAddress, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople
-            , Integer pricePerHour, String notice) {
+            , Integer pricePerHour, String notice, List<String> dayOfWeek, List<String> hashtagName, List<String> facilityName, String categoryName) {
         this.title = title;
         this.placeAddress = placeAddress;
         this.tel = tel;
@@ -47,6 +51,10 @@ public class PlaceSaveResponse {
         this.maxPeople = maxPeople;
         this.pricePerHour = pricePerHour;
         this.notice = notice;
+        this.dayOfWeek = dayOfWeek;
+        this.hashtagName = hashtagName;
+        this.facilityName = facilityName;
+        this.categoryName = categoryName;
     }
 
 }
