@@ -33,6 +33,7 @@ create table address_tb (
     lng varchar(255)
 );
 
+
 create table facility_info_tb (
     id int primary key AUTO_INCREMENT,
     facility_name varchar(255),
@@ -125,7 +126,6 @@ create table payment_tb (
     status VARCHAR(20) NOT NULL,
     total_price int NOT NULL,
     created_at TIMESTAMP
-
 );
 --
 --
@@ -148,6 +148,7 @@ create table dates_tb
 );
 
 commit;
+
 
 
 -- 예약
