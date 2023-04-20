@@ -115,6 +115,7 @@ values ('월요일,목요일,금요일,토요일', 2, 1);
 insert into dates_tb (day_of_week_name, dates_id, place_id)
 values ('수요일', 2, 2);
 
+
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (1, 1, 1, '내용1', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)

@@ -19,12 +19,15 @@ import shop.mtcoding.village.exception.Exception400;
 @RestControllerAdvice
 public class MyExceptionAdvice {
 
+
 //    @ExceptionHandler(Exception.class)
 //    public ResponseEntity<?> ex(Exception e){
 //        Sentry.captureException(e);
-//        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(500, "오류1", HttpStatus.INTERNAL_SERVER_ERROR);
-//        return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+//        String message = e.getMessage();
+//        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(1, message, HttpStatus.BAD_REQUEST);
+//        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
 //    }
+<<<<<<< HEAD
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> ex(Exception e){
@@ -47,11 +50,31 @@ public class MyExceptionAdvice {
 
 //    @ExceptionHandler(Exception400.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ResponseEntity<?> ex401(MyValidationException e){
+//    public ResponseEntity<?> ex400(Exception e){
+//
+//        Sentry.captureException(e);
+//        String message = e.getMessage();
+//        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(1, message, HttpStatus.BAD_REQUEST);
+//        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+//
+//    }
+//
+////    @ExceptionHandler(Exception400.class)
+////    @ResponseStatus(HttpStatus.BAD_REQUEST)
+////    public ResponseEntity<?> ex401(MyValidationException e){
+////        String errMsg = e.getErroMap().toString();
+////        String devideMsg = errMsg.split("=")[1].split(",")[0].split("}")[0];
+////        return new ResponseEntity<>(new ResponseDTO<>(-1,devideMsg,null), HttpStatus.BAD_REQUEST);
+////    }
+//
+//    @ExceptionHandler(MyValidationException.class)
+//    public ResponseEntity<?> error(MyValidationException e){
+//        Sentry.captureException(e);
 //        String errMsg = e.getErroMap().toString();
 //        String devideMsg = errMsg.split("=")[1].split(",")[0].split("}")[0];
 //        return new ResponseEntity<>(new ResponseDTO<>(-1,devideMsg,null), HttpStatus.BAD_REQUEST);
 //    }
+<<<<<<< HEAD
 
     @ExceptionHandler(MyValidationException.class)
     public ResponseEntity<?> error(MyValidationException e){

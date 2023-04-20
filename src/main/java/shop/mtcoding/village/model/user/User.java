@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "user_tb")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class User {
     @Id
