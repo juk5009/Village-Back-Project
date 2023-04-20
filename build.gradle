@@ -19,6 +19,10 @@ repositories {
 }
 
 dependencies {
+
+	// firebase 의존성
+	implementation 'com.google.firebase:firebase-admin:8.1.0'
+	implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 	// modelmapper 사용 gradle
 	implementation 'org.modelmapper:modelmapper:2.4.4'
 

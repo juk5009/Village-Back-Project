@@ -50,11 +50,9 @@ public class PlaceService {
 
         // 카테고리 insert
         Category saveCategory = categoryRepository.save(placeRequest.getCategory().toDEntity());
-        System.out.println("디버그 카테고리 : " + placeRequest.getCategory().toDEntity());
 
         // 요일 날짜 insert
         Dates saveDates = dateRepository.save(placeRequest.getDayOfWeek().toEntity());
-        System.out.println("디버그 요일 : " + placeRequest.getDayOfWeek().toEntity());
 
         // 해시태그 insert
         Hashtag saveHashtag = hashtagRepository.save(placeRequest.getHashtag().toEntity());
