@@ -1,6 +1,5 @@
 package shop.mtcoding.village.core.firebase;
 
-import com.google.firebase.messaging.FirebaseMessaging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +41,8 @@ public class FcmController {
         }
         return ResponseEntity.ok().build();
     }
+
+
 
 
 }
