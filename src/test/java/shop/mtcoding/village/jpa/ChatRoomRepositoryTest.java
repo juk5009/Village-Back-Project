@@ -24,6 +24,7 @@ import shop.mtcoding.village.model.user.User;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,21 +112,11 @@ public class ChatRoomRepositoryTest {
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
 
-        Category category = new Category().builder().name("이름").build();
+        Category category = new Category().builder().categoryName("이름").build();
         this.entityManager.persist(category);
 
-        Dates dates = new Dates().builder().dayOfWeekName("월요일").build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName("화장실").build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagNames("연습실").build();
-        this.entityManager.persist(hashtagName);
-
-
-        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개").facilityInfo(facilityName)
-                .hashtag(hashtagName).startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).category(category).build();
+        Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
+                .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
         this.entityManager.persist(place);
 
         ChatRoom chatRoom = new ChatRoom();

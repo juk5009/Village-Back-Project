@@ -44,8 +44,8 @@ public class PlaceRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE place_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        setUpByPlace("공간 제목","010-1245-7878", "공간 정보", "공간 소개", "시설 정보",
-                "월요일", "해시태그", 5, 30, LocalDateTime.now(), LocalDateTime.now());
+        setUpByPlace("공간 제목","010-1245-7878", "공간 정보", "공간 소개",
+                 5, 30, LocalDateTime.now(), LocalDateTime.now());
     }
 
     @Test
@@ -84,8 +84,8 @@ public class PlaceRepositoryTest {
     @DisplayName("공간 삽입 및 삭제 테스트")
     void insertAndDelete() {
 
-        Place place = setUpByPlace("제목3","전번3", "공간정보3", "공간소개3", "시설정보3",
-                "해쉬태그3", "image5", 5, 30, LocalDateTime.now(), LocalDateTime.now());
+        Place place = setUpByPlace("제목3","전번3", "공간정보3", "공간소개3",
+                 5, 30, LocalDateTime.now(), LocalDateTime.now());
         Optional<Place> findPlace = this.placeRepository.findById(place.getId());
 
         if(findPlace.isPresent()) {
@@ -101,8 +101,8 @@ public class PlaceRepositoryTest {
         }
     }
 
-    private Place setUpByPlace(String title, String tel, String placeIntroductionInfo, String facilityInfo, String notice, String dayOfWeek,
-                        String hashtag, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
+    private Place setUpByPlace(
+            String title, String tel, String placeIntroductionInfo, String notice, Integer maxPeople, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
 
@@ -112,18 +112,6 @@ public class PlaceRepositoryTest {
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
 
-        Category category = new Category().builder().name("이름").build();
-        this.entityManager.persist(category);
-
-        Dates dates = new Dates().builder().dayOfWeekName(dayOfWeek).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(facilityInfo).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagNames(hashtag).build();
-        this.entityManager.persist(hashtagName);
-
         var place = new Place();
         place.setUser(user);
         place.setTitle(title);
@@ -131,9 +119,6 @@ public class PlaceRepositoryTest {
         place.setTel(tel);
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
         place.setNotice(notice);
-        place.setDayOfWeek(dates);
-        place.setFacilityInfo(facilityName);
-        place.setHashtag(hashtagName);
         place.setMaxPeople(maxPeople);
         place.setPricePerHour(pricePerHour);
         place.setStartTime(LocalTime.from(startTime));

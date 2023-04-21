@@ -24,6 +24,7 @@ import shop.mtcoding.village.model.user.User;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,7 +70,7 @@ public class HashtagRepositoryTest {
             Assertions.assertEquals(result.getHashtagName(), "연습실");
 
             String hashtag = "음식점";
-            result.setHashtagName(hashtag);
+            result.setHashtagName(Collections.singletonList(hashtag));
             Hashtag merge = entityManager.merge(result);
 
             Assertions.assertEquals(merge.getHashtagName(), "음식점");
@@ -109,23 +110,25 @@ public class HashtagRepositoryTest {
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
 
-        Category category = new Category().builder().name("이름").build();
+        Category category = new Category().builder().categoryName("이름").build();
         this.entityManager.persist(category);
 
-        Dates dates = new Dates().builder().dayOfWeekName("월요일").build();
+        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
         this.entityManager.persist(dates);
 
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName("화장실").build();
+        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
         this.entityManager.persist(facilityName);
 
-        Hashtag hashtagName = new Hashtag().builder().hashtagNames("연습실").build();
+        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
+        this.entityManager.persist(hashtagName);
 
-        Place place = new Place().builder().user(user).title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개").facilityInfo(facilityName)
-                .hashtag(hashtagName).startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).category(category).build();
+
+        Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
+                .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
         this.entityManager.persist(place);
 
-        dates.setPlaceId(place);
-        hashtagName.setPlaceId(place);
+        dates.setPlace(place);
+        hashtagName.setPlace(place);
 
         return this.entityManager.persist(hashtagName);
     }

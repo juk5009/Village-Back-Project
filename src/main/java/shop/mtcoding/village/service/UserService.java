@@ -42,7 +42,7 @@ public class UserService {
         Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
         if(userOP.isPresent()){
             User userPS = userOP.get();
-            if(passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())){
+            if(passwordEncoder.matches(loginDTO.getPassword(),   userPS.getPassword())){
                 String jwt = MyJwtProvider.create(userPS);
                 return jwt;
             }

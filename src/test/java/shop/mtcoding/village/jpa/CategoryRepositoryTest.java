@@ -47,7 +47,7 @@ public class CategoryRepositoryTest {
         Assertions.assertNotEquals(categories.size(), 0);
 
         Category category = categories.get(0);
-        Assertions.assertEquals(category.getName(), "운동시설");
+        Assertions.assertEquals(category.getCategoryName(), "운동시설");
     }
 
     @Test
@@ -58,13 +58,13 @@ public class CategoryRepositoryTest {
 
         if(optionalCategory.isPresent()) {
             var result = optionalCategory.get();
-            Assertions.assertEquals(result.getName(),"운동시설");
+            Assertions.assertEquals(result.getCategoryName(),"운동시설");
 
             var name = "운동시설2";
-            result.setName(name);
+            result.setCategoryName(name);
             Category merge = entityManager.merge(result);
 
-            Assertions.assertEquals(merge.getName(), "운동시설2");
+            Assertions.assertEquals(merge.getCategoryName(), "운동시설2");
         } else {
             Assertions.assertNotNull(optionalCategory.get());
         }
@@ -79,7 +79,7 @@ public class CategoryRepositoryTest {
 
         if(findAddress.isPresent()) {
             var result = findAddress.get();
-            Assertions.assertEquals(result.getName(), "운동시설3");
+            Assertions.assertEquals(result.getCategoryName(), "운동시설3");
             entityManager.remove(category);
             Optional<Category> deleteCategory = this.categoryRepository.findById(category.getId());
             if (deleteCategory.isPresent()) {
@@ -93,7 +93,7 @@ public class CategoryRepositoryTest {
 
     private Category setUp(String name) {
         Category category = new Category();
-        category.setName(name);
+        category.setCategoryName(name);
         return this.entityManager.persist(category);
     }
 }
