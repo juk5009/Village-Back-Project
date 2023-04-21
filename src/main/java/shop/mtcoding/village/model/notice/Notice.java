@@ -27,6 +27,7 @@ public class Notice {
     @Comment("유저 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("호스트 아이디")

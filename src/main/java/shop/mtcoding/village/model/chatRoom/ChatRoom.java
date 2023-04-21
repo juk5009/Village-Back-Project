@@ -26,6 +26,7 @@ public class ChatRoom {
     @Comment("유저 아이디")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("호스트 아이디")

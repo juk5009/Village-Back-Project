@@ -1,26 +1,39 @@
 package shop.mtcoding.village.model.file;
 
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Comment;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import shop.mtcoding.village.core.jpa.BaseTime;
+import lombok.ToString;
 import shop.mtcoding.village.dto.file.dto.FileDTO;
 import shop.mtcoding.village.dto.file.response.FileResponse;
 import shop.mtcoding.village.model.place.Place;
-
-import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "file_tb")
+@ToString
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.ToString;
 import shop.mtcoding.village.model.place.Place;
-import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
 
 @Getter
@@ -26,6 +25,7 @@ public class ReservationDTO {
 
     private LocalDateTime endTime;
 
+
     public ReservationDTO() {
 
     }
@@ -41,3 +41,4 @@ public class ReservationDTO {
         this.endTime = endTime;
     }
 }
+

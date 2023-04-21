@@ -3,6 +3,7 @@ package shop.mtcoding.village.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.util.status.UserStatus;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -39,6 +40,10 @@ public class User {
 
     @Comment("프로필")
     private String profile;
+
+    @Comment("유저상태")
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     @Comment("시간")
     private LocalDateTime createdAt; // db에는 timestamp로 변경되어 들어감

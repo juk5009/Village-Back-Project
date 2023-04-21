@@ -1,24 +1,36 @@
 package shop.mtcoding.village.model.place;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import java.time.LocalTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.dto.place.response.PlaceUpdateResponse;
 import shop.mtcoding.village.model.address.Address;
-import shop.mtcoding.village.model.category.Category;
-import shop.mtcoding.village.model.date.Dates;
-import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.file.FileInfo;
-import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.user.User;
-
-import javax.persistence.*;
-import java.time.LocalTime;
-import java.util.Collections;
-import java.util.List;
+import shop.mtcoding.village.util.status.PlaceStatus;
 
 
 @Entity
@@ -39,6 +51,7 @@ public class Place {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("공간 제목")
@@ -80,8 +93,9 @@ public class Place {
     @Comment("마감 시간")
     private LocalTime endTime;
 
-
-
+    @Comment("공간상태")
+    @Enumerated(EnumType.STRING)
+    private PlaceStatus status;
 
     public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople,
             Integer maxParking, Integer pricePerHour, LocalTime startTime, LocalTime endTime) {
@@ -123,11 +137,9 @@ public class Place {
     }
 
     public PlaceUpdateResponse toUpdateResponse() {
-
         return new PlaceUpdateResponse(
                 title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
         );
     }
-
 
 }

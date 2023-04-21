@@ -30,6 +30,7 @@ import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.review.ReviewRepository;
 import shop.mtcoding.village.util.Base64Decoded;
+import shop.mtcoding.village.util.status.PlaceStatus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,6 +72,8 @@ public class PlaceService {
         }
     }
 
+
+
     @Transactional
     public Place 공간등록하기(PlaceSaveRequest placeRequest) {
         try {
@@ -100,6 +103,7 @@ public class PlaceService {
                 String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getData()));
                 files.setFileUrl(imgPath);
                 File save = fileRepository.save(files.toEntity(files.getName(), files.getFileUrl()));
+                System.out.println("디버그 : " + save);
 //                fileList.add(save);
 
                 fileService.save(placeRequest.getImage().get(0));
@@ -143,15 +147,30 @@ public class PlaceService {
     }
 
     @Transactional
-    public void 공간삭제하기(Place place) {
+    public Place 공간비활성화(Place place) {
         try {
-            placeJpaRepository.delete(place);
+
+            place.setStatus(PlaceStatus.INACTIVE);
+            return placeJpaRepository.save(place);
         } catch (Exception500 e) {
-            throw new Exception500("공간삭제 오류" + e.getMessage());
+            throw new Exception500("공간비활성화 오류" + e.getMessage());
         }
 
     }
 
+    @Transactional
+    public Place 공간활성화(Place place) {
+        try {
+
+            place.setStatus(PlaceStatus.ACTIVE);
+            return placeJpaRepository.save(place);
+        } catch (Exception500 e) {
+            throw new Exception500("공간활성화 오류" + e.getMessage());
+        }
+
+    }
+
+    @Transactional
     public Place 공간수정하기(PlaceUpdateRequest placeUpdateRequest) {
         try {
 
@@ -209,24 +228,19 @@ public class PlaceService {
             }
 
             return savePlace;
+
         } catch (Exception500 e) {
-            throw new Exception500("공간등록 오류" + e.getMessage());
+            throw new Exception500("공간수정 오류" + e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
-
-    public Page<Place> getPage(Pageable pageable) {
-        return placeJpaRepository.findAll(pageable);
+    public List<Place> 공간메인보기() {
+        return placeJpaRepository.findAll();
     }
 
     public Optional<Place> 공간상세보기(Long id) {
         return placeJpaRepository.findById(id);
     }
 
-    public List<Place> 공간메인보기() {
-        return placeJpaRepository.findAll();
-    }
 }

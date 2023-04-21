@@ -124,14 +124,8 @@
 //         Payment payment = new Payment().builder().user(user).place(place).reservation(reservation).status(
 //                 PaymentStatus.WAIT
 //         ).totalPrice(50000).build();
-//         this.entityManager.persist(payment);
 
 //         Notice notice = new Notice();
 //         notice.setUser(user);
 //         notice.setPlace(place);
-//         notice.setPayment(payment);
-//         notice.setContent(content);
-//         notice.setStatus(status);
-//         return this.entityManager.persist(notice);
-//     }
 // }

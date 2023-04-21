@@ -23,14 +23,13 @@ public class Search {
     private Long id;
 
     @Comment("유저 아이디")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @Comment("공간 정보")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "place_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Comment("검색 키워드")

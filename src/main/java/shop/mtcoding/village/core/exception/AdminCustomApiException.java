@@ -5,14 +5,14 @@ import org.springframework.http.HttpStatus;
 import lombok.Getter;
 
 @Getter
-public class CustomApiException extends RuntimeException{
+public class AdminCustomApiException extends RuntimeException{
     
     private HttpStatus status;
 
-    public CustomApiException(String message) {
+    public AdminCustomApiException(String message) {
         this(message, HttpStatus.BAD_REQUEST);
     }
-    public CustomApiException(String message, HttpStatus status) {
+    public AdminCustomApiException(String message, HttpStatus status) {
         super(message);
         this.status = status;
     }

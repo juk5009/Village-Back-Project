@@ -26,6 +26,7 @@ public class Chat {
     @Comment("유저(호스트)아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("채팅글")

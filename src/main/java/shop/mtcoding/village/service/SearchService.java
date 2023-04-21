@@ -10,6 +10,7 @@ import shop.mtcoding.village.dto.search.SearchRequest;
 import shop.mtcoding.village.model.search.Search;
 import shop.mtcoding.village.model.search.SearchJpaRepository;
 import shop.mtcoding.village.model.search.SearchRepository;
+import shop.mtcoding.village.model.user.UserRepository;
 
 import java.util.List;
 

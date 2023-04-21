@@ -26,7 +26,6 @@ public class Dates {
     private Long id;
 
 
-
     @Column(name = "day_of_week_name")
     @Comment("요일")
     private String dayOfWeekName;

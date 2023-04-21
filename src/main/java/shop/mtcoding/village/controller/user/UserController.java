@@ -1,6 +1,7 @@
 package shop.mtcoding.village.controller.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +9,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.auth.MyUserDetails;
+import shop.mtcoding.village.core.exception.CustomException;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.jwt.MyJwtProvider;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.user.UserRequest;
@@ -16,7 +19,9 @@ import shop.mtcoding.village.model.fcm.Fcm;
 import shop.mtcoding.village.model.fcm.FcmRepository;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.model.user.UserRepository;
+import shop.mtcoding.village.notFoundConst.UserConst;
 import shop.mtcoding.village.service.UserService;
+import shop.mtcoding.village.util.status.UserStatus;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -52,9 +57,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
+
     public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO, Errors Errors) {
 
         ArrayList<String> loginViewList = userService.로그인(loginDTO);
+
         String jwt = (String) loginViewList.get(0);
         UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO(Long.parseLong(loginViewList.get(1)) ,
                 (String) loginViewList.get(2), (String) loginViewList.get(3));
@@ -83,6 +90,43 @@ public class UserController {
         }
 
         return ResponseEntity.ok().body("id : " + principalId + " role : " + role);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<ResponseDTO<UserStatus>> delete(
+            @PathVariable Long id
+    ) {
+        var optionalUser = userService.getUser(id);
+        if (optionalUser.isEmpty()) {
+            throw new MyConstException(UserConst.notfound);
+        }
+        User inactiveUser = userService.유저비활성화(optionalUser.get());
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200 , "유저비활성화 완료", inactiveUser.getStatus()), HttpStatus.OK);
+    }
+
+    @PostMapping("/users/{id}")
+    public ResponseEntity<ResponseDTO<UserStatus>> active(
+            @PathVariable Long id
+    ) {
+        var optionalUser = userService.getUser(id);
+        if (optionalUser.isEmpty()) {
+            throw new MyConstException(UserConst.notfound);
+        }
+        User ActiveUser = userService.유저활성화(optionalUser.get());
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200 , "유저활성화 완료", ActiveUser.getStatus()), HttpStatus.OK);
+    }
+
+    @PostMapping("/users/host/{id}")
+    public ResponseEntity<ResponseDTO<String>> host(
+            @PathVariable Long id
+    ) {
+        Optional<User> user = userService.getUser(id);
+        if (user.isEmpty()) {
+            throw new CustomException("유저에 대한 정보가 없습니다.");
+        }
+
+        User user1 = userService.호스트변경(user.get());
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "Host 변경 성공", user1.getRole()),HttpStatus.OK);
     }
 
 }

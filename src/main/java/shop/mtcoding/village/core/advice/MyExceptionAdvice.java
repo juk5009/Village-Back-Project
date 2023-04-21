@@ -6,14 +6,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-
-import shop.mtcoding.village.core.exception.*;
-
-import io.sentry.Sentry;
-
+import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.core.exception.Exception500;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 
 
@@ -25,7 +22,6 @@ public class MyExceptionAdvice {
        ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(-1, 400, e.getMessage(), "Null");
        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
    }
-
 
    //TODO 월요일가서 물어봐라이 결과를 카톡방에 올려라이
    @ExceptionHandler(DataIntegrityViolationException.class)
@@ -73,3 +69,4 @@ public class MyExceptionAdvice {
 
 
 }
+

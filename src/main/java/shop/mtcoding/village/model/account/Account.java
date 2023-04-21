@@ -2,6 +2,8 @@ package shop.mtcoding.village.model.account;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
@@ -20,6 +22,7 @@ public class Account {
     @Comment("계좌 유저아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("계좌번호")

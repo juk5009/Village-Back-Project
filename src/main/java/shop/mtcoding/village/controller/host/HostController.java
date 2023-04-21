@@ -4,13 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.host.request.HostSaveRequest;
 import shop.mtcoding.village.model.host.Host;
+import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.service.HostService;
 
 import javax.validation.Valid;

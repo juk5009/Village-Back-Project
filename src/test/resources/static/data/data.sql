@@ -12,14 +12,12 @@ values ('부산 부산진구 중앙대로 688 한준빌딩 12층', '부산 사�
 insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
 values ('부산 부산진구 중앙대로 688 한준빌딩 22층', '부산 사하구', '27296', '412', '125');
 
-
 insert into account_tb(user_id, account_num)
 values (1, '123456-01-123456');
 insert into account_tb(user_id, account_num)
-values (1, '123434-01-123354');
+values (2, '123434-01-123354');
 insert into account_tb(user_id, account_num)
-values (1, '333456-01-111244');
-
+values (3, '333456-01-111244');
 
 
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
@@ -34,7 +32,6 @@ insert into place_tb (user_id, title, address_id, tel, notice, place_introductio
                       price_per_hour,
                       start_time, end_time)
 values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, NOW(), NOW());
-
 
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
 values (1, 1, 5, '좋은 상품이에요', NULL, 10, now());
@@ -106,7 +103,7 @@ insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (1, 1, 1, 'COMPLETE', 20000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (1, 1, 1, 'FAIL', 10000);
---
+
 insert into dates_tb (day_of_week_name, place_id)
 values ('월요일', 1);
 insert into dates_tb (day_of_week_name, place_id)
@@ -120,19 +117,12 @@ values (2, 2, 2, '내용2', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (3, 3, 3, '내용3', 'WAIT');
 
-insert into dates_tb (day_of_week_name, place_id)
-values ('월요일', 1);
-insert into dates_tb (day_of_week_name, place_id)
-values ('화요일', 1);
-insert into dates_tb (day_of_week_name, place_id)
-values ('수요일', 1);
-
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (1, 1, 1, '내용1', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (2, 2, 2, '내용2', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)
-values (3, 3, 3, '내용3', 'WAIT');
+values (3, 3, 3, '내용3', 'WAIT')
 
 insert into hashtag_tb (hashtag_name, place_id)
 values ('파티룸', 1);
@@ -147,6 +137,7 @@ insert into file_info_tb(type) values ('FACILITY');
 insert into file_tb(file_info_id, file_name, file_url, status) values (1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
 insert into file_tb(file_info_id, file_name, file_url, status) values (2, 'aa.jpg', 'https://news.dbhasjuhwuha.com/wp-content/uploads/2021/08/aa.jpg', 'WAIT');
 insert into file_tb(file_info_id, file_name, file_url, status) values (2, 'bb8.jpg', 'https://news.ahjsbaghuwssplay.com/wp-content/uploads/2011/08/bb8.jpg', 'WAIT');
+
 
 
 commit;

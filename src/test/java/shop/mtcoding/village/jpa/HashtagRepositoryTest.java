@@ -21,21 +21,12 @@
 // import shop.mtcoding.village.model.review.Review;
 // import shop.mtcoding.village.model.user.User;
 
-<<<<<<< HEAD
 // import javax.persistence.EntityManager;
 // import java.time.LocalDateTime;
 // import java.time.LocalTime;
 // import java.util.Collections;
 // import java.util.List;
 // import java.util.Optional;
-=======
-import javax.persistence.EntityManager;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
->>>>>>> ca77a8a (FMC 이용 하여 알림 기능 구현중)
 
 // @DataJpaTest
 // @ExtendWith(SpringExtension.class)
@@ -78,15 +69,9 @@ import java.util.Optional;
 //             var result = optionalHashtag.get();
 //             Assertions.assertEquals(result.getHashtagName(), "파티룸");
 
-<<<<<<< HEAD
 //             String hashtag = "음식점";
 //             result.setHashtagName(hashtag);
 //             Hashtag merge = entityManager.merge(result);
-=======
-            String hashtag = "음식점";
-            result.setHashtagName(Collections.singletonList(hashtag));
-            Hashtag merge = entityManager.merge(result);
->>>>>>> ca77a8a (FMC 이용 하여 알림 기능 구현중)
 
 //             Assertions.assertEquals(merge.getHashtagName(), "음식점");
 //         } else {
@@ -94,14 +79,9 @@ import java.util.Optional;
 //         }
 //     }
 
-//     @Test
 //     @Transactional
 //     @DisplayName("해시태그 삽입 및 삭제 테스트")
 //     void insertAndDelete() {
-//         Hashtag hashtag = setUp("공부방");
-//         Optional<Hashtag> findHashtag = this.hashtagInfoRepository.findById(hashtag.getId());
-
-//         if (findHashtag.isPresent()) {
 //             var result = findHashtag.get();
 //             Assertions.assertEquals(result.getHashtagName(), "공부방");
 //             entityManager.remove(hashtag);
@@ -125,7 +105,7 @@ import java.util.Optional;
 //         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
 //         this.entityManager.persist(review);
 
-<<<<<<< HEAD
+
 //         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
 //                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
 //         this.entityManager.persist(place);
@@ -134,28 +114,4 @@ import java.util.Optional;
 //         return this.entityManager.persist(hashtagName);
 //     }
 // }
-=======
-        Category category = new Category().builder().categoryName("이름").build();
-        this.entityManager.persist(category);
 
-        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
-        this.entityManager.persist(hashtagName);
-
-
-        Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
-                .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
-        this.entityManager.persist(place);
-
-        dates.setPlace(place);
-        hashtagName.setPlace(place);
-
-        return this.entityManager.persist(hashtagName);
-    }
-}
->>>>>>> ca77a8a (FMC 이용 하여 알림 기능 구현중)

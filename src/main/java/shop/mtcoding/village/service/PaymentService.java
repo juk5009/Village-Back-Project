@@ -2,12 +2,16 @@ package shop.mtcoding.village.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.bootpay.ReceiptDTO;
 import shop.mtcoding.village.model.cardData.CardDataRepository;
 import shop.mtcoding.village.model.metadata.MetaRepository;
 import shop.mtcoding.village.model.payment.BootPatRepository;
 import shop.mtcoding.village.model.payment.BootPay;
+import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.payment.PaymentRepository;
+
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,6 +32,7 @@ public class PaymentService {
         this.metaRepository = metaRepository;
     }
 
+
     @Transactional
     public BootPay 구매요청(ReceiptDTO receiptDTO) {
 
@@ -44,4 +49,19 @@ public class PaymentService {
 
         return bootPatRepository.save(receiptDTO.toEntity());
     }
+
+    @Transactional
+    public void 결제내역삭제(Payment payment) {
+        try {
+            paymentRepository.delete(payment);
+        }catch (Exception e){
+            throw new Exception500("예약내역 삭제 오류" + e.getMessage());
+        }
+    }
+
+    @Transactional
+    public Optional<Payment> getPayment(Long id) {
+        return paymentRepository.findById(id);
+    }
+
 }

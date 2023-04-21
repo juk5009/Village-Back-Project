@@ -2,5 +2,5 @@ package shop.mtcoding.village.notFoundConst;
 
 public interface ReservationConst {
 
-    String notFound = "예약내역이 존재하지 않습니다.";
+    String notfound = "삭제할 예약 내역이 없습니다";
 }

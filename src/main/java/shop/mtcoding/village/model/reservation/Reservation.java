@@ -43,9 +43,9 @@ public class Reservation {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-
     @Comment("예약한 유저 정보")
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("공간 정보")
@@ -81,7 +81,9 @@ public class Reservation {
         this.status = status;
     }
 
+
     public Reservation(User user, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, Integer peopleNum, ReservationStatus status) {
+
         this.user = user;
         this.date = date;
         this.startTime = startTime;
@@ -89,7 +91,7 @@ public class Reservation {
         this.peopleNum = peopleNum;
         this.status = status;
     }
-
+    
     public ReservationDTO toDTOResponse() {
         Integer totalPrice = TotalPrice.calculateTotalPrice(this);
         System.out.println("디버그 : " + totalPrice);
@@ -104,5 +106,6 @@ public class Reservation {
         );
 
     }
+
 
 }

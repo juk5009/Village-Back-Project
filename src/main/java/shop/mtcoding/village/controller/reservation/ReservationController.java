@@ -20,12 +20,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+<<<<<<< HEAD
 import shop.mtcoding.village.api.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.api.firebase.RequestDTO;
+=======
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 9974bb5 (코드 Refactor)
 import shop.mtcoding.village.core.auth.MyUserDetails;
-import shop.mtcoding.village.core.exception.MyConstException;onDTO;
+import shop.mtcoding.village.core.exception.MyConstException;
+import shop.mtcoding.village.dto.ResponseDTO;
+import shop.mtcoding.village.dto.reservation.ReservationDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
+<<<<<<< HEAD
 import shop.mtcoding.village.dto.reservation.response.ReservationSaveResponse;
+=======
+>>>>>>> 9974bb5 (코드 Refactor)
 import shop.mtcoding.village.model.fcm.Fcm;
 import shop.mtcoding.village.model.fcm.FcmRepository;
 import shop.mtcoding.village.model.place.Place;
@@ -54,7 +67,11 @@ public class ReservationController {
 
     @GetMapping
     @PreAuthorize("hasRole('USER')")
+<<<<<<< HEAD
     public ResponseEntity<ResponseDTO<List<Reservation>>> getReservation(){
+=======
+    public ResponseEntity<?> getReservation(){
+>>>>>>> 9974bb5 (코드 Refactor)
 
         List<Reservation> allReservation = reservationRepository.findAll();
 
@@ -63,13 +80,17 @@ public class ReservationController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
+<<<<<<< HEAD
     public ResponseEntity<ResponseDTO<ReservationDTO>> getById(@PathVariable Long id) {
+=======
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+>>>>>>> 9974bb5 (코드 Refactor)
 
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
         System.out.println("디버그 : " + optionalUser);
 
         if (optionalUser.isEmpty()) {
-            throw new MyConstException(ReservationConst.notFound);
+            throw new MyConstException(ReservationConst.notfound);
         }
 
         Reservation reservation = optionalUser.get();
@@ -79,7 +100,11 @@ public class ReservationController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
+<<<<<<< HEAD
     public ResponseEntity<ResponseDTO<ReservationSaveResponse>> save(
+=======
+    public ResponseEntity<?> save(
+>>>>>>> 9974bb5 (코드 Refactor)
             @Valid @RequestBody ReservationSaveRequest reservationSaveRequest,
             @AuthenticationPrincipal MyUserDetails myUserDetails
             ) throws IOException {
@@ -101,6 +126,14 @@ public class ReservationController {
                         +"일시: "+reservationSaveRequest.getStartTime()+"~"+reservationSaveRequest.getEndTime()+"\n"
                         +"인원: "+reservationSaveRequest.getPeopleNum()+"명\n",
                 fcm.getTargetToken());
+<<<<<<< HEAD
+=======
+
+        firebaseCloudMessageService.sendMessageTo(
+                requestDTO.getTargetToken(),
+                requestDTO.getTitle(),
+                requestDTO.getBody());
+>>>>>>> 9974bb5 (코드 Refactor)
 
         firebaseCloudMessageService.sendMessageTo(
                 requestDTO.getTargetToken(),
@@ -109,5 +142,19 @@ public class ReservationController {
 
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toDTOResponse()), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('HOST')")
+    public ResponseEntity<?> delete(
+            @PathVariable Long id
+    ) {
+//        Optional<Reservation> reservation = reservationService.getReservation(id);
+//        if (reservation.isEmpty()) {
+//            throw new MyConstException(ReservationConst.notfound);
+//        }
+        reservationService.예약삭제(id);
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200 , "예약내역 삭제완료", null), HttpStatus.OK);
+    }
+
 
 }

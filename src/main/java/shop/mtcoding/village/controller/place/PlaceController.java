@@ -1,13 +1,27 @@
 package shop.mtcoding.village.controller.place;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.MyConstException;
@@ -20,10 +34,7 @@ import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.notFoundConst.PlaceConst;
 import shop.mtcoding.village.notFoundConst.RoleConst;
 import shop.mtcoding.village.service.PlaceService;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import shop.mtcoding.village.util.status.PlaceStatus;
 
 
 //TODO 경로 바뀐 부분 전달하기
@@ -73,8 +84,6 @@ public class PlaceController {
     ) {
 
         String role = myUserDetails.getUser().getRole();
-
-        System.out.println("디버그 : " + role);
         var save = placeService.공간등록하기(placeSaveRequest);
 
         if (!role.equals("HOST")) {
@@ -101,19 +110,35 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", update), HttpStatus.OK);
         }
         
-    @DeleteMapping("/host/{id}")
-    @PreAuthorize("hasRole('HOST')")
-    public ResponseEntity<?> deletePlace(
-            @PathVariable Long id
-    ){
-        var optionalPlace = placeService.getPlace(id);
-        if (optionalPlace.isEmpty()) {
-            throw new MyConstException(PlaceConst.notFound);
-        }
+        @DeleteMapping("/{id}")
+        @PreAuthorize("hasRole('HOST')")
+        public ResponseEntity<ResponseDTO<PlaceStatus>> deletePlace(
+                @PathVariable Long id
+        ){
+            var optionalPlace = placeService.getPlace(id);
+            if (optionalPlace.isEmpty()) {
+                throw new MyConstException(PlaceConst.notFound);
+            }
 
-        placeService.공간삭제하기(optionalPlace.get());
+            Place inactivePlace = placeService.공간비활성화(optionalPlace.get());
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 삭제 완료", null), HttpStatus.OK);
+            return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간비활성화 완료", inactivePlace.getStatus()), HttpStatus.OK);
+
     }
 
+        @PostMapping("/{id}")
+        @PreAuthorize("hasRole('HOST')")
+        public ResponseEntity<ResponseDTO<PlaceStatus>> activePlace(
+                @PathVariable Long id
+        ){
+            var optionalPlace = placeService.getPlace(id);
+            if (optionalPlace.isEmpty()) {
+                throw new MyConstException(PlaceConst.notFound);
+            }
+
+            Place activePlace = placeService.공간활성화(optionalPlace.get());
+
+            return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간활성화 완료", activePlace.getStatus()), HttpStatus.OK);
+
+        }
 }

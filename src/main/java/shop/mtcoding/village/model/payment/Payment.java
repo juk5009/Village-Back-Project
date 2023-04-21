@@ -10,6 +10,8 @@ import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.PaymentStatus;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -26,6 +28,7 @@ public class Payment {
     @Comment("유저 정보")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("공간 정보")
@@ -37,6 +40,7 @@ public class Payment {
     @Comment("예약 정보")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Reservation reservation;
 
     @Comment("결제 상태")
