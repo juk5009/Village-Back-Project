@@ -32,7 +32,7 @@ public class HostController {
         Host hostSave = hostService.호스트신청(hostSaveDto);
 
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, "호스트 신청 완료", hostSave), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO<>(1, 1, "호스트 신청 완료", hostSave), HttpStatus.OK);
     }
 
 

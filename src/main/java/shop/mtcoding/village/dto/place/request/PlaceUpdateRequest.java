@@ -46,6 +46,9 @@ public class PlaceUpdateRequest {
     @NotNull(message = "최대 인원수를 입력해주세요.")
     private Integer maxPeople;
 
+    @NotNull(message = "주차 대수를 입력해주세요.")
+    private Integer maxParking;
+
     @NotNull(message = "시간당 금액을 입력해주세요.")
     private Integer pricePerHour;
 
@@ -78,9 +81,10 @@ public class PlaceUpdateRequest {
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
         place.setNotice(notice);
         place.setMaxPeople(maxPeople);
+        place.setMaxParking(maxParking);
         place.setPricePerHour(pricePerHour);
         return new Place(
-                title, address, tel, startTime, endTime, placeIntroductionInfo, notice, maxPeople, pricePerHour
+                title, address, tel, startTime, endTime, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour
         );
 
         // , categoryName, date, facilityName, hashtagName

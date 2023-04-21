@@ -32,7 +32,7 @@ public class PlaceSaveRequest {
     @NotBlank(message = "주소을 입력해주세요.")
     private String placeAddress;
 
-//    @Null
+    //    @Null
     private String tel;
 
     @NotNull(message = "대여 가능 시작시간을 입력해주세요.")
@@ -50,8 +50,12 @@ public class PlaceSaveRequest {
     @NotNull(message = "최대 인원수를 입력해주세요.")
     private Integer maxPeople;
 
+    @NotNull(message = "주차 대수를 입력해주세요.")
+    private Integer maxParking;
+
     @NotNull(message = "시간당 금액을 입력해주세요.")
     private Integer pricePerHour;
+
 
     // 다른 엔티티들
 
@@ -59,16 +63,16 @@ public class PlaceSaveRequest {
     @ElementCollection
     private DateSaveDTO dayOfWeek;
 
-//    @Null
+    //    @Null
     private HashtagSaveDTO hashtag;
 
-//    @Null
+    //    @Null
     private FacilityInfoSaveDTO facilityInfo;
 
     @NotNull(message = "카테고리를 등록해주세요.")
     private CategorySaveDTO category;
 
-    public Place toEntity(){
+    public Place toEntity() {
 
         Address address = new Address();
         address.setRoadFullAddr(placeAddress);
@@ -82,9 +86,10 @@ public class PlaceSaveRequest {
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
         place.setNotice(notice);
         place.setMaxPeople(maxPeople);
+        place.setMaxParking(maxParking);
         place.setPricePerHour(pricePerHour);
         return new Place(
-                title, address, tel, startTime, endTime, placeIntroductionInfo, notice, maxPeople, pricePerHour
+                title, address, tel, startTime, endTime, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour
         );
 
         // , categoryName, date, facilityName, hashtagName
