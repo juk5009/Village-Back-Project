@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import shop.mtcoding.village.model.user.User;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 

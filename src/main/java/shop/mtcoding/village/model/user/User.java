@@ -24,6 +24,7 @@ public class User {
     private String password;
 
     @Comment("유저 이메일")
+    @Column(unique = true)
     private String email;
 
     @Comment("유저 전화번호")

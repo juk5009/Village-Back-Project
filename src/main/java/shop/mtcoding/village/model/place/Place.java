@@ -67,6 +67,10 @@ public class Place {
     @Comment("공간의 최대 인원수")
     private Integer maxPeople;
 
+    @Comment("주차 가능 대수")
+    private Integer maxParking;
+
+
     @Comment("시간당 결제 금액")
     private Integer pricePerHour;
 
@@ -76,8 +80,11 @@ public class Place {
     @Comment("마감 시간")
     private LocalTime endTime;
 
-    public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople
-            , Integer pricePerHour, LocalTime startTime, LocalTime endTime) {
+
+
+
+    public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople,
+            Integer maxParking, Integer pricePerHour, LocalTime startTime, LocalTime endTime) {
         this.user = user;
         this.title = title;
         this.address = address;
@@ -86,6 +93,7 @@ public class Place {
         this.notice = notice;
         this.fileInfo = fileInfo;
         this.maxPeople = maxPeople;
+        this.maxParking = maxParking;
         this.pricePerHour = pricePerHour;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -94,7 +102,7 @@ public class Place {
     @Builder
     public Place(String title, Address address, String tel, LocalTime startTime, LocalTime endTime,
                  String placeIntroductionInfo,
-                 String notice, Integer maxPeople, Integer pricePerHour) {
+                 String notice, Integer maxPeople, Integer maxParking, Integer pricePerHour) {
         this.title = title;
         this.address = address;
         this.tel = tel;
@@ -103,6 +111,7 @@ public class Place {
         this.placeIntroductionInfo = placeIntroductionInfo;
         this.notice = notice;
         this.maxPeople = maxPeople;
+        this.maxParking = maxParking;
         this.pricePerHour = pricePerHour;
 //        this.fileInfo = fileInfo;
     }
@@ -118,7 +127,7 @@ public class Place {
         String categoryName = category.getCategoryName();
 
         return new PlaceSaveResponse(
-                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, notice,
+                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice,
                 dayOfWeek, hashtagName, facilityName, categoryName
         );
     }
@@ -134,7 +143,7 @@ public class Place {
         String categoryName = category.getCategoryName();
 
         return new PlaceUpdateResponse(
-                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, notice,
+                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice,
                 dayOfWeek, hashtagName, facilityName, categoryName
         );
     }

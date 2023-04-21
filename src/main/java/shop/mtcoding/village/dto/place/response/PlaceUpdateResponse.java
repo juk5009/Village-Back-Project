@@ -26,6 +26,8 @@ public class PlaceUpdateResponse {
 
     private Integer maxPeople;
 
+    private Integer maxParking;
+
     private Integer pricePerHour;
 
     private String notice;
@@ -39,7 +41,7 @@ public class PlaceUpdateResponse {
     private String categoryName;
 
     public PlaceUpdateResponse(String title, Address placeAddress, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople
-            , Integer pricePerHour, String notice, List<String> dayOfWeek, List<String> hashtagName, List<String> facilityName, String categoryName) {
+            , Integer maxParking, Integer pricePerHour, String notice, List<String> dayOfWeek, List<String> hashtagName, List<String> facilityName, String categoryName) {
         this.title = title;
         this.placeAddress = placeAddress;
         this.tel = tel;
@@ -47,6 +49,7 @@ public class PlaceUpdateResponse {
         this.endTime = endTime;
         this.placeIntroductionInfo = placeIntroductionInfo;
         this.maxPeople = maxPeople;
+        this.maxParking = maxParking;
         this.pricePerHour = pricePerHour;
         this.notice = notice;
         this.dayOfWeek = dayOfWeek;
