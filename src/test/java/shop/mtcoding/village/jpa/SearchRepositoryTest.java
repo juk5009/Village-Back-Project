@@ -1,7 +1,6 @@
 package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -97,7 +96,7 @@ public class SearchRepositoryTest {
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
 
-        Search search = new Search();
+        Search search = new Search(userPS.getId(), keyword);
         search.setUser(user);
         search.setKeyword(keyword);
         return this.entityManager.persist(search);

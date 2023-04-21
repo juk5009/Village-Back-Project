@@ -1,6 +1,9 @@
 package shop.mtcoding.village.service;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 31082de (익셉션 처리)
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,5 @@ public class ReservationService {
             throw new Exception500("로그인 오류" + e.getMessage());
         }
     }
-
 
 }

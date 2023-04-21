@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.dto.ResponseDTO;
@@ -23,15 +24,12 @@ public class HostController {
     private final HostService hostService;
 
     @PostMapping
-    public @ResponseBody ResponseEntity<ResponseDTO> saveHost(@Valid @RequestBody HostSaveRequest hostSaveDto){
-
-
+    public @ResponseBody ResponseEntity<ResponseDTO> saveHost(@Valid @RequestBody HostSaveRequest hostSaveDto,
+            Errors Errors) {
 
         Host hostSave = hostService.호스트신청(hostSaveDto);
 
-
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "호스트 신청 완료", hostSave), HttpStatus.OK);
     }
-
 
 }

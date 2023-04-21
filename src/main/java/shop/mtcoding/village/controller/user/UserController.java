@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.core.jwt.MyJwtProvider;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 @RestController
 public class UserController {
 
-
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final UserService userService;
@@ -37,6 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
+<<<<<<< HEAD
     public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO) {
 
 
@@ -45,41 +45,44 @@ public class UserController {
 
 
 
+=======
+
+    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO, Errors Errors) {
+
+        // select 됨
+        UserResponse.JoinDTO data = userService.회원가입(joinDTO);
+
+>>>>>>> 31082de (익셉션 처리)
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(data);
         return ResponseEntity.ok().body(responseDTO);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO, Errors Errors) {
 
         ArrayList loginViewList = userService.로그인(loginDTO);
         String jwt = (String) loginViewList.get(0);
-        UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO((Long) loginViewList.get(1),(String) loginViewList.get(2), (String) loginViewList.get(3));
-
+        UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO((Long) loginViewList.get(1),
+                (String) loginViewList.get(2), (String) loginViewList.get(3));
 
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(loginViewDTO);
-        return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt ).body(responseDTO);
+        return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
     }
 
-//
+    //
 
-
-    @GetMapping("/s/users/{id}") //인증 확인
+    @GetMapping("/s/users/{id}") // 인증 확인
     public ResponseEntity<?> userCheck(@PathVariable Long id,
-            @AuthenticationPrincipal MyUserDetails myUserDetails ) {
-
-
-
+            @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
         Long principalId = myUserDetails.getUser().getId();
         String role = myUserDetails.getUser().getRole();
 
-        if (principalId != id){
+        if (principalId != id) {
             return ResponseEntity.badRequest().body("올바른 접근이 아닙니다. ");
         }
 
-        return ResponseEntity.ok().body("id : "+ principalId + " role : " + role);
+        return ResponseEntity.ok().body("id : " + principalId + " role : " + role);
     }
-
 
 }

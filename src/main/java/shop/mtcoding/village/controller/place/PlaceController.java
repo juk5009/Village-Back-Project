@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
@@ -36,25 +35,29 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 전체 보기", allPlace), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<PlaceSaveResponse>> getPage(Pageable pageable) {
-//        var page = placeService.getPage(pageable);
-//        var content = page.getContent()
-//                .stream()
-//                .map(Place::toDTO)
-//                .toList();
-//
-//        return ResponseEntity.ok(
-//                new PageImpl<>(content, pageable, page.getTotalElements())
-//        );
-//    }
+    // @GetMapping
+    // public ResponseEntity<Page<PlaceSaveResponse>> getPage(Pageable pageable) {
+    // var page = placeService.getPage(pageable);
+    // var content = page.getContent()
+    // .stream()
+    // .map(Place::toDTO)
+    // .toList();
+    //
+    // return ResponseEntity.ok(
+    // new PageImpl<>(content, pageable, page.getTotalElements())
+    // );
+    // }
 
     @PostMapping
     public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
+<<<<<<< HEAD
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest
     ) {
 
 
+=======
+            @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors) {
+>>>>>>> 31082de (익셉션 처리)
 
         var save = placeService.공간등록하기(placeSaveRequest);
 
@@ -63,10 +66,7 @@ public class PlaceController {
 
     @PutMapping
     public ResponseEntity<ResponseDTO> updatePlace(
-            @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest
-        ){
-
-
+            @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, Errors Errors) {
 
         var update = placeService.공간수정하기(placeUpdateRequest);
 
@@ -75,8 +75,7 @@ public class PlaceController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePlace(
-            @PathVariable Long id
-    ){
+            @PathVariable Long id) {
         var optionalPlace = placeService.getPlace(id);
         if (optionalPlace.isEmpty()) {
             throw new MyConstException(PlaceConst.notFound);

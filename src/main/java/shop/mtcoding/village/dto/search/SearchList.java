@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Getter
@@ -17,23 +18,18 @@ public class SearchList {
     private String keyword;
     private String address;
     private Integer starRating;
-    private List<String> hashtagName;
+    private String hashtagName;
 
-    public SearchList(Long id, String title, Integer maxPeople, Integer maxParking, Integer pricePerHour, String Keyword, String address, Integer starRating, List<String> hashtagName) {
-        this.id = id;
+    public SearchList(BigInteger id, String title, Integer maxPeople, Integer maxParking, Integer pricePerHour, String keyword, String address, Integer starRating, String hashtagName) {
+        this.id = id.longValue();
         this.title = title;
         this.maxPeople = maxPeople;
         this.maxParking = maxParking;
         this.pricePerHour = pricePerHour;
-        this.keyword = Keyword;
+        this.keyword = keyword;
         this.address = address;
         this.starRating = starRating;
         this.hashtagName = hashtagName;
     }
+
 }
-
-
-
-
-
-
