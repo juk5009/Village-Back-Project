@@ -8,12 +8,12 @@ import java.util.List;
 
 @Getter
 public class FacilityInfoSaveDTO {
-    private List<String> facilityName;
+    private FacilityInfo facilityName;
 
     public FacilityInfo toEntity() {
 
         FacilityInfo facilityInfo = new FacilityInfo();
-        facilityInfo.setFacilityName(facilityName);
+        facilityInfo.setFacilityName(facilityName.toString());
         return facilityInfo;
     }
 }

@@ -60,6 +60,4 @@ public class PlaceSaveResponse {
         this.categoryName = categoryName;
     }
 
-
-
 }

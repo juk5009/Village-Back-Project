@@ -1,7 +1,7 @@
 package shop.mtcoding.village.dto.reservation.request;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
 
@@ -25,6 +25,7 @@ public class ReservationSaveRequest {
 
 //    @NotBlank(message = "끝 시간을 입력해주세요.")
     private LocalDateTime endTime;
+
 
     public Reservation toEntity() {
         User user = new User();

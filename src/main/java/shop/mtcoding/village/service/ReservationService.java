@@ -1,7 +1,10 @@
 package shop.mtcoding.village.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.net.HttpHeaders;
 import lombok.RequiredArgsConstructor;
+import okhttp3.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
@@ -16,12 +19,9 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
 
-    private final NoticeRepository noticeRepository;
 
     @Transactional
     public Reservation 예약신청(ReservationSaveRequest reservationSaveRequest) {
-
-
         return reservationRepository.save(reservationSaveRequest.toEntity());
     }
 }
