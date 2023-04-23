@@ -4,6 +4,7 @@ import lombok.*;
 import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
+import shop.mtcoding.village.util.status.ReservationStatus;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -26,6 +27,8 @@ public class ReservationSaveRequest {
 //    @NotBlank(message = "끝 시간을 입력해주세요.")
     private LocalDateTime endTime;
 
+    private ReservationStatus reservationStatus;
+
 
     public Reservation toEntity() {
         User user = new User();
@@ -36,7 +39,8 @@ public class ReservationSaveRequest {
         reservation.setDate(date);
         reservation.setStartTime(startTime);
         reservation.setEndTime(endTime);
-        return new Reservation(user, date, startTime, endTime, peopleNum);
+        reservation.setStatus(reservationStatus);
+        return new Reservation(user, date, startTime, endTime, peopleNum, reservationStatus);
     }
 
 }

@@ -72,19 +72,20 @@ public class Reservation {
         this.status = status;
     }
 
-    public Reservation(User user, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, Integer peopleNum) {
+    public Reservation(User user, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, Integer peopleNum, ReservationStatus status) {
         this.user = user;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.peopleNum = peopleNum;
+        this.status = status;
     }
 
     public ReservationSaveResponse toResponse() {
         User userName = new User();
         userName.setName(user.getName());
 
-        return new ReservationSaveResponse(userName, peopleNum, date, startTime, endTime);
+        return new ReservationSaveResponse(userName, peopleNum, date, startTime, endTime, status);
     }
 //
 //    public ReservationDTO toDTOResponse() {

@@ -11,7 +11,9 @@ import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.dto.ResponseDTO;
+import shop.mtcoding.village.dto.reservation.ReservationDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
+import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.notFoundConst.ReservationConst;
@@ -52,7 +54,7 @@ public class ReservationController {
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
         System.out.println("디버그 : " + optionalUser);
 
-        if (!optionalUser.isPresent()) {
+        if (optionalUser.isEmpty()) {
             throw new MyConstException(ReservationConst.notFound);
         }
 
@@ -70,7 +72,11 @@ public class ReservationController {
 
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
 
-        RequestDTO requestDTO = new RequestDTO("예약신청", reservationSaveRequest.getUserName()+ "님이 예약신청을 했습니다", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+        // 내 휴대폰으로 연결 했을 때 토큰
+         RequestDTO requestDTO = new RequestDTO("예약신청Test", reservationSaveRequest.getUserName()+ "님이 예약신청을 했습니다", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+
+        // 안드로이드 스튜디어로 연결 했을 때 토큰
+//        RequestDTO requestDTO = new RequestDTO("예약신청", reservationSaveRequest.getUserName()+ "님이 예약신청을 했습니다", "e8ayeYq0QDC_D2ph3zcgPx:APA91bGT2vs5-qFhPaylG8VZxqnJpqfXRrX2cC2OwW1aadTNpEsMYL9BMAxzFH-vcAX1WZ-COPe5qLDyaJsEpk57uy6F74QbI34DTs3gapJj1nbvNhOL0-h4RoWlXCZ6Nfo0OtncgfeB");
         firebaseCloudMessageService.sendMessageTo(
                 requestDTO.getTargetToken(),
                 requestDTO.getTitle(),
