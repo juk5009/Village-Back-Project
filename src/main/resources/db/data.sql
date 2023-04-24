@@ -1,9 +1,9 @@
 insert into user_tb (name, password, email, tel, role, profile, created_at)
-values ('ssar', '1234', 'ssar@naver.com', '01012345678', 'USER', '/images/dora.png', NOW());
+values ('ssar', '$2a$10$7BRdSwSNouWzc5VhwdaGlODdo5KkNmbeFEpnT7jJ2gcRFOtxA1Qai', 'ssar@naver.com', '01012345678', 'USER', '/images/dora.png', NOW());
 insert into user_tb (name, password, email, tel, role, profile, created_at)
-values ('Jane', '1234', 'Jane@naver.com', '01023455678', 'MANAGER', '/images/dora.png', NOW());
+values ('Jane', '$2a$10$7BRdSwSNouWzc5VhwdaGlODdo5KkNmbeFEpnT7jJ2gcRFOtxA1Qai', 'Jane@naver.com', '01023455678', 'MANAGER', '/images/dora.png', NOW());
 insert into user_tb (name, password, email, tel, role, profile, created_at)
-values ('Bob', '1234', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', NOW());
+values ('Bob', '$2a$10$7BRdSwSNouWzc5VhwdaGlODdo5KkNmbeFEpnT7jJ2gcRFOtxA1Qai', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', NOW());
 
 insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
 values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '12', '15');
@@ -136,14 +136,6 @@ insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (2, 2, 2, '내용2', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (3, 3, 3, '내용3', 'WAIT');
-
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('가까운곳', 1, 1);
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('저렴한곳', 2, 2);
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('내주변인곳', 3, 3);
-
 
 insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
 values ('파티룸, 캠핑장, 실내', 1, 1);

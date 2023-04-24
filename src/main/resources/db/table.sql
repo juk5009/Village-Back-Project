@@ -106,8 +106,7 @@ create table chatroom_tb (
     place_id int not null,
     created_at timestamp not null,
 );
---
---
+
 create table search_tb (
     id int AUTO_INCREMENT primary key,
     user_id int,
