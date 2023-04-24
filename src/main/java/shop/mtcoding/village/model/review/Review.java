@@ -2,6 +2,7 @@ package shop.mtcoding.village.model.review;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.*;
@@ -23,6 +24,11 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Comment("공간 정보")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
+    private Place place;
 
     @Comment("별점")
     private Integer starRating;

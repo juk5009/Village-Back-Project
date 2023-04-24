@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.search.Search;
-import shop.mtcoding.village.model.search.SearchRepository;
+import shop.mtcoding.village.model.search.SearchJpaRepository;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.EntityManager;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class SearchRepositoryTest {
 
     @Autowired
-    private SearchRepository searchRepository;
+    private SearchJpaRepository searchRepository;
 
     @Autowired
     private TestEntityManager entityManager;

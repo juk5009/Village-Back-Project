@@ -6,11 +6,11 @@ insert into user_tb (name, password, email, tel, role, profile, created_at)
 values ('Bob', '1234', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', NOW());
 
 insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
-values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산진구', '47296', '12', '15');
+values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '12', '15');
 insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
-values ('부산 부산진구 중앙대로 688 한준빌딩 12층', '사상구', '43296', '111', '115');
+values ('부산 부산진구 중앙대로 688 한준빌딩 12층', '부산 사상구', '43296', '111', '115');
 insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
-values ('부산 부산진구 중앙대로 688 한준빌딩 22층', '사하구', '27296', '412', '125');
+values ('부산 부산진구 중앙대로 688 한준빌딩 22층', '부산 사하구', '27296', '412', '125');
 
 
 
@@ -22,25 +22,27 @@ insert into account_tb(user_id, account_num)
 values (1, '333456-01-111244');
 
 
-insert into review_tb (user_id, star_rating, content, image, like_count, created_at)
-values (1, 5, '좋은 상품이에요', NULL, 10, now());
-insert into review_tb (user_id, star_rating, content, image, like_count, created_at)
-values (2, 4, '조금 아쉬운 부분도 있지만 전체적으로 만족스러웠어요', NULL, 5, now());
-insert into review_tb (user_id, star_rating, content, image, like_count, created_at)
-values (3, 3, '그저 그랬어요', NULL, 2, now());
 
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (1, '좋은 공간', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 5, NOW(), NOW());
+values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 5, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (2, '멋진 공간', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 4, NOW(), NOW());
+values (2, 'AOP STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 4, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (3, '편안한 공간', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3, NOW(), NOW());
+values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3, NOW(), NOW());
+
+
+insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+values (1, 1, 5, '좋은 상품이에요', NULL, 10, now());
+insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+values (2, 2, 4, '조금 아쉬운 부분도 있지만 전체적으로 만족스러웠어요', NULL, 5, now());
+insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
 
 
 
@@ -82,12 +84,12 @@ values (2, 2, NOW());
 insert into chat_room_tb (user_id, place_id, created_at)
 values (3, 3, NOW());
 
-insert into search_tb (user_id, keyword)
-values (1, '연습실');
-insert into search_tb (user_id, keyword)
-values (1, '스터디룸');
-insert into search_tb (user_id, keyword)
-values (1, '커피숍');
+insert into search_tb (user_id, place_id, keyword)
+values (1, 1, '연습실');
+insert into search_tb (user_id, place_id, keyword)
+values (2, 2, '스터디룸');
+insert into search_tb (user_id, place_id, keyword)
+values (3, 3, '커피숍');
 
 insert into chat_tb (user_id, send, chat_room_id, created_at)
 values (1, '안녕하세요!', 1, NOW());
@@ -144,10 +146,10 @@ values ('내주변인곳', 3, 3);
 
 
 insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('가까운곳', 1, 1);
+values ('파티룸, 캠핑장, 실내', 1, 1);
 insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('저렴한곳', 2, 2);
+values ('쇼핑몰촬영, 파티룸, 촬영스튜디오', 2, 2);
 insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('내주변인곳', 3, 3);
+values ('부산연습실', 3, 3);
 
 commit;

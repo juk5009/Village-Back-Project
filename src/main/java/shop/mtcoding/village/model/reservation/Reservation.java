@@ -30,12 +30,12 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Comment("예약한 유저 정보")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("공간 정보")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Comment("예약 날짜")

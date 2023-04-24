@@ -72,6 +72,7 @@ create table category_tb (
 create table review_tb (
     id int primary key AUTO_INCREMENT,
     user_id int,
+    place_id int,
     star_rating int,
     content VARCHAR(255),
     image VARCHAR(255),
@@ -110,6 +111,7 @@ create table chatroom_tb (
 create table search_tb (
     id int AUTO_INCREMENT primary key,
     user_id int,
+    place_id int,
     keyword varchar(255),
 
 );
