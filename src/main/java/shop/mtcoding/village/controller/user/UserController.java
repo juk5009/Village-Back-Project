@@ -61,7 +61,7 @@ public class UserController {
         return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body("로그인 성공하였습니다.");
     }
 
-    @GetMapping("/ct/users/{id}") //인증 확인
+    @GetMapping("/s/users/{id}") //인증 확인
     public ResponseEntity<?> userCheck(@PathVariable Long id,
             @AuthenticationPrincipal MyUserDetails myUserDetails ) {
 
