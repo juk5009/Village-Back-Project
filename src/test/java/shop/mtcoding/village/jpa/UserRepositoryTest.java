@@ -48,7 +48,7 @@ public class UserRepositoryTest {
         Assertions.assertNotEquals(users.size(), 0);
 
         User user = users.get(0);
-        Assertions.assertEquals(user.getName(), "love");
+        Assertions.assertEquals(user.getName(), "ssar");
     }
 
     @Test

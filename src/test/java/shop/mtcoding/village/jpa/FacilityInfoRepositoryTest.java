@@ -44,7 +44,7 @@ public class FacilityInfoRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE facility_info_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        setUp("화장실");
+//        setUp("화장실");
     }
 
     @Test
@@ -55,21 +55,21 @@ public class FacilityInfoRepositoryTest {
         Assertions.assertNotEquals(facilityInfos.size(), 0);
 
         FacilityInfo facilityInfo = facilityInfos.get(0);
-        Assertions.assertEquals(facilityInfo.getFacilityName(), "화장실");
+        Assertions.assertEquals(facilityInfo.getFacilityName(), "카페");
     }
 
     @Test
     @Transactional
     @DisplayName("편의시설 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalFacilityInfo = this.facilityInfoRepository.findById(4L);
+        var optionalFacilityInfo = this.facilityInfoRepository.findById(1L);
 
         if (optionalFacilityInfo.isPresent()) {
             var result = optionalFacilityInfo.get();
-            Assertions.assertEquals(result.getFacilityName(), "화장실");
+            Assertions.assertEquals(result.getFacilityName(), "카페");
 
             String facilityInfo = "매점";
-            result.setFacilityName(Collections.singletonList(facilityInfo));
+            result.setFacilityName(facilityInfo);
             FacilityInfo merge = entityManager.merge(result);
 
             Assertions.assertEquals(merge.getFacilityName(), "매점");
@@ -87,7 +87,7 @@ public class FacilityInfoRepositoryTest {
 
         if (findfacilityInfo.isPresent()) {
             var result = findfacilityInfo.get();
-            Assertions.assertEquals(result.getFacilityName(), "화장실");
+            Assertions.assertEquals(result.getFacilityName(), "공부방");
             entityManager.remove(facilityInfo);
             Optional<FacilityInfo> deleteDate = this.facilityInfoRepository.findById(facilityInfo.getId());
             if (deleteDate.isPresent()) {
@@ -109,26 +109,11 @@ public class FacilityInfoRepositoryTest {
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
 
-        Category category = new Category().builder().categoryName("이름").build();
-        this.entityManager.persist(category);
-
-        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
-        this.entityManager.persist(hashtagName);
-
-
         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
         this.entityManager.persist(place);
 
-        dates.setPlace(place);
-        hashtagName.setPlace(place);
-
+        FacilityInfo facilityName = new FacilityInfo().builder().place(place).facilityName(facilityInfoName).build();
         return this.entityManager.persist(facilityName);
     }
 }

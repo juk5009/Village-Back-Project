@@ -33,12 +33,12 @@ public class SearchRepositoryTest {
     private EntityManager em;
 
 
-    @BeforeEach
-    public void init() {
-        em.createNativeQuery("ALTER TABLE search_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-
-        setUpBySearch("keyword4");
-    }
+//    @BeforeEach
+//    public void init() {
+//        em.createNativeQuery("ALTER TABLE search_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+//
+//        setUpBySearch("keyword4");
+//    }
 
     @Test
     @Transactional
@@ -48,18 +48,18 @@ public class SearchRepositoryTest {
         Assertions.assertNotEquals(searches.size(), 0);
 
         Search search = searches.get(0);
-        Assertions.assertEquals(search.getKeyword(), "keyword4");
+        Assertions.assertEquals(search.getKeyword(), "연습실");
     }
 
     @Test
     @Transactional
     @DisplayName("검색 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalSearch = this.searchRepository.findById(4L);
+        var optionalSearch = this.searchRepository.findById(1L);
 
         if(optionalSearch.isPresent()) {
             var result = optionalSearch.get();
-            Assertions.assertEquals(result.getKeyword(), "keyword4");
+            Assertions.assertEquals(result.getKeyword(), "연습실");
 
             var keyword = "keyword55";
             result.setKeyword(keyword);

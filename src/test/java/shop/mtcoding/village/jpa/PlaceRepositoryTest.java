@@ -44,8 +44,8 @@ public class PlaceRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE place_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        setUpByPlace("공간 제목","010-1245-7878", "공간 정보", "공간 소개",
-                 5, 30, LocalDateTime.now(), LocalDateTime.now());
+//        setUpByPlace("공간 제목","010-1245-7878", "공간 정보", "공간 소개",
+//                 5, 30, LocalDateTime.now(), LocalDateTime.now());
     }
 
     @Test
@@ -56,18 +56,18 @@ public class PlaceRepositoryTest {
         Assertions.assertNotEquals(places.size(), 0);
 
         Place place = places.get(0);
-        Assertions.assertEquals(place.getTitle(), "공간 제목");
+        Assertions.assertEquals(place.getTitle(), "스튜디오 르온드");
     }
 
     @Test
     @Transactional
     @DisplayName("공간 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalPlace = this.placeRepository.findById(4L);
+        var optionalPlace = this.placeRepository.findById(1L);
 
         if(optionalPlace.isPresent()) {
             var result = optionalPlace.get();
-            Assertions.assertEquals(result.getTitle(), "공간 제목");
+            Assertions.assertEquals(result.getTitle(), "스튜디오 르온드");
 
             var tel = "787878787778";
             result.setTel(tel);

@@ -44,11 +44,11 @@ public class ReservationRepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @BeforeEach
-    public void init() {
-        em.createNativeQuery("ALTER TABLE reservation_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-      setUp(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 3, ReservationStatus.WAIT);
-    }
+//    @BeforeEach
+//    public void init() {
+//        em.createNativeQuery("ALTER TABLE reservation_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+//      setUp(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 3, ReservationStatus.WAIT);
+//    }
 
     @Test
     @Transactional
@@ -58,18 +58,18 @@ public class ReservationRepositoryTest {
         Assertions.assertNotEquals(reservations.size(), 0);
 
         Reservation reservation = reservations.get(0);
-        Assertions.assertEquals(reservation.getPeopleNum(), 3);
+        Assertions.assertEquals(reservation.getPeopleNum(), 2);
     }
 
     @Test
     @Transactional
     @DisplayName("예약 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalReservation = this.reservationRepository.findById(4L);
+        var optionalReservation = this.reservationRepository.findById(1L);
 
         if(optionalReservation.isPresent()) {
             var result = optionalReservation.get();
-            Assertions.assertEquals(result.getPeopleNum(), 3);
+            Assertions.assertEquals(result.getPeopleNum(), 2);
 
             var peopleNum = 4;
             result.setPeopleNum(peopleNum);
@@ -110,19 +110,6 @@ public class ReservationRepositoryTest {
 
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
-
-        Category category = new Category().builder().categoryName("이름").build();
-        this.entityManager.persist(category);
-
-        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
-        this.entityManager.persist(hashtagName);
-
 
         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();

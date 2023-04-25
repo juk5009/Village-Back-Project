@@ -46,7 +46,7 @@ public class DatesRepositoryTest {
     @BeforeEach
     public void init() {
         em.createNativeQuery("ALTER TABLE dates_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        setUp("월요일");
+//        setUp("월요일");
     }
 
     @Test
@@ -64,14 +64,14 @@ public class DatesRepositoryTest {
     @Transactional
     @DisplayName("요일 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalDates = this.dateRepository.findById(4L);
+        var optionalDates = this.dateRepository.findById(1L);
 
         if (optionalDates.isPresent()) {
             var result = optionalDates.get();
             Assertions.assertEquals(result.getDayOfWeekName(), "월요일");
 
             String day = "화요일";
-            result.setDayOfWeekName(Collections.singletonList(day));
+            result.setDayOfWeekName(day);
             Dates merge = entityManager.merge(result);
 
             Assertions.assertEquals(merge.getDayOfWeekName(), "화요일");
@@ -84,12 +84,12 @@ public class DatesRepositoryTest {
     @Transactional
     @DisplayName("요일 삽입 및 삭제 테스트")
     void insertAndDelete() {
-        Dates dates = setUp("수요일");
+        Dates dates = setUp("토요일");
         Optional<Dates> findDate = this.dateRepository.findById(dates.getId());
 
         if (findDate.isPresent()) {
             var result = findDate.get();
-            Assertions.assertEquals(result.getDayOfWeekName(), "월요일");
+            Assertions.assertEquals(result.getDayOfWeekName(), "토요일");
             entityManager.remove(dates);
             Optional<Dates> deleteDate = this.dateRepository.findById(dates.getId());
             if (deleteDate.isPresent()) {
@@ -101,7 +101,6 @@ public class DatesRepositoryTest {
     }
 
     private Dates setUp(String dayOfWeekName) {
-
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
 
@@ -114,23 +113,12 @@ public class DatesRepositoryTest {
         Category category = new Category().builder().categoryName("이름").build();
         this.entityManager.persist(category);
 
-        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
-        this.entityManager.persist(hashtagName);
-
-
         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
         this.entityManager.persist(place);
 
-        dates.setPlace(place);
+        Dates dates = new Dates().builder().place(place).dayOfWeekName(dayOfWeekName).build();
         return this.entityManager.persist(dates);
+
     }
-
-
 }
