@@ -47,12 +47,12 @@ values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
 
 
 
-insert into facility_info_tb (facility_name, facility_info_id, place_id)
-values ('카페', 1, 1);
-insert into facility_info_tb (facility_name, facility_info_id, place_id)
-values ('화장실', 2, 2);
-insert into facility_info_tb (facility_name, facility_info_id, place_id)
-values ('주차장', 3, 3);
+insert into facility_info_tb (facility_name, place_id)
+values ('카페', 1);
+insert into facility_info_tb (facility_name, place_id)
+values ('화장실', 2);
+insert into facility_info_tb (facility_name, place_id)
+values ('주차장', 3);
 
 
 insert into category_tb (category_name, place_id)
@@ -108,12 +108,12 @@ values (1, 1, 1, 'COMPLETE', 20000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (1, 1, 1, 'FAIL', 10000);
 --
-insert into dates_tb (day_of_week_name, dates_id, place_id)
-values ('월요일,화요일,수요일,목요일', 1, 1);
-insert into dates_tb (day_of_week_name, dates_id, place_id)
-values ('월요일,목요일,금요일,토요일', 2, 1);
-insert into dates_tb (day_of_week_name, dates_id, place_id)
-values ('수요일', 2, 2);
+insert into dates_tb (day_of_week_name, place_id)
+values ('월요일,화요일,수요일,목요일', 1);
+insert into dates_tb (day_of_week_name, place_id)
+values ('월요일,목요일,금요일,토요일', 1);
+insert into dates_tb (day_of_week_name, place_id)
+values ('수요일', 2);
 
 
 insert into notice_tb (user_id, place_id, payment_id, content, status)
@@ -124,12 +124,12 @@ insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (3, 3, 3, '내용3', 'WAIT');
 
 
-insert into dates_tb (day_of_week_name, dates_id, place_id)
-values ('월요일,화요일,수요일,목요일', 1, 1);
-insert into dates_tb (day_of_week_name, dates_id, place_id)
-values ('월요일,목요일,금요일,토요일', 2, 1);
-insert into dates_tb (day_of_week_name, dates_id, place_id)
-values ('수요일', 2, 2);
+insert into dates_tb (day_of_week_name, place_id)
+values ('월요일,화요일,수요일,목요일', 1);
+insert into dates_tb (day_of_week_name, place_id)
+values ('월요일,목요일,금요일,토요일', 1);
+insert into dates_tb (day_of_week_name, place_id)
+values ('수요일',  2);
 
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (1, 1, 1, '내용1', 'WAIT');
@@ -138,19 +138,11 @@ values (2, 2, 2, '내용2', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (3, 3, 3, '내용3', 'WAIT');
 
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('가까운곳', 1, 1);
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('저렴한곳', 2, 2);
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('내주변인곳', 3, 3);
-
-
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('파티룸, 캠핑장, 실내', 1, 1);
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('쇼핑몰촬영, 파티룸, 촬영스튜디오', 2, 2);
-insert into hashtag_tb (hashtag_name, hashtag_id, place_id)
-values ('부산연습실', 3, 3);
+insert into hashtag_tb (hashtag_name, place_id)
+values ('파티룸', 1);
+insert into hashtag_tb (hashtag_name, place_id)
+values ('쇼핑몰촬영', 2);
+insert into hashtag_tb (hashtag_name, place_id)
+values ('부산연습실', 3);
 
 commit;
