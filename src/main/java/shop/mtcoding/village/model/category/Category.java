@@ -2,6 +2,8 @@ package shop.mtcoding.village.model.category;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.*;
