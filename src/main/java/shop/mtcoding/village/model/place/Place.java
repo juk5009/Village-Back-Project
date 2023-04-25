@@ -116,35 +116,16 @@ public class Place {
 //        this.fileInfo = fileInfo;
     }
 
-    public PlaceSaveResponse toResponse(Dates dates, Hashtag hashtag, FacilityInfo facilityInfo, Category category) {
-
-        List<String> dayOfWeek = dates.getDayOfWeekName();
-
-        List<String> hashtagName = hashtag.getHashtagName();
-
-        String facilityName = facilityInfo.getFacilityName();
-
-        String categoryName = category.getCategoryName();
-
+    public PlaceSaveResponse toResponse() {
         return new PlaceSaveResponse(
-                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice,
-                dayOfWeek, hashtagName, facilityName, categoryName
+                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
         );
     }
 
-    public PlaceUpdateResponse toUpdateResponse(Dates dates, Hashtag hashtag, FacilityInfo facilityInfo, Category category) {
-
-        List<String> dayOfWeek = dates.getDayOfWeekName();
-
-        List<String> hashtagName = hashtag.getHashtagName();
-
-        String facilityName = facilityInfo.getFacilityName();
-
-        String categoryName = category.getCategoryName();
+    public PlaceUpdateResponse toUpdateResponse() {
 
         return new PlaceUpdateResponse(
-                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice,
-                dayOfWeek, hashtagName, facilityName, categoryName
+                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
         );
     }
 

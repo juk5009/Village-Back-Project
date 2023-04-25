@@ -24,12 +24,6 @@ import java.util.List;
 @Table(name = "reservation_tb")
 public class Reservation {
 
-
-    @Comment("예약 상태")
-    @Enumerated(EnumType.STRING)
-    private ReservationStatus status;
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("예약 아이디")

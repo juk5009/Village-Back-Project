@@ -25,15 +25,9 @@ public class Dates {
 //    @JsonIgnore
     private Long id;
 
-    @ElementCollection
-    @CollectionTable(name = "dates_tb", joinColumns = @JoinColumn(name = "dates_id"))
-
-
-
-
     @Column(name = "day_of_week_name")
     @Comment("요일")
-    private List<String> dayOfWeekName;
+    private String dayOfWeekName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,7 +37,7 @@ public class Dates {
     private Place place;
 
     @Builder
-    public Dates(List<String> dayOfWeekName, Place place) {
+    public Dates(String dayOfWeekName, Place place) {
         this.dayOfWeekName = dayOfWeekName;
         this.place = place;
     }

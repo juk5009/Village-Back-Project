@@ -27,10 +27,8 @@ public class Hashtag {
     private Long id;
 
     @Comment("해시태그 이름")
-    @ElementCollection
-    @CollectionTable(name = "hashtag_tb", joinColumns = @JoinColumn(name = "hashtag_id"))
     @Column(name = "hashtag_name")
-    private List<String> hashtagName;
+    private String hashtagName;
 
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,7 +38,7 @@ public class Hashtag {
     private Place place;
 
     @Builder
-    public Hashtag(List<String> hashtagName, Place place) {
+    public Hashtag(String hashtagName, Place place) {
         this.hashtagName = hashtagName;
         this.place = place;
     }

@@ -16,9 +16,12 @@ import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.notFoundConst.ReservationConst;
 import shop.mtcoding.village.service.ReservationService;
+import shop.mtcoding.village.util.DateUtils;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,8 +69,14 @@ public class ReservationController {
 
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
 
+        LocalDateTime dateTime = LocalDateTime.now();
+        LocalDate date = DateUtils.fromLocalDateTime(reservationSaveRequest.getDate());
+        System.out.println(date); // 예시 출력: 2023-04-25
+
         // 내 휴대폰으로 연결 했을 때 토큰
-         RequestDTO requestDTO = new RequestDTO("예약신청Test", reservationSaveRequest.getUserName()+ "님이 예약신청을 했습니다", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+         RequestDTO requestDTO = new RequestDTO("Village",
+                 reservationSaveRequest.getUserName()+ "님이 "+date+"날짜로 "+reservationSaveRequest.getPeopleNum()+"명 예약신청을 했습니다",
+                 "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
         // 안드로이드 스튜디어로 연결 했을 때 토큰
 //        RequestDTO requestDTO = new RequestDTO("예약신청", reservationSaveRequest.getUserName()+ "님이 예약신청을 했습니다", "e8ayeYq0QDC_D2ph3zcgPx:APA91bGT2vs5-qFhPaylG8VZxqnJpqfXRrX2cC2OwW1aadTNpEsMYL9BMAxzFH-vcAX1WZ-COPe5qLDyaJsEpk57uy6F74QbI34DTs3gapJj1nbvNhOL0-h4RoWlXCZ6Nfo0OtncgfeB");

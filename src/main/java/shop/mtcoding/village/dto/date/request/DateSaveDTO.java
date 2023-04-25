@@ -1,8 +1,11 @@
 package shop.mtcoding.village.dto.date.request;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import shop.mtcoding.village.model.date.Dates;
+import shop.mtcoding.village.model.hashtag.Hashtag;
+import shop.mtcoding.village.model.place.Place;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,27 +16,23 @@ import java.util.List;
 @ToString
 public class DateSaveDTO {
 
-    @ElementCollection
     @Column(name = "dayOfWeekName")
-    private List<String> dayOfWeekName;
+    private List<DatesDto> dayOfWeekName;
 
-    public Dates toEntity() {
-        Dates date = new Dates();
-        date.setDayOfWeekName(dayOfWeekName);
-        return date;
+    @Setter
+    @Getter
+    @ToString
+    public static class DatesDto extends Dates {
+        private String dayOfWeekName;
+        private Place placeId;
+
+        public Dates toEntity(String name, Place id) {
+            Dates dayofName = new Dates();
+            dayofName.setPlace(id);
+            dayofName.setDayOfWeekName(name);
+            return dayofName;
+        }
     }
-
-//    public Dates toEntity() {
-//
-//        Dates date = new Dates();
-//        List<String> dates = new ArrayList<>();
-//        String[] dayOfWeeks = {""};
-//        for (String dayOfWeekName : dayOfWeeks) {
-//            dates.add(dayOfWeekName);
-//        }
-//        date.setDayOfWeekName(dates);
-//        return new Dates(dates, null);
-//    }
 }
 
 
