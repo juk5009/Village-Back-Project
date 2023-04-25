@@ -11,9 +11,7 @@ import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.dto.ResponseDTO;
-import shop.mtcoding.village.dto.reservation.ReservationDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
-import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.notFoundConst.ReservationConst;
@@ -41,11 +39,7 @@ public class ReservationController {
 
         List<Reservation> allReservation = reservationRepository.findAll();
 
-//        List<ReservationDTO> allReservationDTO = allReservation.stream()
-//                .map(reservation -> new ModelMapper().map(reservation, ReservationDTO.class))
-//                .collect(Collectors.toList());
-
-        return new ResponseEntity<>(new ResponseDTO<>(200, "예약내역 조회완료", allReservation), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약내역 조회완료", allReservation), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -58,7 +52,7 @@ public class ReservationController {
             throw new MyConstException(ReservationConst.notFound);
         }
 
-        return new ResponseEntity<>(new ResponseDTO<>(200, "유저 예약내역 조회완료", optionalUser.get().toDTOResponse()), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "유저 예약내역 조회완료", optionalUser.get().toDTOResponse()), HttpStatus.OK);
     }
 
     @PostMapping
@@ -82,7 +76,7 @@ public class ReservationController {
                 requestDTO.getTitle(),
                 requestDTO.getBody());
 
-        return new ResponseEntity<>(new ResponseDTO<>(200, "예약 신청 완료", saveReservation.toResponse()), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toResponse()), HttpStatus.OK);
     }
 
 }

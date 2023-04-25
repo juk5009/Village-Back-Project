@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class ResponseDTO<T> {
     private Integer code;
     private Integer status;
@@ -31,5 +30,11 @@ public class ResponseDTO<T> {
         this.data = data;
         return this;
     }
-    
+
+    public ResponseDTO(Integer code, Integer status, String msg, T data) {
+        this.code = code;
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
+    }
 }
