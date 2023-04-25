@@ -1,7 +1,6 @@
 package shop.mtcoding.village.dto.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import shop.mtcoding.village.core.util.MyDateUtils;
 import shop.mtcoding.village.model.user.User;
 
@@ -26,15 +25,15 @@ public class UserResponse {
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class LoginDTO {
         private Long id;
+        private String name;
         private String email;
-        private String createdAt;
 
-        public LoginDTO(User user) {
-            this.id = user.getId();
-            this.email = user.getEmail();
-            this.createdAt = MyDateUtils.toStringFormat(user.getCreatedAt());
-        }
+
+
+
     }
 }
