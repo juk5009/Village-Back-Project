@@ -12,6 +12,8 @@ import shop.mtcoding.village.core.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
+import shop.mtcoding.village.model.place.Place;
+import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.notFoundConst.ReservationConst;
@@ -36,6 +38,8 @@ public class ReservationController {
     private final ReservationRepository reservationRepository;
 
     private final FirebaseCloudMessageService firebaseCloudMessageService;
+
+    private final PlaceRepository placeRepository;
 
     @GetMapping
     public ResponseEntity<?> getReservation(){
@@ -69,13 +73,22 @@ public class ReservationController {
 
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
 
+
+        // 여기 1L 자리에 placeId 들어가야함
+        Place byId = placeRepository.findById(1L).get();
+
+
         LocalDateTime dateTime = LocalDateTime.now();
         LocalDate date = DateUtils.fromLocalDateTime(reservationSaveRequest.getDate());
         System.out.println(date); // 예시 출력: 2023-04-25
 
         // 내 휴대폰으로 연결 했을 때 토큰
          RequestDTO requestDTO = new RequestDTO("Village",
-                 reservationSaveRequest.getUserName()+ "님이 "+date+"날짜로 "+reservationSaveRequest.getPeopleNum()+"명 예약신청을 했습니다",
+                 "[예약알림]\n"+
+                 reservationSaveRequest.getUserName()+ "님이 [" + byId.getTitle() + "]에 예약 신청했습니다.\n"
+                         +"날짜: "+date+"\n"
+                         +"일시: "+reservationSaveRequest.getStartTime()+"~"+reservationSaveRequest.getEndTime()+"\n"
+                         +"인원: "+reservationSaveRequest.getPeopleNum()+"명\n",
                  "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
         // 안드로이드 스튜디어로 연결 했을 때 토큰
