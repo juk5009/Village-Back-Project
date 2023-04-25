@@ -112,7 +112,6 @@ public class ScrapRepositoryTest {
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
 
-
         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
         this.entityManager.persist(place);

@@ -96,7 +96,7 @@ public class SearchRepositoryTest {
         User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
 
-        Search search = new Search(userPS.getId(), keyword);
+        Search search = new Search(user, keyword);
         search.setUser(user);
         search.setKeyword(keyword);
         return this.entityManager.persist(search);

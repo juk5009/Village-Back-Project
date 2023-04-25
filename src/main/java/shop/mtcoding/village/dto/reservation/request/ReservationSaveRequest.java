@@ -1,5 +1,6 @@
 package shop.mtcoding.village.dto.reservation.request;
 
+
 import lombok.*;
 import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.model.reservation.Reservation;
@@ -49,8 +50,10 @@ public class ReservationSaveRequest {
         reservation.setDate(date);
         reservation.setStartTime(startTime);
         reservation.setEndTime(endTime);
+
         reservation.setStatus(reservationStatus);
         return new Reservation(user, date, startTime, endTime, peopleNum, reservationStatus);
+
     }
 
 }

@@ -74,19 +74,20 @@ public class PlaceController {
         var update = placeService.공간수정하기(placeUpdateRequest);
 
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", update), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePlace(
-            @PathVariable Long id) {
-        var optionalPlace = placeService.getPlace(id);
-        if (optionalPlace.isEmpty()) {
-            throw new MyConstException(PlaceConst.notFound);
         }
-
-        placeService.공간삭제하기(optionalPlace.get());
-
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 삭제 완료", null), HttpStatus.OK);
-    }
+        
+        @DeleteMapping("/{id}")
+        public ResponseEntity<?> deletePlace(
+                @PathVariable Long id
+        ){
+            var optionalPlace = placeService.getPlace(id);
+            if (optionalPlace.isEmpty()) {
+                throw new MyConstException(PlaceConst.notFound);
+            }
+    
+            placeService.공간삭제하기(optionalPlace.get());
+    
+            return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 삭제 완료", null), HttpStatus.OK);
+        }
 
 }

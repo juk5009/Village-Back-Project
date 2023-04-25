@@ -121,9 +121,36 @@ insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (3, 3, 3, '내용3', 'WAIT');
 
 
-commit;
+insert into dates_tb (day_of_week_name, place_id)
+values ('월요일', 1);
+insert into dates_tb (day_of_week_name, place_id)
+values ('화요일', 1);
+insert into dates_tb (day_of_week_name, place_id)
+values ('수요일', 1);
+
+insert into notice_tb (user_id, place_id, payment_id, content, status)
+values (1, 1, 1, '내용1', 'WAIT');
+insert into notice_tb (user_id, place_id, payment_id, content, status)
+values (2, 2, 2, '내용2', 'WAIT');
+insert into notice_tb (user_id, place_id, payment_id, content, status)
+values (3, 3, 3, '내용3', 'WAIT');
+
+insert into hashtag_tb (hashtag_name, place_id)
+values ('가까운곳', 1);
+insert into hashtag_tb (hashtag_name, place_id)
+values ('저렴한곳', 1);
+insert into hashtag_tb (hashtag_name, place_id)
+values ('내주변인곳', 1);
+
+insert into file_info_tb(type) values ('PLACE');
+insert into file_info_tb(type) values ('FACILITY');
+
+insert into file_tb(file_info_id, file_name, file_url, status) values (1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(file_info_id, file_name, file_url, status) values (2, 'aa.jpg', 'https://news.dbhasjuhwuha.com/wp-content/uploads/2021/08/aa.jpg', 'WAIT');
+insert into file_tb(file_info_id, file_name, file_url, status) values (2, 'bb8.jpg', 'https://news.ahjsbaghuwssplay.com/wp-content/uploads/2011/08/bb8.jpg', 'WAIT');
 
 
+<<<<<<< HEAD
 
 -- insert into user_tb(name, password, email, tel, role, profile) values ('cos', '1234', 'cos@nate.com', '010-1111-2222', 'USER', 'profile1')
 -- insert into user_tb(name, password, email, tel, role, profile) values ('ssar1', '1234', 'ssar@nate.com', '010-1244-2232', 'USER', 'profile2')
@@ -194,3 +221,6 @@ commit;
 -- insert into file_tb(file_info_id, file_name, file_url, status) values (2, 'bb8.jpg', 'https://news.ahjsbaghuwssplay.com/wp-content/uploads/2011/08/bb8.jpg', 'WAIT');
 --
 -- commit;
+=======
+commit;
+>>>>>>> 392c057 (Reservation 완료, Payment 진행중)

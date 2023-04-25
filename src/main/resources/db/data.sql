@@ -107,6 +107,17 @@ insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (1, 1, 1, 'COMPLETE', 20000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (1, 1, 1, 'FAIL', 10000);
+
+-- INSERT INTO payment_tb (user_id, place_id, reservation_id, status, total_price, boot_bid, boot_receiptId, boot_orderId, boot_price, boot_taxFree
+-- , boot_cancelledPrice, boot_cancelledTaxFree, boot_orderName, boot_companyName, boot_gatewayUrl, boot_sandbox, boot_pg, boot_method, boot_methodSymbol
+-- , boot_methodOrigin, boot_methodOriginSymbol, boot_purchasedAt, boot_cancelledAt, boot_requestedAt, boot_statusLocale, boot_receiptUrl)
+-- VALUES (1, 1, 1, 'PAYMENT_COMPLETE', 10000, 1234, 'RECEIPT-1234', 'ORDER-1234', '10000', '0', '0', '0', '스페이스온 워크스페이스', '스페이스온'
+-- , 'https://gateway.bootpay.co.kr', 1, 'BOOTPAY', 'CARD', '신용카드', 'CARD', '신용카드', NOW(), NULL, NOW(), '결제완료', 'https://receipt.bootpay.co.kr');
+
+-- INSERT INTO Payment (user_id, place_id, reservation_id, status, totalPrice, boot_bid, boot_receiptId, boot_orderId, boot_price, boot_taxFree, boot_cancelledPrice, boot_cancelledTaxFree, boot_orderName, boot_companyName, boot_gatewayUrl, boot_sandbox, boot_pg, boot_method, boot_methodSymbol, boot_methodOrigin, boot_methodOriginSymbol, boot_purchasedAt, boot_cancelledAt, boot_requestedAt, boot_statusLocale, boot_receiptUrl)
+-- VALUES (1, 1, 1, 'PAYMENT_COMPLETE', 10000, 1234, 'RECEIPT-1234', 'ORDER-1234', '10000', '0', '0', '0', '스페이스온 워크스페이스', '스페이스온', 'https://gateway.bootpay.co.kr', 1, 'BOOTPAY', 'CARD', '신용카드', 'CARD', '신용카드', NOW(), NULL, NOW(), '결제완료', 'https://receipt.bootpay.co.kr');
+
+
 --
 insert into dates_tb (day_of_week_name, place_id)
 values ('월요일,화요일,수요일,목요일', 1);
@@ -114,6 +125,10 @@ insert into dates_tb (day_of_week_name, place_id)
 values ('월요일,목요일,금요일,토요일', 1);
 insert into dates_tb (day_of_week_name, place_id)
 values ('수요일', 2);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 392c057 (Reservation 완료, Payment 진행중)
 
 
 insert into notice_tb (user_id, place_id, payment_id, content, status)
