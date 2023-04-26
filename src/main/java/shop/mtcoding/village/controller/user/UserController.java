@@ -8,16 +8,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.core.jwt.MyJwtProvider;
-import shop.mtcoding.village.core.util.MyDateUtils;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.user.UserRequest;
 import shop.mtcoding.village.dto.user.UserResponse;
-import shop.mtcoding.village.exception.Exception400;
 import shop.mtcoding.village.model.user.UserRepository;
 import shop.mtcoding.village.service.UserService;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @RequiredArgsConstructor
@@ -40,25 +37,21 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO, BindingResult result) {
+    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO) {
 
-        if (result.hasErrors()) {
-            throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
 
-        }
-        // select 됨
+
         UserResponse.JoinDTO data = userService.회원가입(joinDTO);
-        // select 안됨
+
+
+
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(data);
         return ResponseEntity.ok().body(responseDTO);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO, BindingResult result) {
-        if (result.hasErrors()) {
-            throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
+    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO) {
 
-        }
         ArrayList loginViewList = userService.로그인(loginDTO);
         String jwt = (String) loginViewList.get(0);
         UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO((Long) loginViewList.get(1),(String) loginViewList.get(2), (String) loginViewList.get(3));

@@ -1,10 +1,14 @@
 package shop.mtcoding.village.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.core.jwt.MyJwtProvider;
+import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.user.UserRequest;
 import shop.mtcoding.village.dto.user.UserResponse;
 import shop.mtcoding.village.model.user.User;
@@ -29,65 +33,52 @@ public class UserService {
      */
     @Transactional
     public UserResponse.JoinDTO 회원가입(UserRequest.JoinDTO joinDTO) {
-        // select
-        String rawPassword = joinDTO.getPassword();
-        String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
-        joinDTO.setPassword(encPassword);
-        User userPS = userRepository.save(joinDTO.toEntity());
+        try {
+            // select
+            String rawPassword = joinDTO.getPassword();
+            String encPassword = passwordEncoder.encode(rawPassword); // 60Byte
+            joinDTO.setPassword(encPassword);
+            User userPS = userRepository.save(joinDTO.toEntity());
 
 
-        return new UserResponse.JoinDTO(userPS);
+            return new UserResponse.JoinDTO(userPS);
+        } catch (Exception500 e) {
+            throw new Exception500("회원가입 오류" + e.getMessage());
+        }
+
+
     }
 
     @Transactional
     public ArrayList 로그인(UserRequest.LoginDTO loginDTO) {
-        ArrayList loginViewList = new ArrayList();
+        try {
+            ArrayList loginViewList = new ArrayList();
 
-        Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
-        if (userOP.isPresent()) {
-            User userPS = userOP.get();
-            if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
-                String jwt = MyJwtProvider.create(userPS);
-                loginViewList.add(jwt);
-                loginViewList.add(userPS.getId());
-                loginViewList.add(userPS.getName());
-                loginViewList.add(userPS.getEmail());
+            Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
+            if (userOP.isPresent()) {
+                User userPS = userOP.get();
+                if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
+                    String jwt = MyJwtProvider.create(userPS);
+                    loginViewList.add(jwt);
+                    loginViewList.add(userPS.getId());
+                    loginViewList.add(userPS.getName());
+                    loginViewList.add(userPS.getEmail());
 
 
-                return loginViewList;
+                    return loginViewList;
 
+                } else {
+                    throw new RuntimeException("패스워드 틀렸습니다.");
+                }
             } else {
-                throw new RuntimeException("패스워드 틀렷어");
+                throw new RuntimeException("존재하지않는 이메일입니다.");
             }
-        } else {
-            throw new RuntimeException("존재하지않는 이메일입니다.");
+        }catch (Exception500 e) {
+            throw new Exception500("로그인 오류" + e.getMessage());
         }
 
 
     }
 }
 
-//@Transactional(readOnly = true)
-//public ArrayList 로그인(UserRequest.LoginDTO loginDTO) {
-//
-//        ArrayList loginOutList = new ArrayList();
-//
-//        Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
-//        // 로그인 유저 아이디가 있다면
-//        if (userOP.isPresent()) {
-//        // 있으면 비밀번호 match (details를 안쓸거면 내가 비교해야되고, 암호화 된걸 처리해야 함)
-//        User userPS = userOP.get();
-//        // 로그인 입력 값과 DB password를 비교
-//        if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
-//        String jwt = MyJwtProvider.create(userPS); // 토큰 생성1
-//        loginOutList.add(jwt);
-//        loginOutList.add(userPS.getId());
-//        loginOutList.add(userPS.getRole());
-//        return loginOutList;
-//
-//        }
-//        throw new Exception400("패스워드 틀렸어");
-//        } else {
-//        throw new Exception400("유저네임 없어");
-//        }
-//        }
+
