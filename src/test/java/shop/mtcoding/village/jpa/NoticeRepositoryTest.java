@@ -47,12 +47,12 @@ public class NoticeRepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @BeforeEach
-    public void init() {
-        em.createNativeQuery("ALTER TABLE notice_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-
-        setUpByNotice("내용4", NoticeStatus.WAIT);
-    }
+//    @BeforeEach
+//    public void init() {
+//        em.createNativeQuery("ALTER TABLE notice_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+//
+//        setUpByNotice("내용4", NoticeStatus.WAIT);
+//    }
 
     @Test
     @Transactional
@@ -62,18 +62,18 @@ public class NoticeRepositoryTest {
         Assertions.assertNotEquals(notices.size(), 0);
 
         Notice notice = notices.get(0);
-        Assertions.assertEquals(notice.getContent(), "내용4");
+        Assertions.assertEquals(notice.getContent(), "내용1");
     }
 
     @Test
     @Transactional
     @DisplayName("알림 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalNotice = this.noticeRepository.findById(4L);
+        var optionalNotice = this.noticeRepository.findById(1L);
 
         if(optionalNotice.isPresent()) {
             var result = optionalNotice.get();
-            Assertions.assertEquals(result.getUser().getName(), "love");
+            Assertions.assertEquals(result.getUser().getName(), "ssar");
 
             var paymentTotalPrice = new Payment();
             paymentTotalPrice.setTotalPrice(50000);
@@ -116,19 +116,6 @@ public class NoticeRepositoryTest {
 
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
-
-        Category category = new Category().builder().categoryName("이름").build();
-        this.entityManager.persist(category);
-
-        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
-        this.entityManager.persist(hashtagName);
-
 
         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();

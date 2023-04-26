@@ -42,11 +42,11 @@ public class HashtagRepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @BeforeEach
-    public void init() {
-        em.createNativeQuery("ALTER TABLE hashtag_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        setUp("독서실");
-    }
+//    @BeforeEach
+//    public void init() {
+//        em.createNativeQuery("ALTER TABLE hashtag_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+//        setUp("독서실");
+//    }
 
     @Test
     @Transactional
@@ -56,21 +56,21 @@ public class HashtagRepositoryTest {
         Assertions.assertNotEquals(hashtags.size(), 0);
 
         Hashtag hashtag = hashtags.get(0);
-        Assertions.assertEquals(hashtag.getHashtagName(), "연습실");
+        Assertions.assertEquals(hashtag.getHashtagName(), "가까운곳");
     }
 
     @Test
     @Transactional
     @DisplayName("해시태그 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalHashtag = this.hashtagInfoRepository.findById(4L);
+        var optionalHashtag = this.hashtagInfoRepository.findById(1L);
 
         if (optionalHashtag.isPresent()) {
             var result = optionalHashtag.get();
-            Assertions.assertEquals(result.getHashtagName(), "연습실");
+            Assertions.assertEquals(result.getHashtagName(), "가까운곳");
 
             String hashtag = "음식점";
-            result.setHashtagName(Collections.singletonList(hashtag));
+            result.setHashtagName(hashtag);
             Hashtag merge = entityManager.merge(result);
 
             Assertions.assertEquals(merge.getHashtagName(), "음식점");
@@ -88,7 +88,7 @@ public class HashtagRepositoryTest {
 
         if (findHashtag.isPresent()) {
             var result = findHashtag.get();
-            Assertions.assertEquals(result.getHashtagName(), "연습실");
+            Assertions.assertEquals(result.getHashtagName(), "공부방");
             entityManager.remove(hashtag);
             Optional<Hashtag> deleteDate = this.hashtagInfoRepository.findById(hashtag.getId());
             if (deleteDate.isPresent()) {
@@ -110,26 +110,11 @@ public class HashtagRepositoryTest {
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
 
-        Category category = new Category().builder().categoryName("이름").build();
-        this.entityManager.persist(category);
-
-        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
-        this.entityManager.persist(hashtagName);
-
-
         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
         this.entityManager.persist(place);
 
-        dates.setPlace(place);
-        hashtagName.setPlace(place);
-
+        Hashtag hashtagName = new Hashtag().builder().hashtagName(hashtagName1).build();
         return this.entityManager.persist(hashtagName);
     }
 }

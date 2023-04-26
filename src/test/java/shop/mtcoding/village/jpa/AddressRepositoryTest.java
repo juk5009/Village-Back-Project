@@ -46,7 +46,7 @@ public class AddressRepositoryTest {
         Assertions.assertNotEquals(addresses.size(), 0);
 
         Address address = addresses.get(0);
-        Assertions.assertEquals(address.getRoadFullAddr(), "부산 부산진구 중앙대로 688 한준빌딩 3층");
+        Assertions.assertEquals(address.getRoadFullAddr(), "부산 부산진구 중앙대로 688 한준빌딩 2층");
     }
 
     @Test

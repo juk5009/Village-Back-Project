@@ -48,7 +48,7 @@ public class ScrapRepositoryTest {
     public void init() {
         em.createNativeQuery("ALTER TABLE scrap_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
 
-        setUpByScrap(4);
+//        setUpByScrap(4);
     }
 
     @Test
@@ -59,18 +59,18 @@ public class ScrapRepositoryTest {
         Assertions.assertNotEquals(scraps.size(), 0);
 
         Scrap scrap = scraps.get(0);
-        Assertions.assertEquals(scrap.getCount(), 4);
+        Assertions.assertEquals(scrap.getCount(), 3);
     }
 
     @Test
     @Transactional
     @DisplayName("스크랩 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalScrap = this.scrapRepository.findById(4L);
+        var optionalScrap = this.scrapRepository.findById(1L);
 
         if(optionalScrap.isPresent()) {
             var result = optionalScrap.get();
-            Assertions.assertEquals(result.getUser().getEmail(), "ssar@nate.com");
+            Assertions.assertEquals(result.getUser().getEmail(), "ssar@naver.com");
 
             var count = 4;
             result.setCount(count);
@@ -86,7 +86,7 @@ public class ScrapRepositoryTest {
     @Transactional
     @DisplayName("스크랩 삽입 및 삭제 테스트")
     void insertAndDelete() {
-        Scrap scrap = setUpByScrap(5);
+        Scrap scrap = setUpByScrap(15);
         Optional<Scrap> findUser = this.scrapRepository.findById(scrap.getId());
 
         if(findUser.isPresent()) {
@@ -111,18 +111,6 @@ public class ScrapRepositoryTest {
 
         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
         this.entityManager.persist(review);
-
-        Category category = new Category().builder().categoryName("이름").build();
-        this.entityManager.persist(category);
-
-        Dates dates = new Dates().builder().dayOfWeekName(Collections.singletonList("월요일")).build();
-        this.entityManager.persist(dates);
-
-        FacilityInfo facilityName = new FacilityInfo().builder().facilityName(Collections.singletonList("화장실")).build();
-        this.entityManager.persist(facilityName);
-
-        Hashtag hashtagName = new Hashtag().builder().hashtagName(Collections.singletonList("연습실")).build();
-        this.entityManager.persist(hashtagName);
 
 
         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")

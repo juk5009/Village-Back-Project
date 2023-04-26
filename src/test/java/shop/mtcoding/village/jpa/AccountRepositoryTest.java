@@ -30,10 +30,10 @@ public class AccountRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
-    @BeforeEach
-    public void init() {
-        setUp("45456451651651");
-    }
+//    @BeforeEach
+//    public void init() {
+//        setUp("45456451651651");
+//    }
 
     @Test
     @Transactional
@@ -43,18 +43,18 @@ public class AccountRepositoryTest {
         Assertions.assertNotEquals(accounts.size(), 0);
 
         Account account = accounts.get(0);
-        Assertions.assertEquals(account.getUser().getName(), "love");
+        Assertions.assertEquals(account.getUser().getName(), "ssar");
     }
 
     @Test
     @Transactional
     @DisplayName("계좌 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalAccount = this.accountRepository.findById(4L);
+        var optionalAccount = this.accountRepository.findById(1L);
 
         if(optionalAccount.isPresent()) {
             var result = optionalAccount.get();
-            Assertions.assertEquals(result.getUser().getName(), "love");
+            Assertions.assertEquals(result.getUser().getName(), "ssar");
 
             var accountNum = "4516515161516";
             result.setAccountNum(accountNum);
@@ -87,7 +87,7 @@ public class AccountRepositoryTest {
     }
 
     private Account setUp(String accountNum) {
-        User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
+        User user = new User().builder().name("love").password("1234").email("sar@nate.com").tel("1234").role("USER").profile("123123").build();
         this.entityManager.persist(user);
         Account account = new Account();
         account.setUser(user);

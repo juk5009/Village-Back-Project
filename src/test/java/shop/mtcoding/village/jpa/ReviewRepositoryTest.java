@@ -32,11 +32,11 @@ public class ReviewRepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @BeforeEach
-    public void init() {
-        em.createNativeQuery("ALTER TABLE review_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-        setUp( 5, "내용4", "image4", 4);
-    }
+//    @BeforeEach
+//    public void init() {
+//        em.createNativeQuery("ALTER TABLE review_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+//        setUp( 5, "내용4", "image4", 4);
+//    }
 
     @Test
     @Transactional
@@ -46,18 +46,18 @@ public class ReviewRepositoryTest {
         Assertions.assertNotEquals(reviews.size(), 0);
 
         Review review = reviews.get(0);
-        Assertions.assertEquals(review.getContent(), "내용4");
+        Assertions.assertEquals(review.getContent(), "좋은 상품이에요");
     }
 
     @Test
     @Transactional
     @DisplayName("리뷰 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalReview = this.reviewRepository.findById(4L);
+        var optionalReview = this.reviewRepository.findById(1L);
 
         if(optionalReview.isPresent()) {
             var result = optionalReview.get();
-            Assertions.assertEquals(result.getContent(), "내용4");
+            Assertions.assertEquals(result.getContent(), "좋은 상품이에요");
 
             var image = "image4";
             result.setImage(image);

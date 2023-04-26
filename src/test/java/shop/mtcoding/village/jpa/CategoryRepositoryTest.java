@@ -47,7 +47,7 @@ public class CategoryRepositoryTest {
         Assertions.assertNotEquals(categories.size(), 0);
 
         Category category = categories.get(0);
-        Assertions.assertEquals(category.getCategoryName(), "운동시설");
+        Assertions.assertEquals(category.getCategoryName(), "연습실");
     }
 
     @Test

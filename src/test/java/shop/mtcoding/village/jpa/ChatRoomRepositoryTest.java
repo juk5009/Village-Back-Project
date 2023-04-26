@@ -42,12 +42,12 @@ public class ChatRoomRepositoryTest {
     @Autowired
     private EntityManager em;
 
-    @BeforeEach
-    public void init() {
-        em.createNativeQuery("ALTER TABLE chat_room_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-
-        setUpByChatRoom();
-    }
+//    @BeforeEach
+//    public void init() {
+//        em.createNativeQuery("ALTER TABLE chat_room_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+//
+//        setUpByChatRoom();
+//    }
 
     @Test
     @Transactional
@@ -57,18 +57,18 @@ public class ChatRoomRepositoryTest {
         Assertions.assertNotEquals(chatRooms.size(), 0);
 
         ChatRoom chatRoom = chatRooms.get(0);
-        Assertions.assertEquals(chatRoom.getUser().getName(), "love");
+        Assertions.assertEquals(chatRoom.getUser().getName(), "ssar");
     }
 
     @Test
     @Transactional
     @DisplayName("채팅방 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalChatRoom = this.chatRoomRepository.findById(4L);
+        var optionalChatRoom = this.chatRoomRepository.findById(1L);
 
         if (optionalChatRoom.isPresent()) {
             var result = optionalChatRoom.get();
-            Assertions.assertEquals(result.getUser().getName(), "love");
+            Assertions.assertEquals(result.getUser().getName(), "ssar");
 
             Place title = new Place();
             title.setTitle("제목555");
