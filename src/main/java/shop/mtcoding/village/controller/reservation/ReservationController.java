@@ -64,12 +64,10 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<?> save(
-            @Valid @RequestBody ReservationSaveRequest reservationSaveRequest, BindingResult result
+            @Valid @RequestBody ReservationSaveRequest reservationSaveRequest
             ) throws IOException {
 
-        if (result.hasErrors()) {
-            throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
-        }
+
 
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
 

@@ -51,11 +51,9 @@ public class PlaceController {
 
     @PostMapping
     public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
-            @Valid @RequestBody PlaceSaveRequest placeSaveRequest, BindingResult result
+            @Valid @RequestBody PlaceSaveRequest placeSaveRequest
     ) {
-        if (result.hasErrors()) {
-            throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
-        }
+
 
 
         var save = placeService.공간등록하기(placeSaveRequest);
@@ -65,12 +63,10 @@ public class PlaceController {
 
     @PutMapping
     public ResponseEntity<ResponseDTO> updatePlace(
-            @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, BindingResult result
+            @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest
         ){
 
-        if (result.hasErrors()) {
-            throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
-        }
+
 
         var update = placeService.공간수정하기(placeUpdateRequest);
 

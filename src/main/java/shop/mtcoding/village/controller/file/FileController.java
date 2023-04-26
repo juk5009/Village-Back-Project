@@ -6,15 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.file.dto.FileDTO;
 import shop.mtcoding.village.dto.file.request.FileSaveRequest;
 import shop.mtcoding.village.dto.file.request.FileUpdateRequest;
 import shop.mtcoding.village.dto.file.response.FileResponse;
+import shop.mtcoding.village.model.file.File;
 import shop.mtcoding.village.notFoundConst.FileConst;
 import shop.mtcoding.village.service.FileService;
-import shop.mtcoding.village.model.file.File;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -55,12 +54,10 @@ public class FileController {
 
     @PostMapping
     public ResponseEntity<FileResponse> saveFile (
-            @Valid @RequestBody FileSaveRequest request,
-            Errors error
+            @Valid @RequestBody FileSaveRequest request
+
     ) {
-        if (error.hasErrors()) {
-            throw new Exception400(error.getAllErrors().get(0).getDefaultMessage());
-        }
+
 
         var file = fileService.save(request);
         return ResponseEntity.ok(file.toResponse());
@@ -72,13 +69,11 @@ public class FileController {
             Errors error,
             @PathVariable Long id
     ) {
-        if (error.hasErrors()) {
-            throw new Exception400(error.getAllErrors().get(0).getDefaultMessage());
-        }
+
 
         var optionalFile = fileService.getFile(id);
         if (optionalFile.isEmpty()) {
-            throw new Exception400(FileConst.notfound);
+            throw new MyConstException(FileConst.notfound);
         }
 
         var file = fileService.update(request, optionalFile.get());

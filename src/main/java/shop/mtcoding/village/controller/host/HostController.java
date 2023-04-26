@@ -23,11 +23,9 @@ public class HostController {
     private final HostService hostService;
 
     @PostMapping
-    public @ResponseBody ResponseEntity<ResponseDTO> saveHost(@Valid @RequestBody HostSaveRequest hostSaveDto, BindingResult result){
+    public @ResponseBody ResponseEntity<ResponseDTO> saveHost(@Valid @RequestBody HostSaveRequest hostSaveDto){
 
-        if (result.hasErrors()) {
-            throw new Exception400(result.getAllErrors().get(0).getDefaultMessage());
-        }
+
 
         Host hostSave = hostService.호스트신청(hostSaveDto);
 
