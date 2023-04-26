@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
@@ -51,9 +50,8 @@ public class PlaceController {
 
     @PostMapping
     public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
-            @Valid @RequestBody PlaceSaveRequest placeSaveRequest
+            @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors
     ) {
-
 
 
         var save = placeService.공간등록하기(placeSaveRequest);
@@ -63,9 +61,8 @@ public class PlaceController {
 
     @PutMapping
     public ResponseEntity<ResponseDTO> updatePlace(
-            @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest
-        ){
-
+            @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, Errors Errors
+    ) {
 
 
         var update = placeService.공간수정하기(placeUpdateRequest);
@@ -76,7 +73,7 @@ public class PlaceController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePlace(
             @PathVariable Long id
-    ){
+    ) {
         var optionalPlace = placeService.getPlace(id);
         if (optionalPlace.isEmpty()) {
             throw new MyConstException(PlaceConst.notFound);
