@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
@@ -45,48 +46,52 @@ public class PlaceService {
 
     @Transactional
     public Place 공간등록하기(PlaceSaveRequest placeRequest) {
+        try {
+            Optional<Place> byId = placeRepository.findById(2L);
+            Place place1 = byId.get();
 
-        Optional<Place> byId = placeRepository.findById(2L);
-        Place place1 = byId.get();
+            // 해시태그 insert
+            List<Hashtag> hashtagList = new ArrayList<Hashtag>();
 
-        // 해시태그 insert
-        List<Hashtag> hashtagList = new ArrayList<Hashtag>();
+            System.out.println("디버그 : " + placeRequest.getHashtag().getHashtagDto());
 
-        System.out.println("디버그 : " + placeRequest.getHashtag().getHashtagDto());
+            for (HashtagSaveDTO.HashtagDto hash : placeRequest.getHashtag().getHashtagDto()) {
+                Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place1));
 
-        for (HashtagSaveDTO.HashtagDto hash : placeRequest.getHashtag().getHashtagDto()) {
-            Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place1));
+                hashtagList.add(save1);
+            }
 
-            hashtagList.add(save1);
+            // 카테고리 insert
+            CategorySaveDTO.CategoryDTO categoryDTO = placeRequest.getCategory().getCategoryName();
+            categoryRepository.save(categoryDTO.toEntity(categoryDTO.getCategoryName(), place1));
+
+            // 요일 날짜 insert
+            List<Dates> dateList = new ArrayList<Dates>();
+
+            for (DateSaveDTO.DatesDto date : placeRequest.getDayOfWeek().getDayOfWeekName()) {
+                Dates saveDate = dateRepository.save(date.toEntity(date.getDayOfWeekName(), place1));
+
+                dateList.add(saveDate);
+            }
+
+            // 편의 시설 insert
+            List<FacilityInfo> facilityInfoList = new ArrayList<FacilityInfo>();
+
+            for (FacilityInfoSaveDTO.FacilityInfoDTO facilityInfo : placeRequest.getFacilityInfo().getFacilityName()) {
+                FacilityInfo savefacilityInfo = facilityInfoRepository.save(facilityInfo.toEntity(facilityInfo.getFacilityName(), place1));
+
+                facilityInfoList.add(savefacilityInfo);
+            }
+
+            // 공간 insert
+            Place savePlace = placeRepository.save(placeRequest.toEntity());
+
+
+            return savePlace;
+        } catch (Exception500 e) {
+            throw new Exception500("로그인 오류" + e.getMessage());
         }
 
-        // 카테고리 insert
-        CategorySaveDTO.CategoryDTO categoryDTO = placeRequest.getCategory().getCategoryName();
-        categoryRepository.save(categoryDTO.toEntity(categoryDTO.getCategoryName(), place1));
-
-        // 요일 날짜 insert
-        List<Dates> dateList = new ArrayList<Dates>();
-
-        for (DateSaveDTO.DatesDto date : placeRequest.getDayOfWeek().getDayOfWeekName()) {
-            Dates saveDate = dateRepository.save(date.toEntity(date.getDayOfWeekName(), place1));
-
-            dateList.add(saveDate);
-        }
-
-        // 편의 시설 insert
-        List<FacilityInfo> facilityInfoList = new ArrayList<FacilityInfo>();
-
-        for (FacilityInfoSaveDTO.FacilityInfoDTO facilityInfo : placeRequest.getFacilityInfo().getFacilityName()) {
-            FacilityInfo savefacilityInfo = facilityInfoRepository.save(facilityInfo.toEntity(facilityInfo.getFacilityName(), place1));
-
-            facilityInfoList.add(savefacilityInfo);
-        }
-
-        // 공간 insert
-        Place savePlace = placeRepository.save(placeRequest.toEntity());
-
-
-        return savePlace;
 
     }
 
@@ -97,49 +102,60 @@ public class PlaceService {
 
     @Transactional
     public void 공간삭제하기(Place place) {
-        placeRepository.delete(place);
+        try {
+            placeRepository.delete(place);
+        } catch (Exception500 e) {
+            throw new Exception500("로그인 오류" + e.getMessage());
+        }
+
     }
 
     public Place 공간수정하기(PlaceUpdateRequest placeUpdateRequest) {
 
-        Optional<Place> byId = placeRepository.findById(2L);
-        Place place1 = byId.get();
+        try {
+            Optional<Place> byId = placeRepository.findById(2L);
+            Place place1 = byId.get();
 
-        // 해시태그 insert
-        List<Hashtag> hashtagList = new ArrayList<Hashtag>();
+            // 해시태그 insert
+            List<Hashtag> hashtagList = new ArrayList<Hashtag>();
 
-        for (HashtagSaveDTO.HashtagDto hash : placeUpdateRequest.getHashtag().getHashtagDto()) {
-            Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place1));
+            for (HashtagSaveDTO.HashtagDto hash : placeUpdateRequest.getHashtag().getHashtagDto()) {
+                Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place1));
 
-            hashtagList.add(save1);
+                hashtagList.add(save1);
+            }
+
+            // 카테고리 insert
+            CategorySaveDTO.CategoryDTO categoryDTO = placeUpdateRequest.getCategory().getCategoryName();
+            categoryRepository.save(categoryDTO.toEntity(categoryDTO.getCategoryName(), place1));
+
+            // 요일 날짜 insert
+            List<Dates> dateList = new ArrayList<Dates>();
+
+            for (DateSaveDTO.DatesDto date : placeUpdateRequest.getDayOfWeek().getDayOfWeekName()) {
+                Dates saveDate = dateRepository.save(date.toEntity(date.getDayOfWeekName(), place1));
+
+                dateList.add(saveDate);
+            }
+
+            // 편의 시설 insert
+            List<FacilityInfo> facilityInfoList = new ArrayList<FacilityInfo>();
+
+            for (FacilityInfoSaveDTO.FacilityInfoDTO facilityInfo : placeUpdateRequest.getFacilityInfo().getFacilityName()) {
+                FacilityInfo savefacilityInfo = facilityInfoRepository.save(facilityInfo.toEntity(facilityInfo.getFacilityName(), place1));
+
+                facilityInfoList.add(savefacilityInfo);
+            }
+            // 공간 update
+            Place updatePlace = placeRepository.save(placeUpdateRequest.toEntity());
+
+
+            return updatePlace;
+        } catch (Exception500 e) {
+            throw new Exception500("로그인 오류" + e.getMessage());
         }
 
-        // 카테고리 insert
-        CategorySaveDTO.CategoryDTO categoryDTO = placeUpdateRequest.getCategory().getCategoryName();
-        categoryRepository.save(categoryDTO.toEntity(categoryDTO.getCategoryName(), place1));
 
-        // 요일 날짜 insert
-        List<Dates> dateList = new ArrayList<Dates>();
-
-        for (DateSaveDTO.DatesDto date : placeUpdateRequest.getDayOfWeek().getDayOfWeekName()) {
-            Dates saveDate = dateRepository.save(date.toEntity(date.getDayOfWeekName(), place1));
-
-            dateList.add(saveDate);
-        }
-
-        // 편의 시설 insert
-        List<FacilityInfo> facilityInfoList = new ArrayList<FacilityInfo>();
-
-        for (FacilityInfoSaveDTO.FacilityInfoDTO facilityInfo : placeUpdateRequest.getFacilityInfo().getFacilityName()) {
-            FacilityInfo savefacilityInfo = facilityInfoRepository.save(facilityInfo.toEntity(facilityInfo.getFacilityName(), place1));
-
-            facilityInfoList.add(savefacilityInfo);
-        }
-        // 공간 update
-        Place updatePlace = placeRepository.save(placeUpdateRequest.toEntity());
-
-
-        return updatePlace;
     }
 
     public Page<Place> getPage(Pageable pageable) {
