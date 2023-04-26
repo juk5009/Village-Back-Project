@@ -9,8 +9,8 @@ sentry:
   dsn: https://56ab2b3b2d344c9cac66ca3d3fa4efe1@o4504986976124928.ingest.sentry.io/4504986986217472
 
 server:
-  port: 8080
-  # port: 80
+  # port: 8080
+  port: 80
   servlet:
     encoding:
       charset: utf-8
