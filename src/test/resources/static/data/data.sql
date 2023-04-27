@@ -26,15 +26,15 @@ values (1, '333456-01-111244');
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 5, NOW(), NOW());
+values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 5000, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (2, 'AOP STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 4, NOW(), NOW());
+values (2, 'AOP STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 4000, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3, NOW(), NOW());
+values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, NOW(), NOW());
 
 
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
