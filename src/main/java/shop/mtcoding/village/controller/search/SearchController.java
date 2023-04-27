@@ -37,14 +37,20 @@ public class SearchController {
 
     @GetMapping("/pricehigh")
     public ResponseEntity<List<SearchOrderby>> searchPlacesByPriceDescending() {
-        List<SearchOrderby> SearchOrderbyDesc = searchService.높은가격순정렬();
-        return ResponseEntity.ok(SearchOrderbyDesc);
+        List<SearchOrderby> SearchOrderbyPriceDesc = searchService.높은가격순정렬();
+        return ResponseEntity.ok(SearchOrderbyPriceDesc);
     }
 
     @GetMapping("/pricelow")
     public ResponseEntity<List<SearchOrderby>> searchPlacesByPriceAscending() {
-        List<SearchOrderby> SearchOrderbyDesc = searchService.낮은가격순정렬();
-        return ResponseEntity.ok(SearchOrderbyDesc);
+        List<SearchOrderby> SearchOrderbPriceDesc = searchService.낮은가격순정렬();
+        return ResponseEntity.ok(SearchOrderbPriceDesc);
+    }
+
+    @GetMapping("/starratinghigh")
+    public ResponseEntity<List<SearchOrderby>> searchPlaceByStarRaingDescending() {
+        List<SearchOrderby> SearchOrderbyStarRatingDesc = searchService.별점높은순정렬();
+        return ResponseEntity.ok(SearchOrderbyStarRatingDesc);
     }
 
 }
