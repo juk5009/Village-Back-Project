@@ -1,11 +1,24 @@
 package shop.mtcoding.village.controller.place;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
@@ -14,9 +27,6 @@ import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.notFoundConst.PlaceConst;
 import shop.mtcoding.village.service.PlaceService;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/place")
@@ -50,14 +60,7 @@ public class PlaceController {
 
     @PostMapping
     public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
-<<<<<<< HEAD
-            @Valid @RequestBody PlaceSaveRequest placeSaveRequest
-    ) {
-
-
-=======
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors) {
->>>>>>> 31082de (익셉션 처리)
 
         var save = placeService.공간등록하기(placeSaveRequest);
 
