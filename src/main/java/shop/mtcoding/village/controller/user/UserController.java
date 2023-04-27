@@ -36,23 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/join")
-<<<<<<< HEAD
-    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO) {
-
-
-
-        UserResponse.JoinDTO data = userService.회원가입(joinDTO);
-
-
-
-=======
 
     public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO, Errors Errors) {
 
         // select 됨
         UserResponse.JoinDTO data = userService.회원가입(joinDTO);
 
->>>>>>> 31082de (익셉션 처리)
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(data);
         return ResponseEntity.ok().body(responseDTO);
     }

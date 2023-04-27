@@ -1,18 +1,11 @@
 package shop.mtcoding.village.service;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 31082de (익셉션 처리)
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.net.HttpHeaders;
-import lombok.RequiredArgsConstructor;
-import okhttp3.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
-import shop.mtcoding.village.model.notice.NoticeRepository;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 
