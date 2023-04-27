@@ -69,6 +69,7 @@ public class PlaceService {
             Place savePlace = placeJpaRepository.save(placeRequest.toEntity());
 
             Optional<Place> byId = placeJpaRepository.findById(savePlace.getId());
+
             Place place = byId.get();
 
             // 해시태그 insert
@@ -134,6 +135,7 @@ public class PlaceService {
             Place updatePlace = placeJpaRepository.save(placeUpdateRequest.toEntity());
 
             Optional<Place> byId = placeJpaRepository.findById(updatePlace.getId());
+
             Place place1 = byId.get();
 
             // 해시태그 update

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/reservation")
 @RequiredArgsConstructor
 @Slf4j
 public class ReservationController {
@@ -39,7 +38,7 @@ public class ReservationController {
 
     private final PlaceJpaRepository placeJpaRepository;
 
-    @GetMapping
+    @GetMapping("/s/reservation")
     public ResponseEntity<?> getReservation(){
 
         List<Reservation> allReservation = reservationRepository.findAll();
@@ -47,7 +46,7 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약내역 조회완료", allReservation), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/s/reservation/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
 
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
@@ -60,23 +59,20 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "유저 예약내역 조회완료", optionalUser.get().toDTOResponse()), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/s/reservation")
     public ResponseEntity<?> save(
             @Valid @RequestBody ReservationSaveRequest reservationSaveRequest
             ) throws IOException {
 
-
-
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
 
+        Long placeId = saveReservation.getPlace().getId();
 
-        // 여기 1L 자리에 placeId 들어가야함
         Place byId = placeJpaRepository.findById(1L).get();
 
-
-        LocalDateTime dateTime = LocalDateTime.now();
         LocalDate date = DateUtils.fromLocalDateTime(reservationSaveRequest.getDate());
         System.out.println(date); // 예시 출력: 2023-04-25
+
 
         // 내 휴대폰으로 연결 했을 때 토큰
          RequestDTO requestDTO = new RequestDTO("Village",

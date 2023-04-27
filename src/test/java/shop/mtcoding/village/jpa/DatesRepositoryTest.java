@@ -45,7 +45,7 @@ public class DatesRepositoryTest {
 
     @BeforeEach
     public void init() {
-        em.createNativeQuery("ALTER TABLE dates_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
+//        em.createNativeQuery("ALTER TABLE dates_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
 //        setUp("월요일");
     }
 

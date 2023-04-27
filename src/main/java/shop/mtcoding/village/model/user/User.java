@@ -47,7 +47,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.tel = tel;
-        this.role = "USER";
+        this.role = role;
         this.profile = profile;
         this.createdAt = createdAt;
     }

@@ -22,7 +22,7 @@ public class ReservationService {
         try {
             return reservationRepository.save(reservationSaveRequest.toEntity());
         } catch (Exception500 e) {
-            throw new Exception500("로그인 오류" + e.getMessage());
+            throw new Exception500("예약신청 오류" + e.getMessage());
         }
     }
 

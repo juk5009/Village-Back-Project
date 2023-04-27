@@ -68,7 +68,8 @@ public class UserService {
 
                     return loginViewList;
 
-                } else {
+                }
+                else {
                     throw new RuntimeException("패스워드 틀렸습니다.");
                 }
             } else {
