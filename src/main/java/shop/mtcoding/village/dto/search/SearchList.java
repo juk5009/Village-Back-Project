@@ -19,8 +19,9 @@ public class SearchList {
     private String address;
     private Integer starRating;
     private String hashtagName;
+    private Long reviewCount;
 
-    public SearchList(BigInteger id, String title, Integer maxPeople, Integer maxParking, Integer pricePerHour, String keyword, String address, Integer starRating, String hashtagName) {
+    public SearchList(BigInteger id, String title, Integer maxPeople, Integer maxParking, Integer pricePerHour, String keyword, String address, Integer starRating, String hashtagName, BigInteger reviewCount) {
         this.id = id.longValue();
         this.title = title;
         this.maxPeople = maxPeople;
@@ -30,6 +31,6 @@ public class SearchList {
         this.address = address;
         this.starRating = starRating;
         this.hashtagName = hashtagName;
+        this.reviewCount = reviewCount.longValue();
     }
-
 }

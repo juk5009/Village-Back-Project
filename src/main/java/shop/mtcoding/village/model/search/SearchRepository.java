@@ -16,20 +16,20 @@ public class SearchRepository {
     private final EntityManager em;
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
-        String sql = "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.sgg_nm, r.star_rating, h.hashtag_name " +
+        String sql = "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.sgg_nm, r.star_rating, h.hashtag_name, COUNT(r.id) as review_count " +
                 "FROM search_tb s " +
                 "INNER JOIN place_tb p ON s.place_id = p.id " +
                 "INNER JOIN address_tb a ON p.address_id = a.id " +
-                "INNER JOIN review_tb r ON p.id = r.place_id " +
+                "LEFT JOIN review_tb r ON p.id = r.place_id " +
                 "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
-                "WHERE p.title LIKE CONCAT('%', :keyword, '%') OR h.hashtag_name LIKE CONCAT('%', :keyword, '%')";
+                "WHERE p.title LIKE CONCAT('%', :keyword, '%') OR h.hashtag_name LIKE CONCAT('%', :keyword, '%') " +
+                "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.sgg_nm, r.star_rating, h.hashtag_name";
 
         Query query = em.createNativeQuery(sql);
         query.setParameter("keyword", keyword);
 
         JpaResultMapper result = new JpaResultMapper();
         List<SearchList> searchList = result.list(query, SearchList.class);
-
 
         return searchList;
     }

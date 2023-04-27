@@ -18,7 +18,7 @@ public class SearchService {
 
     private final SearchRepository searchRepository;
     private final SearchJpaRepository searchJpaRepository;
-    private final UserRepository userRepository;
+
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
         try {
@@ -31,9 +31,13 @@ public class SearchService {
     }
 
     public void SaveSearch(SearchRequest.SaveSearch saveSearch) {
+        try {
+            Search searchPS = saveSearch.toEntity();
+            searchJpaRepository.save(searchPS);
 
-        Search searchPS = saveSearch.toEntity();
-        searchJpaRepository.save(searchPS);
+        } catch (Exception500 e) {
+            throw new Exception500("로그인 오류" + e.getMessage());
+        }
 
     }
 }
