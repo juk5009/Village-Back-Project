@@ -16,7 +16,7 @@ public class SearchRepository {
 
     private final EntityManager em;
 
-    private static final String sql =
+    private static final String sqlKeyword =
             "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.sgg_nm, r.star_rating, h.hashtag_name, COUNT(r.id) as review_count " +
                     "FROM search_tb s " +
                     "INNER JOIN place_tb p ON s.place_id = p.id " +
@@ -54,7 +54,7 @@ public class SearchRepository {
                     "ORDER BY r.star_rating DESC";
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
-        Query query = em.createNativeQuery(sql);
+        Query query = em.createNativeQuery(sqlKeyword);
         query.setParameter("keyword", keyword);
 
         JpaResultMapper result = new JpaResultMapper();

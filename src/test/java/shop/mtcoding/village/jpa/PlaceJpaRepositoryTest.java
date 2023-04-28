@@ -11,15 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
-import shop.mtcoding.village.model.category.Category;
-import shop.mtcoding.village.model.date.Dates;
-import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
-import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
-import shop.mtcoding.village.model.place.PlaceRepository;
+import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.user.User;
-import shop.mtcoding.village.model.user.UserRepository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
@@ -30,10 +25,10 @@ import java.util.Optional;
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @DisplayName("공간 JPA 테스트")
-public class PlaceRepositoryTest {
+public class PlaceJpaRepositoryTest {
 
     @Autowired
-    private PlaceRepository placeRepository;
+    private PlaceJpaRepository placeJpaRepository;
 
     @Autowired
     private TestEntityManager entityManager;
@@ -52,7 +47,7 @@ public class PlaceRepositoryTest {
     @Transactional
     @DisplayName("공간 조회 테스트")
     void selectAll() {
-        List<Place> places = placeRepository.findAll();
+        List<Place> places = placeJpaRepository.findAll();
         Assertions.assertNotEquals(places.size(), 0);
 
         Place place = places.get(0);
@@ -63,7 +58,7 @@ public class PlaceRepositoryTest {
     @Transactional
     @DisplayName("공간 조회 및 수정 테스트")
     void selectAndUpdate() {
-        var optionalPlace = this.placeRepository.findById(1L);
+        var optionalPlace = this.placeJpaRepository.findById(1L);
 
         if(optionalPlace.isPresent()) {
             var result = optionalPlace.get();
@@ -86,13 +81,13 @@ public class PlaceRepositoryTest {
 
         Place place = setUpByPlace("제목3","전번3", "공간정보3", "공간소개3",
                  5, 30, LocalDateTime.now(), LocalDateTime.now());
-        Optional<Place> findPlace = this.placeRepository.findById(place.getId());
+        Optional<Place> findPlace = this.placeJpaRepository.findById(place.getId());
 
         if(findPlace.isPresent()) {
             var result = findPlace.get();
             Assertions.assertEquals(result.getTitle(), "제목3");
             entityManager.remove(place);
-            Optional<Place> deleteReview = this.placeRepository.findById(place.getId());
+            Optional<Place> deleteReview = this.placeJpaRepository.findById(place.getId());
             if (deleteReview.isPresent()) {
                 Assertions.assertNull(deleteReview.get());
             }

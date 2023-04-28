@@ -34,6 +34,7 @@ public class Review {
     private Place place;
 
     @Comment("별점")
+
     private Integer starRating;
 
     @Comment("리뷰 내용")

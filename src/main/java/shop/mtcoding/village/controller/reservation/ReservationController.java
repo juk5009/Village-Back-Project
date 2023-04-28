@@ -4,16 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
 import shop.mtcoding.village.model.place.Place;
-import shop.mtcoding.village.model.place.PlaceRepository;
+import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.notFoundConst.ReservationConst;
@@ -39,7 +37,7 @@ public class ReservationController {
 
     private final FirebaseCloudMessageService firebaseCloudMessageService;
 
-    private final PlaceRepository placeRepository;
+    private final PlaceJpaRepository placeJpaRepository;
 
     @GetMapping
     public ResponseEntity<?> getReservation(){
@@ -73,7 +71,7 @@ public class ReservationController {
 
 
         // 여기 1L 자리에 placeId 들어가야함
-        Place byId = placeRepository.findById(1L).get();
+        Place byId = placeJpaRepository.findById(1L).get();
 
 
         LocalDateTime dateTime = LocalDateTime.now();

@@ -1,7 +1,6 @@
 package shop.mtcoding.village.jpa;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,12 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.model.address.Address;
-import shop.mtcoding.village.model.category.Category;
-import shop.mtcoding.village.model.date.Dates;
-import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
-import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
-import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.model.review.Review;
@@ -26,7 +20,6 @@ import shop.mtcoding.village.util.status.ReservationStatus;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

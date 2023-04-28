@@ -23,8 +23,10 @@ import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
+import shop.mtcoding.village.dto.place.response.PlaceList;
+import shop.mtcoding.village.dto.search.SearchOrderby;
 import shop.mtcoding.village.model.place.Place;
-import shop.mtcoding.village.model.place.PlaceRepository;
+import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.notFoundConst.PlaceConst;
 import shop.mtcoding.village.service.PlaceService;
 
@@ -36,11 +38,18 @@ public class PlaceController {
 
     private final PlaceService placeService;
 
-    private final PlaceRepository placeRepository;
+    private final PlaceJpaRepository placeJpaRepository;
+
+
+    @GetMapping("mainlist")
+    public ResponseEntity<List<PlaceList>> MainList() {
+        List<PlaceList> placeLists = placeService.공간리스트();
+        return ResponseEntity.ok(placeLists);
+    }
 
     @GetMapping
     public ResponseEntity<ResponseDTO<List<Place>>> getPlace() {
-        List<Place> allPlace = placeRepository.findAll();
+        List<Place> allPlace = placeJpaRepository.findAll();
         System.out.println("등록 페이지 전체 보기 : " + allPlace);
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 전체 보기", allPlace), HttpStatus.OK);
     }
