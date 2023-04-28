@@ -1,12 +1,31 @@
 sentry:
   enable-tracing: true
-#  integrations:
-#    - io.sentry.spring.boot.SentrySpringBootIntegration
+  #  integrations:
+  #    - io.sentry.spring.boot.SentrySpringBootIntegration
   environment: development
   logging:
     minimum-event-level: "WARN"
-    minimum-breadcrumb-level: "INFO"  
+    minimum-breadcrumb-level: "INFO"
   dsn: https://56ab2b3b2d344c9cac66ca3d3fa4efe1@o4504986976124928.ingest.sentry.io/4504986986217472
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+      auto: false
+    s3:
+      bucket: villages-3
+    credentials:
+      access-key: AKIAQQ5QPUSNTPXXS7BC
+      secret-key: 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
+    stack:
+      auto: false
+
+#meta:
+#  bucket: ${bucket}
+#  access-key: ${access-key}
+#  secret-key: ${secret-key}
+#  staticval: ${static}
 
 server:
   # port: 8080
@@ -49,12 +68,12 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-#  sql:
-#    init:
-#      schema-locations:
-#         - classpath:db/table.sql
-#      data-locations:
-#       - classpath:db/data.sql
+  #  sql:
+  #    init:
+  #      schema-locations:
+  #         - classpath:db/table.sql
+  #      data-locations:
+  #       - classpath:db/data.sql
   h2:
     console:
       enabled: true

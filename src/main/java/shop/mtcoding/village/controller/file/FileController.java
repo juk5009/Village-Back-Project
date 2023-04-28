@@ -58,7 +58,6 @@ public class FileController {
 
     ) {
 
-
         var file = fileService.save(request);
         return ResponseEntity.ok(file.toResponse());
     }
@@ -69,7 +68,6 @@ public class FileController {
             Errors error,
             @PathVariable Long id
     ) {
-
 
         var optionalFile = fileService.getFile(id);
         if (optionalFile.isEmpty()) {

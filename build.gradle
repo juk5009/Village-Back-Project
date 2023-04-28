@@ -19,6 +19,9 @@ repositories {
 }
 
 dependencies {
+	// AWS S3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 	//native query qlrm
 	implementation group: 'org.qlrm', name: 'qlrm', version: '2.1.1'
 	// firebase 의존성
