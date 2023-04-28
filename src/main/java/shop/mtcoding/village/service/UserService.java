@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class UserService {
 
