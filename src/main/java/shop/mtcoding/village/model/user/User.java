@@ -1,5 +1,6 @@
 package shop.mtcoding.village.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
@@ -22,6 +23,7 @@ public class User {
     private String name;
 
     @Comment("유저 비밀번호")
+    @JsonIgnore
     private String password;
 
     @Comment("유저 이메일")
@@ -32,6 +34,7 @@ public class User {
     private String tel;
 
     @Comment("권한")
+    @JsonIgnore
     private String role; //USER, MANAGER, ADMIN
 
     @Comment("프로필")

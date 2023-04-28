@@ -5,6 +5,7 @@ import lombok.ToString;
 import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
+import shop.mtcoding.village.dto.file.request.FileSaveRequest;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.place.Place;
@@ -47,9 +48,7 @@ public class PlaceSaveRequest {
     @NotNull(message = "시간당 금액을 입력해주세요.")
     private Integer pricePerHour;
 
-
     // 다른 엔티티들
-
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
     private DateSaveDTO dayOfWeek;
 
@@ -61,6 +60,8 @@ public class PlaceSaveRequest {
 
     @NotNull(message = "카테고리를 등록해주세요.")
     private CategorySaveDTO category;
+
+    private FileSaveRequest file;
 
     public Place toEntity() {
 

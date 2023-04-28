@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.core.exception.Exception500;
+import shop.mtcoding.village.core.s3.S3Service;
 import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
@@ -19,13 +20,17 @@ import shop.mtcoding.village.model.date.DateRepository;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfoRepository;
+import shop.mtcoding.village.model.file.File;
+import shop.mtcoding.village.model.file.FileRepository;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.hashtag.HashtagRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.review.ReviewRepository;
+import shop.mtcoding.village.util.Base64Decoded;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +54,10 @@ public class PlaceService {
 
     private final CategoryRepository categoryRepository;
 
+    private final FileService fileService;
+
+    private final S3Service s3Service;
+
     @Transactional
     public List<PlaceList> 공간리스트() {
 
@@ -64,6 +73,13 @@ public class PlaceService {
     @Transactional
     public Place 공간등록하기(PlaceSaveRequest placeRequest) {
         try {
+
+            // file s3에 저장
+            String imgPath = s3Service.upload(Base64Decoded.convertBase64ToMultipartFile(placeRequest.getFile().getFileUrl()));
+
+            placeRequest.getFile().setFileUrl(imgPath);
+
+            fileService.save(placeRequest.getFile());
 
             // 공간 insert
             Place savePlace = placeJpaRepository.save(placeRequest.toEntity());
@@ -108,6 +124,8 @@ public class PlaceService {
             return savePlace;
         } catch (Exception500 e) {
             throw new Exception500("공간등록 오류" + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 
