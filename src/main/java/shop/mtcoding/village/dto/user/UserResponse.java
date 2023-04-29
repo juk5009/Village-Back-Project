@@ -27,6 +27,7 @@ public class UserResponse {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
+    @ToString
     public static class LoginDTO {
         private Long id;
         private String name;

@@ -38,6 +38,7 @@ public class Notice {
     @Comment("결제의 총 금액")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     // 결제테이블과 조인해서 총금액 받아오기
     private Payment payment;
 

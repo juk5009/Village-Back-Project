@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import shop.mtcoding.village.model.fcm.Fcm;
 
 import java.io.IOException;
 
@@ -32,7 +33,14 @@ public class FcmController {
     @PostMapping("/fcm/token")
     public ResponseEntity<?> pushMessage(@RequestBody String token) throws Exception {
 
+        token = "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx";
+
         if (token != null) {
+
+            Fcm fcm = new Fcm();
+
+            fcm.setTargetToken(token);
+
             System.out.println("앱 실행 후 토큰 전송 성공!, token : " + token);
             // token 받기 성공
             // token 받고, DB에 저장 후 푸쉬 알림 시 활용

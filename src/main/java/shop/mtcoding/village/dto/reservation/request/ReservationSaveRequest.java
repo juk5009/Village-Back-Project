@@ -44,13 +44,11 @@ public class ReservationSaveRequest {
     public Reservation toEntity() {
         User user = new User();
         user.setName(userName);
-
         Reservation reservation = new Reservation();
         reservation.setPeopleNum(peopleNum);
         reservation.setDate(date);
         reservation.setStartTime(startTime);
         reservation.setEndTime(endTime);
-
         reservation.setStatus(reservationStatus);
         return new Reservation(user, date, startTime, endTime, peopleNum, reservationStatus);
 

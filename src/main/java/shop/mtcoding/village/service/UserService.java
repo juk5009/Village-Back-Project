@@ -1,16 +1,15 @@
 package shop.mtcoding.village.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.core.jwt.MyJwtProvider;
-import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.user.UserRequest;
 import shop.mtcoding.village.dto.user.UserResponse;
+import shop.mtcoding.village.model.fcm.Fcm;
+import shop.mtcoding.village.model.fcm.FcmRepository;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.model.user.UserRepository;
 
@@ -24,6 +23,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final FcmRepository fcmRepository;
 
     /**
      * 1. 트랜잭션 관리
@@ -53,18 +53,19 @@ public class UserService {
     @Transactional
     public ArrayList 로그인(UserRequest.LoginDTO loginDTO) {
         try {
-            ArrayList loginViewList = new ArrayList();
+            ArrayList loginViewList = new ArrayList<>();
 
             Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
             if (userOP.isPresent()) {
                 User userPS = userOP.get();
+
                 if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
+
                     String jwt = MyJwtProvider.create(userPS);
                     loginViewList.add(jwt);
                     loginViewList.add(userPS.getId());
                     loginViewList.add(userPS.getName());
                     loginViewList.add(userPS.getEmail());
-
 
                     return loginViewList;
 

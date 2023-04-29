@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.google.auth.oauth2.JwtProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +37,10 @@ import shop.mtcoding.village.notFoundConst.PlaceConst;
 import shop.mtcoding.village.notFoundConst.RoleConst;
 import shop.mtcoding.village.service.PlaceService;
 
+
+//TODO 경로 바뀐 부분 전달하기
 @RestController
+@RequestMapping("/places")
 @RequiredArgsConstructor
 @Slf4j
 public class PlaceController {
@@ -45,21 +49,20 @@ public class PlaceController {
 
     private final PlaceJpaRepository placeJpaRepository;
 
-
     @GetMapping("mainlist")
     public ResponseEntity<List<PlaceList>> MainList() {
         List<PlaceList> placeLists = placeService.공간리스트();
         return ResponseEntity.ok(placeLists);
     }
 
-    @GetMapping("/place")
+    @GetMapping
     public ResponseEntity<ResponseDTO<List<Place>>> getPlace() {
         List<Place> allPlace = placeJpaRepository.findAll();
         System.out.println("등록 페이지 전체 보기 : " + allPlace);
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 전체 보기", allPlace), HttpStatus.OK);
     }
 
-    @GetMapping("/place/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity detailPlace(
             @PathVariable Long id
     ) {
@@ -80,7 +83,8 @@ public class PlaceController {
     // );
     // }
 
-    @PostMapping("/host/place")
+    @PostMapping("/host")
+    @PreAuthorize("hasRole('HOST')")
     public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -97,7 +101,8 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 등록 완료", save), HttpStatus.OK);
     }
 
-    @PutMapping("/host/place")
+    @PutMapping("/host")
+    @PreAuthorize("hasRole('HOST')")
     public ResponseEntity<ResponseDTO> updatePlace(
             @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -114,7 +119,8 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", update), HttpStatus.OK);
         }
         
-        @DeleteMapping("/host/place/{id}")
+        @DeleteMapping("/host/{id}")
+        @PreAuthorize("hasRole('HOST')")
         public ResponseEntity<?> deletePlace(
                 @PathVariable Long id
         ){

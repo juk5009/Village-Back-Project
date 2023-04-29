@@ -4,12 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
+import shop.mtcoding.village.model.fcm.Fcm;
+import shop.mtcoding.village.model.fcm.FcmRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.reservation.Reservation;
@@ -26,6 +31,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/reservation")
 @RequiredArgsConstructor
 @Slf4j
 public class ReservationController {
@@ -38,7 +44,10 @@ public class ReservationController {
 
     private final PlaceJpaRepository placeJpaRepository;
 
-    @GetMapping("/s/reservation")
+    private final FcmRepository fcmRepository;
+
+    @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getReservation(){
 
         List<Reservation> allReservation = reservationRepository.findAll();
@@ -46,7 +55,8 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약내역 조회완료", allReservation), HttpStatus.OK);
     }
 
-    @GetMapping("/s/reservation/{id}")
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getById(@PathVariable Long id) {
 
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
@@ -59,32 +69,31 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "유저 예약내역 조회완료", optionalUser.get().toDTOResponse()), HttpStatus.OK);
     }
 
-    @PostMapping("/s/reservation")
+    @PostMapping
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> save(
-            @Valid @RequestBody ReservationSaveRequest reservationSaveRequest
+            @Valid @RequestBody ReservationSaveRequest reservationSaveRequest,
+            @AuthenticationPrincipal MyUserDetails myUserDetails
             ) throws IOException {
 
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
-
-        Long placeId = saveReservation.getPlace().getId();
-
+        System.out.println("예약신청 : " +saveReservation);
+//        Long placeId = saveReservation.getPlace().getId();
         Place byId = placeJpaRepository.findById(1L).get();
 
         LocalDate date = DateUtils.fromLocalDateTime(reservationSaveRequest.getDate());
         System.out.println(date); // 예시 출력: 2023-04-25
 
+        Long userId = saveReservation.getUser().getId();
+        Fcm fcm = fcmRepository.findByUserId(userId);
 
-        // 내 휴대폰으로 연결 했을 때 토큰
-         RequestDTO requestDTO = new RequestDTO("Village",
-                 "[예약알림]\n"+
-                 reservationSaveRequest.getUserName()+ "님이 [" + byId.getTitle() + "]에 예약 신청했습니다.\n"
-                         +"날짜: "+date+"\n"
-                         +"일시: "+reservationSaveRequest.getStartTime()+"~"+reservationSaveRequest.getEndTime()+"\n"
-                         +"인원: "+reservationSaveRequest.getPeopleNum()+"명\n",
-                 "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+        RequestDTO requestDTO = new RequestDTO("Village",
+                "[예약알림]\n"+ reservationSaveRequest.getUserName()+ "님이 [" + byId.getTitle() + "]에 예약 신청했습니다.\n"
+                        +"날짜: "+date+"\n"
+                        +"일시: "+reservationSaveRequest.getStartTime()+"~"+reservationSaveRequest.getEndTime()+"\n"
+                        +"인원: "+reservationSaveRequest.getPeopleNum()+"명\n",
+                fcm.getTargetToken());
 
-        // 안드로이드 스튜디어로 연결 했을 때 토큰
-//        RequestDTO requestDTO = new RequestDTO("예약신청", reservationSaveRequest.getUserName()+ "님이 예약신청을 했습니다", "e8ayeYq0QDC_D2ph3zcgPx:APA91bGT2vs5-qFhPaylG8VZxqnJpqfXRrX2cC2OwW1aadTNpEsMYL9BMAxzFH-vcAX1WZ-COPe5qLDyaJsEpk57uy6F74QbI34DTs3gapJj1nbvNhOL0-h4RoWlXCZ6Nfo0OtncgfeB");
         firebaseCloudMessageService.sendMessageTo(
                 requestDTO.getTargetToken(),
                 requestDTO.getTitle(),

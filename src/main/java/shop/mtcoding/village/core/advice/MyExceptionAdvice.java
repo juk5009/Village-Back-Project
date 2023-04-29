@@ -25,6 +25,7 @@ public class MyExceptionAdvice {
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 
+    //TODO 월요일가서 물어봐라이 결과를 카톡방에 올려라이
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
         if (e.getCause() instanceof ConstraintViolationException) {
