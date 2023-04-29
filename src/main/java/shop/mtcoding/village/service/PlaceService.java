@@ -6,15 +6,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.core.exception.Exception500;
-import shop.mtcoding.village.core.s3.S3Service;
+import shop.mtcoding.village.api.s3.S3Service;
 import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
+import shop.mtcoding.village.dto.file.dto.FileSaveDTO;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.dto.place.response.PlaceList;
-import shop.mtcoding.village.dto.search.SearchOrderby;
 import shop.mtcoding.village.model.category.CategoryRepository;
 import shop.mtcoding.village.model.date.DateRepository;
 import shop.mtcoding.village.model.date.Dates;
@@ -56,6 +56,8 @@ public class PlaceService {
 
     private final FileService fileService;
 
+    private final FileRepository fileRepository;
+
     private final S3Service s3Service;
 
     @Transactional
@@ -68,18 +70,9 @@ public class PlaceService {
         }
     }
 
-
-
     @Transactional
     public Place 공간등록하기(PlaceSaveRequest placeRequest) {
         try {
-
-            // file s3에 저장
-            String imgPath = s3Service.upload(Base64Decoded.convertBase64ToMultipartFile(placeRequest.getFile().getFileUrl()));
-
-            placeRequest.getFile().setFileUrl(imgPath);
-
-            fileService.save(placeRequest.getFile());
 
             // 공간 insert
             Place savePlace = placeJpaRepository.save(placeRequest.toEntity());
@@ -87,6 +80,19 @@ public class PlaceService {
             Optional<Place> byId = placeJpaRepository.findById(savePlace.getId());
 
             Place place = byId.get();
+
+            // file s3에 저장
+            List<File> fileList = new ArrayList<>();
+
+            for (FileSaveDTO.FileDTO file : placeRequest.getImage().getFileDTOS()) {
+                String imgPath = s3Service.upload(file.getFileName(), Base64Decoded.convertBase64ToMultipartFile(file.getFileUrl()));
+                file.setFileUrl(imgPath);
+                File save = fileRepository.save(file.toEntity(file.getId(), file.getFileName(), file.getFileUrl()));
+                fileList.add(save);
+
+                fileService.save(placeRequest.getImage().getFileDTOS().get(0));
+            }
+
 
             // 해시태그 insert
             List<Hashtag> hashtagList = new ArrayList<Hashtag>();

@@ -1,4 +1,4 @@
-package shop.mtcoding.village.core.firebase;
+package shop.mtcoding.village.api.firebase;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

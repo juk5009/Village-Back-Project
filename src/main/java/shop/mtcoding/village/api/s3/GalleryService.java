@@ -1,8 +1,7 @@
-package shop.mtcoding.village.core.s3;
+package shop.mtcoding.village.api.s3;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 

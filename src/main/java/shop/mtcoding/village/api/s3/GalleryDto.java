@@ -1,4 +1,4 @@
-package shop.mtcoding.village.core.s3;
+package shop.mtcoding.village.api.s3;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

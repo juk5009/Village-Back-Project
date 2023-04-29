@@ -2,7 +2,6 @@ package shop.mtcoding.village.dto.reservation.request;
 
 
 import lombok.*;
-import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.ReservationStatus;

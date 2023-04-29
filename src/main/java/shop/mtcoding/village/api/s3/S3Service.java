@@ -1,4 +1,4 @@
-package shop.mtcoding.village.core.s3;
+package shop.mtcoding.village.api.s3;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 @NoArgsConstructor
@@ -42,11 +44,32 @@ public class S3Service {
                 .build();
     }
 
-    public String upload(MultipartFile file) throws IOException {
-        String fileName = file.getOriginalFilename();
-
-        s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
+    public String upload(String fileName, MultipartFile file) throws IOException {
+        s3Client.putObject(new PutObjectRequest(bucket, getFileNameServer(file), file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         return s3Client.getUrl(bucket, fileName).toString();
+    }
+
+    private static String getFileNameServer(MultipartFile multipartFile) {
+        // 파일 확장자 추출
+        int pos = multipartFile.getOriginalFilename().lastIndexOf(".");
+        String ext = multipartFile.getOriginalFilename().substring(pos + 1);
+
+        // 서버에 올라갈 파일명 반환
+        return makeFileName() + "." + ext;
+    }
+
+    public static String makeFileName() {
+        Date now = new Date();
+        String today = new SimpleDateFormat("yyyyMMddHHmmss").format(now);
+
+        String random = "";
+        for (int i = 1; i <= 10; i++) {
+            char ch = (char) ((Math.random() * 26) + 97);
+            random += ch;
+        }
+        String result = today + random;
+
+        return result;
     }
 }

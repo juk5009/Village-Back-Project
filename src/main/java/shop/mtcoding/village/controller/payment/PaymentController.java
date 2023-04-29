@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import shop.mtcoding.village.dto.ReceiptDTO;
-import shop.mtcoding.village.model.payment.BootPay;
+import shop.mtcoding.village.dto.bootpay.ReceiptDTO;
 import shop.mtcoding.village.model.payment.PaymentRepository;
 import shop.mtcoding.village.service.PaymentService;
 

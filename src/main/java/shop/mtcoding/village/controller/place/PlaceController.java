@@ -1,41 +1,28 @@
 package shop.mtcoding.village.controller.place;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
-import com.google.auth.oauth2.JwtProvider;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.core.exception.MyConstException;
-import shop.mtcoding.village.core.jwt.MyJwtProvider;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.dto.place.response.PlaceList;
-import shop.mtcoding.village.dto.search.SearchOrderby;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.notFoundConst.PlaceConst;
 import shop.mtcoding.village.notFoundConst.RoleConst;
 import shop.mtcoding.village.service.PlaceService;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 
 //TODO 경로 바뀐 부분 전달하기
@@ -69,19 +56,6 @@ public class PlaceController {
         Optional<Place> detailPlace = placeService.공간상세보기(id);
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기",detailPlace), HttpStatus.OK);
     }
-
-    // @GetMapping
-    // public ResponseEntity<Page<PlaceSaveResponse>> getPage(Pageable pageable) {
-    // var page = placeService.getPage(pageable);
-    // var content = page.getContent()
-    // .stream()
-    // .map(Place::toDTO)
-    // .toList();
-    //
-    // return ResponseEntity.ok(
-    // new PageImpl<>(content, pageable, page.getTotalElements())
-    // );
-    // }
 
     @PostMapping("/host")
     @PreAuthorize("hasRole('HOST')")

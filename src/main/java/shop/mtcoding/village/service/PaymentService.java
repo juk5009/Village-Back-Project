@@ -2,15 +2,12 @@ package shop.mtcoding.village.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.mtcoding.village.dto.ReceiptDTO;
+import shop.mtcoding.village.dto.bootpay.ReceiptDTO;
 import shop.mtcoding.village.model.cardData.CardDataRepository;
-import shop.mtcoding.village.model.metadata.MetaData;
 import shop.mtcoding.village.model.metadata.MetaRepository;
 import shop.mtcoding.village.model.payment.BootPatRepository;
 import shop.mtcoding.village.model.payment.BootPay;
 import shop.mtcoding.village.model.payment.PaymentRepository;
-
-import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)

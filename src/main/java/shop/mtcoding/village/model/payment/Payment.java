@@ -4,15 +4,12 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import shop.mtcoding.village.dto.ReceiptDTO;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.PaymentStatus;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Entity
 @Getter
