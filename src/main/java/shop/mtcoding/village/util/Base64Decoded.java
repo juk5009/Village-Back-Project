@@ -11,11 +11,11 @@ public class Base64Decoded implements MultipartFile {
             throws IOException {
         byte[] decodedData;
         try {
-            String[] parts = base64.split(",");
-            // base64Data : data:image/png;base64, 없앤 base64 String 값
-            String base64Data = parts[1];
+//            String[] parts = base64.split(",");
+//            // base64Data : data:image/png;base64, 없앤 base64 String 값
+//            String base64Data = parts[1];
             // 하드 디스크는 이진데이터를 읽어 저장하므로 base64 문자셋 -> 이진 데이터 디코딩
-            decodedData = Base64.getDecoder().decode(base64Data);
+            decodedData = Base64.getDecoder().decode(base64);
             // byte[] decodedBytes = Base64.decodeBase64(base64);
 
         } catch (Exception e) {

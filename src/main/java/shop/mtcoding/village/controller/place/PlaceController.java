@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.auth.MyUserDetails;
+import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
@@ -50,16 +51,21 @@ public class PlaceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity detailPlace(
+    public ResponseEntity<ResponseDTO<Place>> detailPlace(
             @PathVariable Long id
     ) {
         Optional<Place> detailPlace = placeService.공간상세보기(id);
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기",detailPlace), HttpStatus.OK);
+        if (detailPlace.isEmpty()){
+            throw new CustomException("공간에 대한 정보가 없습니다.");
+        }
+        Place place = detailPlace.get();
+        log.debug(String.valueOf(detailPlace));
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", place), HttpStatus.OK);
     }
 
     @PostMapping("/host")
     @PreAuthorize("hasRole('HOST')")
-    public @ResponseBody ResponseEntity<ResponseDTO> savePlace(
+    public @ResponseBody ResponseEntity<ResponseDTO<Place>> savePlace(
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
@@ -77,7 +83,7 @@ public class PlaceController {
 
     @PutMapping("/host")
     @PreAuthorize("hasRole('HOST')")
-    public ResponseEntity<ResponseDTO> updatePlace(
+    public ResponseEntity<ResponseDTO<Place>> updatePlace(
             @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
@@ -93,19 +99,19 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", update), HttpStatus.OK);
         }
         
-        @DeleteMapping("/host/{id}")
-        @PreAuthorize("hasRole('HOST')")
-        public ResponseEntity<?> deletePlace(
-                @PathVariable Long id
-        ){
-            var optionalPlace = placeService.getPlace(id);
-            if (optionalPlace.isEmpty()) {
-                throw new MyConstException(PlaceConst.notFound);
-            }
-    
-            placeService.공간삭제하기(optionalPlace.get());
-    
-            return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 삭제 완료", null), HttpStatus.OK);
+    @DeleteMapping("/host/{id}")
+    @PreAuthorize("hasRole('HOST')")
+    public ResponseEntity<?> deletePlace(
+            @PathVariable Long id
+    ){
+        var optionalPlace = placeService.getPlace(id);
+        if (optionalPlace.isEmpty()) {
+            throw new MyConstException(PlaceConst.notFound);
         }
+
+        placeService.공간삭제하기(optionalPlace.get());
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 삭제 완료", null), HttpStatus.OK);
+    }
 
 }
