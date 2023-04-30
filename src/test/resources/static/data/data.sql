@@ -13,7 +13,6 @@ insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
 values ('부산 부산진구 중앙대로 688 한준빌딩 22층', '부산 사하구', '27296', '412', '125');
 
 
-
 insert into account_tb(user_id, account_num)
 values (1, '123456-01-123456');
 insert into account_tb(user_id, account_num)
@@ -114,7 +113,6 @@ insert into dates_tb (day_of_week_name, place_id)
 values ('화요일', 1);
 insert into dates_tb (day_of_week_name, place_id)
 values ('수요일', 2);
-
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (1, 1, 1, '내용1', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)
@@ -122,13 +120,12 @@ values (2, 2, 2, '내용2', 'WAIT');
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (3, 3, 3, '내용3', 'WAIT');
 
-
 insert into dates_tb (day_of_week_name, place_id)
-values ('월요일,화요일,수요일,목요일', 1);
+values ('월요일', 1);
 insert into dates_tb (day_of_week_name, place_id)
-values ('월요일,목요일,금요일,토요일', 1);
+values ('화요일', 1);
 insert into dates_tb (day_of_week_name, place_id)
-values ('수요일',  2);
+values ('수요일', 1);
 
 insert into notice_tb (user_id, place_id, payment_id, content, status)
 values (1, 1, 1, '내용1', 'WAIT');
