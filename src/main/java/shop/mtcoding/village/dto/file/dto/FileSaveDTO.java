@@ -12,23 +12,23 @@ import java.util.List;
 @Setter
 public class FileSaveDTO {
 
-    private List<FileDTO> fileDTOS;
+//    private List<FileDTO> fileDTOS;
 
     @Setter
     @Getter
     @ToString
-    public static class FileDTO extends File {
+    public static class FileSaveDto extends File {
         private Long id;
         private String name;
         private String data;
         private String type;
 
-        public File toEntity(Long id, String fileName, String fileUrl) {
-            return new File(id, null, fileName, fileUrl, type, FileStatus.WAIT);
+        public File toEntity(String fileName, String fileUrl) {
+            return new File(null, null, fileName, fileUrl, type, FileStatus.WAIT);
         }
 
         public File toEntity() {
-            return new File(id, null, name, data, type, FileStatus.WAIT);
+            return new File(null, null, name, data, type, FileStatus.WAIT);
         }
     }
 }

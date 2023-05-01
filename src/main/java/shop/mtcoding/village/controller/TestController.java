@@ -32,25 +32,6 @@ public class TestController {
         this.placeJpaRepository = placeJpaRepository;
     }
 
-    @PostMapping
-    public ResponseEntity<?> save(@RequestBody HashtagSaveDTO hashtagDTO) {
-
-        Optional<Place> byId = placeJpaRepository.findById(2L);
-        Place place1 = byId.get();
-        List<Hashtag> hashtagList = new ArrayList<>();
-
-
-        for (HashtagSaveDTO.HashtagDto hash : hashtagDTO.getHashtagDto()) {
-            Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place1));
-
-            hashtagList.add(save1);
-        }
-
-        System.out.println("디버그 : " +  hashtagDTO);
-
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "해시태그 넣기", hashtagList), HttpStatus.OK);
-    }
-
     @PostMapping("/image")
     public ResponseEntity<?> file(@RequestBody FileSaveDTO fileSaveDTO) {
 

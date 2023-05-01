@@ -13,6 +13,7 @@ import shop.mtcoding.village.model.place.Place;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @ToString
@@ -48,18 +49,16 @@ public class PlaceSaveRequest {
 
     // 다른 엔티티들
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
-    private DateSaveDTO dayOfWeek;
+    private List<DateSaveDTO.DateSaveDto> dayOfWeek;
 
-    //    @Null
-    private HashtagSaveDTO hashtag;
+    private List<HashtagSaveDTO.HashtagSaveDto> hashtag;
 
-    //    @Null
-    private FacilityInfoSaveDTO facilityInfo;
+    private List<FacilityInfoSaveDTO.FacilityInfoSaveDto> facilityInfo;
 
     @NotNull(message = "카테고리를 등록해주세요.")
-    private CategorySaveDTO category;
+    private String categoryName;
 
-    private FileSaveDTO image;
+    private List<FileSaveDTO.FileSaveDto> image;
 
     public Place toEntity() {
         Place place = new Place();

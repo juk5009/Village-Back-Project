@@ -21,30 +21,34 @@ public class Address {
     private Long id;
 
     @Comment("도로명 주소")
-    private String roadFullAddr;
+    private String address;
 
     @Comment("시군구명")
 //    @JsonIgnore
-    private String sggNm;
+    private String sigungu;
 
     @Comment("우편번호")
 //    @JsonIgnore
-    private String zipNo;
+    private String zonecode;
+
+    @Comment("상세주소")
+    private String detailAddress;
 
     @Comment("경도")
 //    @JsonIgnore
-    private String lat;
+    private String x;
 
     @Comment("위도")
 //    @JsonIgnore
-    private String lng;
+    private String y;
 
     @Builder
-    public Address(String roadFullAddr, String sggNm, String zipNo, String lat, String lng) {
-        this.roadFullAddr = roadFullAddr;
-        this.sggNm = sggNm;
-        this.zipNo = zipNo;
-        this.lat = lat;
-        this.lng = lng;
+    public Address(String address, String sigungu, String zonecode, String detailAddress, String x, String y) {
+        this.address = address;
+        this.sigungu = sigungu;
+        this.zonecode = zonecode;
+        this.detailAddress = detailAddress;
+        this.x = x;
+        this.y = y;
     }
 }

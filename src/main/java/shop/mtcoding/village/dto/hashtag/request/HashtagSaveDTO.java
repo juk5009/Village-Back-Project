@@ -13,12 +13,12 @@ import java.util.Optional;
 @Getter
 public class HashtagSaveDTO {
 
-    private List<HashtagDto> hashtagDto;
+//    private List<HashtagDto> hashtagDto;
 
     @Setter
     @Getter
     @ToString
-    public static class HashtagDto extends Hashtag {
+    public static class HashtagSaveDto extends Hashtag {
         private String hashtagName;
         private Place placeId;
 

@@ -12,12 +12,12 @@ import java.util.List;
 
 @Getter
 public class FacilityInfoSaveDTO {
-    private List<FacilityInfoDTO> facilityName;
+//    private List<FacilityInfoDTO> facilityName;
 
     @Setter
     @Getter
     @ToString
-    public static class FacilityInfoDTO extends FacilityInfo {
+    public static class FacilityInfoSaveDto extends FacilityInfo {
         private String facilityName;
         private Place placeId;
 

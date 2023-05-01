@@ -16,13 +16,13 @@ import java.util.List;
 @ToString
 public class DateSaveDTO {
 
-    @Column(name = "dayOfWeekName")
-    private List<DatesDto> dayOfWeekName;
+//    @Column(name = "dayOfWeekName")
+//    private List<DatesDto> dayOfWeekName;
 
     @Setter
     @Getter
     @ToString
-    public static class DatesDto extends Dates {
+    public static class DateSaveDto extends Dates {
         private String dayOfWeekName;
         private Place placeId;
 

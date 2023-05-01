@@ -3,7 +3,6 @@ package shop.mtcoding.village.controller.payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,12 +25,9 @@ public class PayController {
         return ResponseEntity.ok().body(json);
     }
 
-    @GetMapping("/bootpaytest1")
-    public String bootpaytest1(){
-        return "json";
+    @PostMapping("/returnjson")
+    public ResponseEntity<?> bootpaytest1(@RequestBody String json){
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(json);
+        return ResponseEntity.ok().body(responseDTO);
     }
-    
 }
-
-
-

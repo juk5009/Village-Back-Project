@@ -34,7 +34,7 @@ public class FileService {
     }
 
     @Transactional
-    public File save(FileSaveDTO.FileDTO request) {
+    public File save(FileSaveDTO.FileSaveDto request) {
         return fileRepository.save(request.toEntity());
     }
 

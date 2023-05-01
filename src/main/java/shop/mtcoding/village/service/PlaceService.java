@@ -15,6 +15,7 @@ import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.dto.place.response.PlaceList;
+import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.category.CategoryRepository;
 import shop.mtcoding.village.model.date.DateRepository;
 import shop.mtcoding.village.model.date.Dates;
@@ -81,38 +82,38 @@ public class PlaceService {
 
             Place place = byId.get();
 
-            // file s3에 저장
-            List<File> fileList = new ArrayList<>();
-
-            for (FileSaveDTO.FileDTO file : placeRequest.getImage().getFileDTOS()) {
-                String imgPath = s3Service.upload(file.getFileName(), Base64Decoded.convertBase64ToMultipartFile(file.getFileUrl()));
-                file.setFileUrl(imgPath);
-                File save = fileRepository.save(file.toEntity(file.getId(), file.getFileName(), file.getFileUrl()));
-                fileList.add(save);
-
-                fileService.save(placeRequest.getImage().getFileDTOS().get(0));
-            }
-
-
             // 해시태그 insert
             List<Hashtag> hashtagList = new ArrayList<Hashtag>();
 
-            System.out.println("디버그 : " + placeRequest.getHashtag().getHashtagDto());
+            System.out.println("디버그 : " + placeRequest.getHashtag());
 
-            for (HashtagSaveDTO.HashtagDto hash : placeRequest.getHashtag().getHashtagDto()) {
+            for (HashtagSaveDTO.HashtagSaveDto hash : placeRequest.getHashtag()) {
                 Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place));
 
                 hashtagList.add(save1);
             }
 
+            // file s3에 저장
+            List<File> fileList = new ArrayList<>();
+
+            for (FileSaveDTO.FileSaveDto files : placeRequest.getImage()) {
+                String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getData()));
+                files.setFileUrl(imgPath);
+                File save = fileRepository.save(files.toEntity(files.getName(), files.getFileUrl()));
+//                fileList.add(save);
+
+                fileService.save(placeRequest.getImage().get(0));
+            }
+
             // 카테고리 insert
-            CategorySaveDTO.CategoryDTO categoryDTO = placeRequest.getCategory().getCategoryName();
-            categoryRepository.save(categoryDTO.toEntity(categoryDTO.getCategoryName(), place));
+            Category category = new Category();
+            category.setCategoryName(placeRequest.getCategoryName());
+            categoryRepository.save(category);
 
             // 요일 날짜 insert
             List<Dates> dateList = new ArrayList<Dates>();
 
-            for (DateSaveDTO.DatesDto date : placeRequest.getDayOfWeek().getDayOfWeekName()) {
+            for (DateSaveDTO.DateSaveDto date : placeRequest.getDayOfWeek()) {
                 Dates saveDate = dateRepository.save(date.toEntity(date.getDayOfWeekName(), place));
 
                 dateList.add(saveDate);
@@ -121,7 +122,7 @@ public class PlaceService {
             // 편의 시설 insert
             List<FacilityInfo> facilityInfoList = new ArrayList<FacilityInfo>();
 
-            for (FacilityInfoSaveDTO.FacilityInfoDTO facilityInfo : placeRequest.getFacilityInfo().getFacilityName()) {
+            for (FacilityInfoSaveDTO.FacilityInfoSaveDto facilityInfo : placeRequest.getFacilityInfo()) {
                 FacilityInfo savefacilityInfo = facilityInfoRepository.save(facilityInfo.toEntity(facilityInfo.getFacilityName(), place));
 
                 facilityInfoList.add(savefacilityInfo);
@@ -154,46 +155,64 @@ public class PlaceService {
     public Place 공간수정하기(PlaceUpdateRequest placeUpdateRequest) {
         try {
 
-            // 공간 update
-            Place updatePlace = placeJpaRepository.save(placeUpdateRequest.toEntity());
+            // 공간 insert
+            Place savePlace = placeJpaRepository.save(placeUpdateRequest.toEntity());
 
-            Optional<Place> byId = placeJpaRepository.findById(updatePlace.getId());
+            Optional<Place> byId = placeJpaRepository.findById(savePlace.getId());
 
-            Place place1 = byId.get();
+            Place place = byId.get();
 
-            // 해시태그 update
+            // 해시태그 insert
             List<Hashtag> hashtagList = new ArrayList<Hashtag>();
 
-            for (HashtagSaveDTO.HashtagDto hash : placeUpdateRequest.getHashtag().getHashtagDto()) {
-                Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place1));
+            System.out.println("디버그 : " + placeUpdateRequest.getHashtag());
+
+            for (HashtagSaveDTO.HashtagSaveDto hash : placeUpdateRequest.getHashtag()) {
+                Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place));
 
                 hashtagList.add(save1);
             }
 
-            // 카테고리 update
-            CategorySaveDTO.CategoryDTO categoryDTO = placeUpdateRequest.getCategory().getCategoryName();
-            categoryRepository.save(categoryDTO.toEntity(categoryDTO.getCategoryName(), place1));
+            // file s3에 저장
+            List<File> fileList = new ArrayList<>();
 
-            // 요일 날짜 update
+            for (FileSaveDTO.FileSaveDto file : placeUpdateRequest.getImage()) {
+                String imgPath = s3Service.upload(file.getName(), Base64Decoded.convertBase64ToMultipartFile(file.getData()));
+                file.setFileUrl(imgPath);
+                File save = fileRepository.save(file.toEntity(file.getName(), file.getFileUrl()));
+                fileList.add(save);
+
+                fileService.save(placeUpdateRequest.getImage().get(0));
+            }
+
+            // 카테고리 insert
+            Category category = new Category();
+            category.setCategoryName(placeUpdateRequest.getCategoryName());
+            categoryRepository.save(category);
+
+            // 요일 날짜 insert
             List<Dates> dateList = new ArrayList<Dates>();
 
-            for (DateSaveDTO.DatesDto date : placeUpdateRequest.getDayOfWeek().getDayOfWeekName()) {
-                Dates saveDate = dateRepository.save(date.toEntity(date.getDayOfWeekName(), place1));
+            for (DateSaveDTO.DateSaveDto date : placeUpdateRequest.getDayOfWeek()) {
+                Dates saveDate = dateRepository.save(date.toEntity(date.getDayOfWeekName(), place));
 
                 dateList.add(saveDate);
             }
 
-            // 편의 시설 update
+            // 편의 시설 insert
             List<FacilityInfo> facilityInfoList = new ArrayList<FacilityInfo>();
 
-            for (FacilityInfoSaveDTO.FacilityInfoDTO facilityInfo : placeUpdateRequest.getFacilityInfo().getFacilityName()) {
-                FacilityInfo savefacilityInfo = facilityInfoRepository.save(facilityInfo.toEntity(facilityInfo.getFacilityName(), place1));
+            for (FacilityInfoSaveDTO.FacilityInfoSaveDto facilityInfo : placeUpdateRequest.getFacilityInfo()) {
+                FacilityInfo savefacilityInfo = facilityInfoRepository.save(facilityInfo.toEntity(facilityInfo.getFacilityName(), place));
 
                 facilityInfoList.add(savefacilityInfo);
             }
-            return updatePlace;
+
+            return savePlace;
         } catch (Exception500 e) {
-            throw new Exception500("공간수정 오류" + e.getMessage());
+            throw new Exception500("공간등록 오류" + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 

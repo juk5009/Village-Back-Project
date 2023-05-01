@@ -5,12 +5,12 @@ values ('Jane', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 
 insert into user_tb (name, password, email, tel, role, profile, created_at)
 values ('Bob', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', NOW());
 
-insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
-values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '12', '15');
-insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
-values ('부산 부산진구 중앙대로 688 한준빌딩 12층', '부산 사상구', '43296', '111', '115');
-insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
-values ('부산 부산진구 중앙대로 688 한준빌딩 22층', '부산 사하구', '27296', '412', '125');
+insert into address_tb(address, sigungu, zonecode, detail_address, x, y)
+values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '201호' ,'12', '15');
+insert into address_tb(address, sigungu, zonecode, detail_address, x, y)
+values ('부산 부산진구 중앙대로 688 한준빌딩 3층', '부산 부산진구', '47296', '301호' ,'112', '115');
+insert into address_tb(address, sigungu, zonecode, detail_address, x, y)
+values ('부산 부산진구 중앙대로 688 한준빌딩 4층', '부산 부산진구', '47296', '401호' ,'12', '215');
 
 
 
@@ -107,22 +107,6 @@ insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (1, 2, 1, 'COMPLETE', 20000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (2, 3, 2, 'FAIL', 10000);
---
-insert into dates_tb (day_of_week_name, place_id)
-values ('월요일,화요일,수요일,목요일', 1);
-insert into dates_tb (day_of_week_name, place_id)
-values ('월요일,목요일,금요일,토요일', 1);
-insert into dates_tb (day_of_week_name, place_id)
-values ('수요일', 2);
-
-
-insert into notice_tb (user_id, place_id, payment_id, content, status)
-values (1, 1, 1, '내용1', 'WAIT');
-insert into notice_tb (user_id, place_id, payment_id, content, status)
-values (2, 2, 2, '내용2', 'WAIT');
-insert into notice_tb (user_id, place_id, payment_id, content, status)
-values (3, 3, 3, '내용3', 'WAIT');
-
 
 insert into dates_tb (day_of_week_name, place_id)
 values ('월요일', 1);
