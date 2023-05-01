@@ -55,23 +55,23 @@ public class SearchService {
             throw new Exception500("높은가격순정렬 오류" + e.getMessage());
         }
     }
-    @Transactional
-    public List<SearchOrderby> 낮은가격순정렬() {
-
-        try {
-            return searchRepository.searchPlacesByPriceAscending();
-        }catch (Exception500 e) {
-            throw new Exception500("낮은가격순정렬 오류" + e.getMessage());
-        }
-    }
-    @Transactional
-    public List<SearchOrderby> 별점높은순정렬() {
-
-        try {
-            return searchRepository.searchPlaceByStarRaingDescending();
-        }catch (Exception500 e) {
-            throw new Exception500("낮은가격순정렬 오류" + e.getMessage());
-        }
-    }
+//    @Transactional
+//    public List<SearchOrderby> 낮은가격순정렬() {
+//
+//        try {
+//            return searchRepository.searchPlacesByPriceAscending();
+//        }catch (Exception500 e) {
+//            throw new Exception500("낮은가격순정렬 오류" + e.getMessage());
+//        }
+//    }
+//    @Transactional
+//    public List<SearchOrderby> 별점높은순정렬() {
+//
+//        try {
+//            return searchRepository.searchPlaceByStarRaingDescending();
+//        }catch (Exception500 e) {
+//            throw new Exception500("낮은가격순정렬 오류" + e.getMessage());
+//        }
+//    }
 
 }

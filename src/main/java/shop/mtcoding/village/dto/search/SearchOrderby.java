@@ -1,10 +1,17 @@
 package shop.mtcoding.village.dto.search;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.village.dto.hashtag.response.HashtagList;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class SearchOrderby {
@@ -15,19 +22,9 @@ public class SearchOrderby {
     private Integer pricePerHour;
     private String address;
     private Integer starRating;
-    private String hashtagName;
     private Long reviewCount;
+    private List<HashtagList> hashtags = new ArrayList<>();
 
-    public SearchOrderby(BigInteger id, String title, Integer maxPeople, Integer maxParking, Integer pricePerHour, String address, Integer starRating, String hashtagName, BigInteger reviewCount) {
-        this.id = id.longValue();
-        this.title = title;
-        this.maxPeople = maxPeople;
-        this.maxParking = maxParking;
-        this.pricePerHour = pricePerHour;
-        this.address = address;
-        this.starRating = starRating;
-        this.hashtagName = hashtagName;
-        this.reviewCount = reviewCount.longValue();
-    }
+
 
 }
