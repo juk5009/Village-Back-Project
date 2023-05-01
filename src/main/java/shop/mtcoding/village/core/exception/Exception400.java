@@ -3,7 +3,7 @@ package shop.mtcoding.village.core.exception;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import shop.mtcoding.village.dto.ResponseDTO;
-import shop.mtcoding.village.dto.ValidDTO;
+import shop.mtcoding.village.dto.bootpay.ValidDTO;
 
 @Getter
 public class Exception400 extends RuntimeException {

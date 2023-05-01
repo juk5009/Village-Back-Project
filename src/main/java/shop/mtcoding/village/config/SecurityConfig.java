@@ -14,7 +14,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import lombok.extern.slf4j.Slf4j;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.jwt.JwtAuthorizationFilter;
+import shop.mtcoding.village.notFoundConst.RoleConst;
 
 
 @Slf4j
@@ -121,8 +123,8 @@ public class SecurityConfig {
 
         // 11 .인증, 권한 필터 설정 ( 스프링 문서 참고 )
         http.authorizeRequests((authorize) -> {
-            authorize.antMatchers("/s/**").authenticated() //인증이 필요한곳
-                    .antMatchers("/host/**").access("hasRole('ADMIN') or hasRole('HOST')")
+//            authorize.antMatchers("/s/**").authenticated() //인증이 필요한곳
+                    authorize.antMatchers("/manager/**").hasAnyRole("ADMIN","MANAGER")
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().permitAll(); // /users 는 인증이 필요 나머지는 허용
         });

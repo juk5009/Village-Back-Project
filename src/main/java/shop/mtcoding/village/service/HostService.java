@@ -20,7 +20,7 @@ public class HostService {
         try {
             return hostRepository.save(hostSaveDto.toEntity());
         } catch (Exception500 e) {
-            throw new Exception500("로그인 오류" + e.getMessage());
+            throw new Exception500("호스트신청 오류" + e.getMessage());
         }
 
     }

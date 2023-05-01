@@ -1,9 +1,9 @@
 insert into user_tb (name, password, email, tel, role, profile, created_at)
-values ('ssar', '1234', 'ssar@naver.com', '01012345678', 'USER', '/images/dora.png', NOW());
+values ('ssar', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'ssar@naver.com', '01012345678', 'USER', '/images/dora.png', NOW());
 insert into user_tb (name, password, email, tel, role, profile, created_at)
-values ('Jane', '1234', 'Jane@naver.com', '01023455678', 'MANAGER', '/images/dora.png', NOW());
+values ('Jane', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Jane@naver.com', '01023455678', 'HOST', '/images/dora.png', NOW());
 insert into user_tb (name, password, email, tel, role, profile, created_at)
-values ('Bob', '1234', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', NOW());
+values ('Bob', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', NOW());
 
 insert into address_tb(road_full_addr, sgg_nm, zip_no, lat, lng)
 values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '12', '15');
@@ -26,15 +26,15 @@ values (1, '333456-01-111244');
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 5, NOW(), NOW());
+values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (2, 'AOP STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 4, NOW(), NOW());
+values (2, '스튜디오 STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 5000, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3, NOW(), NOW());
+values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, NOW(), NOW());
 
 
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
@@ -125,9 +125,9 @@ values (3, 3, 3, '내용3', 'WAIT');
 
 
 insert into dates_tb (day_of_week_name, place_id)
-values ('월요일,화요일,수요일,목요일', 1);
+values ('월요일', 1);
 insert into dates_tb (day_of_week_name, place_id)
-values ('월요일,목요일,금요일,토요일', 1);
+values ('화요일', 1);
 insert into dates_tb (day_of_week_name, place_id)
 values ('수요일',  2);
 
@@ -141,8 +141,17 @@ values (3, 3, 3, '내용3', 'WAIT');
 insert into hashtag_tb (hashtag_name, place_id)
 values ('파티룸', 1);
 insert into hashtag_tb (hashtag_name, place_id)
-values ('쇼핑몰촬영', 2);
+values ('파티', 2);
 insert into hashtag_tb (hashtag_name, place_id)
 values ('부산연습실', 3);
+
+insert into file_info_tb(type) values ('PLACE');
+insert into file_info_tb(type) values ('FACILITY');
+
+insert into file_tb(file_info_id, file_name, file_url, status) values (1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(file_info_id, file_name, file_url, status) values (2, 'aa.jpg', 'https://news.dbhasjuhwuha.com/wp-content/uploads/2021/08/aa.jpg', 'WAIT');
+insert into file_tb(file_info_id, file_name, file_url, status) values (2, 'bb8.jpg', 'https://news.ahjsbaghuwssplay.com/wp-content/uploads/2011/08/bb8.jpg', 'WAIT');
+
+insert into fcm_tb(user_id, target_token) values (null,'dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx');
 
 commit;

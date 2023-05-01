@@ -37,8 +37,7 @@ public class Search {
     private String keyword;
 
     @Builder
-    public Search(Long id, User user, String keyword) {
-        this.id = id;
+    public Search(User user, String keyword) {
         this.user = user;
         this.keyword = keyword;
     }

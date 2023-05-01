@@ -1,4 +1,4 @@
-package shop.mtcoding.village.dto;
+package shop.mtcoding.village.dto.bootpay;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

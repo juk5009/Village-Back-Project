@@ -1,7 +1,7 @@
 package shop.mtcoding.village.dto.reservation.request;
 
+
 import lombok.*;
-import shop.mtcoding.village.core.firebase.RequestDTO;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.ReservationStatus;
@@ -43,7 +43,6 @@ public class ReservationSaveRequest {
     public Reservation toEntity() {
         User user = new User();
         user.setName(userName);
-
         Reservation reservation = new Reservation();
         reservation.setPeopleNum(peopleNum);
         reservation.setDate(date);
@@ -51,6 +50,7 @@ public class ReservationSaveRequest {
         reservation.setEndTime(endTime);
         reservation.setStatus(reservationStatus);
         return new Reservation(user, date, startTime, endTime, peopleNum, reservationStatus);
+
     }
 
 }

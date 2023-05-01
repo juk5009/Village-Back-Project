@@ -1,14 +1,20 @@
 package shop.mtcoding.village.dto.search;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.village.dto.hashtag.response.HashtagList;
+import shop.mtcoding.village.model.hashtag.Hashtag;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SearchList {
     private Long id;
     private String title;
@@ -18,18 +24,9 @@ public class SearchList {
     private String keyword;
     private String address;
     private Integer starRating;
-    private String hashtagName;
+    private Long reviewCount;
+    private List<HashtagList> hashtag = new ArrayList<>();
 
-    public SearchList(BigInteger id, String title, Integer maxPeople, Integer maxParking, Integer pricePerHour, String keyword, String address, Integer starRating, String hashtagName) {
-        this.id = id.longValue();
-        this.title = title;
-        this.maxPeople = maxPeople;
-        this.maxParking = maxParking;
-        this.pricePerHour = pricePerHour;
-        this.keyword = keyword;
-        this.address = address;
-        this.starRating = starRating;
-        this.hashtagName = hashtagName;
-    }
+
 
 }

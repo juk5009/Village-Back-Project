@@ -15,6 +15,7 @@ public class TotalPrice {
         int pricePerHour = reservation.getPlace().getPricePerHour();
 
         // 총 가격을 계산.
+
         int totalPrice = pricePerHour * (int)hours;
 
         return totalPrice;

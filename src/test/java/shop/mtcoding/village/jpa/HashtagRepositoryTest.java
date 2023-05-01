@@ -56,7 +56,7 @@ public class HashtagRepositoryTest {
         Assertions.assertNotEquals(hashtags.size(), 0);
 
         Hashtag hashtag = hashtags.get(0);
-        Assertions.assertEquals(hashtag.getHashtagName(), "가까운곳");
+        Assertions.assertEquals(hashtag.getHashtagName(), "파티룸");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class HashtagRepositoryTest {
 
         if (optionalHashtag.isPresent()) {
             var result = optionalHashtag.get();
-            Assertions.assertEquals(result.getHashtagName(), "가까운곳");
+            Assertions.assertEquals(result.getHashtagName(), "파티룸");
 
             String hashtag = "음식점";
             result.setHashtagName(hashtag);

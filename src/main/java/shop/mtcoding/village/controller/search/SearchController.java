@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import shop.mtcoding.village.dto.search.SearchList;
+import shop.mtcoding.village.dto.search.SearchOrderby;
 import shop.mtcoding.village.dto.search.SearchRequest;
 import shop.mtcoding.village.service.SearchService;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/s/search")
+@RequestMapping("/search")
 public class SearchController {
 
     private final SearchService searchService;
@@ -23,15 +24,33 @@ public class SearchController {
 
     @GetMapping
     public ResponseEntity<List<SearchList>> searchPlacesByKeyword(@RequestParam String keyword) {
-        List<SearchList> searchLists = searchService.searchPlacesByKeyword(keyword);
+        List<SearchList> searchLists = searchService.검색(keyword);
 
 
             SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
             saveSearch.setKeyword(keyword);
-            searchService.SaveSearch(saveSearch);
+            searchService.키워드저장(saveSearch);
 
 
         return ResponseEntity.ok().body(searchLists);
     }
+
+    @GetMapping("/pricehigh")
+    public ResponseEntity<List<SearchOrderby>> searchPlacesByPriceDescending() {
+        List<SearchOrderby> SearchOrderbyPriceDesc = searchService.높은가격순정렬();
+        return ResponseEntity.ok(SearchOrderbyPriceDesc);
+    }
+
+//    @GetMapping("/pricelow")
+//    public ResponseEntity<List<SearchOrderby>> searchPlacesByPriceAscending() {
+//        List<SearchOrderby> SearchOrderbPriceAsc = searchService.낮은가격순정렬();
+//        return ResponseEntity.ok(SearchOrderbPriceAsc);
+//    }
+//
+//    @GetMapping("/starratinghigh")
+//    public ResponseEntity<List<SearchOrderby>> searchPlaceByStarRaingDescending() {
+//        List<SearchOrderby> SearchOrderbyStarRatingDesc = searchService.별점높은순정렬();
+//        return ResponseEntity.ok(SearchOrderbyStarRatingDesc);
+//    }
 
 }

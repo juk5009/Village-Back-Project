@@ -11,7 +11,7 @@ import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.hashtag.HashtagRepository;
 import shop.mtcoding.village.model.place.Place;
-import shop.mtcoding.village.model.place.PlaceRepository;
+import shop.mtcoding.village.model.place.PlaceJpaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +23,18 @@ public class TestController {
 
     private final HashtagRepository hashtagRepository;
 
-    private final PlaceRepository placeRepository;
+    private final PlaceJpaRepository placeJpaRepository;
 
 
-    public TestController(HashtagRepository hashtagRepository, PlaceRepository placeRepository) {
+    public TestController(HashtagRepository hashtagRepository, PlaceJpaRepository placeJpaRepository) {
         this.hashtagRepository = hashtagRepository;
-        this.placeRepository = placeRepository;
+        this.placeJpaRepository = placeJpaRepository;
     }
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody HashtagSaveDTO hashtagDTO) {
 
-        Optional<Place> byId = placeRepository.findById(2L);
+        Optional<Place> byId = placeJpaRepository.findById(2L);
         Place place1 = byId.get();
         List<Hashtag> hashtagList = new ArrayList<>();
 

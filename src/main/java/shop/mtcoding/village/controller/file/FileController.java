@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.exception.MyConstException;
+import shop.mtcoding.village.api.s3.S3Service;
 import shop.mtcoding.village.dto.file.dto.FileDTO;
-import shop.mtcoding.village.dto.file.request.FileSaveRequest;
 import shop.mtcoding.village.dto.file.request.FileUpdateRequest;
 import shop.mtcoding.village.dto.file.response.FileResponse;
 import shop.mtcoding.village.model.file.File;
@@ -19,15 +19,17 @@ import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/files")
 public class FileController {
     private final FileService fileService;
+    
+    private final S3Service s3Service;
 
-    public FileController(FileService fileService) {
+    public FileController(FileService fileService, S3Service s3Service) {
         this.fileService = fileService;
+        this.s3Service = s3Service;
     }
 
-    @GetMapping
+    @GetMapping("/file")
     public ResponseEntity<Page<FileDTO>> getPage(Pageable pageable) {
         var page = fileService.getPage(pageable);
         var content = page.getContent()
@@ -40,7 +42,7 @@ public class FileController {
         );
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/file/{id}")
     public ResponseEntity<FileResponse> getFile (@PathVariable Long id) {
         var optionalFile = fileService.getFile(id);
         if (optionalFile.isEmpty()) {
@@ -52,24 +54,12 @@ public class FileController {
         );
     }
 
-    @PostMapping
-    public ResponseEntity<FileResponse> saveFile (
-            @Valid @RequestBody FileSaveRequest request
-
-    ) {
-
-
-        var file = fileService.save(request);
-        return ResponseEntity.ok(file.toResponse());
-    }
-
-    @PutMapping("/{id}")
+    @PutMapping("/file/{id}")
     public ResponseEntity<FileResponse> updateFile (
             @Valid @RequestBody FileUpdateRequest request,
             Errors error,
             @PathVariable Long id
     ) {
-
 
         var optionalFile = fileService.getFile(id);
         if (optionalFile.isEmpty()) {
