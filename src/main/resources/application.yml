@@ -38,6 +38,10 @@ server:
       timeout: 3600
 
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false

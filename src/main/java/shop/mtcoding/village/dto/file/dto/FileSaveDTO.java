@@ -19,16 +19,16 @@ public class FileSaveDTO {
     @ToString
     public static class FileDTO extends File {
         private Long id;
-        private String fileName;
-        private String fileUrl;
-        private String extension;
+        private String name;
+        private String data;
+        private String type;
 
         public File toEntity(Long id, String fileName, String fileUrl) {
-            return new File(id, null, fileName, fileUrl, extension, FileStatus.WAIT);
+            return new File(id, null, fileName, fileUrl, type, FileStatus.WAIT);
         }
 
         public File toEntity() {
-            return new File(id, null, fileName, fileUrl, extension, FileStatus.WAIT);
+            return new File(id, null, name, data, type, FileStatus.WAIT);
         }
     }
 }

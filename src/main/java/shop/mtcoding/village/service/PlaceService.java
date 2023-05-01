@@ -134,7 +134,6 @@ public class PlaceService {
             throw new RuntimeException(e);
         }
 
-
     }
 
     @Transactional

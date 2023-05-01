@@ -64,11 +64,11 @@ values ('공유오피스', 3);
 
 
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
-values (1, 1, '2023-04-20', '2021-01-01T00:01', '2021-01-01T00:01', 2, 'WAIT');
+values (1, 1, '2023-04-20', '2021-01-01T00:01', '2021-01-01T04:01', 2, 'WAIT');
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
-values (2, 2, '2023-04-20', '2021-01-01T00:01', '2021-01-01T00:01', 3, 'COMPLETE');
+values (2, 2, '2023-04-20', '2021-01-02T00:01', '2021-01-03T00:01', 3, 'COMPLETE');
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
-values (1, 1, '2023-04-20', '2021-01-01T00:01', '2021-01-01T00:01', 4, 'FAIL');
+values (1, 1, '2023-04-20', '2021-01-01T10:01', '2021-01-01T20:01', 4, 'FAIL');
 
 insert into scrap_tb (user_id, place_id, count)
 values (1, 1, 3);
@@ -104,9 +104,9 @@ values (2, '서울에 있습니다.', 1, NOW());
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (1, 1, 1, 'WAIT', 30000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
-values (1, 1, 1, 'COMPLETE', 20000);
+values (1, 2, 1, 'COMPLETE', 20000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
-values (1, 1, 1, 'FAIL', 10000);
+values (2, 3, 2, 'FAIL', 10000);
 --
 insert into dates_tb (day_of_week_name, place_id)
 values ('월요일,화요일,수요일,목요일', 1);

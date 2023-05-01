@@ -32,7 +32,7 @@ public class PaymentController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody ReceiptDTO receiptDTO) throws JsonProcessingException {
+    public ResponseEntity<HashMap<Object,Object>> save(@RequestBody ReceiptDTO receiptDTO) throws JsonProcessingException {
 
         objectMapper.writeValueAsString(receiptDTO);
 

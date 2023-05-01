@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.mtcoding.village.dto.ResponseDTO;
+import shop.mtcoding.village.dto.file.dto.FileSaveDTO;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.hashtag.HashtagRepository;
@@ -49,4 +50,12 @@ public class TestController {
 
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "해시태그 넣기", hashtagList), HttpStatus.OK);
     }
+
+    @PostMapping("/image")
+    public ResponseEntity<?> file(@RequestBody FileSaveDTO fileSaveDTO) {
+
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "파일받기", null),HttpStatus.OK);
+    }
+
 }

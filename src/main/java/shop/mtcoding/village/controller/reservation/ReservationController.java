@@ -2,6 +2,7 @@ package shop.mtcoding.village.controller.reservation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,9 @@ import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.api.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.api.firebase.RequestDTO;
 import shop.mtcoding.village.dto.ResponseDTO;
+import shop.mtcoding.village.dto.reservation.ReservationDTO;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
+import shop.mtcoding.village.dto.reservation.response.ReservationSaveResponse;
 import shop.mtcoding.village.model.fcm.Fcm;
 import shop.mtcoding.village.model.fcm.FcmRepository;
 import shop.mtcoding.village.model.place.Place;
@@ -47,7 +50,7 @@ public class ReservationController {
 
     @GetMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> getReservation(){
+    public ResponseEntity<ResponseDTO<List<Reservation>>> getReservation(){
 
         List<Reservation> allReservation = reservationRepository.findAll();
 
@@ -56,7 +59,7 @@ public class ReservationController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> getById(@PathVariable Long id) {
+    public ResponseEntity<ResponseDTO<ReservationDTO>> getById(@PathVariable Long id) {
 
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
         System.out.println("디버그 : " + optionalUser);
@@ -65,12 +68,14 @@ public class ReservationController {
             throw new MyConstException(ReservationConst.notFound);
         }
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "유저 예약내역 조회완료", optionalUser.get().toDTOResponse()), HttpStatus.OK);
+        Reservation reservation = optionalUser.get();
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "유저 예약내역 조회완료", reservation.toDTOResponse()), HttpStatus.OK);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> save(
+    public ResponseEntity<ResponseDTO<ReservationSaveResponse>> save(
             @Valid @RequestBody ReservationSaveRequest reservationSaveRequest,
             @AuthenticationPrincipal MyUserDetails myUserDetails
             ) throws IOException {

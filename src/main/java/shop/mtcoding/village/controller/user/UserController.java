@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO, Errors Errors) {
+    public ResponseEntity<ResponseDTO<?>> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO, Errors Errors) {
 
         // select 됨
         UserResponse.JoinDTO data = userService.회원가입(joinDTO);
