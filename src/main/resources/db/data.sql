@@ -26,11 +26,11 @@ values (1, '333456-01-111244');
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 5000, NOW(), NOW());
+values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
-values (2, 'AOP STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 4000, NOW(), NOW());
+values (2, '스튜디오 STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 5000, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour,
                       start_time, end_time)
@@ -141,7 +141,7 @@ values (3, 3, 3, '내용3', 'WAIT');
 insert into hashtag_tb (hashtag_name, place_id)
 values ('파티룸', 1);
 insert into hashtag_tb (hashtag_name, place_id)
-values ('쇼핑몰촬영', 2);
+values ('파티', 2);
 insert into hashtag_tb (hashtag_name, place_id)
 values ('부산연습실', 3);
 
