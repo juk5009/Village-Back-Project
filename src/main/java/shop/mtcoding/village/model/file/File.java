@@ -34,6 +34,7 @@ public class File {
     @JsonIgnore
     private Place place;
 
+
     @Comment("파일 출처")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_info_id")
@@ -43,7 +44,7 @@ public class File {
     private String fileName;
 
     @Comment("파일 경로")
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "LONGTEXT", name = "file_url")
     private String fileUrl;
 
     @Comment("확장자")
@@ -61,6 +62,11 @@ public class File {
         this.fileUrl = fileUrl;
         this.extension = extension;
         this.status = status;
+    }
+
+    public File(Long id, String fileUrl) {
+        this.id = id;
+        this.fileUrl = fileUrl;
     }
 
     public FileDTO toDTO() {

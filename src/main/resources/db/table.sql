@@ -155,6 +155,17 @@ create table dates_tb
     dates_id int
 );
 
+create table file_tb
+(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    place_id int,
+    file_info_id int,
+    file_name VARCHAR(255),
+    file_url VARCHAR,
+    status VARCHAR
+);
+
+
 commit;
 
 
