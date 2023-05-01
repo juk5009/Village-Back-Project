@@ -6,6 +6,7 @@ import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
+import shop.mtcoding.village.dto.file.response.FileList;
 import shop.mtcoding.village.dto.hashtag.response.HashtagList;
 import shop.mtcoding.village.dto.place.response.PlaceList;
 import shop.mtcoding.village.dto.search.SearchList;
@@ -26,13 +27,14 @@ public class PlaceRepository {
 
     public List<PlaceList> PlaceList() {
         String queryString =
-                "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.sgg_nm, r.star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name " +
+                "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.sigungu, r.star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
                         "FROM place_tb p " +
                         "INNER JOIN address_tb a ON p.address_id = a.id " +
                         "LEFT JOIN review_tb r ON p.id = r.place_id " +
                         "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
                         "LEFT JOIN search_tb s ON p.id = s.place_id " +
-                        "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.sgg_nm, r.star_rating, h.id, h.hashtag_name";
+                        "LEFT JOIN file_tb f ON p.id = f.place_id " +
+                        "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.sigungu, r.star_rating, h.id, h.hashtag_name, f.id, f.file_url";
 
         return jdbcTemplate.query(queryString, placeListResultSetExtractor());
     }
@@ -46,15 +48,18 @@ public class PlaceRepository {
                 Integer maxPeople = rs.getInt("max_people");
                 Integer maxParking = rs.getInt("max_parking");
                 Integer pricePerHour = rs.getInt("price_per_hour");
-                String address = rs.getString("sgg_nm");
+                String sigungu = rs.getString("sigungu");
                 Integer starRating = rs.getInt("star_rating");
                 Long reviewCount = rs.getLong("review_count");
                 Long hashtagId = rs.getLong("hashtag_id");
                 String hashtagName = rs.getString("hashtag_name");
+                Long fileId = rs.getLong("file_id");
+                String fileUrl = rs.getString("file_url");
 
                 PlaceList place = placeMap.computeIfAbsent(id, k -> {
                     PlaceList p = new PlaceList();
                     p.setHashtags(new ArrayList<>()); // hashtags 리스트 초기화
+                    p.setFileUrls(new ArrayList<>()); // files 리스트 초기화
                     return p;
                 });
 
@@ -63,7 +68,7 @@ public class PlaceRepository {
                 place.setMaxPeople(maxPeople);
                 place.setMaxParking(maxParking);
                 place.setPricePerHour(pricePerHour);
-                place.setAddress(address);
+                place.setSigungu(sigungu);
                 place.setStarRating(starRating);
                 place.setReviewCount(reviewCount);
 
@@ -72,6 +77,13 @@ public class PlaceRepository {
                     hashtag.setId(hashtagId);
                     hashtag.setHashtagName(hashtagName);
                     place.getHashtags().add(hashtag);
+                }
+
+                if (fileId != null) {
+                    FileList file = new FileList();
+                    file.setId(fileId);
+                    file.setFileUrl(fileUrl);
+                    place.getFileUrls().add(file);
                 }
             }
             return new ArrayList<>(placeMap.values());
