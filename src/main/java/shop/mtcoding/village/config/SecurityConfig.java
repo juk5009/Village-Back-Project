@@ -128,9 +128,7 @@ public class SecurityConfig {
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().permitAll(); // /users 는 인증이 필요 나머지는 허용
         });
-
         return http.build();
-
     }
 
     // CORS
