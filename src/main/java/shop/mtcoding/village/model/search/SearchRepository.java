@@ -83,6 +83,7 @@ public class SearchRepository {
                 review.setReviewCount(reviewCount);
                 search.getReview().add(review);
 
+
                 if (hashtagId != null) {
                     HashtagList hashtag = new HashtagList();
                     hashtag.setId(hashtagId);
@@ -94,6 +95,7 @@ public class SearchRepository {
                     file.setId(fileId);
                     file.setFileUrl(fileUrl);
                     search.getFileUrls().add(file);
+
                 }
             }
             return new ArrayList<>(searchMap.values());
@@ -102,6 +104,7 @@ public class SearchRepository {
 
     public List<SearchOrderby> searchPlacesByPriceDescending() {
         String sqlPriceDesc =
+
                 "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id as address_id, a.sigungu as sigungu, r.star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
                         "FROM place_tb p " +
                         "INNER JOIN address_tb a ON p.address_id = a.id " +

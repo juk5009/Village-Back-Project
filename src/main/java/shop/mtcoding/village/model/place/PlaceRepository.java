@@ -10,7 +10,6 @@ import shop.mtcoding.village.dto.file.response.FileList;
 import shop.mtcoding.village.dto.hashtag.response.HashtagList;
 import shop.mtcoding.village.dto.place.response.PlaceList;
 import shop.mtcoding.village.dto.review.response.ReviewList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +31,7 @@ public class PlaceRepository {
                         "LEFT JOIN search_tb s ON p.id = s.place_id " +
                         "LEFT JOIN file_tb f ON p.id = f.place_id " +
                         "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id, a.sigungu, r.star_rating, h.id, h.hashtag_name, f.id, f.file_url";
+
 
         return jdbcTemplate.query(queryString, placeListResultSetExtractor());
     }
@@ -60,6 +60,7 @@ public class PlaceRepository {
                     p.setReview(new ArrayList<>());
                     p.setHashtags(new ArrayList<>()); // hashtags 리스트 초기화
                     p.setFileUrls(new ArrayList<>()); // files 리스트 초기화
+
                     return p;
                 });
 
@@ -68,6 +69,7 @@ public class PlaceRepository {
                 place.setMaxPeople(maxPeople);
                 place.setMaxParking(maxParking);
                 place.setPricePerHour(pricePerHour);
+
 
 
                 if (addressId != null) {
@@ -82,6 +84,7 @@ public class PlaceRepository {
                 review.setReviewCount(reviewCount);
                 place.getReview().add(review);
 
+
                 if (hashtagId != null) {
                     HashtagList hashtag = new HashtagList();
                     hashtag.setId(hashtagId);
@@ -89,12 +92,14 @@ public class PlaceRepository {
                     place.getHashtags().add(hashtag);
                 }
 
+
                 if (fileId != null) {
                     FileList file = new FileList();
                     file.setId(fileId);
                     file.setFileUrl(fileUrl);
                     place.getFileUrls().add(file);
                 }
+
             }
             return new ArrayList<>(placeMap.values());
         };

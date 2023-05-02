@@ -11,6 +11,7 @@ import shop.mtcoding.village.dto.review.response.ReviewList;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.scrap.Scrap;
 
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class SearchList {
     private List<HashtagList> hashtags = new ArrayList<>();
     private List<FileList> fileUrls = new ArrayList<>();
     private Scrap scrap = null;
+
 
 
 
