@@ -37,13 +37,15 @@ public class PlaceController {
 
     private final PlaceJpaRepository placeJpaRepository;
 
-    @GetMapping("mainlist")
-    public ResponseEntity<List<PlaceList>> MainList() {
+    @GetMapping()
+    public ResponseEntity<ResponseDTO<?>> MainList() {
         List<PlaceList> placeLists = placeService.공간리스트();
-        return ResponseEntity.ok(placeLists);
+
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(placeLists);
+        return ResponseEntity.ok(responseDTO);
     }
 
-    @GetMapping
+    @GetMapping("/allplace")
     public ResponseEntity<ResponseDTO<List<Place>>> getPlace() {
         List<Place> allPlace = placeJpaRepository.findAll();
         System.out.println("등록 페이지 전체 보기 : " + allPlace);

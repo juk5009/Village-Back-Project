@@ -219,6 +219,7 @@ public class Messaging {
         while (scanner.hasNext()) {
             stringBuilder.append(scanner.nextLine());
         }
+        scanner.close();
         return stringBuilder.toString();
     }
 
