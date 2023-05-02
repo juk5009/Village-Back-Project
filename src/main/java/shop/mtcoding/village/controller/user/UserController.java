@@ -54,9 +54,9 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO, Errors Errors) {
 
-        ArrayList loginViewList = userService.로그인(loginDTO);
+        ArrayList<String> loginViewList = userService.로그인(loginDTO);
         String jwt = (String) loginViewList.get(0);
-        UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO((Long) loginViewList.get(1),
+        UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO(Long.parseLong(loginViewList.get(1)) ,
                 (String) loginViewList.get(2), (String) loginViewList.get(3));
 
         // User가 로그인 시 FcmToken 같이 넣기
