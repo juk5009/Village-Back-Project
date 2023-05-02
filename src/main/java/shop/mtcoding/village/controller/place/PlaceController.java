@@ -64,7 +64,7 @@ public class PlaceController {
     }
 
     @PostMapping("/host")
-    @PreAuthorize("hasRole('HOST')")
+//    @PreAuthorize("hasRole('HOST')")
     public @ResponseBody ResponseEntity<ResponseDTO<Place>> savePlace(
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
