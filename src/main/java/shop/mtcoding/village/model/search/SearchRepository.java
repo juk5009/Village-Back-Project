@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
+import shop.mtcoding.village.dto.address.AddressList;
 import shop.mtcoding.village.dto.file.response.FileList;
 import shop.mtcoding.village.dto.hashtag.response.HashtagList;
+import shop.mtcoding.village.dto.review.response.ReviewList;
 import shop.mtcoding.village.dto.search.SearchList;
 import shop.mtcoding.village.dto.search.SearchOrderby;
 
@@ -20,16 +22,17 @@ public class SearchRepository {
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
         String queryString =
-                "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.sigungu, r.star_rating, h.id as hashtag_id, h.hashtag_name, COUNT(r.id) as review_count , f.id as file_id, f.file_url as file_url " +
+                "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.id as address_id, a.sigungu as sigungu, r.star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
                         "FROM place_tb p " +
-                        "LEFT JOIN address_tb a ON p.address_id = a.id " +
-                        "LEFT JOIN search_tb s ON s.place_id = p.id " +
+                        "INNER JOIN address_tb a ON p.address_id = a.id " +
                         "LEFT JOIN review_tb r ON p.id = r.place_id " +
                         "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
+                        "LEFT JOIN search_tb s ON p.id = s.place_id " +
                         "LEFT JOIN file_tb f ON p.id = f.place_id " +
                         "WHERE p.title LIKE CONCAT('%', ?, '%') OR h.hashtag_name LIKE CONCAT('%', ?, '%') " +
-                        "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.sigungu, r.star_rating, h.id, h.hashtag_name, f.id, f.file_url";
-        ;
+                        "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.id, a.sigungu, r.star_rating, h.id, h.hashtag_name, f.id, f.file_url";
+
+
 
         return jdbcTemplate.query(queryString, searchListResultSetExtractor(), keyword, keyword);
     }
@@ -44,6 +47,7 @@ public class SearchRepository {
                 Integer maxParking = rs.getInt("max_parking");
                 Integer pricePerHour = rs.getInt("price_per_hour");
                 String searchKeyword = rs.getString("keyword");
+                Long addressId = rs.getLong("address_id");
                 String sigungu = rs.getString("sigungu");
                 Integer starRating = rs.getInt("star_rating");
                 Long reviewCount = rs.getLong("review_count");
@@ -54,8 +58,10 @@ public class SearchRepository {
 
                 SearchList search = searchMap.computeIfAbsent(id, k -> {
                     SearchList s = new SearchList();
+                    s.setAddress(new ArrayList<>());
+                    s.setReview(new ArrayList<>());
                     s.setHashtags(new ArrayList<>()); // hashtags 리스트 초기화
-                    s.setFileUrls(new ArrayList<>()); // files 리스트 초기화
+                    s.setFileUrls(new ArrayList<>());  // files 리스트 초기화
                     return s;
                 });
 
@@ -65,9 +71,18 @@ public class SearchRepository {
                 search.setMaxParking(maxParking);
                 search.setPricePerHour(pricePerHour);
                 search.setKeyword(searchKeyword);
-                search.setSigungu(sigungu);
-                search.setStarRating(starRating);
-                search.setReviewCount(reviewCount);
+
+                if (addressId != null) {
+                    AddressList address = new AddressList();
+                    address.setId(addressId);
+                    address.setSigungu(sigungu);
+                    search.getAddress().add(address);
+                }
+
+                ReviewList review = new ReviewList();
+                review.setStarRating(starRating);
+                review.setReviewCount(reviewCount);
+                search.getReview().add(review);
 
                 if (hashtagId != null) {
                     HashtagList hashtag = new HashtagList();
