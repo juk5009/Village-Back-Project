@@ -2,15 +2,14 @@ package shop.mtcoding.village;
 
 import io.sentry.Sentry;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.stereotype.Component;
 
-@SpringBootApplication
+@Component
 public class MyApplication implements ApplicationListener<ContextClosedEvent> {
 
-	// 센트리가 로그 수집할때 메모리를 너무 많이 먹어서 
-	// http 요청이 종료될때 로그수집을 종료하기 위한 클래스입니다.
+	// 애플리케이션이 종료될때 센트리를 종료하기 위한 클래스입니다.
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);
     }
