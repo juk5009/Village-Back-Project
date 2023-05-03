@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ReviewList {
-    private Integer starRating;
+    private Double starRating;
     private Long reviewCount;
 }
