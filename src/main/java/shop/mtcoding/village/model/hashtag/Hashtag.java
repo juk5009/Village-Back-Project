@@ -43,8 +43,5 @@ public class Hashtag {
         this.place = place;
     }
 
-    public Hashtag(Long id, String hashtagName) {
-        this.id = id;
-        this.hashtagName = hashtagName;
-    }
+
 }

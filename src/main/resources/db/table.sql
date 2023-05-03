@@ -182,9 +182,9 @@ commit;
 
 
 -- 계좌
--- id pk int  
+-- id pk int
 -- user_id int FK >- User.id -  호스트 아이디
--- account string - 유저의 계좌번호 
+-- account string - 유저의 계좌번호
 
 
 -- 공간
@@ -214,7 +214,7 @@ commit;
 -- image string - 리뷰 사진
 -- like_count int  -좋아요 수
 -- craete_at timestamp  - 시간
--- -> 
+-- ->
 
 
 
@@ -225,7 +225,7 @@ commit;
 
 -- 채팅방
 -- id pk int
--- user_id int FK >- User.id   - 유저아이디 
+-- user_id int FK >- User.id   - 유저아이디
 -- place_id int FK >- Place.id - User.id  - 호스트아이디
 -- u_content string - 유저 채팅 내용@@@@@@@@@@@@@@
 -- h_content string - 호스트 채팅내용@@@@@@@@@@@@@@@
@@ -250,7 +250,7 @@ commit;
 -- 스크랩
 -- id pk int
 -- user_id int FK >- User.id - 유저아이디
--- place_id int FK >- Place.id  - 공간아이디 
+-- place_id int FK >- Place.id  - 공간아이디
 -- count int - 스크랩 수
 -- -> 유저 아이디와 공간 아이디가 있을 시 count 올라가게 구현
 

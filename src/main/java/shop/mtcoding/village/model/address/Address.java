@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Table(name = "address_tb")
 public class Address {
@@ -43,7 +42,8 @@ public class Address {
     private String y;
 
     @Builder
-    public Address(String address, String sigungu, String zonecode, String detailAddress, String x, String y) {
+    public Address(Long id,String address, String sigungu, String zonecode, String detailAddress, String x, String y) {
+        this.id = id;
         this.address = address;
         this.sigungu = sigungu;
         this.zonecode = zonecode;
@@ -51,4 +51,5 @@ public class Address {
         this.x = x;
         this.y = y;
     }
+
 }

@@ -8,6 +8,7 @@ import shop.mtcoding.village.dto.address.AddressList;
 import shop.mtcoding.village.dto.file.response.FileList;
 import shop.mtcoding.village.dto.hashtag.response.HashtagList;
 import shop.mtcoding.village.dto.review.response.ReviewList;
+import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.scrap.Scrap;
 
@@ -26,10 +27,10 @@ public class SearchList {
     private Integer maxParking;
     private Integer pricePerHour;
     private String keyword;
-    private List<AddressList> address = new ArrayList<>();
-    private List<ReviewList> review = new ArrayList<>();
-    private List<HashtagList> hashtags = new ArrayList<>();
-    private List<FileList> fileUrls = new ArrayList<>();
+    private AddressList address;
+    private ReviewList review;
+    private List<HashtagList> hashtags;
+    private List<FileList> fileUrls;
     private Scrap scrap = null;
 
 
