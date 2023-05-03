@@ -1,6 +1,7 @@
 package shop.mtcoding.village.controller.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +32,7 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
-    private final AuthenticationManager authenticationManager;
+
     private final UserRepository userRepository;
     private final UserService userService;
     private final FcmRepository fcmRepository;
@@ -46,6 +47,17 @@ public class UserController {
         return "loginForm";
     }
 
+
+    @GetMapping("/jwtToken")
+    public ResponseEntity<ResponseDTO<?>> jwtToken() {
+        String jwtToken = MyJwtProvider.createToken(); // JWT 토큰 생성
+        ResponseDTO<?> responseDTO = new ResponseDTO<>();
+        return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwtToken).body(responseDTO);
+    }
+
+
+
+
     @PostMapping("/join")
     public ResponseEntity<ResponseDTO<?>> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO, Errors Errors) {
 
@@ -57,7 +69,6 @@ public class UserController {
     }
 
     @PostMapping("/login")
-
     public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO loginDTO, Errors Errors) {
 
         ArrayList<String> loginViewList = userService.로그인(loginDTO);
