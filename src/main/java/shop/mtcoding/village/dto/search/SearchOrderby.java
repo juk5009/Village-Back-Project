@@ -24,10 +24,10 @@ public class SearchOrderby {
     private Integer maxPeople;
     private Integer maxParking;
     private Integer pricePerHour;
-    private List<AddressList> address = new ArrayList<>();
-    private List<ReviewList> review = new ArrayList<>();
-    private List<HashtagList> hashtags = new ArrayList<>();
-    private List<FileList> fileUrls = new ArrayList<>();
+    private AddressList address;
+    private ReviewList review;
+    private List<HashtagList> hashtags;
+    private List<FileList> fileUrls;
     private Scrap scrap = null;
 
 
