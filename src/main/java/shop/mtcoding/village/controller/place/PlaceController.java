@@ -28,6 +28,7 @@ import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
+import shop.mtcoding.village.dto.place.response.DetailPlaceResponse;
 import shop.mtcoding.village.dto.place.response.PlaceList;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
@@ -63,17 +64,13 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 전체 보기", allPlace), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseDTO<Place>> detailPlace(
-            @PathVariable Long id
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<ResponseDTO<DetailPlaceResponse>> detailPlace(
+            @PathVariable Long id, DetailPlaceResponse detailPlaceResponse
     ) {
-        Optional<Place> detailPlace = placeService.공간상세보기(id);
-        if (detailPlace.isEmpty()){
-            throw new CustomException("공간에 대한 정보가 없습니다.");
-        }
-        Place place = detailPlace.get();
-        log.debug(String.valueOf(detailPlace));
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", place), HttpStatus.OK);
+        DetailPlaceResponse placeResponse = placeService.공간상세보기(id, detailPlaceResponse);
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", placeResponse), HttpStatus.OK);
     }
 
     @PostMapping("/host")

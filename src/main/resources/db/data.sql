@@ -50,7 +50,7 @@ values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
 insert into facility_info_tb (facility_name, place_id)
 values ('카페', 1);
 insert into facility_info_tb (facility_name, place_id)
-values ('화장실', 2);
+values ('화장실', 1);
 insert into facility_info_tb (facility_name, place_id)
 values ('주차장', 3);
 

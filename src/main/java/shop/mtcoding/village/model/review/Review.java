@@ -1,5 +1,6 @@
 package shop.mtcoding.village.model.review;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.OnDelete;
@@ -25,12 +26,14 @@ public class Review {
     @Comment("유저 정보")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @Comment("공간 정보")
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "place_id")
+    @JsonIgnore
     private Place place;
 
     @Comment("별점")

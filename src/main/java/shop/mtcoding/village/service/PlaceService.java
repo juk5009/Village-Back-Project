@@ -14,6 +14,7 @@ import shop.mtcoding.village.dto.file.dto.FileSaveDTO;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
+import shop.mtcoding.village.dto.place.response.DetailPlaceResponse;
 import shop.mtcoding.village.dto.place.response.PlaceList;
 import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.category.CategoryRepository;
@@ -28,6 +29,7 @@ import shop.mtcoding.village.model.hashtag.HashtagRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.place.PlaceRepository;
+import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.review.ReviewRepository;
 import shop.mtcoding.village.util.Base64Decoded;
 import shop.mtcoding.village.util.status.PlaceStatus;
@@ -239,8 +241,38 @@ public class PlaceService {
         return placeJpaRepository.findAll();
     }
 
-    public Optional<Place> 공간상세보기(Long id) {
-        return placeJpaRepository.findById(id);
+    public DetailPlaceResponse 공간상세보기(Long id, DetailPlaceResponse detailPlaceResponse) {
+
+        // place 정보 넣기
+        Optional<Place> place = placeJpaRepository.findById(id);
+        detailPlaceResponse.setPlace(place.get());
+
+        var placeId = place.get().getId();
+
+        // file 정보 넣기
+        File file = fileRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setFile(file);
+
+        // review 정보 넣기
+        Review review = reviewRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setReview(review);
+
+        // facility 정보 넣기
+        List<FacilityInfo> facilityList = facilityInfoRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setFacilitys(facilityList);
+
+        // hashtag 정보 넣기
+        List<Hashtag> hashtag = hashtagRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setHashtags(hashtag);
+
+
+        // date 정보 넣기
+        List<Dates> dates = dateRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setDayOfWeeks(dates);
+
+        System.out.println("디버그 : " + detailPlaceResponse);
+
+        return detailPlaceResponse;
     }
 
 }
