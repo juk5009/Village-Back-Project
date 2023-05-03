@@ -86,39 +86,6 @@ public class UserService {
     }
 
     @Transactional
-    public ArrayList 로그인(UserRequest.LoginDTO loginDTO) {
-        try {
-            ArrayList loginViewList = new ArrayList<>();
-
-            Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
-            if (userOP.isPresent()) {
-                User userPS = userOP.get();
-
-                if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
-
-                    String jwt = MyJwtProvider.create(userPS);
-                    loginViewList.add(jwt);
-                    loginViewList.add(userPS.getId());
-                    loginViewList.add(userPS.getName());
-                    loginViewList.add(userPS.getEmail());
-
-                    return loginViewList;
-
-                }
-                else {
-                    throw new RuntimeException("패스워드 틀렸습니다.");
-                }
-            } else {
-                throw new RuntimeException("존재하지않는 이메일입니다.");
-            }
-        }catch (Exception500 e) {
-            throw new Exception500("로그인 오류" + e.getMessage());
-        }
-
-
-    }
-
-    @Transactional
     public User 유저비활성화(User user) {
         try {
             user.setStatus(UserStatus.INACTIVE);

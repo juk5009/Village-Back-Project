@@ -69,12 +69,6 @@ public class PlaceRepository {
                 place.setMaxParking(maxParking);
                 place.setPricePerHour(pricePerHour);
 
-    private static final String sql = "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.sgg_nm, r.star_rating, h.hashtag_name, COUNT(r.id) as review_count " +
-            "FROM place_tb p " +
-            "INNER JOIN address_tb a ON p.address_id = a.id " +
-            "LEFT JOIN review_tb r ON p.id = r.place_id " +
-            "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
-            "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.sgg_nm, r.star_rating, h.hashtag_name ";
 
                 if (addressId != null) {
                     AddressList address = new AddressList();

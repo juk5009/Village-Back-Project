@@ -1,19 +1,10 @@
 package shop.mtcoding.village.model.search;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
-
-import lombok.RequiredArgsConstructor;
 import shop.mtcoding.village.dto.address.AddressList;
 import shop.mtcoding.village.dto.file.response.FileList;
 import shop.mtcoding.village.dto.hashtag.response.HashtagList;
@@ -21,11 +12,13 @@ import shop.mtcoding.village.dto.review.response.ReviewList;
 import shop.mtcoding.village.dto.search.SearchList;
 import shop.mtcoding.village.dto.search.SearchOrderby;
 
-@RequiredArgsConstructor
+import java.util.*;
+
 @Repository
+@RequiredArgsConstructor
 public class SearchRepository {
 
-    private final EntityManager em;
+    private final JdbcTemplate jdbcTemplate;
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
         String queryString =
@@ -40,8 +33,8 @@ public class SearchRepository {
                         "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.id, a.sigungu, r.star_rating, h.id, h.hashtag_name, f.id, f.file_url";
 
 
-        Query query = em.createNativeQuery(sql);
-        query.setParameter("keyword", keyword);
+        return jdbcTemplate.query(queryString, searchListResultSetExtractor(), keyword, keyword);
+    }
 
     private ResultSetExtractor<List<SearchList>> searchListResultSetExtractor() {
         return rs -> {
@@ -275,5 +268,3 @@ public class SearchRepository {
 
 
 }
-
-

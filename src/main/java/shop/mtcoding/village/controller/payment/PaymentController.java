@@ -36,11 +36,7 @@ public class PaymentController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping
-<<<<<<< HEAD
     public ResponseEntity<HashMap<Object,Object>> save(@RequestBody ReceiptDTO receiptDTO) throws JsonProcessingException {
-=======
-    public ResponseEntity<?> save(@RequestBody ReceiptDTO receiptDTO) throws JsonProcessingException {
->>>>>>> 9974bb5 (코드 Refactor)
 
         objectMapper.writeValueAsString(receiptDTO);
 

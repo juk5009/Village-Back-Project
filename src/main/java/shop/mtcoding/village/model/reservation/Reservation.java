@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import shop.mtcoding.village.dto.reservation.ReservationDTO;
+import shop.mtcoding.village.dto.reservation.response.ReservationSaveResponse;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.TotalPrice;
@@ -90,6 +91,12 @@ public class Reservation {
         this.endTime = endTime;
         this.peopleNum = peopleNum;
         this.status = status;
+    }
+    public ReservationSaveResponse toResponse() {
+        User userName = new User();
+        userName.setName(user.getName());
+
+        return new ReservationSaveResponse(userName, peopleNum, date, startTime, endTime, status);
     }
     
     public ReservationDTO toDTOResponse() {
