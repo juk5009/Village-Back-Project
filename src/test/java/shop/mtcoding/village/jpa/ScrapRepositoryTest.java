@@ -11,21 +11,15 @@
  import org.springframework.test.context.junit.jupiter.SpringExtension;
  import org.springframework.transaction.annotation.Transactional;
  import shop.mtcoding.village.model.address.Address;
- import shop.mtcoding.village.model.category.Category;
- import shop.mtcoding.village.model.date.Dates;
- import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
- import shop.mtcoding.village.model.hashtag.Hashtag;
  import shop.mtcoding.village.model.place.Place;
  import shop.mtcoding.village.model.review.Review;
  import shop.mtcoding.village.model.scrap.Scrap;
  import shop.mtcoding.village.model.scrap.ScrapRepository;
  import shop.mtcoding.village.model.user.User;
- import shop.mtcoding.village.model.user.UserRepository;
 
  import javax.persistence.EntityManager;
  import java.time.LocalDateTime;
  import java.time.LocalTime;
- import java.util.Collections;
  import java.util.List;
  import java.util.Optional;
 
@@ -46,9 +40,6 @@
 
      @BeforeEach
      public void init() {
-         em.createNativeQuery("ALTER TABLE scrap_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-
- //        setUpByScrap(4);
      }
 
      @Test
@@ -59,7 +50,7 @@
          Assertions.assertNotEquals(scraps.size(), 0);
 
          Scrap scrap = scraps.get(0);
-         Assertions.assertEquals(scrap.getCount(), 3);
+         Assertions.assertEquals(scrap.getUser().getId(), 1);
      }
 
      @Test
@@ -72,11 +63,11 @@
              var result = optionalScrap.get();
              Assertions.assertEquals(result.getUser().getEmail(), "ssar@naver.com");
 
-             var count = 4;
-             result.setCount(count);
+             var userId = 4L;
+             result.getUser().setId(userId);
              Scrap merge = entityManager.merge(result);
 
-             Assertions.assertEquals(merge.getCount(), 4);
+             Assertions.assertEquals(merge.getUser().getId(), 4L);
          } else {
              Assertions.assertNotNull(optionalScrap.get());
          }
@@ -86,7 +77,7 @@
      @Transactional
      @DisplayName("스크랩 삽입 및 삭제 테스트")
      void insertAndDelete() {
-         Scrap scrap = setUpByScrap(15);
+         Scrap scrap = setUpByScrap();
          Optional<Scrap> findUser = this.scrapRepository.findById(scrap.getId());
 
          if(findUser.isPresent()) {
@@ -102,7 +93,7 @@
          }
      }
 
-     private Scrap setUpByScrap(int count) {
+     private Scrap setUpByScrap() {
          User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
          this.entityManager.persist(user);
 
@@ -119,7 +110,6 @@
          Scrap scrap = new Scrap();
          scrap.setUser(user);
          scrap.setPlace(place);
-         scrap.setCount(count);
          return this.entityManager.persist(scrap);
      }
  }

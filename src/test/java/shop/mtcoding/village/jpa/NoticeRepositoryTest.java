@@ -91,7 +91,7 @@
 
          if (findNotice.isPresent()) {
              var result = findNotice.get();
-             Assertions.assertEquals(result.getPayment().getTotalPrice(), 50000);
+             Assertions.assertEquals(result.getPayment().getTotalPrice(),50000);
              entityManager.remove(notice);
              Optional<Notice> deleteAccount = this.noticeRepository.findById(notice.getId());
              if (deleteAccount.isPresent()) {
@@ -128,6 +128,9 @@
          Notice notice = new Notice();
          notice.setUser(user);
          notice.setPlace(place);
-         return notice;
+         notice.setPayment(payment);
+         notice.setContent(content);
+         notice.setStatus(status);
+         return this.entityManager.persist(notice);
      }
  }
