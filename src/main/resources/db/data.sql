@@ -125,6 +125,8 @@ values (3, 3, 3, '내용3', 'WAIT');
 insert into hashtag_tb (hashtag_name, place_id)
 values ('파티룸', 1);
 insert into hashtag_tb (hashtag_name, place_id)
+values ('주차장', 1);
+insert into hashtag_tb (hashtag_name, place_id)
 values ('파티', 2);
 insert into hashtag_tb (hashtag_name, place_id)
 values ('부산연습실', 3);
