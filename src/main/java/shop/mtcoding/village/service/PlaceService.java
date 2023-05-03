@@ -1,13 +1,10 @@
 package shop.mtcoding.village.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.api.s3.S3Service;
-import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
+import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
 import shop.mtcoding.village.dto.file.dto.FileSaveDTO;
@@ -23,6 +20,7 @@ import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfoRepository;
 import shop.mtcoding.village.model.file.File;
+import shop.mtcoding.village.model.file.FileInfoRepository;
 import shop.mtcoding.village.model.file.FileRepository;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.hashtag.HashtagRepository;
@@ -31,6 +29,8 @@ import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.place.PlaceRepository;
 import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.review.ReviewRepository;
+import shop.mtcoding.village.model.scrap.Scrap;
+import shop.mtcoding.village.model.scrap.ScrapRepository;
 import shop.mtcoding.village.util.Base64Decoded;
 import shop.mtcoding.village.util.status.PlaceStatus;
 
@@ -61,6 +61,10 @@ public class PlaceService {
     private final FileService fileService;
 
     private final FileRepository fileRepository;
+
+    private final FileInfoRepository fileInfoRepository;
+
+    private final ScrapRepository scrapRepository;
 
     private final S3Service s3Service;
 
@@ -253,6 +257,9 @@ public class PlaceService {
         File file = fileRepository.findByPlaceId(placeId);
         detailPlaceResponse.setFile(file);
 
+//        FileInfo fileInfo = fileInfoRepository.findByType(FileType.PLACE);
+//        detailPlaceResponse.setFile(fileInfo);
+
         // review 정보 넣기
         Review review = reviewRepository.findByPlaceId(placeId);
         detailPlaceResponse.setReview(review);
@@ -265,10 +272,13 @@ public class PlaceService {
         List<Hashtag> hashtag = hashtagRepository.findByPlaceId(placeId);
         detailPlaceResponse.setHashtags(hashtag);
 
-
         // date 정보 넣기
         List<Dates> dates = dateRepository.findByPlaceId(placeId);
         detailPlaceResponse.setDayOfWeeks(dates);
+
+        // scrap 정보 넣기
+        Scrap scrap = scrapRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setScrap(scrap);
 
         System.out.println("디버그 : " + detailPlaceResponse);
 

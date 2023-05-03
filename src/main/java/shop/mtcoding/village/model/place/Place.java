@@ -88,6 +88,9 @@ public class Place {
     @Enumerated(EnumType.STRING)
     private PlaceStatus status;
 
+    @Comment("예약승인 필요여부")
+    private Boolean isConfirmed;
+
     public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople,
             Integer maxParking, Integer pricePerHour, LocalTime startTime, LocalTime endTime) {
         this.user = user;

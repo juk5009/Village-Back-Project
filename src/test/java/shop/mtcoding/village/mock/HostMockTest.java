@@ -91,4 +91,4 @@ public class HostMockTest {
 //                 .andDo(print())
 //                 .andExpect(jsonPath("$.hostName").value("호스트 이름을 입력해주세요."));
 //     }
-// }
+ }

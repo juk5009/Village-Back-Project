@@ -24,17 +24,17 @@ values (1, '333456-01-111244');
 
 
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
-                      price_per_hour,
+                      price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, NOW(), NOW());
+values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, 'ACTIVE', true, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
-                      price_per_hour,
+                      price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (2, '스튜디오 STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 5000, NOW(), NOW());
+values (2, '스튜디오 STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 5000, 'ACTIVE', true, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
-                      price_per_hour,
+                      price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, NOW(), NOW());
+values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, 'ACTIVE', false, NOW(), NOW());
 
 
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
@@ -70,12 +70,12 @@ values (2, 2, '2023-04-20', '2021-01-02T00:01', '2021-01-03T00:01', 3, 'COMPLETE
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
 values (1, 1, '2023-04-20', '2021-01-01T10:01', '2021-01-01T20:01', 4, 'FAIL');
 
-insert into scrap_tb (user_id, place_id, count)
-values (1, 1, 3);
-insert into scrap_tb (user_id, place_id, count)
-values (1, 2, 5);
-insert into scrap_tb (user_id, place_id, count)
-values (2, 1, 4);
+insert into scrap_tb (user_id, place_id)
+values (1, 1);
+insert into scrap_tb (user_id, place_id)
+values (2, 2);
+insert into scrap_tb (user_id, place_id)
+values (3, 3);
 
 insert into chat_room_tb (user_id, place_id, created_at)
 values (1, 1, NOW());
@@ -137,7 +137,6 @@ insert into file_info_tb(type) values ('FACILITY');
 insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
 insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.dbhasjuhwuha.com/wp-content/uploads/2021/08/aa.jpg', 'WAIT');
 insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.ahjsbaghuwssplay.com/wp-content/uploads/2011/08/bb8.jpg', 'WAIT');
-
 
 insert into fcm_tb(user_id, target_token) values (null,'dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx');
 

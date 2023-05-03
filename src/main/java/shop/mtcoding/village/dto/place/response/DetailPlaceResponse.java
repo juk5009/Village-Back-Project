@@ -8,9 +8,11 @@ import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.file.File;
+import shop.mtcoding.village.model.file.FileInfo;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.review.Review;
+import shop.mtcoding.village.model.scrap.Scrap;
 
 import java.util.List;
 
@@ -19,19 +21,21 @@ import java.util.List;
 @Setter
 public class DetailPlaceResponse {
 
+//    private FileInfo file;
     private File file;
-
-    private Boolean isConfirmed;
 
     private Place place;
 
     private Review review;
+
+    private Scrap scrap;
 
     private List<Hashtag> hashtags;
 
     private List<FacilityInfo> facilitys;
 
     private List<Dates> dayOfWeeks;
+
 
 
 }

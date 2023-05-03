@@ -47,10 +47,10 @@ public class File {
     @JsonIgnore
     private Place place;
 
-
     @Comment("파일 출처")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_info_id")
+    @JsonIgnore
     private FileInfo fileInfo;
 
     @Comment("파일 이름")
