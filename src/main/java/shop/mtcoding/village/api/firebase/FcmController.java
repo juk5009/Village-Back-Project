@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import shop.mtcoding.village.model.fcm.Fcm;
+import shop.mtcoding.village.model.fcm.FcmRepository;
 
 import java.io.IOException;
 
@@ -14,6 +15,8 @@ import java.io.IOException;
 public class FcmController {
 
     private final FirebaseCloudMessageService firebaseCloudMessageService;
+
+    private final FcmRepository fcmRepository;
 
     // 푸쉬 알림 보내는 핸들러
     @PostMapping("/api/fcm")
@@ -33,13 +36,14 @@ public class FcmController {
     @PostMapping("/fcm/token")
     public ResponseEntity<?> pushMessage(@RequestBody String token) throws Exception {
 
-        token = "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx";
-
         if (token != null) {
 
             Fcm fcm = new Fcm();
+            String targetToken = token.split("=")[1];
+            fcm.setTargetToken(targetToken);
+            fcmRepository.save(fcm);
 
-            fcm.setTargetToken(token);
+
 
             System.out.println("앱 실행 후 토큰 전송 성공!, token : " + token);
             // token 받기 성공

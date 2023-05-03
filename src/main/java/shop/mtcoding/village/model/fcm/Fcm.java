@@ -23,6 +23,7 @@ public class Fcm {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Comment("FCM 토큰")
     private String targetToken;
 
 
