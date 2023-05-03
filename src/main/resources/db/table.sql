@@ -4,7 +4,7 @@ create table user_tb (
     password varchar(255) not null,
     email varchar(255) unique not null,
     tel varchar(255),
-    role varchar,
+    role varchar(10),
     profile varchar(255),
     created_at timestamp
 );
@@ -17,14 +17,13 @@ create table place_tb (
     title varchar(255),
     address_id int,
     tel varchar(255),
-    notice varchar,
+    notice varchar(255),
     place_introduction_info varchar,
     max_people int,
     max_parking int,
     price_per_hour int,
     start_time timestamp,
     end_time timestamp,
-    category_id int
 );
 
 
@@ -42,10 +41,8 @@ create table address_tb (
 create table facility_info_tb (
     id int primary key AUTO_INCREMENT,
     facility_name varchar(255),
-    facility_info_id,
+    facility_info_id int,
     place_id int
-
-
 );
 
 create table hashtag_tb (
@@ -119,7 +116,7 @@ create table search_tb (
 create table chat_tb (
     id int PRIMARY KEY AUTO_INCREMENT,
     user_id int not null,
-    send varchar,
+    send varchar(255),
     chatroom_id int not null,
     created_at timestamp
 
@@ -150,7 +147,7 @@ create table notice_tb (
 create table dates_tb
 (
     id int PRIMARY KEY AUTO_INCREMENT,
-    day_of_week_name varchar NOT NULL,
+    day_of_week_name varchar(255) NOT NULL,
     place_id int,
     dates_id int
 );
@@ -161,8 +158,8 @@ create table file_tb
     place_id int,
     file_info_id int,
     file_name VARCHAR(255),
-    file_url VARCHAR,
-    status VARCHAR
+    file_url VARCHAR(255),
+    status VARCHAR(255)
 );
 
 
