@@ -35,4 +35,14 @@ public class MyJwtProvider {
                 .build().verify(jwt);
         return decodedJWT;
     }
+
+    public static String createToken() {
+        String jwtToken = JWT.create()
+                .withSubject(SUBJECT)
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXP))
+                .sign(Algorithm.HMAC512(SECRET));
+        return TOKEN_PREFIX + jwtToken;
+    }
+
+
 }
