@@ -8,5 +8,5 @@ public interface FcmRepository extends JpaRepository<Fcm, Long> {
 
     Optional<Fcm> findByTargetToken(String targetToken);
 
-    Fcm findByUserId(Long user_id);
+    Optional<Fcm> findByUserId(Long user_id);
 }

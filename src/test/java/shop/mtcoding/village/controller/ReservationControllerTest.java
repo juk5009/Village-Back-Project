@@ -1,12 +1,15 @@
 package shop.mtcoding.village.controller;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
@@ -25,7 +28,8 @@ public class ReservationControllerTest extends AbstractIntegrated {
 
     @Test
     @DisplayName("예약내역 전체보기")
-
+    @Transactional
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void getPage() throws Exception {
 
         this.mockMvc.perform(
@@ -38,7 +42,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 .andDo(
                         document("place-list",
                                 responseFields(
-                                ).and(getReservationResponseField("data[]."))
+                                ).and(getReservationListResponseField("data[]."))
                         )
 
                 );
@@ -46,6 +50,8 @@ public class ReservationControllerTest extends AbstractIntegrated {
 
     @Test
     @DisplayName("예약내역 상세보기")
+    @Transactional
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void getDetailPage() throws Exception {
 
         this.mockMvc.perform(
@@ -66,9 +72,11 @@ public class ReservationControllerTest extends AbstractIntegrated {
 
     @Test
     @DisplayName("예약 신청하기")
+    @Transactional
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void postReservation () throws Exception {
 
-        ReservationSaveRequest request = new ReservationSaveRequest("예약자 이름", 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
+        ReservationSaveRequest request = new ReservationSaveRequest(2L, "예약자 이름", 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
 
         this.mockMvc.perform(
                         post("/reservation")
@@ -82,8 +90,30 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 .andDo(
                         document("reservation-save",
                                 requestFields(getReservationRequestField()),
-                                responseFields(getReservationResponseField("data."))
+                                responseFields(postReservationResponseField("data."))
                         )
+                );
+    }
+
+    @Test
+    @DisplayName("예약내역 삭제하기")
+    @Transactional
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void deleteReservation() throws Exception {
+
+        this.mockMvc.perform(
+                        get ("/reservation/1")
+                                .header("Authorization", getUser())
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(
+                        document("delete-reservation",
+                                responseFields(
+                                ).and()
+                        )
+
                 );
     }
 
@@ -92,6 +122,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
     private FieldDescriptor[] getReservationRequestField() {
         return new FieldDescriptor[] {
                 fieldWithPath("userName").description("예약자 이름"),
+                fieldWithPath("placeId").description("공간Id"),
                 fieldWithPath("peopleNum").description("예약 인원수"),
                 fieldWithPath("date").description("예약 날짜"),
                 fieldWithPath("startTime").description("시작날짜"),
@@ -99,7 +130,28 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath("reservationStatus").description("예약상태")
         };
     }
-    private FieldDescriptor[] getReservationResponseField(String prefix) {
+    private FieldDescriptor[] postReservationResponseField(String prefix) {
+        return new FieldDescriptor[] {
+                fieldWithPath("code").description("응답 코드"),
+                fieldWithPath("status").description("응답 상태"),
+                fieldWithPath("msg").description("응답 메시지"),
+//                fieldWithPath(prefix+"id").description("공간의 id"),
+                fieldWithPath(prefix+"user.id").description("유저 id"),
+                fieldWithPath(prefix+"user.name").description("유저 이름"),
+                fieldWithPath(prefix+"user.email").description("유저 이메일"),
+                fieldWithPath(prefix+"user.tel").description("유저 전화번호"),
+                fieldWithPath(prefix+"user.profile").description("유저 프로필"),
+                fieldWithPath(prefix+"user.status").description("유저 활성화 상태"),
+                fieldWithPath(prefix+"user.createdAt").description("유저 가입시간"),
+                fieldWithPath(prefix+"date").description("예약 날짜"),
+                fieldWithPath(prefix+"startTime").description("예약 시작시간"),
+                fieldWithPath(prefix+"endTime").description("예약 마감시간"),
+                fieldWithPath(prefix+"peopleNum").description("예약 인원"),
+                fieldWithPath(prefix+"status").description("예약 상태"),
+        };
+    }
+
+    private FieldDescriptor[] getReservationListResponseField(String prefix) {
         return new FieldDescriptor[] {
                 fieldWithPath("code").description("응답 코드"),
                 fieldWithPath("status").description("응답 상태"),
@@ -130,9 +182,9 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"endTime").description("예약 마감시간"),
                 fieldWithPath(prefix+"peopleNum").description("예약 인원"),
                 fieldWithPath(prefix+"status").description("예약 상태"),
+                fieldWithPath(prefix+"status").description("예약 상태"),
         };
     }
-
     private FieldDescriptor[] getReservationDetailResponseField(String prefix) {
         return new FieldDescriptor[] {
                 fieldWithPath("code").description("응답 코드"),
@@ -165,6 +217,4 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"totalPrice").description("예약 총금액")
         };
     }
-
-
 }

@@ -1,9 +1,6 @@
 package shop.mtcoding.village.dto.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import shop.mtcoding.village.model.user.User;
 
 import javax.persistence.Column;
@@ -14,6 +11,8 @@ public class UserRequest {
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class JoinDTO {
         @NotEmpty(message = "nickname을 입력해주세요.")
         private String name;
@@ -36,6 +35,7 @@ public class UserRequest {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     @ToString
     public static class LoginDTO {
         @NotEmpty(message = "E-mail을 입력해주세요.")

@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReservationSaveRequest {
 
+    private Long placeId;
+
     @NotBlank(message = "이름을 입력해주세요.")
     private String userName;
 

@@ -13,6 +13,7 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -40,22 +41,12 @@ public class AbstractIntegrated {
     protected MockMvc mockMvc;
     protected final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Autowired
-    private WebApplicationContext context;
-
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
 
-//        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
-//                .apply(documentationConfiguration(this.restDocumentation)
-//                  .uris()
-//                        .withScheme("https")
-//                        .withHost("example.com")
-//                        .withPort(443))
-//                .build();
-
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(documentationConfiguration(restDocumentation))
+                .apply(SecurityMockMvcConfigurers.springSecurity())
                 .build();
     }
 
@@ -73,7 +64,7 @@ public class AbstractIntegrated {
 
             MvcResult mvcResult = perform.andReturn();
             MockHttpServletResponse response = mvcResult.getResponse();
-            return response.getHeader("Authorization");
+            return "Bearer " + response.getHeader("Authorization");
         } catch (Exception e) {
             return "";
         }

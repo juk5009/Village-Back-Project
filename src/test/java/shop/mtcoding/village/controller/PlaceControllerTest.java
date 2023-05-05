@@ -4,6 +4,8 @@ package shop.mtcoding.village.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithUserDetails;
 import shop.mtcoding.village.dto.address.AddressDTO;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
@@ -41,6 +43,7 @@ public class PlaceControllerTest extends AbstractIntegrated {
     }
 
     @Test
+    @WithUserDetails(value = "Jane@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void saveSuccess() throws Exception {
 
         DateSaveDTO.DateSaveDto dates = new DateSaveDTO.DateSaveDto();
@@ -73,7 +76,6 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 , List.of(dates), List.of(hashtag), List.of(facility), "카테고리", List.of(file));
         this.mockMvc.perform(
                         post("/places/host")
-                                .header("Authorization", getHost())
                                 .content(objectMapper.writeValueAsString(request))
                                 .accept(MediaType.APPLICATION_JSON_VALUE)
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)

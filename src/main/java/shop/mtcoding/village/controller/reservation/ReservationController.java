@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import shop.mtcoding.village.api.firebase.FirebaseCloudMessageService;
 import shop.mtcoding.village.api.firebase.RequestDTO;
 import shop.mtcoding.village.core.auth.MyUserDetails;
+import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.reservation.ReservationDTO;
@@ -55,8 +56,7 @@ public class ReservationController {
 
     private final FcmRepository fcmRepository;
 
-    @GetMapping
-//    @PreAuthorize("hasRole('USER')")
+    @GetMapping()
     public ResponseEntity<ResponseDTO<List<Reservation>>> getReservation(){
 
         List<Reservation> allReservation = reservationRepository.findAll();
@@ -65,14 +65,12 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseDTO<ReservationDTO>> getById(@PathVariable Long id) {
 
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
-        System.out.println("디버그 : " + optionalUser);
 
         if (optionalUser.isEmpty()) {
-            throw new MyConstException(ReservationConst.notfound);
+            throw new CustomException("예약 내역이 존재하지 않습니다.");
         }
 
         Reservation reservation = optionalUser.get();
@@ -81,29 +79,41 @@ public class ReservationController {
     }
 
     @PostMapping
-//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseDTO<ReservationSaveResponse>> save(
             @Valid @RequestBody ReservationSaveRequest reservationSaveRequest,
             @AuthenticationPrincipal MyUserDetails myUserDetails
             ) throws IOException {
 
-        //TODO Optional
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
-        Place byId = placeJpaRepository.findById(1L).get();
+
+        var placeOptional = placeJpaRepository.findById(reservationSaveRequest.getPlaceId());
+        if (placeOptional.isEmpty()){
+            throw new CustomException("조회 할 수 있는 공간이 존재 하지 않습니다.");
+        }
+
+        Place place = placeOptional.get();
 
         LocalDate date = DateUtils.fromLocalDateTime(DateUtils.parseLocalDateTime(reservationSaveRequest.getDate()));
         System.out.println(date); // 예시 출력: 2023-04-25
 
         Long id = myUserDetails.getUser().getId();
-        Fcm fcm = fcmRepository.findByUserId(id);
+        var fcmOptional = fcmRepository.findByUserId(id);
+
+        if (fcmOptional.isEmpty()) {
+            throw new CustomException("조회 할 수 있는 토큰이 존재하지 않습니다.");
+        }
+
+        Fcm fcm = fcmOptional.get();
 
         RequestDTO requestDTO = new RequestDTO("Village",
-                "[예약알림]\n"+ reservationSaveRequest.getUserName()+ "님이 [" + byId.getTitle() + "]에 예약 신청했습니다.\n"
+                "[예약알림]\n"+ reservationSaveRequest.getUserName()+ "님이 [" + place.getTitle() + "]에 예약 신청했습니다.\n"
                         +"날짜: "+date+"\n"
                         +"일시: "+DateUtils.parseLocalDateTime(reservationSaveRequest.getStartTime()).toLocalTime()+"~"
                         +DateUtils.parseLocalDateTime(reservationSaveRequest.getEndTime()).toLocalTime()+"\n"
                         +"인원: "+reservationSaveRequest.getPeopleNum()+"명\n",
                 fcm.getTargetToken());
+
+
 
         firebaseCloudMessageService.sendMessageTo(
                 requestDTO.getTargetToken(),
@@ -114,7 +124,6 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('HOST')")
     public ResponseEntity<?> delete(
             @PathVariable Long id
     ) {

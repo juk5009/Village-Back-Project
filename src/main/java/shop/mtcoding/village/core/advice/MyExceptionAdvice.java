@@ -45,13 +45,11 @@
 //       }
 //   }
 //
-//
 //   @ExceptionHandler(Exception500.class)
 //   public ResponseEntity<?> serverError(Exception500 e) {
 //       ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(-1, 500, "일시적인 서버 오류입니다.", "Null");
 //       return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 //   }
-//
 //
 //   @ExceptionHandler(MyConstException.class)
 //   public ResponseEntity<?> error(MyConstException e) {
@@ -60,13 +58,11 @@
 //       return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
 //   }
 //
-//
 //   @ExceptionHandler(Exception.class)
 //   public ResponseEntity<?> serverError(Exception e){
 //       ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(-1, 500, e.getMessage(), "Null");
 //       return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 //   }
-//
 //
 //}
 //

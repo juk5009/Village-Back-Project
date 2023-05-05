@@ -31,7 +31,6 @@ public class ReservationService {
 
     @Transactional
     public void 예약삭제(Long id) {
-//        reservationRepository.delete(reservation);
         reservationRepository.deleteById(id);
     }
 

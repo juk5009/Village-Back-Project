@@ -22,7 +22,6 @@ import shop.mtcoding.village.notFoundConst.RoleConst;
 
 @Slf4j
 @Configuration
-@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -41,9 +40,7 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            // builder.addFilter(new JwtAuthenticationFilter(authenticationManager));
-            // builder.addFilter(new JwtAuthorizationFilter(authenticationManager));
-            builder.addFilterAt(new JwtAuthorizationFilter(authenticationManager), JwtAuthorizationFilter.class);
+            builder.addFilter(new JwtAuthorizationFilter(authenticationManager));
             super.configure(builder);
         }
     }
@@ -88,24 +85,6 @@ public class SecurityConfig {
         // 8 .커스텀 필터 적용 ( 시큐리티 필터 교환 )
         http.apply(new CustomSecurityFilterManager());
 
-        // 9. 인증 실패 처리
-        http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
-            // config는 DS 보다 앞에 있기 때문에 익셉션 핸들러 사용 불가
-            // checkpoint -> 예외핸들러 처리
-            log.debug("디버그 : 인증 실패  :  "+ authException.getMessage());
-            log.info("인포 : 인증 실패  :  "+ authException.getMessage());
-            log.warn("워닝 : 인증 실패  :  "+ authException.getMessage());
-            log.error("에러 : 인증 실패  :  "+ authException.getMessage());
-        });
-
-        // 10. 권한 실패 처리
-        http.exceptionHandling().accessDeniedHandler((request, response, accessDeniedException) -> {
-            // checkpoint -> 예외핸들러 처리
-            log.debug("디버그 : 권한 실패  :  "+ accessDeniedException.getMessage());
-            log.info("인포 : 권한 실패  :  "+ accessDeniedException.getMessage());
-            log.warn("워닝 : 권한 실패  :  "+ accessDeniedException.getMessage());
-            log.error("에러 : 권한 실패  :  "+ accessDeniedException.getMessage());
-        });
 
         // // Form 로그인 설정
         // http.formLogin()
@@ -125,10 +104,15 @@ public class SecurityConfig {
 
         // 11 .인증, 권한 필터 설정 ( 스프링 문서 참고 )
         http.authorizeRequests((authorize) -> {
-//            authorize.antMatchers("/s/**").authenticated() ;//인증이 필요한곳
-                    authorize.antMatchers("/manager/**").hasAnyRole("ADMIN","MANAGER")
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().permitAll(); // /users 는 인증이 필요 나머지는 허용
+            authorize.antMatchers(
+                    "/places/host",
+                            "/places/host/**",
+                            "/user/**"
+                    ).authenticated()//인증이 필요한곳
+
+                     .antMatchers("/manager/**").hasAnyRole("ADMIN","MANAGER")
+                     .antMatchers("/admin/**").hasRole("ADMIN")
+                     .anyRequest().permitAll(); // /users 는 인증이 필요 나머지는 허용
         });
         return http.build();
     }

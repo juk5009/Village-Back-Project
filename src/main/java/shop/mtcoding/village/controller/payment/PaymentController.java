@@ -34,7 +34,6 @@ public class PaymentController {
         this.objectMapper = objectMapper;
     }
 
-    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<HashMap<Object,Object>> save(@RequestBody ReceiptDTO receiptDTO) throws JsonProcessingException {
 
@@ -50,7 +49,6 @@ public class PaymentController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('HOST')")
     public ResponseEntity<?> delete(
             @PathVariable Long id
     ) {

@@ -1,18 +1,79 @@
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+      auto: false
+    s3:
+      bucket: villages-3
+    credentials:
+      access-key: AKIAQQ5QPUSNTPXXS7BC
+      secret-key: 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
+    stack:
+      auto: false
+
+#meta:
+#  bucket: ${bucket}
+#  access-key: ${access-key}
+#  secret-key: ${secret-key}
+#  staticval: ${static}
+
+server:
+  # port: 8080
+  port: 8081
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+    session:
+      timeout: 3600
+
 spring:
+  sql:
+    init:
+      data-locations: classpath:db/data.sql
+      mode: always
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
+
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:static/data/data.sql
-      encoding: utf-8
+
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
   jpa:
+    open-in-view: true
     hibernate:
       ddl-auto: create
+
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        default_batch_fetch_size: 1000
     defer-datasource-initialization: true
 
-server:
-  servlet:
-    encoding:
-      force-response: true
+  h2:
+    console:
+      enabled: true
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    # 로그레벨 설정 DEBUG로 개발하고 INFO로 배포한다.
+    '[shop.mtcoding.securityapp]': DEBUG # DEBUG 레벨부터 에러 확인할 수 있게 설정하기
+    '[org.hibernate.type]': TRACE # 콘솔 쿼리에 ? 에 주입된 값 보기
+# mybatis:
+#   mapper-locations:
+#   - classpath:mapper/**.xml
+#   configuration:
+#     map-underscore-to-camel-case: true

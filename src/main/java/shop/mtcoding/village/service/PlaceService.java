@@ -78,8 +78,7 @@ public class PlaceService {
         }
     }
 
-
-
+    // TODO file 이름 고유값
     @Transactional
     public Place 공간등록하기(PlaceSaveRequest placeRequest) {
         try {
@@ -110,7 +109,7 @@ public class PlaceService {
                 files.setFileUrl(imgPath);
                 File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
                 System.out.println("디버그 : " + save);
-//                fileList.add(save);
+                fileList.add(save);
 
                 fileService.save(placeRequest.getImage().get(0));
             }

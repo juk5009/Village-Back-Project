@@ -18,20 +18,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
-@NoArgsConstructor
 public class S3Service {
     private AmazonS3 s3Client;
 
-    @Value("AKIAQQ5QPUSNTPXXS7BC")
+    @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
 
-    @Value("0S/lJhMR4xmYK6h2dijZF3iPQcE7op3Bn56mKeQ3")
+    @Value("${cloud.aws.credentials.secret-key}")
     private String secretKey;
 
-    @Value("villages-3")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    @Value("ap-northeast-2")
+    @Value("${cloud.aws.region.static}")
     private String region;
 
     @PostConstruct
@@ -63,13 +62,12 @@ public class S3Service {
         Date now = new Date();
         String today = new SimpleDateFormat("yyyyMMddHHmmss").format(now);
 
-        String random = "";
+        StringBuilder random = new StringBuilder();
         for (int i = 1; i <= 10; i++) {
             char ch = (char) ((Math.random() * 26) + 97);
-            random += ch;
+            random.append(ch);
         }
-        String result = today + random;
 
-        return result;
+        return today + random;
     }
 }

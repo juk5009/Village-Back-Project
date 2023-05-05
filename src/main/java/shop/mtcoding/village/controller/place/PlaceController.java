@@ -1,7 +1,6 @@
 package shop.mtcoding.village.controller.place;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import shop.mtcoding.village.core.auth.MyUserDetails;
-import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
@@ -40,14 +37,18 @@ import shop.mtcoding.village.util.status.PlaceStatus;
 
 //TODO 경로 바뀐 부분 전달하기
 @RestController
-@RequestMapping("/places")
-@RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/places")
 public class PlaceController {
 
     private final PlaceService placeService;
 
     private final PlaceJpaRepository placeJpaRepository;
+
+    public PlaceController(PlaceService placeService, PlaceJpaRepository placeJpaRepository) {
+        this.placeService = placeService;
+        this.placeJpaRepository = placeJpaRepository;
+    }
 
     @GetMapping()
     public ResponseEntity<ResponseDTO<?>> MainList() {
@@ -74,23 +75,15 @@ public class PlaceController {
     }
 
     @PostMapping("/host")
-//    @PreAuthorize("hasRole('HOST')")
     public @ResponseBody ResponseEntity<ResponseDTO<Place>> savePlace(
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
-
         var save = placeService.공간등록하기(placeSaveRequest);
-//        String role = myUserDetails.getUser().getRole();
-//
-//        if (!role.equals("HOST")) {
-//            throw new MyConstException(RoleConst.notFound);
-//        }
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 등록 완료", save), HttpStatus.OK);
     }
 
     @PutMapping("/host")
-    @PreAuthorize("hasRole('HOST')")
     public ResponseEntity<ResponseDTO<Place>> updatePlace(
             @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -108,7 +101,6 @@ public class PlaceController {
         }
         
         @DeleteMapping("/{id}")
-        @PreAuthorize("hasRole('HOST')")
         public ResponseEntity<ResponseDTO<PlaceStatus>> deletePlace(
                 @PathVariable Long id
         ){
@@ -124,7 +116,6 @@ public class PlaceController {
     }
 
         @PostMapping("/{id}")
-        @PreAuthorize("hasRole('HOST')")
         public ResponseEntity<ResponseDTO<PlaceStatus>> activePlace(
                 @PathVariable Long id
         ){
