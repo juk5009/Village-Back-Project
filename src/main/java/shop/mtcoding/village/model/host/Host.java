@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import shop.mtcoding.village.dto.host.request.HostSaveRequest;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.place.PlaceAddress;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.HostStatus;
 
@@ -35,7 +36,7 @@ public class Host {
     @Comment("호스트 주소")
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Address address;
+    private PlaceAddress address;
 
     @Comment("사업자 번호")
     private String businessNum;
@@ -45,7 +46,7 @@ public class Host {
     private HostStatus status;     // wail, none, deny, sign
 
     @Builder
-    public Host(User user, Address address, String nickName, String businessNum, HostStatus status) {
+    public Host(User user, PlaceAddress address, String nickName, String businessNum, HostStatus status) {
         this.user = user;
         this.nickName = nickName;
         this.address = address;

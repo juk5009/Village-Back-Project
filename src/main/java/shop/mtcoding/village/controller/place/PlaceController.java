@@ -80,12 +80,12 @@ public class PlaceController {
             @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
 
-        String role = myUserDetails.getUser().getRole();
         var save = placeService.공간등록하기(placeSaveRequest);
-
-        if (!role.equals("HOST")) {
-            throw new MyConstException(RoleConst.notFound);
-        }
+//        String role = myUserDetails.getUser().getRole();
+//
+//        if (!role.equals("HOST")) {
+//            throw new MyConstException(RoleConst.notFound);
+//        }
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 등록 완료", save), HttpStatus.OK);
     }
 

@@ -5,6 +5,7 @@ import lombok.Setter;
 import shop.mtcoding.village.dto.user.UserDTO;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.host.Host;
+import shop.mtcoding.village.model.place.PlaceAddress;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.HostStatus;
 
@@ -22,7 +23,7 @@ public class HostSaveRequest {
     private String nickname;
 
 //    @NotBlank(message = "호스트의 주소를 다시 확인해주세요.")
-    private Address address;
+    private PlaceAddress address;
 
     @NotBlank(message = "호스트의 사업자 번호를 다시 확인해주세요.")
     @Size(min = 10, max = 10, message = "사업자 번호는 10자리여야 합니다.")
@@ -33,7 +34,7 @@ public class HostSaveRequest {
 
 
 
-    public HostSaveRequest(String hostName, Address address, String businessNum, String nickname) {
+    public HostSaveRequest(String hostName, PlaceAddress address, String businessNum, String nickname) {
         this.hostName = hostName;
         this.address = address;
         this.businessNum = businessNum;

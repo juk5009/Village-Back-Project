@@ -12,6 +12,7 @@
  import org.springframework.transaction.annotation.Transactional;
  import shop.mtcoding.village.model.address.Address;
  import shop.mtcoding.village.model.place.Place;
+ import shop.mtcoding.village.model.place.PlaceAddress;
  import shop.mtcoding.village.model.place.PlaceJpaRepository;
  import shop.mtcoding.village.model.review.Review;
  import shop.mtcoding.village.model.user.User;
@@ -101,8 +102,8 @@
          User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
          this.entityManager.persist(user);
 
-         Address address = new Address().builder().address("도로명주소").sigungu("시군구").zonecode("우편번호").x("경도").y("위도").build();
-         this.entityManager.persist(address);
+         PlaceAddress placeAddress = new PlaceAddress().builder().address("도로명주소").sigungu("시군구").zonecode("우편번호").x("경도").y("위도").build();
+         this.entityManager.persist(placeAddress);
 
          Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
          this.entityManager.persist(review);
@@ -110,14 +111,13 @@
          var place = new Place();
          place.setUser(user);
          place.setTitle(title);
-         place.setAddress(address);
          place.setTel(tel);
          place.setPlaceIntroductionInfo(placeIntroductionInfo);
          place.setNotice(notice);
          place.setMaxPeople(maxPeople);
          place.setPricePerHour(pricePerHour);
-         place.setStartTime(LocalTime.from(startTime));
-         place.setEndTime(LocalTime.from(endTime));
+         place.setStartTime(startTime);
+         place.setEndTime(endTime);
          return this.entityManager.persist(place);
      }
  }

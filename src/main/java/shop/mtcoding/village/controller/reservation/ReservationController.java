@@ -56,7 +56,7 @@ public class ReservationController {
     private final FcmRepository fcmRepository;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseDTO<List<Reservation>>> getReservation(){
 
         List<Reservation> allReservation = reservationRepository.findAll();
@@ -65,7 +65,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseDTO<ReservationDTO>> getById(@PathVariable Long id) {
 
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
@@ -81,27 +81,27 @@ public class ReservationController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseDTO<ReservationSaveResponse>> save(
             @Valid @RequestBody ReservationSaveRequest reservationSaveRequest,
             @AuthenticationPrincipal MyUserDetails myUserDetails
             ) throws IOException {
 
+        //TODO Optional
         var saveReservation = reservationService.예약신청(reservationSaveRequest);
-        System.out.println("예약신청 : " +saveReservation);
-//        Long placeId = saveReservation.getPlace().getId();
         Place byId = placeJpaRepository.findById(1L).get();
 
-        LocalDate date = DateUtils.fromLocalDateTime(reservationSaveRequest.getDate());
+        LocalDate date = DateUtils.fromLocalDateTime(DateUtils.parseLocalDateTime(reservationSaveRequest.getDate()));
         System.out.println(date); // 예시 출력: 2023-04-25
 
-        Long userId = saveReservation.getUser().getId();
-        Fcm fcm = fcmRepository.findByUserId(userId);
+        Long id = myUserDetails.getUser().getId();
+        Fcm fcm = fcmRepository.findByUserId(id);
 
         RequestDTO requestDTO = new RequestDTO("Village",
                 "[예약알림]\n"+ reservationSaveRequest.getUserName()+ "님이 [" + byId.getTitle() + "]에 예약 신청했습니다.\n"
                         +"날짜: "+date+"\n"
-                        +"일시: "+reservationSaveRequest.getStartTime()+"~"+reservationSaveRequest.getEndTime()+"\n"
+                        +"일시: "+DateUtils.parseLocalDateTime(reservationSaveRequest.getStartTime()).toLocalTime()+"~"
+                        +DateUtils.parseLocalDateTime(reservationSaveRequest.getEndTime()).toLocalTime()+"\n"
                         +"인원: "+reservationSaveRequest.getPeopleNum()+"명\n",
                 fcm.getTargetToken());
 

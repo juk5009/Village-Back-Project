@@ -78,10 +78,20 @@ public class UserController {
                 (String) loginViewList.get(2), (String) loginViewList.get(3));
 
         // User가 로그인 시 FcmToken 같이 넣기
-        Fcm fcmToken = fcmRepository.findByTargetToken(loginDTO.getTargetToken());
+        Optional<Fcm> fcmTokenOptional = fcmRepository.findByTargetToken(loginDTO.getTargetToken());
+        if (fcmTokenOptional.isEmpty()){
+            throw new CustomException("해당 토큰이 존재하지 않습니다");
+        }
 
-        Optional<User> byId1 = userRepository.findById(loginViewDTO.getId());
-        User user = byId1.get();
+        Fcm fcmToken = fcmTokenOptional.get();
+
+        Optional<User> userOptional = userRepository.findById(loginViewDTO.getId());
+        if (userOptional.isEmpty()){
+            throw new CustomException("유저를 조회할 수 없습니다.");
+        }
+
+        User user = userOptional.get();
+
         fcmRepository.save(fcmToken.toEntity(fcmToken.getId(), user, loginDTO.getTargetToken()));
 
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(loginViewDTO);

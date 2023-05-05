@@ -1,5 +1,6 @@
 package shop.mtcoding.village.model.place;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.*;
@@ -48,12 +49,6 @@ public class Place {
     @Comment("공간 제목")
     private String title;
 
-    @Comment("공간 주소")
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Address address;
-
     @Comment("공간 전화번호")
     private String tel;
 
@@ -79,10 +74,10 @@ public class Place {
     private Integer pricePerHour;
 
     @Comment("시작 시간")
-    private LocalTime startTime;
+    private LocalDateTime startTime;
 
     @Comment("마감 시간")
-    private LocalTime endTime;
+    private LocalDateTime endTime;
 
     @Comment("공간상태")
     @Enumerated(EnumType.STRING)
@@ -91,11 +86,10 @@ public class Place {
     @Comment("예약승인 필요여부")
     private Boolean isConfirmed;
 
-    public Place(User user, String title, Address address, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople,
-            Integer maxParking, Integer pricePerHour, LocalTime startTime, LocalTime endTime) {
+    public Place(User user, String title, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople,
+            Integer maxParking, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
         this.user = user;
         this.title = title;
-        this.address = address;
         this.tel = tel;
         this.placeIntroductionInfo = placeIntroductionInfo;
         this.notice = notice;
@@ -108,11 +102,10 @@ public class Place {
     }
 
     @Builder
-    public Place(String title, Address address, String tel, LocalTime startTime, LocalTime endTime,
+    public Place(String title, String tel, LocalDateTime startTime, LocalDateTime endTime,
                  String placeIntroductionInfo,
                  String notice, Integer maxPeople, Integer maxParking, Integer pricePerHour) {
         this.title = title;
-        this.address = address;
         this.tel = tel;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -126,13 +119,13 @@ public class Place {
 
     public PlaceSaveResponse toResponse() {
         return new PlaceSaveResponse(
-                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
+                title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
         );
     }
 
     public PlaceUpdateResponse toUpdateResponse() {
         return new PlaceUpdateResponse(
-                title, address, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
+                title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
         );
     }
 

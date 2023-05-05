@@ -24,6 +24,7 @@ public class Hashtag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("해시태그 아이디")
+    @JsonIgnore
     private Long id;
 
     @Comment("해시태그 이름")

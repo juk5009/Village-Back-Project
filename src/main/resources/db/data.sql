@@ -5,11 +5,11 @@ values ('Jane', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 
 insert into user_tb (name, password, email, tel, role, profile, created_at)
 values ('Bob', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', NOW());
 
-insert into address_tb(address, sigungu, zonecode, detail_address, x, y)
+insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
 values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '201호' ,'12', '15');
-insert into address_tb(address, sigungu, zonecode, detail_address, x, y)
+insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
 values ('부산 부산진구 중앙대로 688 한준빌딩 3층', '부산 부산진구', '47296', '301호' ,'112', '115');
-insert into address_tb(address, sigungu, zonecode, detail_address, x, y)
+insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
 values ('부산 부산진구 중앙대로 688 한준빌딩 4층', '부산 부산진구', '47296', '401호' ,'12', '215');
 
 
@@ -23,18 +23,18 @@ values (1, '333456-01-111244');
 
 
 
-insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
+insert into place_tb (user_id, title, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, 'ACTIVE', true, NOW(), NOW());
-insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
+values (1, '스튜디오 르온드', '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, 'ACTIVE', true, NOW(), NOW());
+insert into place_tb (user_id, title, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (2, '스튜디오 STUDIO', 2, '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 5000, 'ACTIVE', true, NOW(), NOW());
-insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
+values (2, '스튜디오 STUDIO', '01012345679', '멋진 공간입니다.', '멋진 공간입니다. 이용해보세요!', 10, 10, 5000, 'ACTIVE', true, NOW(), NOW());
+insert into place_tb (user_id, title, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, 'ACTIVE', false, NOW(), NOW());
+values (3, '업타운댄스뮤직 아카데미', '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, 'ACTIVE', false, NOW(), NOW());
 
 
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)

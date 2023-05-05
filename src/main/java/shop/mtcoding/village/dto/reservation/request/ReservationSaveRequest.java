@@ -1,18 +1,23 @@
 package shop.mtcoding.village.dto.reservation.request;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
+import shop.mtcoding.village.util.DateUtils;
 import shop.mtcoding.village.util.status.ReservationStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Getter
+@Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReservationSaveRequest {
 
     @NotBlank(message = "이름을 입력해주세요.")
@@ -21,35 +26,32 @@ public class ReservationSaveRequest {
     private Integer peopleNum;
 
     @NotNull(message = "날짜를 선택해주세요.")
-    private LocalDateTime date;
+    private String date;
 
     @NotNull(message = "시작 시간을 입력해주세요.")
-    private LocalDateTime startTime;
+    private String startTime;
 
     @NotNull(message = "끝 시간을 입력해주세요.")
-    private LocalDateTime endTime;
+    private String endTime;
 
     private ReservationStatus reservationStatus;
 
-    public LocalTime getStartTime() {
-        return startTime.toLocalTime();
-    }
-
-    public LocalTime getEndTime() {
-        return endTime.toLocalTime();
-    }
-
 
     public Reservation toEntity() {
+
+        LocalDateTime dateParser = DateUtils.parseLocalDateTime(date);
+        LocalDateTime startTimeParser = DateUtils.parseLocalDateTime(startTime);
+        LocalDateTime endTimeParser = DateUtils.parseLocalDateTime(endTime);
+
         User user = new User();
         user.setName(userName);
         Reservation reservation = new Reservation();
         reservation.setPeopleNum(peopleNum);
-        reservation.setDate(date);
-        reservation.setStartTime(startTime);
-        reservation.setEndTime(endTime);
+        reservation.setDate(dateParser);
+        reservation.setStartTime(startTimeParser);
+        reservation.setEndTime(endTimeParser);
         reservation.setStatus(reservationStatus);
-        return new Reservation(user, date, startTime, endTime, peopleNum, reservationStatus);
+        return new Reservation(user, dateParser, startTimeParser, endTimeParser, peopleNum, reservationStatus);
 
     }
 

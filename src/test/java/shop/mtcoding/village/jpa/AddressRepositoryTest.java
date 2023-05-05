@@ -11,8 +11,8 @@
  import org.springframework.test.context.junit.jupiter.SpringExtension;
  import org.springframework.transaction.annotation.Transactional;
  import shop.mtcoding.village.model.address.Address;
- import shop.mtcoding.village.model.address.AddressRepository;
- import shop.mtcoding.village.model.user.User;
+ import shop.mtcoding.village.model.address.PlaceAddressRepository;
+ import shop.mtcoding.village.model.place.PlaceAddress;
 
  import javax.persistence.EntityManager;
  import java.util.List;
@@ -24,7 +24,7 @@
  public class AddressRepositoryTest {
 
      @Autowired
-     private AddressRepository addressRepository;
+     private PlaceAddressRepository addressRepository;
 
      @Autowired
      private TestEntityManager entityManager;
@@ -34,18 +34,17 @@
 
      @BeforeEach
      public void init() {
-         em.createNativeQuery("ALTER TABLE address_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
-         setUp("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "121", "151");
+//         setUp("부산 부산진구 중앙대로 688 한준빌딩 3층", "부산진구1", "47396", "1층", "121", "151");
      }
 
      @Test
      @Transactional
      @DisplayName("주소 조회 테스트")
      void selectAll() {
-         List<Address> addresses = addressRepository.findAll();
+         List<PlaceAddress> addresses = addressRepository.findAll();
          Assertions.assertNotEquals(addresses.size(), 0);
 
-         Address address = addresses.get(0);
+         PlaceAddress address = addresses.get(0);
          Assertions.assertEquals(address.getAddress(), "부산 부산진구 중앙대로 688 한준빌딩 2층");
      }
 
@@ -53,15 +52,15 @@
      @Transactional
      @DisplayName("주소 조회 및 수정 테스트")
      void selectAndUpdate() {
-         var optionalAddress = this.addressRepository.findById(4L);
+         var optionalAddress = this.addressRepository.findById(1L);
 
          if(optionalAddress.isPresent()) {
              var result = optionalAddress.get();
-             Assertions.assertEquals(result.getSigungu(), "부산진구1");
+             Assertions.assertEquals(result.getSigungu(), "부산 부산진구");
 
              var zipNo = "12345";
              result.setZonecode(zipNo);
-             Address merge = entityManager.merge(result);
+             PlaceAddress merge = entityManager.merge(result);
 
              Assertions.assertEquals(merge.getZonecode(),"12345");
          } else {
@@ -73,14 +72,14 @@
      @Transactional
      @DisplayName("주소 삽입 및 삭제 테스트")
      void insertAndDelete() {
-         Address address = setUp("부산 부산진구 중앙대로 688 한준빌딩 4층", "부산진구2", "43396", "11", "11");
-         Optional<Address> findAddress = this.addressRepository.findById(address.getId());
+         PlaceAddress address = setUp("부산 부산진구 중앙대로 688 한준빌딩 4층", "부산진구2", "43396", "1층","11", "11");
+         Optional<PlaceAddress> findAddress = this.addressRepository.findById(address.getId());
 
          if(findAddress.isPresent()) {
              var result = findAddress.get();
              Assertions.assertEquals(result.getY(), "11");
              entityManager.remove(address);
-             Optional<Address> deleteAddress = this.addressRepository.findById(address.getId());
+             Optional<PlaceAddress> deleteAddress = this.addressRepository.findById(address.getId());
              if (deleteAddress.isPresent()) {
                  Assertions.assertNull(deleteAddress.get());
              }
@@ -89,13 +88,14 @@
          }
      }
 
-     private Address setUp(String roadFullAddr, String sggNm, String zipNo, String lat, String lng) {
-         var address = new Address();
-         address.setAddress(roadFullAddr);
-         address.setSigungu(sggNm);
-         address.setZonecode(zipNo);
-         address.setX(lat);
-         address.setY(lng);
-         return this.entityManager.persist(address);
+     private PlaceAddress setUp(String address, String sigungu, String zonecode, String detailAddress, String x, String y) {
+         var placeaddress = new PlaceAddress();
+         placeaddress.setAddress(address);
+         placeaddress.setSigungu(sigungu);
+         placeaddress.setZonecode(zonecode);
+         placeaddress.setDetailAddress(detailAddress);
+         placeaddress.setX(x);
+         placeaddress.setY(y);
+         return this.entityManager.persist(placeaddress);
      }
  }

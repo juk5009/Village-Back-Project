@@ -1,7 +1,7 @@
 package shop.mtcoding.village.dto.place.request;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import shop.mtcoding.village.dto.address.AddressDTO;
 import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
@@ -9,28 +9,33 @@ import shop.mtcoding.village.dto.file.dto.FileSaveDTO;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.place.Place;
+import shop.mtcoding.village.util.DateUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlaceSaveRequest {
 
     @NotBlank(message = "제목을 입력해주세요.")
     private String title;
 
-    private Address address;
+    private AddressDTO address;
 
     private String tel;
 
     @NotNull(message = "대여 가능 시작시간을 입력해주세요.")
-    private LocalTime startTime;
+    private String startTime;
 
     @NotNull(message = "대여 가능 마감시간을 입력해주세요.")
-    private LocalTime endTime;
+    private String endTime;
 
     @NotNull(message = "공간의 정보를 입력해주세요.")
     private String placeIntroductionInfo;
@@ -61,19 +66,22 @@ public class PlaceSaveRequest {
     private List<FileSaveDTO.FileSaveDto> image;
 
     public Place toEntity() {
+
+        LocalDateTime startTimePaser = DateUtils.parseLocalDateTime(startTime);
+        LocalDateTime endTimePaser = DateUtils.parseLocalDateTime(endTime);
+
         Place place = new Place();
         place.setTitle(title);
-        place.setAddress(address);
         place.setTel(tel);
-        place.setStartTime(startTime);
-        place.setEndTime(endTime);
+        place.setStartTime(startTimePaser);
+        place.setEndTime(endTimePaser);
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
         place.setNotice(notice);
         place.setMaxPeople(maxPeople);
         place.setMaxParking(maxParking);
         place.setPricePerHour(pricePerHour);
         return new Place(
-                title, address, tel, startTime, endTime, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour
+                title, tel, startTimePaser, endTimePaser, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour
         );
     }
 

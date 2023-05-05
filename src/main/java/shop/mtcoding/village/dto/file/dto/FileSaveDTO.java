@@ -19,8 +19,8 @@ public class FileSaveDTO {
     @ToString
     public static class FileSaveDto extends File {
         private Long id;
-        private String name;
-        private String data;
+        private String fileName;
+        private String fileUrl;
         private String type;
 
         public File toEntity(String fileName, String fileUrl) {
@@ -28,7 +28,7 @@ public class FileSaveDTO {
         }
 
         public File toEntity() {
-            return new File(null, null, name, data, type, FileStatus.WAIT);
+            return new File(null, null, fileName, fileUrl, type, FileStatus.WAIT);
         }
     }
 }

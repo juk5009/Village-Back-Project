@@ -38,6 +38,7 @@ public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("고유번호")
+    @JsonIgnore
     private Long id;
 
     @Comment("공간의 아이디")

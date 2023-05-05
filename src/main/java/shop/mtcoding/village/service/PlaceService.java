@@ -106,9 +106,9 @@ public class PlaceService {
             List<File> fileList = new ArrayList<>();
 
             for (FileSaveDTO.FileSaveDto files : placeRequest.getImage()) {
-                String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getData()));
+                String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getFileUrl()));
                 files.setFileUrl(imgPath);
-                File save = fileRepository.save(files.toEntity(files.getName(), files.getFileUrl()));
+                File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
                 System.out.println("디버그 : " + save);
 //                fileList.add(save);
 
@@ -202,9 +202,9 @@ public class PlaceService {
             List<File> fileList = new ArrayList<>();
 
             for (FileSaveDTO.FileSaveDto file : placeUpdateRequest.getImage()) {
-                String imgPath = s3Service.upload(file.getName(), Base64Decoded.convertBase64ToMultipartFile(file.getData()));
+                String imgPath = s3Service.upload(file.getFileName(), Base64Decoded.convertBase64ToMultipartFile(file.getFileUrl()));
                 file.setFileUrl(imgPath);
-                File save = fileRepository.save(file.toEntity(file.getName(), file.getFileUrl()));
+                File save = fileRepository.save(file.toEntity(file.getFileName(), file.getFileUrl()));
                 fileList.add(save);
 
                 fileService.save(placeUpdateRequest.getImage().get(0));

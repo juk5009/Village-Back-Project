@@ -1,5 +1,6 @@
 package shop.mtcoding.village.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,6 +35,7 @@ public class UserRequest {
     // username 필터를 리빌딩하는건 추천하지 않음 dto 에서 AOP사용하는게 더 편함 
     @Getter
     @Setter
+    @AllArgsConstructor
     @ToString
     public static class LoginDTO {
         @NotEmpty(message = "E-mail을 입력해주세요.")

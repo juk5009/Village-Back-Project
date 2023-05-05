@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 import shop.mtcoding.village.dto.address.AddressList;
 import shop.mtcoding.village.dto.file.response.FileList;
 import shop.mtcoding.village.dto.hashtag.response.HashtagList;
-import shop.mtcoding.village.dto.place.response.PlaceList;
 import shop.mtcoding.village.dto.review.response.ReviewList;
 import shop.mtcoding.village.dto.search.SearchList;
 import shop.mtcoding.village.dto.search.SearchOrderby;
 import shop.mtcoding.village.model.address.Address;
-import shop.mtcoding.village.model.address.AddressRepository;
+import shop.mtcoding.village.model.address.PlaceAddressRepository;
+import shop.mtcoding.village.model.place.PlaceAddress;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class SearchRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final AddressRepository addressRepository;
+    private final PlaceAddressRepository addressRepository;
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
         String queryString =
@@ -62,7 +62,7 @@ public class SearchRepository {
 
                     Long addressId = rs.getLong("address_id");
                     if (addressId != null) {
-                        Address address = addressRepository.findById(addressId).orElse(null);
+                        PlaceAddress address = addressRepository.findById(addressId).orElse(null);
                         if (address != null) {
                             AddressList addressList = new AddressList();
                             addressList.setId(address.getId());
@@ -177,7 +177,7 @@ public class SearchRepository {
 
                     Long addressId = rs.getLong("address_id");
                     if (addressId != null) {
-                        Address address = addressRepository.findById(addressId).orElse(null);
+                        PlaceAddress address = addressRepository.findById(addressId).orElse(null);
                         if (address != null) {
                             AddressList addressList = new AddressList();
                             addressList.setId(address.getId());
@@ -247,7 +247,7 @@ public class SearchRepository {
 
                     Long addressId = rs.getLong("address_id");
                     if (addressId != null) {
-                        Address address = addressRepository.findById(addressId).orElse(null);
+                        PlaceAddress address = addressRepository.findById(addressId).orElse(null);
                         if (address != null) {
                             AddressList addressList = new AddressList();
                             addressList.setId(address.getId());

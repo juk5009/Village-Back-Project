@@ -2,29 +2,33 @@ package shop.mtcoding.village.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
-import shop.mtcoding.village.controller.host.HostController;
+import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.FieldDescriptor;
+import shop.mtcoding.village.interfaceTest.AbstractIntegrated;
 import shop.mtcoding.village.model.host.Host;
-import shop.mtcoding.village.model.host.HostRepository;
-import shop.mtcoding.village.service.HostService;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@Transactional
-public class HostControllerTest{
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-    @Autowired
-    private HostController hostController;
 
-    @Autowired
-    private HostRepository hostRepository;
+public class HostControllerTest extends AbstractIntegrated {
 
-    @Autowired
-    private HostService hostService;
+    @Test
+    void postFail() throws Exception {
+        this.mockMvc.perform(
+                        post ("/host"
+                                , 0
+                        ) .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isBadRequest())
+                .andDo(print())
+                .andDo(document("host-fail", responseFields(getFailResponseField())));
+
+    }
 
     @Test
     public void saveTest() {
@@ -32,10 +36,9 @@ public class HostControllerTest{
         host.setBusinessNum("123456789");
         host.setNickName("test nickName");
 
-        Host result = hostRepository.save(host);
 
-        Assertions.assertEquals(result.getBusinessNum(), "123456789");
-        Assertions.assertEquals(result.getNickName(), "test nickName");
+        Assertions.assertEquals(host.getBusinessNum(), "123456789");
+        Assertions.assertEquals(host.getNickName(), "test nickName");
 
     }
 

@@ -21,6 +21,7 @@ public class FacilityInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("편의시설 아이디")
+    @JsonIgnore
     private Long id;
 
     @Comment("편의시설 이름")

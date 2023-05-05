@@ -11,21 +11,17 @@
  import org.springframework.test.context.junit.jupiter.SpringExtension;
  import org.springframework.transaction.annotation.Transactional;
  import shop.mtcoding.village.model.address.Address;
- import shop.mtcoding.village.model.address.AddressRepository;
  import shop.mtcoding.village.model.category.Category;
- import shop.mtcoding.village.model.chatRoom.ChatRoom;
  import shop.mtcoding.village.model.date.DateRepository;
  import shop.mtcoding.village.model.date.Dates;
- import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
- import shop.mtcoding.village.model.hashtag.Hashtag;
  import shop.mtcoding.village.model.place.Place;
+ import shop.mtcoding.village.model.place.PlaceAddress;
  import shop.mtcoding.village.model.review.Review;
  import shop.mtcoding.village.model.user.User;
 
  import javax.persistence.EntityManager;
  import java.time.LocalDateTime;
  import java.time.LocalTime;
- import java.util.Collections;
  import java.util.List;
  import java.util.Optional;
 
@@ -104,19 +100,12 @@
          User user = new User().builder().name("love").password("1234").email("ssar@nate.com").tel("1234").role("USER").profile("123123").build();
          this.entityManager.persist(user);
 
-         Address address = new Address().builder().address("도로명주소").sigungu("시군구").zonecode("우편번호").x("경도").y("위도").build();
-         this.entityManager.persist(address);
+         PlaceAddress placeAddress = new PlaceAddress().builder().address("도로명주소").sigungu("시군구").zonecode("우편번호").x("경도").y("위도").build();
+         this.entityManager.persist(placeAddress);
 
-         Review review = new Review().builder().user(user).starRating(5).content("내용").image("이미지").likeCount(3).build();
-         this.entityManager.persist(review);
-
-         Category category = new Category().builder().categoryName("이름").build();
-         this.entityManager.persist(category);
-
-         Place place = new Place().builder().title("제목").address(address).tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
-                 .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now())).build();
+         Place place = new Place().builder().title("제목").tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
+                 .startTime(LocalDateTime.now()).endTime(LocalDateTime.now()).build();
          this.entityManager.persist(place);
-
          Dates dates = new Dates().builder().place(place).dayOfWeekName(dayOfWeekName).build();
          return this.entityManager.persist(dates);
 

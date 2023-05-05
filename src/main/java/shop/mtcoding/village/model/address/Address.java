@@ -5,51 +5,27 @@ import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 
-@Entity
+
+// TODO address는 Enity로 쓰지 말것!
+//@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-@Table(name = "address_tb")
+//@Table(name = "address_tb")
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("주소 아이디")
-//    @JsonIgnore
-    private Long id;
-
-    @Comment("도로명 주소")
     private String address;
 
-    @Comment("시군구명")
-//    @JsonIgnore
     private String sigungu;
 
-    @Comment("우편번호")
-//    @JsonIgnore
     private String zonecode;
 
-    @Comment("상세주소")
     private String detailAddress;
 
-    @Comment("경도")
-//    @JsonIgnore
     private String x;
 
-    @Comment("위도")
-//    @JsonIgnore
     private String y;
 
-    @Builder
-    public Address(Long id,String address, String sigungu, String zonecode, String detailAddress, String x, String y) {
-        this.id = id;
-        this.address = address;
-        this.sigungu = sigungu;
-        this.zonecode = zonecode;
-        this.detailAddress = detailAddress;
-        this.x = x;
-        this.y = y;
-    }
 
 }

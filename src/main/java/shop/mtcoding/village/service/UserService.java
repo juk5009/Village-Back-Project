@@ -62,7 +62,6 @@ public class UserService {
                 User userPS = userOP.get();
 
                 if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
-
                     String jwt = MyJwtProvider.create(userPS);
                     loginViewList.add(jwt);
                     loginViewList.add(String.valueOf(userPS.getId()));

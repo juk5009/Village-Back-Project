@@ -10,8 +10,7 @@ import shop.mtcoding.village.dto.file.response.FileList;
 import shop.mtcoding.village.dto.hashtag.response.HashtagList;
 import shop.mtcoding.village.dto.place.response.PlaceList;
 import shop.mtcoding.village.dto.review.response.ReviewList;
-import shop.mtcoding.village.model.address.Address;
-import shop.mtcoding.village.model.address.AddressRepository;
+import shop.mtcoding.village.model.address.PlaceAddressRepository;
 
 import java.util.*;
 
@@ -21,7 +20,7 @@ public class PlaceRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final AddressRepository addressRepository;
+    private final PlaceAddressRepository addressRepository;
 
     public List<PlaceList> PlaceList() {
         String queryString =
@@ -34,7 +33,6 @@ public class PlaceRepository {
                         "LEFT JOIN search_tb s ON p.id = s.place_id " +
                         "LEFT JOIN file_tb f ON p.id = f.place_id " +
                         "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id, a.sigungu, h.id, h.hashtag_name, f.id, f.file_url";
-
 
         return jdbcTemplate.query(queryString, placeListResultSetExtractor());
     }
@@ -57,7 +55,7 @@ public class PlaceRepository {
 
                     Long addressId = rs.getLong("address_id");
                     if (addressId != null) {
-                        Address address = addressRepository.findById(addressId).orElse(null);
+                        PlaceAddress address = addressRepository.findById(addressId).orElse(null);
                         if (address != null) {
                             AddressList addressList = new AddressList();
                             addressList.setId(address.getId());

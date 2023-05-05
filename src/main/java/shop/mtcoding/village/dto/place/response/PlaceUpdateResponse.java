@@ -40,10 +40,9 @@ public class PlaceUpdateResponse {
 
     private String categoryName;
 
-    public PlaceUpdateResponse(String title, Address placeAddress, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople
+    public PlaceUpdateResponse(String title, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople
             , Integer maxParking , Integer pricePerHour, String notice) {
         this.title = title;
-        this.placeAddress = placeAddress;
         this.tel = tel;
         this.startTime = startTime;
         this.endTime = endTime;
