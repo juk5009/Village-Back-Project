@@ -54,7 +54,7 @@ public class PlaceController {
         this.placeJpaRepository = placeJpaRepository;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<ResponseDTO<?>> MainList() {
         List<PlaceList> placeLists = placeService.공간리스트();
 
@@ -69,7 +69,7 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 전체 보기", allPlace), HttpStatus.OK);
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<DetailPlaceResponse>> detailPlace(
             @PathVariable Long id, DetailPlaceResponse detailPlaceResponse,
             @AuthenticationPrincipal MyUserDetails myUserDetails

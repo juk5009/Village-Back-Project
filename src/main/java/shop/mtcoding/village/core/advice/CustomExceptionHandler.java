@@ -1,4 +1,4 @@
-package shop.mtcoding.village.core.handler;
+package shop.mtcoding.village.core.advice;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
