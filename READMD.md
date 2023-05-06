@@ -122,6 +122,4 @@ Hi I'm Kim HoHyeon and I'm working in Busan with development.
 
 📧 이메일: [이메일 주소]
 
-🔗 LinkedIn: [LinkedIn 프로필 URL]
-
 🌐 개인 웹사이트: [개인 웹사이트 URL]
