@@ -24,9 +24,9 @@ public class HostControllerTest extends AbstractIntegrated {
                                 , 0
                         ) .accept(MediaType.APPLICATION_JSON)
                 )
-                .andExpect(status().isBadRequest())
-                .andDo(print())
-                .andDo(document("host-fail", responseFields(getFailResponseField())));
+                .andExpect(status().isForbidden())
+                .andDo(print());
+//                .andDo(document("host-fail", responseFields(getFailResponseField())));
 
     }
 

@@ -18,7 +18,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@DisplayName("ReservationControllerTest")
+@DisplayName("ReservationController 테스트")
 public class ReservationControllerTest extends AbstractIntegrated {
 
     @Test
@@ -28,14 +28,14 @@ public class ReservationControllerTest extends AbstractIntegrated {
     void getPage() throws Exception {
 
         this.mockMvc.perform(
-                        get ("/reservation")
+                        get ("/user/reservation")
                                 .header("Authorization", getUser())
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(
-                        document("place-list",
+                        document("reservation-list",
                                 responseFields(
                                 ).and(getReservationListResponseField("data[]."))
                         )
@@ -50,14 +50,14 @@ public class ReservationControllerTest extends AbstractIntegrated {
     void getDetailPage() throws Exception {
 
         this.mockMvc.perform(
-                        get ("/reservation/1")
+                        get ("/user/reservation/1")
                                 .header("Authorization", getUser())
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(
-                        document("place-detail-list",
+                        document("reservation-detail-list",
                                 responseFields(
                                 ).and(getReservationDetailResponseField("data."))
                         )
@@ -74,7 +74,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
         ReservationSaveRequest request = new ReservationSaveRequest(2L, 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
 
         this.mockMvc.perform(
-                        post("/reservation")
+                        post("/user/reservation")
                                 .header("Authorization", getUser())
                                 .content(objectMapper.writeValueAsString(request))
                                 .accept(MediaType.APPLICATION_JSON_VALUE)
@@ -97,7 +97,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
     void deleteReservation() throws Exception {
 
         this.mockMvc.perform(
-                        delete("/reservation/1")
+                        delete("/user/reservation/1")
                                 .header("Authorization", getUser())
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -133,11 +133,6 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"id").description("공간의 id"),
                 fieldWithPath(prefix+"user.id").description("유저 id"),
                 fieldWithPath(prefix+"user.name").description("유저 이름"),
-//                fieldWithPath(prefix+"user.email").description("유저 이메일"),
-//                fieldWithPath(prefix+"user.tel").description("유저 전화번호"),
-//                fieldWithPath(prefix+"user.profile").description("유저 프로필"),
-//                fieldWithPath(prefix+"user.status").description("유저 활성화 상태"),
-//                fieldWithPath(prefix+"user.createdAt").description("유저 가입시간"),
                 fieldWithPath(prefix+"date").description("예약 날짜"),
                 fieldWithPath(prefix+"place.id").description("공간 id"),
                 fieldWithPath(prefix+"place.title").description("공간 제목"),

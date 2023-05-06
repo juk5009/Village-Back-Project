@@ -94,10 +94,10 @@ VALUES(2,1,5,'최고의 여행이었어요!','/images/review_4.jpg',10,NOW());
 insert into host_tb (user_id, nick_name, address_id, business_num, status) values (1, 'ssar', 1, '457-10-784', 'WAIT');
 insert into host_tb (user_id, nick_name, address_id, business_num, status) values (2, 'Jane', 2, '424-52-724', 'WAIT');
 insert into host_tb (user_id, nick_name, address_id, business_num, status) values (3, 'Bob', 3, '552-18-254', 'WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(2,'Tom',2,'852-17-999','WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(4,'Alice',2,'222-13-111','WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(4,'John',3,'449-08-975','WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(2,'Kate',1,'001-01-001','WAIT');
+INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(4,'Tom',2,'852-17-999','WAIT');
+INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(5,'Alice',2,'222-13-111','WAIT');
+INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(6,'John',3,'449-08-975','WAIT');
+INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(7,'Kate',1,'001-01-001','WAIT');
 
 insert into facility_info_tb (facility_name, place_id)values ('Wifi', 1);
 insert into facility_info_tb (facility_name, place_id)values ('화장실', 1);

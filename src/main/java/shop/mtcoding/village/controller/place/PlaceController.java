@@ -39,7 +39,7 @@ import shop.mtcoding.village.util.status.PlaceStatus;
 //TODO 경로 바뀐 부분 전달하기
 @RestController
 @Slf4j
-@RequestMapping("/places")
+//@RequestMapping("/places")
 public class PlaceController {
 
     private final PlaceService placeService;
@@ -54,7 +54,8 @@ public class PlaceController {
         this.placeJpaRepository = placeJpaRepository;
     }
 
-    @GetMapping
+
+    @GetMapping("/places")
     public ResponseEntity<ResponseDTO<?>> MainList() {
         List<PlaceList> placeLists = placeService.공간리스트();
 
@@ -62,14 +63,14 @@ public class PlaceController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    @GetMapping("/allplace")
+    @GetMapping("/places/allPlace")
     public ResponseEntity<ResponseDTO<List<Place>>> getPlace() {
         List<Place> allPlace = placeJpaRepository.findAll();
         System.out.println("등록 페이지 전체 보기 : " + allPlace);
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 전체 보기", allPlace), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/host/places/{id}")
     public ResponseEntity<ResponseDTO<DetailPlaceResponse>> detailPlace(
             @PathVariable Long id, DetailPlaceResponse detailPlaceResponse,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -87,7 +88,7 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", detailPlaceResponse1), HttpStatus.OK);
     }
 
-    @PostMapping("/host")
+    @PostMapping("/host/places")
     public @ResponseBody ResponseEntity<ResponseDTO<Place>> savePlace(
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -96,7 +97,7 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 등록 완료", save), HttpStatus.OK);
     }
 
-    @PutMapping("/host")
+    @PutMapping("/host/places")
     public ResponseEntity<ResponseDTO<Place>> updatePlace(
             @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, Errors Errors,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -113,7 +114,7 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", update), HttpStatus.OK);
         }
         
-        @DeleteMapping("/{id}")
+        @DeleteMapping("/host/places/{id}")
         public ResponseEntity<ResponseDTO<PlaceStatus>> deletePlace(
                 @PathVariable Long id
         ){
@@ -128,7 +129,7 @@ public class PlaceController {
 
     }
 
-        @PostMapping("/{id}")
+        @PostMapping("/host/places/active/{id}")
         public ResponseEntity<ResponseDTO<PlaceStatus>> activePlace(
                 @PathVariable Long id
         ){

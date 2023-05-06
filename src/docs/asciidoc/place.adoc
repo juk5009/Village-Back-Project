@@ -1,0 +1,158 @@
+
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+
+= 공지사항 문서 [권한: 관리자]
+
+== 등록 신청 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/place-save/http-request.adoc[]
+
+=== 요청 정보 [Header]
+include::{snippets}/place-save/httpie-request.adoc[]
+
+=== 요청 정보 [Path Parameter]
+include::{snippets}/place-save/httpie-request.adoc[]
+
+=== 응답 정보 [성공]
+==== [HTTP]
+include::{snippets}/place-active/http-response.adoc[]
+
+==== [Body]
+include::{snippets}/place-active/response-body.adoc[]
+
+==== [Field]
+include::{snippets}/place-active/response-fields.adoc[]
+
+// ==== [Link]
+// include::{snippets}/notice-detail/links.adoc[]
+
+=== 응답 정보 [실패]
+* 공지사항이 존재하지 않을 경우
+
+==== [fields]
+include::{snippets}/place-active/response-fields.adoc[]
+
+=== CURL
+include::{snippets}/place-active/curl-request.adoc[]
+
+
+
+
+
+== place 비활성화 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/place-active/http-request.adoc[]
+
+// === 요청 정보 [Header]
+// include::{snippets}/notice-detail/request-headers.adoc[]
+
+// === 요청 정보 [Path Parameter]
+// include::{snippets}/place-active/path-parameters.adoc[]
+
+=== 응답 정보 [성공]
+==== [HTTP]
+include::{snippets}/place-active/http-response.adoc[]
+
+==== [Body]
+include::{snippets}/place-active/response-body.adoc[]
+
+==== [Field]
+include::{snippets}/place-active/response-fields.adoc[]
+
+// ==== [Link]
+// include::{snippets}/notice-detail/links.adoc[]
+
+=== 응답 정보 [실패]
+* 공지사항이 존재하지 않을 경우
+
+==== [fields]
+include::{snippets}/place-active/response-fields.adoc[]
+
+=== CURL
+include::{snippets}/place-active/curl-request.adoc[]
+
+
+
+
+
+== place-detail-list API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/place-detail-list/http-request.adoc[]
+
+// === 요청 정보 [Header]
+// include::{snippets}/notice-save/request-headers.adoc[]
+
+=== 응답 정보 [HTTP]
+include::{snippets}/place-detail-list/http-response.adoc[]
+
+=== 응답 정보 [Body]
+include::{snippets}/place-detail-list/response-body.adoc[]
+
+=== 응답 정보 [성공]
+==== [Field]
+include::{snippets}/place-detail-list/response-fields.adoc[]
+
+// ==== [Link]
+// include::{snippets}/notice-save/links.adoc[]
+
+=== 응답 정보 [실패]
+
+* 공지사항 제목을 입력해주세요.
+* 공지사항 내용을 입력해주세요.
+
+==== [fields]
+include::{snippets}/place-detail-list/response-fields.adoc[]
+
+
+=== CURL
+include::{snippets}/place-detail-list/curl-request.adoc[]
+
+
+
+== Place-List API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/place-list/http-request.adoc[]
+
+// === 요청 정보 [Header]
+// include::{snippets}/notice-update/request-headers.adoc[]
+
+=== 응답 정보 [HTTP]
+include::{snippets}/place-list/http-response.adoc[]
+
+=== 응답 정보 [Body]
+include::{snippets}/place-list/response-body.adoc[]
+
+=== 응답 정보 [성공]
+==== [Field]
+include::{snippets}/place-list/response-fields.adoc[]
+
+
+=== 응답 정보 [실패]
+
+* 공지사항이 존재하지 않습니다.
+* 공지사항 제목을 입력해주세요.
+* 공지사항 내용을 입력해주세요.
+* 공지사항 상태 값이 이상이 있습니다. 확인해주세요.
+
+==== [fields]
+include::{snippets}/place-list/response-fields.adoc[]
+
+
+=== CURL
+include::{snippets}/place-list/curl-request.adoc[]
+

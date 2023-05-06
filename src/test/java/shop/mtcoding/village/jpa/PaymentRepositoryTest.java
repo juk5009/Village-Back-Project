@@ -19,6 +19,7 @@
  import shop.mtcoding.village.model.review.Review;
  import shop.mtcoding.village.model.user.User;
  import shop.mtcoding.village.util.status.PaymentStatus;
+ import shop.mtcoding.village.util.status.PlaceStatus;
  import shop.mtcoding.village.util.status.ReservationStatus;
 
  import javax.persistence.EntityManager;
@@ -41,12 +42,6 @@
 
      @Autowired
      private EntityManager em;
-
-     @BeforeEach
-     public void init() {
-         em.createNativeQuery("ALTER TABLE payment_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
- //        setUpByPayment(PaymentStatus.WAIT, 40000);
-     }
 
      @Test
      @Transactional
@@ -108,7 +103,7 @@
          PlaceAddress placeAddress = new PlaceAddress().builder().address("도로명주소").sigungu("시군구").zonecode("우편번호").x("경도").y("위도").build();
          this.entityManager.persist(placeAddress);
 
-         Place place = new Place().builder().title("제목").tel("123123").placeIntroductionInfo("공간정보").notice("공간소개")
+         Place place = new Place().builder().title("제목").tel("123123").placeIntroductionInfo("공간정보").notice("공간소개").isConfirmed(true).status(PlaceStatus.WAIT)
                  .startTime(LocalDateTime.now()).endTime(LocalDateTime.now()).build();
          this.entityManager.persist(place);
 

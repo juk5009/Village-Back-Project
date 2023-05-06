@@ -18,11 +18,11 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@DisplayName("UserControllerTest")
+@DisplayName("UserController 테스트")
 public class UserControllerTest extends AbstractIntegrated {
 
     @Test
-    @DisplayName("UserLoginTest")
+    @DisplayName("유저 로그인 테스트")
     void userLogin() throws Exception{
 
         UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("ssar@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
@@ -53,7 +53,7 @@ public class UserControllerTest extends AbstractIntegrated {
 
     }
     @Test
-    @DisplayName("HostLoginTest")
+    @DisplayName("호스트 로그인 테스트")
     void hostLogin() throws Exception{
 
         UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Jane@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
@@ -84,7 +84,7 @@ public class UserControllerTest extends AbstractIntegrated {
 
     }
     @Test
-    @DisplayName("AdminLoginTest")
+    @DisplayName("관리자 로그인 테스트")
     void adminLogin() throws Exception{
 
         UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Bob@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");

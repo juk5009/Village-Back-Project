@@ -43,7 +43,7 @@ import shop.mtcoding.village.service.ReservationService;
 import shop.mtcoding.village.util.DateUtils;
 
 @RestController
-@RequestMapping("/reservation")
+//@RequestMapping("/reservation")
 @RequiredArgsConstructor
 @Slf4j
 public class ReservationController {
@@ -60,7 +60,7 @@ public class ReservationController {
 
     private final FcmRepository fcmRepository;
 
-    @GetMapping()
+    @GetMapping("/user/reservation")
     public ResponseEntity<ResponseDTO<List<Reservation>>> getReservation(){
 
         List<Reservation> allReservation = reservationRepository.findAll();
@@ -68,7 +68,7 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약내역 조회완료", allReservation), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/reservation/{id}")
     public ResponseEntity<ResponseDTO<ReservationDTO>> getById(@PathVariable Long id) {
 
         Optional<Reservation> optionalUser = reservationRepository.findById(id);
@@ -82,7 +82,8 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "유저 예약내역 조회완료", reservation.toDTOResponse()), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/user/reservation")
+//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<ResponseDTO<ReservationSaveResponse>> save(
             @Valid @RequestBody ReservationSaveRequest reservationSaveRequest,
             @AuthenticationPrincipal MyUserDetails myUserDetails
@@ -135,7 +136,7 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toResponse(user, place)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/reservation/{id}")
     public ResponseEntity<?> delete(
             @PathVariable Long id
     ) {

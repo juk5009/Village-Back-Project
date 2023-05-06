@@ -37,13 +37,6 @@
      @Autowired
      private EntityManager em;
 
-     @BeforeEach
-     public void init() {
-         em.createNativeQuery("ALTER TABLE place_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
- //        setUpByPlace("공간 제목","010-1245-7878", "공간 정보", "공간 소개",
- //                 5, 30, LocalDateTime.now(), LocalDateTime.now());
-     }
-
      @Test
      @Transactional
      @DisplayName("공간 조회 테스트")
@@ -110,6 +103,7 @@
 
          var place = new Place();
          place.setUser(user);
+         place.setAddress(placeAddress);
          place.setTitle(title);
          place.setTel(tel);
          place.setPlaceIntroductionInfo(placeIntroductionInfo);

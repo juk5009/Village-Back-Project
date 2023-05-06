@@ -51,9 +51,7 @@ public class Place {
 
     @Comment("유저(호스트) 정보")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("호스트 주소")
@@ -100,8 +98,28 @@ public class Place {
     @Comment("예약승인 필요여부")
     private Boolean isConfirmed;
 
+
+    @Builder
+    public Place(User user, PlaceAddress address, String title, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo
+            , Integer maxPeople, Integer maxParking, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime, PlaceStatus status, Boolean isConfirmed) {
+        this.user = user;
+        this.address = address;
+        this.title = title;
+        this.tel = tel;
+        this.placeIntroductionInfo = placeIntroductionInfo;
+        this.notice = notice;
+        this.fileInfo = fileInfo;
+        this.maxPeople = maxPeople;
+        this.maxParking = maxParking;
+        this.pricePerHour = pricePerHour;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+        this.isConfirmed = isConfirmed;
+    }
+
     public Place(User user, String title, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople,
-            Integer maxParking, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
+                 Integer maxParking, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
         this.user = user;
         this.title = title;
         this.tel = tel;
@@ -115,7 +133,7 @@ public class Place {
         this.endTime = endTime;
     }
 
-    @Builder
+
     public Place(String title, String tel, LocalDateTime startTime, LocalDateTime endTime,
                  String placeIntroductionInfo,
                  String notice, Integer maxPeople, Integer maxParking, Integer pricePerHour) {

@@ -2,6 +2,8 @@ package shop.mtcoding.village.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -9,15 +11,21 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import lombok.extern.slf4j.Slf4j;
+import shop.mtcoding.village.core.exception.CustomException;
+import shop.mtcoding.village.core.exception.Exception401;
+import shop.mtcoding.village.core.exception.Exception403;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.core.jwt.JwtAuthorizationFilter;
 import shop.mtcoding.village.notFoundConst.RoleConst;
+
+import java.io.PrintWriter;
 
 
 @Slf4j
@@ -85,6 +93,23 @@ public class SecurityConfig {
         // 8 .커스텀 필터 적용 ( 시큐리티 필터 교환 )
         http.apply(new CustomSecurityFilterManager());
 
+        // 9. 인증 실패 처리
+
+
+
+//        // 10. 권한 실패 처리
+//        http.exceptionHandling().accessDeniedHandler((request, response, accessDeniedException) -> {
+//            // checkpoint -> 예외 핸들러 처리
+//            log.debug("디버그 : 권한 실패 : " + accessDeniedException.getMessage());
+//            log.info("인포 : 권한 실패 : " + accessDeniedException.getMessage());
+//            log.warn("워닝 : 권한 실패 : " + accessDeniedException.getMessage());
+//            log.error("에러 : 권한 실패 : " + accessDeniedException.getMessage());
+//
+//            response.setContentType("text/plain; charset=utf-8");
+//            response.setStatus(403);
+//            response.getWriter().println("권한 실패 ");
+//        });
+
 
         // // Form 로그인 설정
         // http.formLogin()
@@ -105,13 +130,12 @@ public class SecurityConfig {
         // 11 .인증, 권한 필터 설정 ( 스프링 문서 참고 )
         http.authorizeRequests((authorize) -> {
             authorize.antMatchers(
-                    "/places/host",
-                            "/places/host/**",
+                            "/host/**",
                             "/user/**"
                     ).authenticated()//인증이 필요한곳
 
-                     .antMatchers("/manager/**").hasAnyRole("ADMIN","MANAGER")
-                     .antMatchers("/admin/**").hasRole("ADMIN")
+                     .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
+                     .antMatchers("/host/**").hasAnyRole("ADMIN","HOST")
                      .anyRequest().permitAll(); // /users 는 인증이 필요 나머지는 허용
         });
         return http.build();

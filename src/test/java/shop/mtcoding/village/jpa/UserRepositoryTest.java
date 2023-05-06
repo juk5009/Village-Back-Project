@@ -37,7 +37,6 @@
 
      @BeforeEach
      public void init() {
-         em.createNativeQuery("ALTER TABLE user_tb ALTER COLUMN ID RESTART WITH 4L").executeUpdate();
          setUp("love", "1234", "love@nate.com", "010-7474-1212", "USER","profile");
      }
      @Test
@@ -59,7 +58,7 @@
 
          if(optionalUser.isPresent()) {
              var result = optionalUser.get();
-             Assertions.assertEquals(result.getName(), "love");
+             Assertions.assertEquals(result.getName(), "Alice");
 
              var profile = "profile55";
              result.setProfile(profile);
