@@ -1,21 +1,17 @@
-package shop.mtcoding.village.dto.user;
+package shop.mtcoding.village.dto.host;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class HostDTO {
 
     private Long id;
 
-    private String name;
-
-    private String email;
-
-
+    private String hostName;
 }

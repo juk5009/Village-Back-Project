@@ -29,11 +29,11 @@ public class PlaceAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("공간 아이디")
     private Long id;
-
-    @Comment("공간 정보")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Place place;
+//
+//    @Comment("공간 정보")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private Place place;
 
     private String address;
 
@@ -48,8 +48,7 @@ public class PlaceAddress {
     private String y;
 
     @Builder
-    public PlaceAddress(Place place, String address, String sigungu, String zonecode, String detailAddress, String x, String y) {
-        this.place = place;
+    public PlaceAddress(String address, String sigungu, String zonecode, String detailAddress, String x, String y) {
         this.address = address;
         this.sigungu = sigungu;
         this.zonecode = zonecode;

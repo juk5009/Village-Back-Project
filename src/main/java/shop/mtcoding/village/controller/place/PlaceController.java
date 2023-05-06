@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +26,8 @@ import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.dto.place.response.DetailPlaceResponse;
 import shop.mtcoding.village.dto.place.response.PlaceList;
+import shop.mtcoding.village.model.host.Host;
+import shop.mtcoding.village.model.host.HostRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.notFoundConst.PlaceConst;
@@ -43,10 +44,13 @@ public class PlaceController {
 
     private final PlaceService placeService;
 
+    private final HostRepository hostRepository;
+
     private final PlaceJpaRepository placeJpaRepository;
 
-    public PlaceController(PlaceService placeService, PlaceJpaRepository placeJpaRepository) {
+    public PlaceController(PlaceService placeService, HostRepository hostRepository, PlaceJpaRepository placeJpaRepository) {
         this.placeService = placeService;
+        this.hostRepository = hostRepository;
         this.placeJpaRepository = placeJpaRepository;
     }
 
@@ -73,7 +77,9 @@ public class PlaceController {
         Long userId = myUserDetails.getUser().getId();
         Place placeResponse = placeService.공간상세보기(id, userId, detailPlaceResponse);
 
-        DetailPlaceResponse detailPlaceResponse1 = placeResponse.toDetailResponse(detailPlaceResponse.getFile(), detailPlaceResponse.getHost(), detailPlaceResponse.getReview(),
+        Host host = hostRepository.findByUser_Id(userId);
+
+        DetailPlaceResponse detailPlaceResponse1 = placeResponse.toDetailResponse(detailPlaceResponse.getFile(), host, detailPlaceResponse.getReview(),
                 detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks());
 
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", detailPlaceResponse1), HttpStatus.OK);

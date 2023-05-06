@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import shop.mtcoding.village.dto.host.HostDTO;
 import shop.mtcoding.village.dto.place.response.DetailPlaceResponse;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.dto.place.response.PlaceUpdateResponse;
@@ -54,6 +55,10 @@ public class Place {
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    @Comment("호스트 주소")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private PlaceAddress address;
 
     @Comment("공간 제목")
     private String title;
@@ -141,9 +146,12 @@ public class Place {
     public DetailPlaceResponse toDetailResponse(
             File file, Host host, Review review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
     ) {
+        HostDTO hostDTO = new HostDTO();
+        hostDTO.setId(host.getId());
+        hostDTO.setHostName(host.getNickName());
         return new DetailPlaceResponse(
-                title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
-                , file, host, review, scrap, hashtags, facilitys, dayOfWeeks
+                id, address, title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
+                , file, hostDTO, review, scrap, hashtags, facilitys, dayOfWeeks
         );
     }
 

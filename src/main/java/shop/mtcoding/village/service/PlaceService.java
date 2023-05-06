@@ -10,6 +10,7 @@ import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
 import shop.mtcoding.village.dto.file.dto.FileSaveDTO;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
+import shop.mtcoding.village.dto.host.HostDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
 import shop.mtcoding.village.dto.place.request.PlaceUpdateRequest;
 import shop.mtcoding.village.dto.place.response.DetailPlaceResponse;
@@ -267,8 +268,11 @@ public class PlaceService {
 //        detailPlaceResponse.setFile(fileInfo);
 
         // host 정보 넣기
-        Host user = hostRepository.findByUser_Id(userId);
-        detailPlaceResponse.setHost(user);
+        Host host = hostRepository.findByUser_Id(userId);
+        HostDTO hostDTO = new HostDTO();
+        hostDTO.setId(host.getId());
+        hostDTO.setHostName(hostDTO.getHostName());
+        detailPlaceResponse.setHost(hostDTO);
 
         // review 정보 넣기
         Review review = reviewRepository.findByPlaceId(placeId);

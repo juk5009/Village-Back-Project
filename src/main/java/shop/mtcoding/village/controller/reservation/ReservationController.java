@@ -97,6 +97,8 @@ public class ReservationController {
 
         Place place = placeOptional.get();
 
+        System.out.println("디버그 : " + place.getAddress());
+
         LocalDate date = DateUtils.fromLocalDateTime(DateUtils.parseLocalDateTime(reservationSaveRequest.getDate()));
         System.out.println(date); // 예시 출력: 2023-04-25
 
@@ -118,7 +120,7 @@ public class ReservationController {
         Fcm fcm = fcmOptional.get();
 
         RequestDTO requestDTO = new RequestDTO("Village",
-                "[예약알림]\n"+ reservationSaveRequest.getUserName()+ "님이 [" + place.getTitle() + "]에 예약 신청했습니다.\n"
+                "[예약알림]\n"+ user.getName()+ "님이 [" + place.getTitle() + "]에 예약 신청했습니다.\n"
                         +"날짜: "+date+"\n"
                         +"일시: "+DateUtils.parseLocalDateTime(reservationSaveRequest.getStartTime()).toLocalTime()+"~"
                         +DateUtils.parseLocalDateTime(reservationSaveRequest.getEndTime()).toLocalTime()+"\n"

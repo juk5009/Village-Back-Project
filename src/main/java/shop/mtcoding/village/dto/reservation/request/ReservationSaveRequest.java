@@ -19,11 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationSaveRequest {
-
     private Long placeId;
-
-    @NotBlank(message = "이름을 입력해주세요.")
-    private String userName;
 
     private Integer peopleNum;
 
@@ -46,7 +42,6 @@ public class ReservationSaveRequest {
         LocalDateTime endTimeParser = DateUtils.parseLocalDateTime(endTime);
 
         User user = new User();
-        user.setName(userName);
         Reservation reservation = new Reservation();
         reservation.setPeopleNum(peopleNum);
         reservation.setDate(dateParser);
