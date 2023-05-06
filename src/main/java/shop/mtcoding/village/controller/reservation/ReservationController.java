@@ -36,6 +36,8 @@ import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
+import shop.mtcoding.village.model.user.User;
+import shop.mtcoding.village.model.user.UserRepository;
 import shop.mtcoding.village.notFoundConst.ReservationConst;
 import shop.mtcoding.village.service.ReservationService;
 import shop.mtcoding.village.util.DateUtils;
@@ -49,6 +51,8 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     private final ReservationRepository reservationRepository;
+
+    private final UserRepository userRepository;
 
     private final FirebaseCloudMessageService firebaseCloudMessageService;
 
@@ -97,6 +101,14 @@ public class ReservationController {
         System.out.println(date); // 예시 출력: 2023-04-25
 
         Long id = myUserDetails.getUser().getId();
+
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new CustomException("유저의 정보를 다시 확인 해주세요");
+        }
+
+        User user = userOptional.get();
+
         var fcmOptional = fcmRepository.findByUserId(id);
 
         if (fcmOptional.isEmpty()) {
@@ -113,14 +125,12 @@ public class ReservationController {
                         +"인원: "+reservationSaveRequest.getPeopleNum()+"명\n",
                 fcm.getTargetToken());
 
-
-
         firebaseCloudMessageService.sendMessageTo(
                 requestDTO.getTargetToken(),
                 requestDTO.getTitle(),
                 requestDTO.getBody());
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toResponse()), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toResponse(user, place)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

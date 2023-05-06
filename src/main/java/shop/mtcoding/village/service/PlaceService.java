@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.api.s3.S3Service;
+import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
@@ -24,6 +25,8 @@ import shop.mtcoding.village.model.file.FileInfoRepository;
 import shop.mtcoding.village.model.file.FileRepository;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.hashtag.HashtagRepository;
+import shop.mtcoding.village.model.host.Host;
+import shop.mtcoding.village.model.host.HostRepository;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceJpaRepository;
 import shop.mtcoding.village.model.place.PlaceRepository;
@@ -63,6 +66,8 @@ public class PlaceService {
     private final FileRepository fileRepository;
 
     private final FileInfoRepository fileInfoRepository;
+
+    private final HostRepository hostRepository;
 
     private final ScrapRepository scrapRepository;
 
@@ -244,13 +249,15 @@ public class PlaceService {
         return placeJpaRepository.findAll();
     }
 
-    public DetailPlaceResponse 공간상세보기(Long id, DetailPlaceResponse detailPlaceResponse) {
+    public Place 공간상세보기(Long placePathId, Long userId, DetailPlaceResponse detailPlaceResponse) {
 
         // place 정보 넣기
-        Optional<Place> place = placeJpaRepository.findById(id);
-        detailPlaceResponse.setPlace(place.get());
-
-        var placeId = place.get().getId();
+        Optional<Place> placeOptional = placeJpaRepository.findById(placePathId);
+        if (placeOptional.isEmpty()){
+            throw new CustomException("공간의 정보를 찾을 수 없습니다");
+        }
+        Place place = placeOptional.get();
+        var placeId = placeOptional.get().getId();
 
         // file 정보 넣기
         File file = fileRepository.findByPlaceId(placeId);
@@ -258,6 +265,10 @@ public class PlaceService {
 
 //        FileInfo fileInfo = fileInfoRepository.findByType(FileType.PLACE);
 //        detailPlaceResponse.setFile(fileInfo);
+
+        // host 정보 넣기
+        Host user = hostRepository.findByUser_Id(userId);
+        detailPlaceResponse.setHost(user);
 
         // review 정보 넣기
         Review review = reviewRepository.findByPlaceId(placeId);
@@ -281,7 +292,7 @@ public class PlaceService {
 
         System.out.println("디버그 : " + detailPlaceResponse);
 
-        return detailPlaceResponse;
+        return place;
     }
 
 }

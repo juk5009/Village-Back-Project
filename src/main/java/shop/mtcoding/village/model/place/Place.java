@@ -2,6 +2,7 @@ package shop.mtcoding.village.model.place;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,10 +18,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import shop.mtcoding.village.dto.place.response.DetailPlaceResponse;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.dto.place.response.PlaceUpdateResponse;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.date.Dates;
+import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
+import shop.mtcoding.village.model.file.File;
 import shop.mtcoding.village.model.file.FileInfo;
+import shop.mtcoding.village.model.hashtag.Hashtag;
+import shop.mtcoding.village.model.host.Host;
+import shop.mtcoding.village.model.review.Review;
+import shop.mtcoding.village.model.scrap.Scrap;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.PlaceStatus;
 
@@ -126,6 +135,15 @@ public class Place {
     public PlaceUpdateResponse toUpdateResponse() {
         return new PlaceUpdateResponse(
                 title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
+        );
+    }
+
+    public DetailPlaceResponse toDetailResponse(
+            File file, Host host, Review review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
+    ) {
+        return new DetailPlaceResponse(
+                title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
+                , file, host, review, scrap, hashtags, facilitys, dayOfWeeks
         );
     }
 

@@ -12,16 +12,12 @@ values ('부산 부산진구 중앙대로 688 한준빌딩 3층', '부산 부산
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
 values ('부산 부산진구 중앙대로 688 한준빌딩 4층', '부산 부산진구', '47296', '401호' ,'12', '215');
 
-
-
 insert into account_tb(user_id, account_num)
 values (1, '123456-01-123456');
 insert into account_tb(user_id, account_num)
 values (1, '123434-01-123354');
 insert into account_tb(user_id, account_num)
 values (1, '333456-01-111244');
-
-
 
 insert into place_tb (user_id, title, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
@@ -36,7 +32,23 @@ insert into place_tb (user_id, title, tel, notice, place_introduction_info, max_
                       start_time, end_time)
 values (3, '업타운댄스뮤직 아카데미', '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, 'ACTIVE', false, NOW(), NOW());
 
-
+insert into place_tb (user_id, title, tel, notice, place_introduction_info, max_people, max_parking,
+                      price_per_hour, status, is_confirmed,
+                      start_time, end_time)
+VALUES (
+           1,
+           '홍대 쉐어하우스',
+           '02-1234-5678',
+           '파티, 모임에 적합한 공간입니다.',
+           '이 곳은 홍대 중심에 위치한 쉐어하우스로, 친구들과 함께 모여 파티를 즐길 수 있는 공간입니다.',
+           20,
+           5,
+           20000,
+           'AVAILABLE',
+           true,
+           '2023-06-01 18:00:00',
+           '2023-06-01 23:00:00'
+       );
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
 values (1, 1, 5, '좋은 상품이에요', NULL, 10, now());
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
@@ -44,7 +56,9 @@ values (2, 2, 4, '조금 아쉬운 부분도 있지만 전체적으로 만족스
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
 values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
 
-
+insert into host_tb (user_id, nick_name, place_address_id, business_num, status) values (1, 'ssar', 1, '457-10-784', 'WAIT');
+insert into host_tb (user_id, nick_name, place_address_id, business_num, status) values (2, 'Jane', 2, '424-52-724', 'WAIT');
+insert into host_tb (user_id, nick_name, place_address_id, business_num, status) values (3, 'Bob', 3, '552-18-254', 'WAIT');
 
 
 insert into facility_info_tb (facility_name, place_id)

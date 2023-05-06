@@ -32,6 +32,7 @@ public class PlaceAddress {
 
     @Comment("공간 정보")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Place place;
 
     private String address;

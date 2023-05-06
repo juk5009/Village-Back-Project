@@ -93,11 +93,8 @@ public class Reservation {
         this.peopleNum = peopleNum;
         this.status = status;
     }
-    public ReservationSaveResponse toResponse() {
-        User userName = new User();
-        userName.setName(user.getName());
-
-        return new ReservationSaveResponse(userName, peopleNum, date, startTime, endTime, status);
+    public ReservationSaveResponse toResponse(User user, Place place) {
+        return new ReservationSaveResponse(user, place, peopleNum, date, startTime, endTime, status);
     }
     
     public ReservationDTO toDTOResponse() {

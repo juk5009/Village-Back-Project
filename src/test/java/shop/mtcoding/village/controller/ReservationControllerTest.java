@@ -17,8 +17,7 @@ import shop.mtcoding.village.interfaceTest.AbstractIntegrated;
 import shop.mtcoding.village.util.status.ReservationStatus;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -102,7 +101,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
     void deleteReservation() throws Exception {
 
         this.mockMvc.perform(
-                        get ("/reservation/1")
+                        delete("/reservation/1")
                                 .header("Authorization", getUser())
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -111,7 +110,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 .andDo(
                         document("delete-reservation",
                                 responseFields(
-                                ).and()
+                                ).and(deleteReservationResponseField())
                         )
 
                 );
@@ -217,4 +216,13 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"totalPrice").description("예약 총금액")
         };
     }
+    private FieldDescriptor[] deleteReservationResponseField() {
+        return new FieldDescriptor[]{
+                fieldWithPath("code").description("응답 코드"),
+                fieldWithPath("status").description("응답 상태"),
+                fieldWithPath("msg").description("응답 메시지"),
+                fieldWithPath("data").description("응답 데이터"),
+        };
+    }
+
 }

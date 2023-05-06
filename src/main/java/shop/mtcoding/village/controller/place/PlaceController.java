@@ -67,11 +67,16 @@ public class PlaceController {
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<ResponseDTO<DetailPlaceResponse>> detailPlace(
-            @PathVariable Long id, DetailPlaceResponse detailPlaceResponse
+            @PathVariable Long id, DetailPlaceResponse detailPlaceResponse,
+            @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
-        DetailPlaceResponse placeResponse = placeService.공간상세보기(id, detailPlaceResponse);
+        Long userId = myUserDetails.getUser().getId();
+        Place placeResponse = placeService.공간상세보기(id, userId, detailPlaceResponse);
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", placeResponse), HttpStatus.OK);
+        DetailPlaceResponse detailPlaceResponse1 = placeResponse.toDetailResponse(detailPlaceResponse.getFile(), detailPlaceResponse.getHost(), detailPlaceResponse.getReview(),
+                detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks());
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", detailPlaceResponse1), HttpStatus.OK);
     }
 
     @PostMapping("/host")

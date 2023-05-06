@@ -1,6 +1,7 @@
 package shop.mtcoding.village.dto.reservation.response;
 
 import lombok.Getter;
+import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.ReservationStatus;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,8 @@ import java.time.LocalDateTime;
 public class ReservationSaveResponse {
 
     private User user;
+
+    private Place place;
 
     private Integer peopleNum;
 
@@ -21,9 +24,9 @@ public class ReservationSaveResponse {
 
     private ReservationStatus status;
 
-    public ReservationSaveResponse(User user, Integer peopleNum, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, ReservationStatus status) {
-
+    public ReservationSaveResponse(User user, Place place, Integer peopleNum, LocalDateTime date, LocalDateTime startTime, LocalDateTime endTime, ReservationStatus status) {
         this.user = user;
+        this.place = place;
         this.peopleNum = peopleNum;
         this.date = date;
         this.startTime = startTime;
