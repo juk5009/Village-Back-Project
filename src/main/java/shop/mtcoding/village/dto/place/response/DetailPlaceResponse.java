@@ -52,7 +52,7 @@ public class DetailPlaceResponse {
 
     private HostDTO host;
 
-    private Review review;
+    private List<Review> review;
 
     private Scrap scrap;
 
@@ -63,7 +63,7 @@ public class DetailPlaceResponse {
     private List<Dates> dayOfWeeks;
 
     public DetailPlaceResponse(Long id, PlaceAddress address, String title, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople, Integer maxParking
-            , Integer pricePerHour, String notice, File file, HostDTO host, Review review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks) {
+            , Integer pricePerHour, String notice, File file, HostDTO host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks) {
         this.id = id;
         this.address = address;
         this.title = title;

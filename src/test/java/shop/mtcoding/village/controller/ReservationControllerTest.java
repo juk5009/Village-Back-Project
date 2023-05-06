@@ -1,16 +1,12 @@
 package shop.mtcoding.village.controller;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.dto.reservation.request.ReservationSaveRequest;
 import shop.mtcoding.village.interfaceTest.AbstractIntegrated;
@@ -75,7 +71,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
     @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void postReservation () throws Exception {
 
-        ReservationSaveRequest request = new ReservationSaveRequest(2L, "예약자 이름", 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
+        ReservationSaveRequest request = new ReservationSaveRequest(2L, 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
 
         this.mockMvc.perform(
                         post("/reservation")
@@ -120,7 +116,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
 
     private FieldDescriptor[] getReservationRequestField() {
         return new FieldDescriptor[] {
-                fieldWithPath("userName").description("예약자 이름"),
+//                fieldWithPath("userName").description("예약자 이름"),
                 fieldWithPath("placeId").description("공간Id"),
                 fieldWithPath("peopleNum").description("예약 인원수"),
                 fieldWithPath("date").description("예약 날짜"),
@@ -134,15 +130,24 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath("code").description("응답 코드"),
                 fieldWithPath("status").description("응답 상태"),
                 fieldWithPath("msg").description("응답 메시지"),
-//                fieldWithPath(prefix+"id").description("공간의 id"),
+                fieldWithPath(prefix+"id").description("공간의 id"),
                 fieldWithPath(prefix+"user.id").description("유저 id"),
                 fieldWithPath(prefix+"user.name").description("유저 이름"),
-                fieldWithPath(prefix+"user.email").description("유저 이메일"),
-                fieldWithPath(prefix+"user.tel").description("유저 전화번호"),
-                fieldWithPath(prefix+"user.profile").description("유저 프로필"),
-                fieldWithPath(prefix+"user.status").description("유저 활성화 상태"),
-                fieldWithPath(prefix+"user.createdAt").description("유저 가입시간"),
+//                fieldWithPath(prefix+"user.email").description("유저 이메일"),
+//                fieldWithPath(prefix+"user.tel").description("유저 전화번호"),
+//                fieldWithPath(prefix+"user.profile").description("유저 프로필"),
+//                fieldWithPath(prefix+"user.status").description("유저 활성화 상태"),
+//                fieldWithPath(prefix+"user.createdAt").description("유저 가입시간"),
                 fieldWithPath(prefix+"date").description("예약 날짜"),
+                fieldWithPath(prefix+"place.id").description("공간 id"),
+                fieldWithPath(prefix+"place.title").description("공간 제목"),
+                fieldWithPath(prefix+"place.address.id").description("공간 주소 id"),
+                fieldWithPath(prefix+"place.address.address").description("공간 도로명주소"),
+                fieldWithPath(prefix+"place.address.sigungu").description("공간 시군구"),
+                fieldWithPath(prefix+"place.address.zonecode").description("공간 우편번호"),
+                fieldWithPath(prefix+"place.address.detailAddress").description("공간 상세주소"),
+                fieldWithPath(prefix+"place.address.x").description("공간 경도"),
+                fieldWithPath(prefix+"place.address.y").description("공간 위도"),
                 fieldWithPath(prefix+"startTime").description("예약 시작시간"),
                 fieldWithPath(prefix+"endTime").description("예약 마감시간"),
                 fieldWithPath(prefix+"peopleNum").description("예약 인원"),
@@ -163,6 +168,13 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"user.profile").description("유저 프로필"),
                 fieldWithPath(prefix+"user.status").description("유저 활성화 상태"),
                 fieldWithPath(prefix+"user.createdAt").description("유저 가입시간"),
+                fieldWithPath(prefix+"place.address.id").description("공간 주소 id"),
+                fieldWithPath(prefix+"place.address.address").description("공간 도로명주소"),
+                fieldWithPath(prefix+"place.address.sigungu").description("공간 시군구"),
+                fieldWithPath(prefix+"place.address.zonecode").description("공간 우편번호"),
+                fieldWithPath(prefix+"place.address.detailAddress").description("공간 상세주소"),
+                fieldWithPath(prefix+"place.address.x").description("공간 경도"),
+                fieldWithPath(prefix+"place.address.y").description("공간 위도"),
                 fieldWithPath(prefix+"place.id").description("공간 id"),
                 fieldWithPath(prefix+"place.tel").description("공간 전화번호"),
                 fieldWithPath(prefix+"place.title").description("공간 제목"),
@@ -196,6 +208,13 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"user.profile").description("유저 프로필"),
                 fieldWithPath(prefix+"user.status").description("유저 활성화 상태"),
                 fieldWithPath(prefix+"user.createdAt").description("유저 가입시간"),
+                fieldWithPath(prefix+"place.address.id").description("공간 주소 id"),
+                fieldWithPath(prefix+"place.address.address").description("공간 도로명주소"),
+                fieldWithPath(prefix+"place.address.sigungu").description("공간 시군구"),
+                fieldWithPath(prefix+"place.address.zonecode").description("공간 우편번호"),
+                fieldWithPath(prefix+"place.address.detailAddress").description("공간 상세주소"),
+                fieldWithPath(prefix+"place.address.x").description("공간 경도"),
+                fieldWithPath(prefix+"place.address.y").description("공간 위도"),
                 fieldWithPath(prefix+"place.id").description("공간 id"),
                 fieldWithPath(prefix+"place.tel").description("공간 전화번호"),
                 fieldWithPath(prefix+"place.title").description("공간 제목"),

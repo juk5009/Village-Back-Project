@@ -21,7 +21,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     @Transactional
-    public Reservation 예약신청(@Valid ReservationSaveRequest reservationSaveRequest) {
+    public Reservation 예약신청(ReservationSaveRequest reservationSaveRequest) {
 
         try {
             reservationSaveRequest.setReservationStatus(ReservationStatus.WAIT);

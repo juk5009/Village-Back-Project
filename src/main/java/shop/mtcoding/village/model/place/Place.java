@@ -144,7 +144,7 @@ public class Place {
     }
 
     public DetailPlaceResponse toDetailResponse(
-            File file, Host host, Review review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
+            File file, Host host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
     ) {
         HostDTO hostDTO = new HostDTO();
         hostDTO.setId(host.getId());

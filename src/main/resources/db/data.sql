@@ -80,7 +80,7 @@ values (2, 2, 4, '조금 아쉬운 부분도 있지만 전체적으로 만족스
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
 values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
 INSERT INTO review_tb(user_id,place_id,star_rating,content,image,like_count,created_at)
-VALUES(3,3,3,'그저 그랬어요',NULL,2,NOW());
+VALUES(3,4,3,'그저 그랬어요',NULL,2,NOW());
 INSERT INTO review_tb(user_id,place_id,star_rating,content,image,like_count,created_at)
 VALUES(5,6,4,'너무 좋았어요! 다음에 또 방문할게요.','/images/review_1.jpg',6,NOW());
 INSERT INTO review_tb(user_id,place_id,star_rating,content,image,like_count,created_at)

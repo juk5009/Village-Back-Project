@@ -275,7 +275,7 @@ public class PlaceService {
         detailPlaceResponse.setHost(hostDTO);
 
         // review 정보 넣기
-        Review review = reviewRepository.findByPlaceId(placeId);
+        List<Review> review = reviewRepository.findByPlaceId(placeId);
         detailPlaceResponse.setReview(review);
 
         // facility 정보 넣기
