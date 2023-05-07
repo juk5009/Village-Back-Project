@@ -65,7 +65,8 @@ public class Payment {
         this.totalPrice = totalPrice;
     }
 
-    public Payment(String receiptId) {
+    public Payment(String receiptId, Integer totalPrice) {
         this.receiptId = receiptId;
+        this.totalPrice = totalPrice;
     }
 }

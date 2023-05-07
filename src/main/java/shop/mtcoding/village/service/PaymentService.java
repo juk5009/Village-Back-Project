@@ -3,6 +3,7 @@ package shop.mtcoding.village.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.core.exception.CustomException;
+import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.bootpay.ReceiptDTO;
 import shop.mtcoding.village.dto.payment.PaymentDTO;
@@ -13,6 +14,7 @@ import shop.mtcoding.village.model.payment.BootPatRepository;
 import shop.mtcoding.village.model.payment.BootPay;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.payment.PaymentRepository;
+import shop.mtcoding.village.util.status.PaymentStatus;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,15 +38,19 @@ public class PaymentService {
         this.metaRepository = metaRepository;
     }
 
-
     @Transactional
     public BootPay 구매요청(ReceiptDTO receiptDTO) {
 
-        Optional<Payment> paymentOptional = paymentRepository.findByReceiptId(receiptDTO.getReceiptId());
+        Optional<Payment> paymentOptional = paymentRepository.findByReceiptIdAndTotalPrice(receiptDTO.getReceiptId(), receiptDTO.getPrice());
 
         if (paymentOptional.isEmpty()) {
-            throw new CustomException("결제 정보가 올바르지 않습니다.");
+            throw new Exception400("payment","결제 정보가 올바르지 않습니다.");
         }
+
+        Payment payment = paymentOptional.get();
+
+        payment.setStatus(PaymentStatus.COMPLETE);
+        paymentRepository.save(payment);
 
         cardDataRepository.save(receiptDTO.getCard_data().toEntity());
 
@@ -67,6 +73,7 @@ public class PaymentService {
         return paymentRepository.findById(id);
     }
     public Payment 결제검증(PaymentDTO paymentDTO) {
-        return paymentRepository.save(new Payment(paymentDTO.getReceiptId()));
+        paymentDTO.setStatus(PaymentStatus.WAIT);
+        return paymentRepository.save(new Payment(paymentDTO.getReceiptId(), paymentDTO.getPrice()));
     }
 }

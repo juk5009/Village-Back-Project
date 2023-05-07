@@ -43,7 +43,7 @@ public class PaymentController {
 
         objectMapper.writeValueAsString(receiptDTO);
 
-        BootPay bootpay = paymentService.구매요청(receiptDTO);
+        paymentService.구매요청(receiptDTO);
 
         HashMap<Object, Object> map = new HashMap<>();
         map.put("success", true);
@@ -51,7 +51,7 @@ public class PaymentController {
         return ResponseEntity.ok(map);
     }
 
-    @PostMapping
+    @PostMapping("/verification")
     public ResponseEntity<?> compare(@RequestBody PaymentDTO paymentDTO) {
 
         Payment payment = paymentService.결제검증(paymentDTO);
