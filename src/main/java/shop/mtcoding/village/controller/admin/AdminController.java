@@ -1,13 +1,16 @@
 package shop.mtcoding.village.controller.admin;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.core.auth.MyUserDetails;
 import shop.mtcoding.village.core.exception.AdminCustomException;
-import shop.mtcoding.village.core.exception.MyConstException;
+import shop.mtcoding.village.core.exception.CustomException;
+import shop.mtcoding.village.core.jwt.MyJwtProvider;
 import shop.mtcoding.village.dto.user.UserRequest;
 import shop.mtcoding.village.model.host.Host;
 import shop.mtcoding.village.model.host.HostRepository;
@@ -19,10 +22,10 @@ import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.reservation.ReservationRepository;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.model.user.UserRepository;
-import shop.mtcoding.village.notFoundConst.RoleConst;
 import shop.mtcoding.village.util.status.HostStatus;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,27 +41,35 @@ public class AdminController {
 
     private final PaymentRepository paymentRepository;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
     private final HttpSession session;
 
     private final HostRepository hostRepository;
 
 
-    public AdminController(UserRepository userRepository, PlaceJpaRepository placeRepository, ReservationRepository reservationRepository, PaymentRepository paymentRepository, HttpSession session, HostRepository hostRepository) {
+    public AdminController(UserRepository userRepository, PlaceJpaRepository placeRepository, ReservationRepository reservationRepository, PaymentRepository paymentRepository, BCryptPasswordEncoder passwordEncoder, HttpSession session, HostRepository hostRepository) {
         this.userRepository = userRepository;
         this.placeRepository = placeRepository;
         this.reservationRepository = reservationRepository;
         this.paymentRepository = paymentRepository;
+        this.passwordEncoder = passwordEncoder;
         this.session = session;
         this.hostRepository = hostRepository;
     }
 
-    @GetMapping("/z/admin/loginForm")
+    @GetMapping("/loginForm/admin")
     public String loginForm(){
         return "/admin/loginForm";
     }
 
-    @GetMapping("/z/admin/main")
+    @GetMapping("/admin/main")
     public String view(Model model) {
+
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            throw new AdminCustomException("회원 인증이 되지 않았습니다. 로그인을 해주세요.", HttpStatus.UNAUTHORIZED);
+        }
 
         List<User> userList = userRepository.findAll();
         model.addAttribute("userList", userList);
@@ -75,50 +86,53 @@ public class AdminController {
         return "admin/main";
     }
 
-    @GetMapping("/z/admin/host")
-    public String host(Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-//
-//        Long id = myUserDetails.getUser().getId();
-//        System.out.println("디버그 : " + id);
-//        User principal = (User) session.getAttribute("principal");
+    @GetMapping("/admin/host")
+    public String host(Model model) {
 
-        List<User> userList = userRepository.findAll();
-
-
-        // TODO 유저 아이디 받아 와야함 우째 받지
-        Optional<User> byId = userRepository.findById(1L);
-        User user = byId.get();
-
-        Host host = hostRepository.findByUser_Id(1L);
-        if (host.getStatus().equals(HostStatus.WAIT)) {
-            model.addAttribute("user", user);
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            throw new AdminCustomException("회원 인증이 되지 않았습니다. 로그인을 해주세요.", HttpStatus.UNAUTHORIZED);
         }
 
+        List<Host> hosts = hostRepository.findByStatus(HostStatus.WAIT);
+        model.addAttribute("hosts", hosts);
         return "admin/host";
     }
 
-    @PostMapping("/z/admin/login")
+    @PostMapping("/admin/login")
     public String login(UserRequest.LoginDTO loginDTO) {
 
-        User login = userRepository.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword());
+        ArrayList<String> loginViewList = new ArrayList<>();
 
-        if (login == null) {
-            throw new AdminCustomException("email 혹은 password가 잘못 입력되었습니다");
+        Optional<User> userOP = userRepository.findByEmail(loginDTO.getEmail());
+        if (userOP.isPresent()) {
+            User userPS = userOP.get();
+
+            if (passwordEncoder.matches(loginDTO.getPassword(), userPS.getPassword())) {
+                String jwt = MyJwtProvider.create(userPS);
+                loginViewList.add(jwt);
+                loginViewList.add(String.valueOf(userPS.getId()));
+                loginViewList.add(userPS.getName());
+                loginViewList.add(userPS.getEmail());
+
+                User login = userRepository.findByEmailAndPassword(userPS.getEmail(), userPS.getPassword());
+                if (login == null) {
+                    throw new AdminCustomException("email 혹은 password가 잘못 입력되었습니다");
+                }
+
+                if (!login.getRole().equals("ADMIN")) {
+                    throw new AdminCustomException("관리자만 로그인 할 수 있습니다.");
+                }
+                session.setAttribute("principal", login);
+            }
         }
 
-        String role = login.getRole();
-        if (!role.equals("ADMIN")) {
-            throw new MyConstException(RoleConst.notFound);
-        }
-
-        session.setAttribute("principal", login);
-
-        return "redirect:/z/admin/main";
+        return "redirect:/admin/main";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/logout/admin")
     public String logout() {
         session.invalidate();
-        return "redirect:/z/admin/main";
+        return "redirect:/loginForm/admin";
     }
 }

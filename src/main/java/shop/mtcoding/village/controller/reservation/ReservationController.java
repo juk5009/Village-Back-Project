@@ -136,7 +136,7 @@ public class ReservationController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "예약 신청 완료", saveReservation.toResponse(user, place)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/reservation/{id}")
+    @DeleteMapping("/reservation/{id}")
     public ResponseEntity<?> delete(
             @PathVariable Long id
     ) {

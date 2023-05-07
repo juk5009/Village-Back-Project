@@ -102,7 +102,7 @@ public class UserService {
     @Transactional
     public User 호스트변경(User user) {
         try {
-            Host byUserId = hostRepository.findByUser_Id(user.getId());
+            Host byUserId = hostRepository.findByUserId(user.getId());
 
             byUserId.setStatus(HostStatus.SIGN);
 

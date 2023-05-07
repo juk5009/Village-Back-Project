@@ -79,10 +79,11 @@ public class PlaceController {
         Place placeResponse = placeService.공간상세보기(id, detailPlaceResponse);
 
         Long id1 = placeResponse.getUser().getId();
-        Host host = hostRepository.findByUser_Id(id1);
+        Host host = hostRepository.findByUserId(id1);
 
         DetailPlaceResponse detailPlaceResponse1 = placeResponse.toDetailResponse(detailPlaceResponse.getFile(), host, detailPlaceResponse.getReview(),
-                detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks());
+                detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks()
+        ,detailPlaceResponse.getCategory());
 
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", detailPlaceResponse1), HttpStatus.OK);
     }
@@ -113,7 +114,7 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", update), HttpStatus.OK);
         }
         
-        @DeleteMapping("/host/places/{id}")
+        @DeleteMapping("/places/{id}")
         public ResponseEntity<ResponseDTO<PlaceStatus>> deletePlace(
                 @PathVariable Long id
         ){
@@ -128,7 +129,7 @@ public class PlaceController {
 
     }
 
-        @PostMapping("/host/places/active/{id}")
+        @PostMapping("/places/active/{id}")
         public ResponseEntity<ResponseDTO<PlaceStatus>> activePlace(
                 @PathVariable Long id
         ){

@@ -141,12 +141,14 @@ public class UserController {
     public ResponseEntity<ResponseDTO<String>> host(
             @PathVariable Long id
     ) {
-        Optional<User> user = userService.getUser(id);
-        if (user.isEmpty()) {
+        Optional<User> userOptional = userService.getUser(id);
+        if (userOptional.isEmpty()) {
             throw new CustomException("유저에 대한 정보가 없습니다.");
         }
 
-        User user1 = userService.호스트변경(user.get());
+        User user = userOptional.get();
+
+        User user1 = userService.호스트변경(user);
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "Host 변경 성공", user1.getRole()),HttpStatus.OK);
     }
 

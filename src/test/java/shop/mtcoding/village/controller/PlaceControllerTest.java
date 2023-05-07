@@ -324,7 +324,9 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"pricePerHour").description("시간당 결제금액"),
                 fieldWithPath(prefix+"host.id").description("호스트 id"),
                 fieldWithPath(prefix+"host.hostName").description("호스트 이름"),
-                fieldWithPath(prefix+"scrap.id").description("스크랩id"),
+                fieldWithPath(prefix+"scrap.id").description("스크랩 id"),
+                fieldWithPath(prefix+"category.id").description("카테고리 id"),
+                fieldWithPath(prefix+"category.categoryName").description("카테고리 이름"),
 
         };
     }
