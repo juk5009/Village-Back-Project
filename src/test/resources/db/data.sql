@@ -75,22 +75,14 @@ VALUES ( 7, '부산 룸카페', 1,'02-555-7777', '소규모 모임, 스터디, �
          8, 0, 25000, 'ACTIVE', true,'2023-06-01 10:00:00', '2023-06-01 13:00:00');
 
 
-insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-values (1, 1, 5, '좋은 상품이에요', NULL, 10, now());
-insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-values (2, 2, 4, '조금 아쉬운 부분도 있지만 전체적으로 만족스러웠어요', NULL, 5, now());
-insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
-INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-VALUES(3,4,3,'그저 그랬어요',NULL,2,NOW());
-INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-VALUES(5,6,4,'너무 좋았어요! 다음에 또 방문할게요.','/images/review_1.jpg',6,NOW());
-INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-VALUES(4,5,2,'많이 실망했어요.','/images/review_2.jpg',1,NOW());
-INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-VALUES(4,6,4,'가성비 좋은 숙소에요.','/images/review_3.jpg',3,NOW());
-INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
-VALUES(2,1,5,'최고의 여행이었어요!','/images/review_4.jpg',10,NOW());
+insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) values (1, 1, 5, '좋은 상품이에요', NULL, 10, now());
+insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) values (2, 2, 4, '조금 아쉬운 부분도 있지만 전체적으로 만족스러웠어요', NULL, 5, now());
+insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) VALUES(3,4,3,'그저 그랬어요',NULL,2,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) VALUES(5,6,4,'너무 좋았어요! 다음에 또 방문할게요.','/images/review_1.jpg',6,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) VALUES(4,5,2,'많이 실망했어요.','/images/review_2.jpg',1,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) VALUES(4,6,4,'가성비 좋은 숙소에요.','/images/review_3.jpg',3,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at) VALUES(2,1,5,'최고의 여행이었어요!','/images/review_4.jpg',10,NOW());
 
 
 insert into host_tb (user_id, nick_name, address_id, business_num, place_id, status) values (1, 'ssar', 1, '457-10-784',  1, 'WAIT');
@@ -140,12 +132,12 @@ insert into category_tb (category_name, place_id)
 values ('스터디룸', 2);
 insert into category_tb (category_name, place_id)
 values ('공유오피스', 3);
-insert into category_tb (category_name, place_id)
-values ('연습실', 4);
-insert into category_tb (category_name, place_id)
-values ('스터디룸', 5);
-insert into category_tb (category_name, place_id)
-values ('공유오피스', 6);
+-- insert into category_tb (category_name, place_id)
+-- values ('연습실', 4);
+-- insert into category_tb (category_name, place_id)
+-- values ('스터디룸', 5);
+-- insert into category_tb (category_name, place_id)
+-- values ('공유오피스', 6);
 
 
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
@@ -325,8 +317,11 @@ insert into file_info_tb(type) values ('PLACE');
 insert into file_info_tb(type) values ('FACILITY');
 
 insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.dbhasjuhwuha.com/wp-content/uploads/2021/08/aa.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.ahjsbaghuwssplay.com/wp-content/uploads/2011/08/bb8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
 
 insert into fcm_tb(user_id, target_token) values (null,'dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx');
 

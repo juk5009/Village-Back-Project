@@ -51,7 +51,7 @@ public class Place {
     private Long id;
 
     @Comment("유저(호스트) 정보")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private User user;
 

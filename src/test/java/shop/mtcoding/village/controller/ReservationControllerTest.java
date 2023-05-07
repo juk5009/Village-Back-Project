@@ -97,7 +97,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
     void deleteReservation() throws Exception {
 
         this.mockMvc.perform(
-                        delete("/user/reservation/1")
+                        delete("/reservation/1")
                                 .header("Authorization", getUser())
                                 .accept(MediaType.APPLICATION_JSON)
                 )

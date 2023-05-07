@@ -88,6 +88,7 @@ public class HostControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"businessNum").description("공간 정보"),
                 fieldWithPath(prefix+"status").description("공간 정보"),
                 fieldWithPath(prefix+"address").optional().description("공간의 주소"),
+                fieldWithPath(prefix+"address.hibernateLazyInitializer").optional().description("공간의 주소"),
                 fieldWithPath(prefix+"address.id").optional().description("공간의 주소 id"),
                 fieldWithPath(prefix+"address.address").description("도로명주소"),
                 fieldWithPath(prefix+"address.sigungu").description("시군구"),
