@@ -58,6 +58,7 @@ public class HostControllerTest extends AbstractIntegrated {
         return new FieldDescriptor[]{
                 fieldWithPath("hostName").description("호스트 이름"),
                 fieldWithPath("nickname").description("호스트 닉네임"),
+                fieldWithPath("address").description("주소"),
                 fieldWithPath("address.id").description("주소 id"),
                 fieldWithPath("address.address").description("도로명주소"),
                 fieldWithPath("address.sigungu").description("시군구"),

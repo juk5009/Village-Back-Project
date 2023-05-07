@@ -174,7 +174,7 @@ public class PlaceControllerTest extends AbstractIntegrated {
     @WithUserDetails(value = "Jane@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void activePlace() throws Exception {
         this.mockMvc.perform(
-                        post("/host/places/active/1")
+                        post("/places/active/1")
                                 .accept(MediaType.APPLICATION_JSON_VALUE)
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 )
@@ -192,7 +192,7 @@ public class PlaceControllerTest extends AbstractIntegrated {
     @WithUserDetails(value = "Jane@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void inActivePlace() throws Exception {
         this.mockMvc.perform(
-                        delete("/host/places/1")
+                        delete("/places/1")
                                 .accept(MediaType.APPLICATION_JSON_VALUE)
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 )
@@ -247,8 +247,8 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath("image[].id").description("파일 id"),
                 fieldWithPath("image[].fileName").description("파일이름"),
                 fieldWithPath("image[].fileUrl").description("파일URL"),
-                fieldWithPath("image[].extension").description("파일확장자"),
-                fieldWithPath("image[].status").description("파일상태"),
+//                fieldWithPath("image[].extension").description("파일확장자"),
+//                fieldWithPath("image[].status").description("파일상태"),
                 fieldWithPath("image[].type").description("파일타입"),
                 fieldWithPath("status").optional().description("공간의 상태"),
                 fieldWithPath("isConfirmed").description("예약 가능 상태"),
@@ -305,11 +305,11 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"hashtags[].hashtagName").description("해시태그 이름"),
                 fieldWithPath(prefix+"facilitys[].id").description("편의시설 id"),
                 fieldWithPath(prefix+"facilitys[].facilityName").description("편의시설 이름"),
-                fieldWithPath(prefix+"file.id").description("파일 id"),
-                fieldWithPath(prefix+"file.fileName").description("파일이름"),
-                fieldWithPath(prefix+"file.fileUrl").description("파일URL"),
-                fieldWithPath(prefix+"file.extension").description("파일확장자"),
-                fieldWithPath(prefix+"file.status").description("파일상태"),
+                fieldWithPath(prefix+"file[].id").description("파일 id"),
+                fieldWithPath(prefix+"file[].fileName").description("파일이름"),
+                fieldWithPath(prefix+"file[].fileUrl").description("파일URL"),
+//                fieldWithPath(prefix+"file[].extension").description("파일확장자"),
+//                fieldWithPath(prefix+"file[].status").description("파일상태"),
                 fieldWithPath(prefix+"scrap").optional().description("스크랩"),
                 fieldWithPath(prefix+"id").description("공간의 id"),
                 fieldWithPath(prefix+"title").description("공간 제목"),
@@ -357,8 +357,6 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"maxPeople").description("공간 최대인원수"),
                 fieldWithPath(prefix+"maxParking").description("주차가능대수"),
                 fieldWithPath(prefix+"pricePerHour").description("시간당 결제금액"),
-                fieldWithPath(prefix+"status").optional().description("공간의 상태"),
-                fieldWithPath(prefix+"isConfirmed").description("예약 가능 상태"),
         };
     }
 }

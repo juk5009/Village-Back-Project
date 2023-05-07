@@ -49,7 +49,7 @@ public class DetailPlaceResponse {
     private String notice;
 
     // 다른 Entity 정보
-    private File file;
+    private List<File> file;
 
     private HostDTO host;
 
@@ -66,7 +66,7 @@ public class DetailPlaceResponse {
     private Category category;
 
     public DetailPlaceResponse(Long id, PlaceAddress address, String title, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople, Integer maxParking
-            , Integer pricePerHour, String notice, File file, HostDTO host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks, Category category) {
+            , Integer pricePerHour, String notice, List<File> file, HostDTO host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks, Category category) {
         this.id = id;
         this.address = address;
         this.title = title;

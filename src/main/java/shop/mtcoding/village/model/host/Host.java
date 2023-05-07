@@ -28,11 +28,11 @@ public class Host {
 
     // User에서 role이 HOST인 유저의 NAME
     @Comment("호스트 이름")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Comment("공간 정보")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "place_id")
     @JsonIgnore

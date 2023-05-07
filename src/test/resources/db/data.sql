@@ -1,18 +1,3 @@
-insert into user_tb (name, password, email, tel, role, profile, status, created_at)
-values ('ssar', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'ssar@naver.com', '01012345678', 'USER', '/images/dora.png', 'ACTIVE', NOW());
-insert into user_tb (name, password, email, tel, role, profile, status, created_at)
-values ('Jane', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Jane@naver.com', '01023455678', 'HOST', '/images/dora.png', 'ACTIVE', NOW());
-insert into user_tb (name, password, email, tel, role, profile, status, created_at)
-values ('Bob', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', 'ACTIVE', NOW());
-INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
-VALUES('Alice','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Alice@google.com','01012345678','USER','/images/spongebob.png', 'ACTIVE', NOW());
-INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
-VALUES('Charlie','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Charlie@gmail.com','01022223333','HOST','/images/unicorn.png', 'ACTIVE', NOW());
-INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
-VALUES('David','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','David@yahoo.com','01055556666','HOST','/images/pikachu.png', 'ACTIVE', NOW());
-INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
-VALUES('Emma','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Emma@hotmail.com','01098765432','HOST','/images/totoro.png', 'ACTIVE', NOW());
-
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
 values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '201호' ,'12', '15');
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
@@ -29,6 +14,22 @@ INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
 VALUES('부산 해운대구 구남로 29', '부산 해운대구', '48060', '401호', '129.160326', '35.163042');
 
 
+insert into user_tb (name, password, email, tel, role, profile, status, created_at)
+values ('ssar', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'ssar@naver.com', '01012345678', 'USER', '/images/dora.png', 'ACTIVE', '2023-05-07 21:52:13');
+insert into user_tb (name, password, email, tel, role, profile, status, created_at)
+values ('Jane', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Jane@naver.com', '01023455678', 'HOST', '/images/dora.png', 'ACTIVE', '2019-05-07 21:52:13');
+insert into user_tb (name, password, email, tel, role, profile, status, created_at)
+values ('Bob', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', 'ACTIVE', '2022-12-01 21:52:13');
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('Alice','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Alice@google.com','01012345678','USER','/images/spongebob.png', 'ACTIVE', '2023-05-07 21:32:03');
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('Charlie','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Charlie@gmail.com','01022223333','HOST','/images/unicorn.png', 'ACTIVE', '2022-05-09 10:10:13');
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('David','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','David@yahoo.com','01055556666','HOST','/images/pikachu.png', 'ACTIVE', '2023-05-17 21:52:13');
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('Emma','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Emma@hotmail.com','01098765432','USER','/images/totoro.png', 'ACTIVE', '2023-01-01 21:00:13');
+
+
 insert into account_tb(user_id, account_num)
 values (1, '123456-01-123456');
 insert into account_tb(user_id, account_num)
@@ -39,7 +40,7 @@ values (1, '333456-01-111244');
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (1, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, 'ACTIVE', true, NOW(), NOW());
+values (2, '스튜디오 르온드', 1, '01012345678', '좋은 공간입니다.', '좋은 공간입니다. 이용해보세요!', 10, 5, 4000, 'ACTIVE', true, NOW(), NOW());
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
@@ -47,31 +48,32 @@ values (2, '스튜디오 STUDIO', 2, '01012345679', '멋진 공간입니다.', '
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-values (3, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, 'ACTIVE', false, NOW(), NOW());
+values (5, '업타운댄스뮤직 아카데미', 3, '01012345680', '편안한 공간입니다.', '편안한 공간입니다. 이용해보세요!', 10, 15, 3000, 'ACTIVE', false, NOW(), NOW());
 
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-VALUES (4, '홍대 쉐어하우스', 4, '02-1234-5678', '파티, 모임에 적합한 공간입니다.', '이 곳은 홍대 중심에 위치한 쉐어하우스로, 친구들과 함께 모여 파티를 즐길 수 있는 공간입니다.',
+VALUES (6, '홍대 쉐어하우스', 2, '02-1234-5678', '파티, 모임에 적합한 공간입니다.', '이 곳은 홍대 중심에 위치한 쉐어하우스로, 친구들과 함께 모여 파티를 즐길 수 있는 공간입니다.',
         20, 5,  20000, 'ACTIVE', true, '2023-06-01 18:00:00',  '2023-06-01 23:00:00' );
 
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-VALUES (5, '강남 스튜디오', 5, '02-999-8888', '조용한 모임에 적합한 공간입니다.', '강남 중심지에 위치한 스튜디오로, 작은 모임에서 부터 회식까지 이용 가능합니다.',
+VALUES ( 7, '강남 스튜디오', 2, '02-999-8888', '조용한 모임에 적합한 공간입니다.', '강남 중심지에 위치한 스튜디오로, 작은 모임에서 부터 회식까지 이용 가능합니다.',
          10, 2, 30000, 'ACTIVE', true, '2023-06-01 14:00:00', '2023-06-01 18:00:00');
 
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-VALUES (6, '종로 룸카페', 6,'02-555-7777', '소규모 모임, 스터디, 세미나 등에 적합한 공간입니다.', '종로 중심지에 위치한 룸카페로, 개인적인 모임부터 간단한 세미나까지 이용 가능합니다.',
+VALUES ( 7, '종로 룸카페', 1,'02-555-7777', '소규모 모임, 스터디, 세미나 등에 적합한 공간입니다.', '종로 중심지에 위치한 룸카페로, 개인적인 모임부터 간단한 세미나까지 이용 가능합니다.',
          8, 0, 25000, 'ACTIVE', true,'2023-06-01 10:00:00', '2023-06-01 13:00:00');
 
 insert into place_tb (user_id, title, address_id, tel, notice, place_introduction_info, max_people, max_parking,
                       price_per_hour, status, is_confirmed,
                       start_time, end_time)
-VALUES (7, '부산 룸카페', 7,'02-555-7777', '소규모 모임, 스터디, 세미나 등에 적합한 공간입니다.', '부산 중심지에 위치한 룸카페로, 개인적인 모임부터 간단한 세미나까지 이용 가능합니다.',
-         9, 0, 20000, 'ACTIVE', true,'2023-06-01 10:00:00', '2023-06-01 14:00:00');
+VALUES ( 7, '부산 룸카페', 1,'02-555-7777', '소규모 모임, 스터디, 세미나 등에 적합한 공간입니다.', '부산 중심지에 위치한 룸카페로, 개인적인 모임부터 간단한 세미나까지 이용 가능합니다.',
+         8, 0, 25000, 'ACTIVE', true,'2023-06-01 10:00:00', '2023-06-01 13:00:00');
+
 
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
 values (1, 1, 5, '좋은 상품이에요', NULL, 10, now());
@@ -79,23 +81,25 @@ insert into review_tb (user_id, place_id, star_rating, content, image, like_coun
 values (2, 2, 4, '조금 아쉬운 부분도 있지만 전체적으로 만족스러웠어요', NULL, 5, now());
 insert into review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
 values (3, 3, 3, '그저 그랬어요', NULL, 2, now());
-INSERT INTO review_tb(user_id,place_id,star_rating,content,image,like_count,created_at)
-VALUES (5, 6, 4, '너무 좋았어요! 다음에 또 방문할게요.', '/images/review_1.jpg',6,NOW());
-INSERT INTO review_tb(user_id,place_id,star_rating,content,image,like_count,created_at)
-VALUES (4, 5, 2, '많이 실망했어요.','/images/review_2.jpg', 1, NOW());
-INSERT INTO review_tb(user_id,place_id,star_rating,content,image,like_count,created_at)
-VALUES (4, 6, 4, '가성비 좋은 숙소에요.','/images/review_3.jpg',3,NOW());
-INSERT INTO review_tb(user_id,place_id,star_rating,content,image,like_count,created_at)
-VALUES (2, 1, 5, '최고의 여행이었어요!','/images/review_4.jpg',10,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+VALUES(3,4,3,'그저 그랬어요',NULL,2,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+VALUES(5,6,4,'너무 좋았어요! 다음에 또 방문할게요.','/images/review_1.jpg',6,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+VALUES(4,5,2,'많이 실망했어요.','/images/review_2.jpg',1,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+VALUES(4,6,4,'가성비 좋은 숙소에요.','/images/review_3.jpg',3,NOW());
+INSERT INTO review_tb (user_id, place_id, star_rating, content, image, like_count, created_at)
+VALUES(2,1,5,'최고의 여행이었어요!','/images/review_4.jpg',10,NOW());
 
 
-insert into host_tb (user_id, nick_name, address_id, business_num, status) values (1, 'ssar', 1, '457-10-784', 'WAIT');
-insert into host_tb (user_id, nick_name, address_id, business_num, status) values (2, 'Jane', 2, '424-52-724', 'WAIT');
-insert into host_tb (user_id, nick_name, address_id, business_num, status) values (3, 'Bob', 3, '552-18-254', 'WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(4,'Tom',2,'852-17-999','WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(5,'Alice',2,'222-13-111','WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(6,'John',3,'449-08-975','WAIT');
-INSERT INTO host_tb(user_id,nick_name,address_id,business_num,status)VALUES(7,'Kate',1,'001-01-001','WAIT');
+insert into host_tb (user_id, nick_name, address_id, business_num, place_id, status) values (1, 'ssar', 1, '457-10-784',  1, 'WAIT');
+insert into host_tb (user_id, nick_name, address_id, business_num, place_id, status) values (2, 'Jane', 2, '424-52-724',  2, 'SIGN');
+insert into host_tb (user_id, nick_name, address_id, business_num, place_id, status) values (3, 'Bob', 3, '552-18-254',  3, 'NONE');
+INSERT INTO host_tb (user_id, nick_name, address_id, business_num, place_id, status) VALUES(4,'Alice',2,'222-13-111', 4, 'SIGN');
+INSERT INTO host_tb (user_id, nick_name, address_id, business_num, place_id, status) VALUES(5,'John',3,'449-08-975', 5, 'SIGN');
+INSERT INTO host_tb (user_id, nick_name, address_id, business_num, place_id, status) VALUES(6,'Kate',1,'001-01-001', 6, 'NONE');
+INSERT INTO host_tb (user_id, nick_name, address_id, business_num, place_id, status) VALUES(7,'Emma',1,'001-01-001', 7, 'NONE');
 
 insert into facility_info_tb (facility_name, place_id)values ('Wifi', 1);
 insert into facility_info_tb (facility_name, place_id)values ('화장실', 1);
@@ -136,14 +140,32 @@ insert into category_tb (category_name, place_id)
 values ('스터디룸', 2);
 insert into category_tb (category_name, place_id)
 values ('공유오피스', 3);
+insert into category_tb (category_name, place_id)
+values ('연습실', 4);
+insert into category_tb (category_name, place_id)
+values ('스터디룸', 5);
+insert into category_tb (category_name, place_id)
+values ('공유오피스', 6);
 
 
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
-values (1, 1, '2023-04-20', '2021-01-01T00:01', '2021-01-01T04:01', 2, 'WAIT');
+values (1, 1, '2023-04-20', '2023-04-20T00:01', '2023-04-20T04:01', 2, 'WAIT');
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
-values (2, 2, '2023-04-20', '2021-01-02T00:01', '2021-01-03T00:01', 3, 'COMPLETE');
+values (2, 2, '2023-04-21', '2023-04-21T00:01', '2023-04-21T00:01', 3, 'COMPLETE');
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
-values (3, 3, '2023-04-20', '2021-01-01T10:01', '2021-01-01T20:01', 4, 'FAIL');
+values (3, 7, '2023-04-22', '2023-04-22T10:01', '2023-04-22T20:01', 4, 'FAIL');
+insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
+values (1, 4, '2023-04-30', '2023-04-30T00:01', '2023-04-30T04:01', 2, 'WAIT');
+insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
+values (2, 5, '2023-05-10', '2023-05-10T00:01', '2023-05-10T00:01', 3, 'COMPLETE');
+insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
+values (5, 2, '2023-05-20', '2023-05-20T10:01', '2023-05-20T20:01', 4, 'FAIL');
+insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
+values (3, 3, '2023-05-22', '2023-05-22T00:01', '2023-05-22T04:01', 2, 'WAIT');
+insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
+values (4, 2, '2023-05-23', '2023-05-23T00:01', '2023-05-23T00:01', 3, 'COMPLETE');
+insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
+values (6, 6, '2023-06-20', '2023-06-20T10:01', '2023-06-20T20:01', 4, 'FAIL');
 
 insert into scrap_tb (user_id, place_id)
 values (1, 1);
@@ -177,11 +199,23 @@ values (2, '서울에 있습니다.', 1, NOW());
 
 
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
-values (1, 1, 1, 'WAIT', 30000);
+values (2, 5, 5, 'WAIT', 30000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
-values (1, 2, 1, 'COMPLETE', 20000);
+values (1, 2, 4, 'COMPLETE', 20000);
 insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
 values (2, 3, 2, 'FAIL', 10000);
+insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
+values (4, 7, 1, 'WAIT', 30000);
+insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
+values (3, 2, 1, 'COMPLETE', 20000);
+insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
+values (2, 1, 4, 'FAIL', 10000);
+insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
+values (6, 2, 4, 'WAIT', 30000);
+insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
+values (7, 4, 5, 'COMPLETE', 20000);
+insert into payment_tb (user_id, place_id, reservation_id, status, total_price)
+values (5, 5, 6, 'FAIL', 10000);
 
 insert into dates_tb (day_of_week_name, place_id)
 values ('월요일', 1);

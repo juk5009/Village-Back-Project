@@ -262,7 +262,7 @@ public class PlaceService {
         var placeId = placeOptional.get().getId();
 
         // file 정보 넣기
-        File file = fileRepository.findByPlaceId(placeId);
+        List<File> file = fileRepository.findByPlaceId(placeId);
         detailPlaceResponse.setFile(file);
 
 //        FileInfo fileInfo = fileInfoRepository.findByType(FileType.PLACE);

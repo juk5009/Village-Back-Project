@@ -61,10 +61,12 @@ public class File {
     private String fileUrl;
 
     @Comment("확장자")
+    @JsonIgnore
     private String extension;
 
     @Comment("사진 활성화 상태")
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private FileStatus status;
 
     @Builder
