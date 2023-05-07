@@ -1,3 +1,18 @@
+insert into user_tb (name, password, email, tel, role, profile, status, created_at)
+values ('ssar', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'ssar@naver.com', '01012345678', 'USER', '/images/dora.png', 'ACTIVE', NOW());
+insert into user_tb (name, password, email, tel, role, profile, status, created_at)
+values ('Jane', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Jane@naver.com', '01023455678', 'HOST', '/images/dora.png', 'ACTIVE', NOW());
+insert into user_tb (name, password, email, tel, role, profile, status, created_at)
+values ('Bob', '$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW', 'Bob@naver.com', '01067895678', 'ADMIN', '/images/dora.png', 'ACTIVE', NOW());
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('Alice','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Alice@google.com','01012345678','USER','/images/spongebob.png', 'ACTIVE', NOW());
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('Charlie','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Charlie@gmail.com','01022223333','HOST','/images/unicorn.png', 'ACTIVE', NOW());
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('David','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','David@yahoo.com','01055556666','HOST','/images/pikachu.png', 'ACTIVE', NOW());
+INSERT INTO user_tb(name,password,email,tel,role,profile, status, created_at)
+VALUES('Emma','$2a$10$AY7h/0uPoe5UtfMZxmxNq.d4KOTZiKbZFvbM3k7vlsfpjAJd0fTvW','Emma@hotmail.com','01098765432','HOST','/images/totoro.png', 'ACTIVE', NOW());
+
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
 values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '201호' ,'12', '15');
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
