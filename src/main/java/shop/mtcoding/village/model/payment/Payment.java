@@ -30,13 +30,13 @@ public class Payment {
     @Comment("유저 정보")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Comment("공간 정보")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
-    @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Place place;
 
     @Comment("예약 정보")
