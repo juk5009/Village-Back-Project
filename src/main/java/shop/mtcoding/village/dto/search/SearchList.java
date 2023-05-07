@@ -26,7 +26,7 @@ public class SearchList {
     private Integer maxPeople;
     private Integer maxParking;
     private Integer pricePerHour;
-    private String keyword;
+    // private String keyword; // 메인이랑 다르면 안됩니다.
     private AddressList address;
     private ReviewList review;
     private List<HashtagList> hashtags;

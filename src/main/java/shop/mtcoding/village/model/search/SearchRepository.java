@@ -35,7 +35,7 @@ public class SearchRepository {
                         "LEFT JOIN search_tb s ON p.id = s.place_id " +
                         "LEFT JOIN file_tb f ON p.id = f.place_id " +
                         "WHERE p.title LIKE CONCAT('%', ?, '%') OR h.hashtag_name LIKE CONCAT('%', ?, '%') " +
-                        "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.id, a.sigungu, h.id, h.hashtag_name, f.id, f.file_url";
+                        "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id, a.sigungu, h.id, h.hashtag_name, f.id, f.file_url";
 
 
 
@@ -58,7 +58,7 @@ public class SearchRepository {
                     search.setMaxPeople(rs.getInt("max_people"));
                     search.setMaxParking(rs.getInt("max_parking"));
                     search.setPricePerHour(rs.getInt("price_per_hour"));
-                    search.setKeyword(rs.getString("keyword"));
+                    // search.setKeyword(rs.getString("keyword"));
 
                     Long addressId = rs.getLong("address_id");
                     if (addressId != null) {
