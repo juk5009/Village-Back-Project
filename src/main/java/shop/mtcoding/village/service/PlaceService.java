@@ -143,6 +143,7 @@ public class PlaceService {
                 facilityInfoList.add(savefacilityInfo);
             }
 
+
             return savePlace;
         } catch (Exception500 e) {
             throw new Exception500("공간등록 오류" + e.getMessage());
@@ -293,6 +294,15 @@ public class PlaceService {
         // scrap 정보 넣기
         Scrap scrap = scrapRepository.findByPlaceId(placeId);
         detailPlaceResponse.setScrap(scrap);
+
+        // category 정보 넣기
+        Optional<Category> categoryOptional = categoryRepository.findByPlaceId(placeId);
+        if (categoryOptional.isEmpty()){
+            throw new CustomException("카테고리에 대한 정보가 없습니다.");
+        }
+
+        Category category = categoryOptional.get();
+        detailPlaceResponse.setCategory(category);
 
         System.out.println("디버그 : " + detailPlaceResponse);
 

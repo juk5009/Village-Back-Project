@@ -18,19 +18,19 @@
                 </tr>
                 </thead>
                 <tbody>
-<%--                <c:forEach items="${user}" var="user">--%>
-                    <tr id="list-${user.id}" class="text-center">
-                        <td>${user.id}</td>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>${user.role}</td>
-                        <td>${user.createdAt}</td>
+                <c:forEach items="${hosts}" var="host">
+                    <tr id="list-${host.user.id}" class="text-center">
+                        <td>${host.user.id}</td>
+                        <td>${host.user.name}</td>
+                        <td>${host.user.email}</td>
+                        <td>${host.user.role}</td>
+                        <td>${host.user.createdAt}</td>
                         <td>
-                            <button class="btn btn-danger btn-sm" onclick="acceptHost(${user.id})">수락</button>
-                            <button class="btn btn-danger btn-sm" onclick="failHost(${user.id})">거절</button></td>
+                            <button class="btn btn-danger btn-sm" onclick="acceptHost(${host.user.id})">수락</button>
+                            <button class="btn btn-danger btn-sm" onclick="failHost(${host.user.id})">거절</button></td>
                         </td>
                     </tr>
-<%--                </c:forEach>--%>
+                </c:forEach>
                 </tbody>
             </table>
 
@@ -45,13 +45,11 @@
             dataType: "json"
         }).done((res) => {
             alert(res.msg);
-            location.href = "/z/admin/main";
+            location.href = "/admin/main";
         }).fail((err) =>{
             alert(err.responseJSON.msg);
         });
     }
 </script>
 
-</body>
-</html>
-
+<%@ include file="../layout/footer.jsp" %>

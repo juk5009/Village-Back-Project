@@ -1,5 +1,6 @@
 package shop.mtcoding.village.model.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
@@ -27,6 +28,7 @@ public class Category {
     @Comment("공간의 아이디")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
+    @JsonIgnore
     private Place place;
 
     @Builder

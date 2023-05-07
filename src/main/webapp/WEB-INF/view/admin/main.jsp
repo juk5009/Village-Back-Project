@@ -167,7 +167,7 @@
             dataType: "json"
         }).done((res) => {    // 20x 일때
             alert(res.msg);
-            location.href = "/z/admin/main";
+            location.href = "/admin/main";
             $('#list-'+id).remove();
         }).fail((err) => {    // 40x , 50x 일때
             console.log(err);
@@ -181,7 +181,7 @@
             dataType: "json"
         }).done((res) => {    // 20x 일때
             alert(res.msg);
-            location.href = "/z/admin/main";
+            location.href = "/admin/main";
             $('#list-'+id).remove();
         }).fail((err) => {    // 40x , 50x 일때
             // console.log(err);
@@ -195,7 +195,7 @@
             dataType: "json"
         }).done((res) => {    // 20x 일때
             alert(res.msg);
-            location.href = "/z/admin/main";
+            location.href = "/admin/main";
             $('#list-'+id).remove();
         }).fail((err) => {    // 40x , 50x 일때
             // console.log(err);
@@ -209,7 +209,7 @@
             dataType: "json"
         }).done((res) => {    // 20x 일때
             alert(res.msg);
-            location.href = "/z/admin/main";
+            location.href = "/admin/main";
             $('#list-'+id).remove();
         }).fail((err) => {    // 40x , 50x 일때
             // console.log(err);
@@ -225,7 +225,7 @@
         }).done((res) => {    // 20x 일때
             alert(res.msg);
             // console.log(res);
-            location.href = "/z/admin/main";
+            location.href = "/admin/main";
             $('#list-'+id).reload();
         }).fail((err) => {    // 40x , 50x 일때
             // console.log(err);
@@ -236,12 +236,12 @@
     function activeByPlaceId(id) {
         $.ajax({
             type: "post",
-            url: "/places/"+id ,
+            url: "/places/active/"+id ,
             dataType: "json"
         }).done((res) => {    // 20x 일때
             alert(res.msg);
             // console.log(res);
-            location.href = "/z/admin/main";
+            location.href = "/admin/main";
             $('#list-'+id).reload();
         }).fail((err) => {    // 40x , 50x 일때
             // console.log(err);
@@ -250,7 +250,4 @@
     }
 
 </script>
-</body>
-</html>
-
-
+<%@ include file="../layout/footer.jsp" %>

@@ -28,8 +28,7 @@ public class Host {
 
     // User에서 role이 HOST인 유저의 NAME
     @Comment("호스트 이름")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Comment("공간 정보")

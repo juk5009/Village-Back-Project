@@ -23,6 +23,7 @@ import shop.mtcoding.village.dto.place.response.DetailPlaceResponse;
 import shop.mtcoding.village.dto.place.response.PlaceSaveResponse;
 import shop.mtcoding.village.dto.place.response.PlaceUpdateResponse;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.file.File;
@@ -165,14 +166,14 @@ public class Place {
     }
 
     public DetailPlaceResponse toDetailResponse(
-            File file, Host host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
+            File file, Host host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks, Category category
     ) {
         HostDTO hostDTO = new HostDTO();
         hostDTO.setId(host.getId());
         hostDTO.setHostName(host.getNickName());
         return new DetailPlaceResponse(
                 id, address, title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
-                , file, hostDTO, review, scrap, hashtags, facilitys, dayOfWeeks
+                , file, hostDTO, review, scrap, hashtags, facilitys, dayOfWeeks, category
         );
     }
 

@@ -24,11 +24,12 @@ public class HostService {
     @Transactional
     public Host 호스트신청(HostSaveRequest hostSaveDto) {
         try {
-            User byName = userRepository.findByName(hostSaveDto.getHostName());
+            User user = userRepository.findByName(hostSaveDto.getHostName());
 
-            hostSaveDto.setStatus(HostStatus.WAIT);
+            Host host = hostRepository.findByUserId(user.getId());
+            host.setStatus(HostStatus.WAIT);
 
-            return hostRepository.save(hostSaveDto.toEntity(byName));
+            return hostRepository.save(host);
         } catch (Exception500 e) {
             throw new Exception500("호스트신청 오류" + e.getMessage());
         }

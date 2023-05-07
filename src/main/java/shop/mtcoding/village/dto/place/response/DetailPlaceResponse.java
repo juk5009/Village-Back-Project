@@ -7,6 +7,7 @@ import shop.mtcoding.village.dto.date.request.DateSaveDTO;
 import shop.mtcoding.village.dto.facilityInfo.request.FacilityInfoSaveDTO;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.dto.host.HostDTO;
+import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.file.File;
@@ -62,8 +63,10 @@ public class DetailPlaceResponse {
 
     private List<Dates> dayOfWeeks;
 
+    private Category category;
+
     public DetailPlaceResponse(Long id, PlaceAddress address, String title, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople, Integer maxParking
-            , Integer pricePerHour, String notice, File file, HostDTO host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks) {
+            , Integer pricePerHour, String notice, File file, HostDTO host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks, Category category) {
         this.id = id;
         this.address = address;
         this.title = title;
@@ -82,5 +85,6 @@ public class DetailPlaceResponse {
         this.hashtags = hashtags;
         this.facilitys = facilitys;
         this.dayOfWeeks = dayOfWeeks;
+        this.category = category;
     }
 }
