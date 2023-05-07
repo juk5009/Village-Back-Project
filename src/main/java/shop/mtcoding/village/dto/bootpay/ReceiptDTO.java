@@ -78,11 +78,11 @@ public class ReceiptDTO {
     private MetadataDTO metadata;
 
     public BootPay toEntity() {
-
         return new BootPay(null, this.receiptId, this.orderId, this.price, this.taxFree, this.cancelledPrice, this.cancelledTaxFree,
                 this.orderName, this.companyName, this.gatewayUrl, this.sandbox, this.pg,
                 this.method, this.methodSymbol, this.methodOrigin, this.methodOriginSymbol, this.purchasedAt,
-                this.cancelledAt, this.requestedAt, this.statusLocale, this.receiptUrl, this.status);
+                this.cancelledAt, this.requestedAt, this.statusLocale, this.receiptUrl, this.status
+        );
     }
 
 }

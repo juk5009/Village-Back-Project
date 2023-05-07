@@ -2,8 +2,10 @@ package shop.mtcoding.village.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.bootpay.ReceiptDTO;
+import shop.mtcoding.village.dto.payment.PaymentDTO;
 import shop.mtcoding.village.model.cardData.CardDataRepository;
 import shop.mtcoding.village.model.metadata.MetaData;
 import shop.mtcoding.village.model.metadata.MetaRepository;
@@ -38,12 +40,11 @@ public class PaymentService {
     @Transactional
     public BootPay 구매요청(ReceiptDTO receiptDTO) {
 
-//        // MetadataDTO 객체를 Map<String, Object>으로 변환
-//        Map<String, Object> metadataMap = receiptDTO.getMetadataDTO().getTest();
-//
-//        // Map<String, Object> 객체를 Metadata 객체로 변환하여 저장
-//        MetaData metadata = new MetaData(null, );
-//        metaRepository.save(metadata);
+        Optional<Payment> paymentOptional = paymentRepository.findByReceiptId(receiptDTO.getReceiptId());
+
+        if (paymentOptional.isEmpty()) {
+            throw new CustomException("결제 정보가 올바르지 않습니다.");
+        }
 
         cardDataRepository.save(receiptDTO.getCard_data().toEntity());
 
@@ -65,5 +66,7 @@ public class PaymentService {
     public Optional<Payment> getPayment(Long id) {
         return paymentRepository.findById(id);
     }
-
+    public Payment 결제검증(PaymentDTO paymentDTO) {
+        return paymentRepository.save(new Payment(paymentDTO.getReceiptId()));
+    }
 }
