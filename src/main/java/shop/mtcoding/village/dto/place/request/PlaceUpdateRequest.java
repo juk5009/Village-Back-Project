@@ -10,6 +10,7 @@ import shop.mtcoding.village.dto.file.dto.FileSaveDTO;
 import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.place.Place;
+import shop.mtcoding.village.model.place.PlaceAddress;
 import shop.mtcoding.village.util.DateUtils;
 
 import javax.validation.constraints.NotBlank;
@@ -25,7 +26,7 @@ public class PlaceUpdateRequest {
     @NotBlank(message = "제목을 입력해주세요.")
     private String title;
 
-    private AddressDTO address;
+    private PlaceAddress address;
 
     private String tel;
 
@@ -63,6 +64,8 @@ public class PlaceUpdateRequest {
 
     private List<FileSaveDTO.FileSaveDto> image;
 
+    private Boolean isConfirmed;
+
     public Place toEntity() {
 
         LocalDateTime startTimePaser = DateUtils.parseLocalDateTime(startTime);
@@ -71,6 +74,7 @@ public class PlaceUpdateRequest {
         Place place = new Place();
         place.setTitle(title);
         place.setTel(tel);
+        place.setAddress(address);
         place.setStartTime(startTimePaser);
         place.setEndTime(endTimePaser);
         place.setPlaceIntroductionInfo(placeIntroductionInfo);
@@ -79,7 +83,7 @@ public class PlaceUpdateRequest {
         place.setMaxParking(maxParking);
         place.setPricePerHour(pricePerHour);
         return new Place(
-                title, tel, startTimePaser, endTimePaser, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour
+                title, tel, address, startTimePaser, endTimePaser, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour, isConfirmed
         );
     }
 

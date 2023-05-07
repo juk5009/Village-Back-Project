@@ -1,8 +1,6 @@
 package shop.mtcoding.village.dto.date.request;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
@@ -22,6 +20,8 @@ public class DateSaveDTO {
     @Setter
     @Getter
     @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class DateSaveDto extends Dates {
         private String dayOfWeekName;
         private Place placeId;

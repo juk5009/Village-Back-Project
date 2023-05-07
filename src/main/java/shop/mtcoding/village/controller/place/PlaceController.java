@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import shop.mtcoding.village.core.auth.MyUserDetails;
+import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.core.exception.Exception404;
 import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.place.request.PlaceSaveRequest;
@@ -70,21 +72,18 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 전체 보기", allPlace), HttpStatus.OK);
     }
 
-    @GetMapping("/host/places/{id}")
+    @GetMapping("/places/{id}")
     public ResponseEntity<ResponseDTO<DetailPlaceResponse>> detailPlace(
-            @PathVariable Long id, DetailPlaceResponse detailPlaceResponse,
-            @AuthenticationPrincipal MyUserDetails myUserDetails
+           @PathVariable Long id, DetailPlaceResponse detailPlaceResponse
     ) {
-        Long userId = myUserDetails.getUser().getId();
-        Place placeResponse = placeService.공간상세보기(id, userId, detailPlaceResponse);
+        Place placeResponse = placeService.공간상세보기(id, detailPlaceResponse);
 
-        Host host = hostRepository.findByUser_Id(userId);
+        Long id1 = placeResponse.getUser().getId();
+        Host host = hostRepository.findByUser_Id(id1);
 
         DetailPlaceResponse detailPlaceResponse1 = placeResponse.toDetailResponse(detailPlaceResponse.getFile(), host, detailPlaceResponse.getReview(),
                 detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks());
 
-
-        System.out.println("디버그 : " + detailPlaceResponse1);
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", detailPlaceResponse1), HttpStatus.OK);
     }
 
@@ -120,7 +119,7 @@ public class PlaceController {
         ){
             var optionalPlace = placeService.getPlace(id);
             if (optionalPlace.isEmpty()) {
-                throw new MyConstException(PlaceConst.notFound);
+                throw new Exception400("place" ,PlaceConst.notFound);
             }
 
             Place inactivePlace = placeService.공간비활성화(optionalPlace.get());

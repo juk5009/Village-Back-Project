@@ -1,5 +1,6 @@
 package shop.mtcoding.village.service;
 
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +22,7 @@ import shop.mtcoding.village.model.date.DateRepository;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfoRepository;
-import shop.mtcoding.village.model.file.File;
-import shop.mtcoding.village.model.file.FileInfoRepository;
-import shop.mtcoding.village.model.file.FileRepository;
+import shop.mtcoding.village.model.file.*;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.hashtag.HashtagRepository;
 import shop.mtcoding.village.model.host.Host;
@@ -42,6 +41,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -90,6 +90,8 @@ public class PlaceService {
         try {
 
             // 공간 insert
+            placeRequest.setStatus(PlaceStatus.INACTIVE);
+
             Place savePlace = placeJpaRepository.save(placeRequest.toEntity());
 
             Optional<Place> byId = placeJpaRepository.findById(savePlace.getId());
@@ -98,8 +100,6 @@ public class PlaceService {
 
             // 해시태그 insert
             List<Hashtag> hashtagList = new ArrayList<Hashtag>();
-
-            System.out.println("디버그 : " + placeRequest.getHashtag());
 
             for (HashtagSaveDTO.HashtagSaveDto hash : placeRequest.getHashtag()) {
                 Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place));
@@ -113,8 +113,8 @@ public class PlaceService {
             for (FileSaveDTO.FileSaveDto files : placeRequest.getImage()) {
                 String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getFileUrl()));
                 files.setFileUrl(imgPath);
+
                 File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
-                System.out.println("디버그 : " + save);
                 fileList.add(save);
 
                 fileService.save(placeRequest.getImage().get(0));
@@ -250,7 +250,7 @@ public class PlaceService {
         return placeJpaRepository.findAll();
     }
 
-    public Place 공간상세보기(Long placePathId, Long userId, DetailPlaceResponse detailPlaceResponse) {
+    public Place 공간상세보기(Long placePathId, DetailPlaceResponse detailPlaceResponse) {
 
         // place 정보 넣기
         Optional<Place> placeOptional = placeJpaRepository.findById(placePathId);
@@ -268,9 +268,9 @@ public class PlaceService {
 //        detailPlaceResponse.setFile(fileInfo);
 
         // host 정보 넣기
-        Host host = hostRepository.findByUser_Id(userId);
+        Host host = hostRepository.findByPlaceId(placeId);
         HostDTO hostDTO = new HostDTO();
-        hostDTO.setId(host.getId());
+        hostDTO.setId(hostDTO.getId());
         hostDTO.setHostName(hostDTO.getHostName());
         detailPlaceResponse.setHost(hostDTO);
 

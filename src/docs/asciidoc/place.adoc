@@ -20,81 +20,73 @@ endif::[]
 include::{snippets}/place-save/http-request.adoc[]
 
 === 요청 정보 [Header]
-include::{snippets}/place-save/httpie-request.adoc[]
+include::{snippets}/place-save/header-request.adoc[]
 
 === 요청 정보 [Path Parameter]
 include::{snippets}/place-save/httpie-request.adoc[]
 
 === 응답 정보 [성공]
 ==== [HTTP]
-include::{snippets}/place-active/http-response.adoc[]
+include::{snippets}/place-save/http-response.adoc[]
 
 ==== [Body]
-include::{snippets}/place-active/response-body.adoc[]
+include::{snippets}/place-save/response-body.adoc[]
 
 ==== [Field]
-include::{snippets}/place-active/response-fields.adoc[]
+include::{snippets}/place-save/response-fields.adoc[]
 
 // ==== [Link]
 // include::{snippets}/notice-detail/links.adoc[]
 
 === 응답 정보 [실패]
-* 공지사항이 존재하지 않을 경우
+* 제목을 입력해주세요.
+* 대여 가능 시작시간을 입력해주세요.
+* 대여 가능 마감시간을 입력해주세요.
+* 공간의 정보를 입력해주세요.
+* 유의사항에 대해 입력해주세요.
+* 최대 인원수를 입력해주세요.
+* 주차 대수를 입력해주세요.
+* 시간당 금액을 입력해주세요.
+* 사용가능한 요일을 설정해주세요.
+* 카테고리를 등록해주세요.
+* 공간등록 오류
 
-==== [fields]
-include::{snippets}/place-active/response-fields.adoc[]
 
 === CURL
-include::{snippets}/place-active/curl-request.adoc[]
+include::{snippets}/place-save/curl-request.adoc[]
 
 
-
-
-
-== place 비활성화 API
+== 공간 전체보기 API
 
 === 요청 정보 [HTTP]
-include::{snippets}/place-active/http-request.adoc[]
+include::{snippets}/place-list/http-request.adoc[]
 
-// === 요청 정보 [Header]
-// include::{snippets}/notice-detail/request-headers.adoc[]
+=== 응답 정보 [HTTP]
+include::{snippets}/place-list/http-response.adoc[]
 
-// === 요청 정보 [Path Parameter]
-// include::{snippets}/place-active/path-parameters.adoc[]
+=== 응답 정보 [Body]
+include::{snippets}/place-list/response-body.adoc[]
 
 === 응답 정보 [성공]
-==== [HTTP]
-include::{snippets}/place-active/http-response.adoc[]
-
-==== [Body]
-include::{snippets}/place-active/response-body.adoc[]
-
 ==== [Field]
-include::{snippets}/place-active/response-fields.adoc[]
+include::{snippets}/place-list/response-fields.adoc[]
 
-// ==== [Link]
-// include::{snippets}/notice-detail/links.adoc[]
 
 === 응답 정보 [실패]
-* 공지사항이 존재하지 않을 경우
 
-==== [fields]
-include::{snippets}/place-active/response-fields.adoc[]
+* 공간리스트 오류
 
 === CURL
-include::{snippets}/place-active/curl-request.adoc[]
+include::{snippets}/place-list/curl-request.adoc[]
 
 
-
-
-
-== place-detail-list API
+== 공간 상세보기 API
 
 === 요청 정보 [HTTP]
 include::{snippets}/place-detail-list/http-request.adoc[]
 
-// === 요청 정보 [Header]
-// include::{snippets}/notice-save/request-headers.adoc[]
+=== 요청 정보 [Header]
+include::{snippets}/place-detail-list/header-request.adoc[]
 
 === 응답 정보 [HTTP]
 include::{snippets}/place-detail-list/http-response.adoc[]
@@ -111,48 +103,89 @@ include::{snippets}/place-detail-list/response-fields.adoc[]
 
 === 응답 정보 [실패]
 
-* 공지사항 제목을 입력해주세요.
-* 공지사항 내용을 입력해주세요.
-
-==== [fields]
-include::{snippets}/place-detail-list/response-fields.adoc[]
-
+* 공간의 정보를 찾을 수 없습니다.
 
 === CURL
 include::{snippets}/place-detail-list/curl-request.adoc[]
 
 
 
-== Place-List API
+== 등록 수정 API
 
 === 요청 정보 [HTTP]
-include::{snippets}/place-list/http-request.adoc[]
+include::{snippets}/place-update/http-request.adoc[]
 
-// === 요청 정보 [Header]
-// include::{snippets}/notice-update/request-headers.adoc[]
+=== 요청 정보 [Header]
+include::{snippets}/place-update/header-request.adoc[]
 
-=== 응답 정보 [HTTP]
-include::{snippets}/place-list/http-response.adoc[]
-
-=== 응답 정보 [Body]
-include::{snippets}/place-list/response-body.adoc[]
+=== 요청 정보 [Path Parameter]
+include::{snippets}/place-update/httpie-request.adoc[]
 
 === 응답 정보 [성공]
-==== [Field]
-include::{snippets}/place-list/response-fields.adoc[]
+==== [HTTP]
+include::{snippets}/place-update/http-response.adoc[]
 
+==== [Body]
+include::{snippets}/place-update/response-body.adoc[]
+
+==== [Field]
+include::{snippets}/place-update/response-fields.adoc[]
+
+// ==== [Link]
+// include::{snippets}/notice-detail/links.adoc[]
 
 === 응답 정보 [실패]
-
-* 공지사항이 존재하지 않습니다.
-* 공지사항 제목을 입력해주세요.
-* 공지사항 내용을 입력해주세요.
-* 공지사항 상태 값이 이상이 있습니다. 확인해주세요.
-
-==== [fields]
-include::{snippets}/place-list/response-fields.adoc[]
-
+* 공간수정 오류
 
 === CURL
-include::{snippets}/place-list/curl-request.adoc[]
+include::{snippets}/place-update/curl-request.adoc[]
 
+== place 활성화 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/place-active/http-request.adoc[]
+
+=== 요청 정보 [Header]
+include::{snippets}/place-active/header-request.adoc[]
+
+=== 응답 정보 [성공]
+==== [HTTP]
+include::{snippets}/place-active/http-response.adoc[]
+
+==== [Body]
+include::{snippets}/place-active/response-body.adoc[]
+
+==== [Field]
+include::{snippets}/place-active/response-fields.adoc[]
+
+=== 응답 정보 [실패]
+* 공간의 정보가 존재 하지 않습니다.
+* 공간활성화 오류
+
+=== CURL
+include::{snippets}/place-active/curl-request.adoc[]
+
+== place 비활성화 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/place-InActive/http-request.adoc[]
+
+=== 요청 정보 [Header]
+include::{snippets}/place-InActive/header-request.adoc[]
+
+=== 응답 정보 [성공]
+==== [HTTP]
+include::{snippets}/place-InActive/http-response.adoc[]
+
+==== [Body]
+include::{snippets}/place-InActive/response-body.adoc[]
+
+==== [Field]
+include::{snippets}/place-InActive/response-fields.adoc[]
+
+=== 응답 정보 [실패]
+* 공간의 정보가 존재 하지 않습니다.
+* 공간활성화 오류
+
+=== CURL
+include::{snippets}/place-InActive/curl-request.adoc[]

@@ -1,8 +1,6 @@
 package shop.mtcoding.village.dto.hashtag.request;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.place.Place;
 
@@ -18,6 +16,8 @@ public class HashtagSaveDTO {
     @Setter
     @Getter
     @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class HashtagSaveDto extends Hashtag {
         private String hashtagName;
         private Place placeId;

@@ -5,14 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import shop.mtcoding.village.dto.user.UserRequest;
 import shop.mtcoding.village.interfaceTest.AbstractIntegrated;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -74,7 +75,7 @@ public class UserControllerTest extends AbstractIntegrated {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(
-                        document("user-login",
+                        document("host-login",
                                 requestFields(getUserLoginRequestField()),
                                 responseFields().and(getUserLoginField("data.")
                                 )
@@ -105,7 +106,7 @@ public class UserControllerTest extends AbstractIntegrated {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(
-                        document("user-login",
+                        document("admin-login",
                                 requestFields(getUserLoginRequestField()),
                                 responseFields().and(getUserLoginField("data.")
                                 )
@@ -114,6 +115,55 @@ public class UserControllerTest extends AbstractIntegrated {
                 );
 
     }
+
+    @Test
+    @DisplayName("유저 활성화")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void activeUser() throws Exception {
+        this.mockMvc.perform(
+                        post("/users/1")
+                                .accept(MediaType.APPLICATION_JSON_VALUE)
+                                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(
+                        document("user-active",
+                                responseFields(activeUserResponseField())
+                        )
+                );
+
+    }
+
+    @Test
+    @DisplayName("유저 비활성화")
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void inActiveUser() throws Exception {
+        this.mockMvc.perform(
+                        delete("/users/1")
+                                .accept(MediaType.APPLICATION_JSON_VALUE)
+                                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(
+                        document("user-inActive",
+                                responseFields(activeUserResponseField())
+                        )
+                );
+
+    }
+    private FieldDescriptor[] activeUserResponseField() {
+        return new FieldDescriptor[]{
+                fieldWithPath("code").description("응답 코드"),
+                fieldWithPath("msg").description("응답 메시지"),
+                fieldWithPath("data").description("응답 데이터"),
+                fieldWithPath("status").description("공간 활성화 상태"),
+
+        };
+    }
+
+
     private FieldDescriptor[] getUserLoginRequestField() {
         return new FieldDescriptor[] {
                 fieldWithPath("email").description("이메일"),

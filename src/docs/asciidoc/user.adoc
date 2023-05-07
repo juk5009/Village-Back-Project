@@ -1,0 +1,145 @@
+
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+
+= 공지사항 문서 [권한: 관리자]
+
+
+== 유저 로그인 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/user-login/http-request.adoc[]
+
+=== 요청 정보 [Path Parameter]
+include::{snippets}/user-login/httpie-request.adoc[]
+
+=== 응답 정보 [HTTP]
+include::{snippets}/user-login/http-response.adoc[]
+
+=== 응답 정보 [Body]
+include::{snippets}/user-login/response-body.adoc[]
+
+=== 응답 정보 [성공]
+==== [Field]
+include::{snippets}/user-login/response-fields.adoc[]
+
+=== CURL
+include::{snippets}/user-login/curl-request.adoc[]
+
+=== 응답 정보 [실패]
+
+* 유저 로그인 실패
+
+
+== 호스트 로그인 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/host-login/http-request.adoc[]
+
+=== 요청 정보 [Path Parameter]
+include::{snippets}/host-login/httpie-request.adoc[]
+
+=== 응답 정보 [HTTP]
+include::{snippets}/host-login/http-response.adoc[]
+
+=== 응답 정보 [Body]
+include::{snippets}/host-login/response-body.adoc[]
+
+=== 응답 정보 [성공]
+==== [Field]
+include::{snippets}/host-login/response-fields.adoc[]
+
+=== CURL
+include::{snippets}/host-login/curl-request.adoc[]
+
+=== 응답 정보 [실패]
+
+* 호스트 로그인 실패
+
+
+== 관리자 로그인 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/admin-login/http-request.adoc[]
+
+=== 요청 정보 [Path Parameter]
+include::{snippets}/admin-login/httpie-request.adoc[]
+
+=== 응답 정보 [HTTP]
+include::{snippets}/admin-login/http-response.adoc[]
+
+=== 응답 정보 [Body]
+include::{snippets}/admin-login/response-body.adoc[]
+
+=== 응답 정보 [성공]
+==== [Field]
+include::{snippets}/admin-login/response-fields.adoc[]
+
+=== CURL
+include::{snippets}/admin-login/curl-request.adoc[]
+
+=== 응답 정보 [실패]
+
+* 관리자 로그인 실패
+
+
+
+== 유저 활성화 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/user-active/http-request.adoc[]
+
+// === 요청 정보 [Header]
+// include::{snippets}/user-active/header-request.adoc[]
+
+=== 응답 정보 [성공]
+==== [HTTP]
+include::{snippets}/user-active/http-response.adoc[]
+
+==== [Body]
+include::{snippets}/user-active/response-body.adoc[]
+
+==== [Field]
+include::{snippets}/user-active/response-fields.adoc[]
+
+=== 응답 정보 [실패]
+* 유저의 정보가 존재 하지 않습니다.
+* 유저활성화 오류
+
+=== CURL
+include::{snippets}/user-active/curl-request.adoc[]
+
+== 유저 비활성화 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/user-InActive/http-request.adoc[]
+
+// === 요청 정보 [Header]
+// include::{snippets}/user-InActive/header-request.adoc[]
+
+=== 응답 정보 [성공]
+==== [HTTP]
+include::{snippets}/user-InActive/http-response.adoc[]
+
+==== [Body]
+include::{snippets}/user-InActive/response-body.adoc[]
+
+==== [Field]
+include::{snippets}/user-InActive/response-fields.adoc[]
+
+=== 응답 정보 [실패]
+* 유저의 정보가 존재 하지 않습니다.
+* 유저활성화 오류
+
+=== CURL
+include::{snippets}/user-InActive/curl-request.adoc[]

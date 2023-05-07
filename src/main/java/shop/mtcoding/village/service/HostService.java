@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.core.exception.Exception500;
+import shop.mtcoding.village.dto.address.AddressDTO;
 import shop.mtcoding.village.dto.host.request.HostSaveRequest;
 import shop.mtcoding.village.model.host.Host;
 import shop.mtcoding.village.model.host.HostRepository;
@@ -26,6 +27,7 @@ public class HostService {
             User byName = userRepository.findByName(hostSaveDto.getHostName());
 
             hostSaveDto.setStatus(HostStatus.WAIT);
+
             return hostRepository.save(hostSaveDto.toEntity(byName));
         } catch (Exception500 e) {
             throw new Exception500("호스트신청 오류" + e.getMessage());

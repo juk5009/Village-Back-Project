@@ -15,7 +15,7 @@ import shop.mtcoding.village.model.user.User;
 public class MyJwtProvider {
 
     private static final String SUBJECT = "jwtstudy";
-    private static final int EXP = 1000 * 60 * 60;
+    private static final int EXP = 1000 * 60 * 60 * 24 * 7;
     public static final String TOKEN_PREFIX = "Bearer "; // 스페이스 필요함
     public static final String HEADER = "Authorization";
     private static final String SECRET = System.getenv("HS512_SECRET");

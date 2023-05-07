@@ -1,8 +1,6 @@
 package shop.mtcoding.village.dto.facilityInfo.request;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import shop.mtcoding.village.model.category.Category;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.place.Place;
@@ -17,6 +15,8 @@ public class FacilityInfoSaveDTO {
     @Setter
     @Getter
     @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class FacilityInfoSaveDto extends FacilityInfo {
         private String facilityName;
         private Place placeId;

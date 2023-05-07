@@ -119,7 +119,7 @@ public class Place {
     }
 
     public Place(User user, String title, String tel, String placeIntroductionInfo, String notice, FileInfo fileInfo, Integer maxPeople,
-                 Integer maxParking, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime) {
+                 Integer maxParking, Integer pricePerHour, LocalDateTime startTime, LocalDateTime endTime, Boolean isConfirmed) {
         this.user = user;
         this.title = title;
         this.tel = tel;
@@ -131,14 +131,16 @@ public class Place {
         this.pricePerHour = pricePerHour;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isConfirmed = isConfirmed;
     }
 
 
-    public Place(String title, String tel, LocalDateTime startTime, LocalDateTime endTime,
+    public Place(String title, String tel, PlaceAddress address, LocalDateTime startTime, LocalDateTime endTime,
                  String placeIntroductionInfo,
-                 String notice, Integer maxPeople, Integer maxParking, Integer pricePerHour) {
+                 String notice, Integer maxPeople, Integer maxParking, Integer pricePerHour, Boolean isConfirmed) {
         this.title = title;
         this.tel = tel;
+        this.address = address;
         this.startTime = startTime;
         this.endTime = endTime;
         this.placeIntroductionInfo = placeIntroductionInfo;
@@ -146,6 +148,7 @@ public class Place {
         this.maxPeople = maxPeople;
         this.maxParking = maxParking;
         this.pricePerHour = pricePerHour;
+        this.isConfirmed = isConfirmed;
 //        this.fileInfo = fileInfo;
     }
 

@@ -1,11 +1,14 @@
 package shop.mtcoding.village.model.host;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import shop.mtcoding.village.dto.address.AddressDTO;
 import shop.mtcoding.village.dto.host.request.HostSaveRequest;
 import shop.mtcoding.village.model.address.Address;
+import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceAddress;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.status.HostStatus;
@@ -29,6 +32,13 @@ public class Host {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    @Comment("공간 정보")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "place_id")
+    @JsonIgnore
+    private Place place;
+
     @Comment("호스트의 닉네임")
     private String nickName;
 
@@ -48,13 +58,13 @@ public class Host {
     @Builder
     public Host(User user, PlaceAddress address, String nickName, String businessNum, HostStatus status) {
         this.user = user;
-        this.nickName = nickName;
         this.address = address;
+        this.nickName = nickName;
         this.businessNum = businessNum;
         this.status = status;
     }
 
-    public HostSaveRequest toResponse() {
-        return new HostSaveRequest(user.getName(), address, nickName, businessNum);
-    }
+//    public HostSaveRequest toResponse() {
+//        return new HostSaveRequest(user.getName(), nickName, businessNum);
+//    }
 }

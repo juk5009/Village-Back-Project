@@ -1,8 +1,6 @@
 package shop.mtcoding.village.dto.file.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import shop.mtcoding.village.model.file.File;
 import shop.mtcoding.village.model.file.FileStatus;
 
@@ -17,6 +15,8 @@ public class FileSaveDTO {
     @Setter
     @Getter
     @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class FileSaveDto extends File {
         private Long id;
         private String fileName;

@@ -19,14 +19,13 @@ import shop.mtcoding.village.service.HostService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/host")
 @RequiredArgsConstructor
 @Slf4j
 public class HostController {
 
     private final HostService hostService;
 
-    @PostMapping
+    @PostMapping("/user/host")
     public @ResponseBody ResponseEntity<ResponseDTO<Host>> saveHost(@Valid @RequestBody HostSaveRequest hostSaveDto,
             Errors Errors) {
 

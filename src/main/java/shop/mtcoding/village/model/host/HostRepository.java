@@ -8,4 +8,6 @@ public interface HostRepository extends JpaRepository<Host, Long>{
 
     Host findByUser_Id(Long user_id);
 
+    Host findByPlaceId(Long place_id);
+
 }

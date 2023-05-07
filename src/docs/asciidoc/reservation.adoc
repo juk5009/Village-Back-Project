@@ -14,35 +14,7 @@ endif::[]
 
 = 공지사항 문서 [권한: 관리자]
 
-== reservation-list Api
-
-=== 요청 정보 [HTTP]
-include::{snippets}/reservation-list/http-request.adoc[]
-
-// === 요청 정보 [Header]
-// include::{snippets}/notice-list/request-headers.adoc[]
-
-=== 요청 정보 [Header]
-include::{snippets}/reservation-list/curl-request.adoc[]
-
-=== 응답 정보 [HTTP]
-include::{snippets}/reservation-list/http-response.adoc[]
-
-=== 응답 정보 [Body]
-include::{snippets}/reservation-list/response-body.adoc[]
-
-=== 응답 정보
-==== [Field]
-include::{snippets}/reservation-list/response-fields.adoc[]
-
-// ==== [Link]
-// include::{snippets}/notice-list/links.adoc[]
-
-=== CURL
-include::{snippets}/reservation-list/curl-request.adoc[]
-
-
-== reservation-save Api
+== 예약 신청 Api
 
 === 요청 정보 [HTTP]
 include::{snippets}/reservation-save/http-request.adoc[]
@@ -71,7 +43,35 @@ include::{snippets}/reservation-save/response-fields.adoc[]
 include::{snippets}/reservation-save/curl-request.adoc[]
 
 
-== reservation-detail-list Api
+== 예약 전체 내역 Api
+
+=== 요청 정보 [HTTP]
+include::{snippets}/reservation-list/http-request.adoc[]
+
+// === 요청 정보 [Header]
+// include::{snippets}/notice-list/request-headers.adoc[]
+
+=== 요청 정보 [Header]
+include::{snippets}/reservation-list/curl-request.adoc[]
+
+=== 응답 정보 [HTTP]
+include::{snippets}/reservation-list/http-response.adoc[]
+
+=== 응답 정보 [Body]
+include::{snippets}/reservation-list/response-body.adoc[]
+
+=== 응답 정보
+==== [Field]
+include::{snippets}/reservation-list/response-fields.adoc[]
+
+// ==== [Link]
+// include::{snippets}/notice-list/links.adoc[]
+
+=== CURL
+include::{snippets}/reservation-list/curl-request.adoc[]
+
+
+== 예약 상세보기 Api
 
 === 요청 정보 [HTTP]
 include::{snippets}/reservation-detail-list/http-request.adoc[]
@@ -92,15 +92,11 @@ include::{snippets}/reservation-detail-list/response-body.adoc[]
 ==== [Field]
 include::{snippets}/reservation-detail-list/response-fields.adoc[]
 
-// ==== [Link]
-// include::{snippets}/notice-list/links.adoc[]
-
-
 === CURL
 include::{snippets}/reservation-detail-list/curl-request.adoc[]
 
 
-== Delete-reservation
+== 예약 내역 삭제
 
 === 요청 정보 [HTTP]
 include::{snippets}/delete-reservation/http-request.adoc[]
@@ -117,14 +113,9 @@ include::{snippets}/delete-reservation/http-response.adoc[]
 === 응답 정보 [Body]
 include::{snippets}/delete-reservation/response-body.adoc[]
 
-=== 응답 정보
-==== [Field]
+=== 응답 정보 [Field]
 include::{snippets}/delete-reservation/response-fields.adoc[]
 
-// ==== [Link]
-// include::{snippets}/notice-list/links.adoc[]
-
-
-=== CURL
+=== 응답 정보 CURL
 include::{snippets}/delete-reservation/curl-request.adoc[]
 

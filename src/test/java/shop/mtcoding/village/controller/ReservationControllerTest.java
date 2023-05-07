@@ -116,7 +116,6 @@ public class ReservationControllerTest extends AbstractIntegrated {
 
     private FieldDescriptor[] getReservationRequestField() {
         return new FieldDescriptor[] {
-//                fieldWithPath("userName").description("예약자 이름"),
                 fieldWithPath("placeId").description("공간Id"),
                 fieldWithPath("peopleNum").description("예약 인원수"),
                 fieldWithPath("date").description("예약 날짜"),

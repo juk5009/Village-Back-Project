@@ -1,0 +1,43 @@
+
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+
+= 공지사항 문서 [권한: 관리자]
+
+
+== 등록 신청 API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/host-save/http-request.adoc[]
+
+=== 요청 정보 [Header]
+include::{snippets}/host-save/header-request.adoc[]
+
+=== 요청 정보 [Path Parameter]
+include::{snippets}/host-save/httpie-request.adoc[]
+
+=== 응답 정보 [성공]
+==== 응답 정보 [HTTP]
+include::{snippets}/host-save/http-response.adoc[]
+
+==== 응답 정보 [Body]
+include::{snippets}/host-save/response-body.adoc[]
+
+==== 응답 정보 [Field]
+include::{snippets}/host-save/response-fields.adoc[]
+
+=== 응답 정보 [실패]
+* 호스트의 이름을 다시 확인해주세요.
+* 호스트의 주소를 다시 확인해주세요.
+* 호스트의 사업자 번호를 다시 확인해주세요.
+* 사업자 번호는 10자리여야 합니다.
