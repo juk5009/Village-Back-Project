@@ -11,7 +11,7 @@ import shop.mtcoding.village.model.cardData.CardData;
 @NoArgsConstructor
 public class CardDataDTO {
 
-        private Long tid;
+        private String tid;
 
         private String card_approve_no;
 

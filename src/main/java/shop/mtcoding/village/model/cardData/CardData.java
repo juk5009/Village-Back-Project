@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class CardData {
 
     @Id
-    private Long tid;
+    private String tid;
 
     private String cardApproveNo;
 
@@ -28,7 +28,7 @@ public class CardData {
     private String cardCompany;
 
     @Builder
-    public CardData(Long tid, String cardApproveNo, String cardNo, String cardQuota, String cardCompanyCode, String cardCompany) {
+    public CardData(String tid, String cardApproveNo, String cardNo, String cardQuota, String cardCompanyCode, String cardCompany) {
         this.tid = tid;
         this.cardApproveNo = cardApproveNo;
         this.cardNo = cardNo;

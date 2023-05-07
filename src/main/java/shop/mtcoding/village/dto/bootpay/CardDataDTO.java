@@ -1,27 +1,29 @@
 package shop.mtcoding.village.dto.bootpay;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import shop.mtcoding.village.model.cardData.CardData;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CardDataDTO {
 
-        private Long tid;
+        private String tid;
 
         private String card_approve_no;
 
         private String card_no;
+
+        private String card_interest;
 
         private String card_quota;
 
         private String card_company_code;
 
         private String card_company;
+
+        private String card_type;
 
         @Builder
         public CardData toEntity() {

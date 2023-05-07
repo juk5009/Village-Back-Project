@@ -5,12 +5,14 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.bootpay.ReceiptDTO;
 import shop.mtcoding.village.model.cardData.CardDataRepository;
+import shop.mtcoding.village.model.metadata.MetaData;
 import shop.mtcoding.village.model.metadata.MetaRepository;
 import shop.mtcoding.village.model.payment.BootPatRepository;
 import shop.mtcoding.village.model.payment.BootPay;
 import shop.mtcoding.village.model.payment.Payment;
 import shop.mtcoding.village.model.payment.PaymentRepository;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,9 +45,9 @@ public class PaymentService {
 //        MetaData metadata = new MetaData(null, );
 //        metaRepository.save(metadata);
 
-        cardDataRepository.save(receiptDTO.getCardDataDTO().toEntity());
+        cardDataRepository.save(receiptDTO.getCard_data().toEntity());
 
-        metaRepository.save(receiptDTO.getMetadataDTO().toEntity());
+        metaRepository.save(receiptDTO.getMetadata().toEntity());
 
         return bootPatRepository.save(receiptDTO.toEntity());
     }

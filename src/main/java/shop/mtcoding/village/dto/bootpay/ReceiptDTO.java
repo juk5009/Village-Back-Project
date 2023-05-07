@@ -73,9 +73,9 @@ public class ReceiptDTO {
 
     private Integer status;
 
-    private CardDataDTO cardDataDTO;
+    private CardDataDTO card_data;
 
-    private MetadataDTO metadataDTO;
+    private MetadataDTO metadata;
 
     public BootPay toEntity() {
 
