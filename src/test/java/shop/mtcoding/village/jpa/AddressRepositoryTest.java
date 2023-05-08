@@ -18,6 +18,8 @@
  import java.util.List;
  import java.util.Optional;
 
+ import static org.junit.jupiter.api.Assertions.*;
+
  @DataJpaTest
  @ExtendWith(SpringExtension.class)
  @DisplayName("주소 JPA 테스트")
@@ -45,7 +47,7 @@
          Assertions.assertNotEquals(addresses.size(), 0);
 
          PlaceAddress address = addresses.get(0);
-         Assertions.assertEquals(address.getAddress(), "부산 부산진구 중앙대로 688 한준빌딩 2층");
+         assertEquals(address.getAddress().toLowerCase(), "부산 부산진구 중앙대로 688 한준빌딩 2층".toLowerCase());
      }
 
      @Test
@@ -56,7 +58,7 @@
 
          if(optionalAddress.isPresent()) {
              var result = optionalAddress.get();
-             Assertions.assertEquals(result.getSigungu(), "부산 부산진구");
+             assertEquals(result.getSigungu().toLowerCase(), "부산 부산진구".toLowerCase());
 
              var zipNo = "12345";
              result.setZonecode(zipNo);

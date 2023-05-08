@@ -35,13 +35,12 @@ public class ReservationSaveRequest {
     private ReservationStatus reservationStatus;
 
 
-    public Reservation toEntity() {
+    public Reservation toEntity(User user) {
 
         LocalDateTime dateParser = DateUtils.parseLocalDateTime(date);
         LocalDateTime startTimeParser = DateUtils.parseLocalDateTime(startTime);
         LocalDateTime endTimeParser = DateUtils.parseLocalDateTime(endTime);
 
-        User user = new User();
         Reservation reservation = new Reservation();
         reservation.setPeopleNum(peopleNum);
         reservation.setDate(dateParser);

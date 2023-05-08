@@ -71,7 +71,7 @@ public class ReservationControllerTest extends AbstractIntegrated {
     @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void postReservation () throws Exception {
 
-        ReservationSaveRequest request = new ReservationSaveRequest(2L, 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
+        ReservationSaveRequest request = new ReservationSaveRequest(1L, 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
 
         this.mockMvc.perform(
                         post("/user/reservation")

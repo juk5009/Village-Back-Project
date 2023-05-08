@@ -89,7 +89,7 @@ public class ReservationController {
             @AuthenticationPrincipal MyUserDetails myUserDetails
             ) throws IOException {
 
-        var saveReservation = reservationService.예약신청(reservationSaveRequest);
+        var saveReservation = reservationService.예약신청(reservationSaveRequest, myUserDetails.getUser());
 
         var placeOptional = placeJpaRepository.findById(reservationSaveRequest.getPlaceId());
         if (placeOptional.isEmpty()){
@@ -97,9 +97,6 @@ public class ReservationController {
         }
 
         Place place = placeOptional.get();
-
-        System.out.println("디버그 : " + place.getAddress());
-
         LocalDate date = DateUtils.fromLocalDateTime(DateUtils.parseLocalDateTime(reservationSaveRequest.getDate()));
         System.out.println(date); // 예시 출력: 2023-04-25
 
