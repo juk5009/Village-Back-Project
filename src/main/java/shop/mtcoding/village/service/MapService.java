@@ -38,4 +38,5 @@ public class MapService {
             throw new Exception500("구글맵 url 저장 실패 " + e.getMessage());
         }
     }
+
 }
