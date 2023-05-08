@@ -60,22 +60,20 @@ dependencies {
 
 }
 
-ext {
-	snippetsDir = file('build/generated-snippets')
-}
+// ext {
+// 	snippetsDir = file('build/generated-snippets')
+// }
 
-tasks.named('test') {
-	outputs.dir snippetsDir
-	useJUnitPlatform()
-}
+// tasks.named('test') {
+// 	outputs.dir snippetsDir
+// 	useJUnitPlatform()
+// }
 
-asciidoctor {
-	inputs.dir snippetsDir
-	configurations 'asciidoctorExt'
-	dependsOn test
-}
-
-
+// asciidoctor {
+// 	inputs.dir snippetsDir
+// 	configurations 'asciidoctorExt'
+// 	dependsOn test
+// }
 
 // bootJar{ //springboot를 이용한 jar 파일 생성 시 필요한 설정 task
 // 	dependsOn asciidoctor //asciidoctor 를 의존하도록 하여, bootJar 생성 전에 asciidoctor task를 수행하도록 함
