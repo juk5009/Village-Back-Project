@@ -38,9 +38,6 @@ public class SearchRepository {
                         "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id, a.sigungu, h.id, h.hashtag_name, f.id, f.file_url";
 
 
-
-
-
         return jdbcTemplate.query(queryString, searchListResultSetExtractor(), keyword, keyword);
     }
 
