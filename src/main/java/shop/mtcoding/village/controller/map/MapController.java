@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.dto.ResponseDTO;
-import shop.mtcoding.village.dto.imagemap.ImageMapSaveRequest;
+import shop.mtcoding.village.dto.imagemap.request.ImageMapSaveRequest;
 import shop.mtcoding.village.model.map.ImageMap;
 import shop.mtcoding.village.service.MapService;
 
@@ -20,7 +20,17 @@ public class MapController {
 
     private final MapService mapService;
 
-    @GetMapping("/image-url")
+
+    @PostMapping()
+    public ResponseEntity<ResponseDTO<?>> createMap(@RequestBody ImageMapSaveRequest imageMapSaveRequest) {
+        ImageMap createdImageMap = mapService.saveMapUrl(imageMapSaveRequest);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(createdImageMap);
+
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+
+    @GetMapping("/imageUrl") //쿼리스트링으로 받기
     public ResponseEntity<Map<String, String>> getMapImageUrl(
             @RequestParam double lat, @RequestParam double lng, @RequestParam int zoom
     ) {
@@ -46,21 +56,6 @@ public class MapController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
-
-
-
-    @PostMapping()
-    public ResponseEntity<ResponseDTO<?>> createMap(@RequestBody ImageMapSaveRequest imageMapSaveRequest) {
-        ImageMap createdImageMap = mapService.saveMapUrl(imageMapSaveRequest);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(createdImageMap);
-
-        return ResponseEntity.ok().body(responseDTO);
-    }
-
-
 
 
 }

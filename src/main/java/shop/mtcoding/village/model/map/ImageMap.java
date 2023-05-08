@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "map_tb")
+@Table(name = "imagemap_tb")
 public class ImageMap {
 
     @Id
@@ -31,13 +31,18 @@ public class ImageMap {
     @JsonIgnore
     private Place place;
 
+    @Comment("위도")
+    private double lat;
+
+
+    @Comment("경도")
+    private double lng;
+
+
+    @Comment("줌")
+    private Integer zoom;
+
 
     @Comment("맵 URL")
     private String mapImageUrl;
-
-    private double lat;
-
-    private double lng;
-
-    private Integer zoom;
 }
