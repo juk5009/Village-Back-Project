@@ -55,7 +55,7 @@ public class FcmController {
                 // token 받고, DB에 저장 후 푸쉬 알림 시 활용
             }
 
-            System.out.println("앱 실행 후 토큰 전송 성공!, token : " + token);
+            System.out.println("앱 실행 후 토큰 전송 성공!, token : " + targetToken);
         } else {
             System.out.println("토큰 전송 실패!");
         }

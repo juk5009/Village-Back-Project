@@ -82,24 +82,34 @@ public class PlaceController {
 
         DetailPlaceResponse detailPlaceResponse1 = placeResponse.toDetailResponse(detailPlaceResponse.getFile(), host, detailPlaceResponse.getReview(),
                 detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks()
-        ,detailPlaceResponse.getCategory());
+        ,detailPlaceResponse.getCategoryName());
 
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 상세 보기", detailPlaceResponse1), HttpStatus.OK);
     }
 
     @PostMapping("/host/places")
-    public @ResponseBody ResponseEntity<ResponseDTO<Place>> savePlace(
+    public @ResponseBody ResponseEntity<ResponseDTO<DetailPlaceResponse>> savePlace(
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors,
-            @AuthenticationPrincipal MyUserDetails myUserDetails
+            DetailPlaceResponse detailPlaceResponse,  @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
         var save = placeService.공간등록하기(placeSaveRequest);
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 등록 완료", save), HttpStatus.OK);
+
+        var savePlace = placeService.등록된공간보기(save.getId(), detailPlaceResponse);
+
+        Long id1 = myUserDetails.getUser().getId();
+        Host host = hostRepository.findByUserId(id1);
+
+        DetailPlaceResponse savePlaceResponse = savePlace.toDetailResponse(detailPlaceResponse.getFile(), host, detailPlaceResponse.getReview(),
+                detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks()
+                ,detailPlaceResponse.getCategoryName());
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 등록 완료", savePlaceResponse), HttpStatus.OK);
     }
 
     @PutMapping("/host/places")
-    public ResponseEntity<ResponseDTO<Place>> updatePlace(
+    public ResponseEntity<ResponseDTO<DetailPlaceResponse>> updatePlace(
             @Valid @RequestBody PlaceUpdateRequest placeUpdateRequest, Errors Errors,
-            @AuthenticationPrincipal MyUserDetails myUserDetails
+            DetailPlaceResponse detailPlaceResponse, @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
 
         String role = myUserDetails.getUser().getRole();
@@ -110,7 +120,17 @@ public class PlaceController {
 
         var update = placeService.공간수정하기(placeUpdateRequest);
 
-        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", update), HttpStatus.OK);
+        var savePlace = placeService.등록된공간보기(update.getId(), detailPlaceResponse);
+
+        Long id1 = myUserDetails.getUser().getId();
+        Host host = hostRepository.findByUserId(id1);
+
+        DetailPlaceResponse updatePlaceResponse = savePlace.toDetailResponse(detailPlaceResponse.getFile(), host, detailPlaceResponse.getReview(),
+                detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks()
+                ,detailPlaceResponse.getCategoryName());
+
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "공간 데이터 수정 완료", updatePlaceResponse), HttpStatus.OK);
         }
         
         @DeleteMapping("/places/{id}")

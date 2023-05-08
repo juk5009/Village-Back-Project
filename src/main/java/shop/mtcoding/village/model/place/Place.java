@@ -166,14 +166,14 @@ public class Place {
     }
 
     public DetailPlaceResponse toDetailResponse(
-            List<File> file, Host host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks, Category category
+            List<File> file, Host host, List<Review> review, Integer scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks, String categoryName
     ) {
         HostDTO hostDTO = new HostDTO();
         hostDTO.setId(host.getId());
         hostDTO.setHostName(host.getNickName());
         return new DetailPlaceResponse(
                 id, address, title, tel, startTime.toString(), endTime.toString(), placeIntroductionInfo, pricePerHour, maxPeople, maxParking, notice
-                , file, hostDTO, review, scrap, hashtags, facilitys, dayOfWeeks, category
+                , file, hostDTO, review, scrap, hashtags, facilitys, dayOfWeeks, categoryName, isConfirmed
         );
     }
 

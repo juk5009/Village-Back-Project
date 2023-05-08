@@ -48,6 +48,8 @@ public class DetailPlaceResponse {
 
     private String notice;
 
+    private Boolean isConfirmed;
+
     // 다른 Entity 정보
     private List<File> file;
 
@@ -55,7 +57,7 @@ public class DetailPlaceResponse {
 
     private List<Review> review;
 
-    private Scrap scrap;
+    private Integer scrap;
 
     private List<Hashtag> hashtags;
 
@@ -63,10 +65,11 @@ public class DetailPlaceResponse {
 
     private List<Dates> dayOfWeeks;
 
-    private Category category;
+    private String categoryName;
 
     public DetailPlaceResponse(Long id, PlaceAddress address, String title, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople, Integer maxParking
-            , Integer pricePerHour, String notice, List<File> file, HostDTO host, List<Review> review, Scrap scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks, Category category) {
+            , Integer pricePerHour, String notice, List<File> file, HostDTO host, List<Review> review, Integer scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
+            , String categoryName, Boolean isConfirmed) {
         this.id = id;
         this.address = address;
         this.title = title;
@@ -85,6 +88,7 @@ public class DetailPlaceResponse {
         this.hashtags = hashtags;
         this.facilitys = facilitys;
         this.dayOfWeeks = dayOfWeeks;
-        this.category = category;
+        this.categoryName = categoryName;
+        this.isConfirmed = isConfirmed;
     }
 }

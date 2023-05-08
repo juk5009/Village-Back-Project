@@ -123,6 +123,7 @@ public class PlaceService {
             // 카테고리 insert
             Category category = new Category();
             category.setCategoryName(placeRequest.getCategoryName());
+            category.setPlace(place);
             categoryRepository.save(category);
 
             // 요일 날짜 insert
@@ -187,6 +188,8 @@ public class PlaceService {
         try {
 
             // 공간 insert
+            placeUpdateRequest.setStatus(PlaceStatus.INACTIVE);
+
             Place savePlace = placeJpaRepository.save(placeUpdateRequest.toEntity());
 
             Optional<Place> byId = placeJpaRepository.findById(savePlace.getId());
@@ -195,8 +198,6 @@ public class PlaceService {
 
             // 해시태그 insert
             List<Hashtag> hashtagList = new ArrayList<Hashtag>();
-
-            System.out.println("디버그 : " + placeUpdateRequest.getHashtag());
 
             for (HashtagSaveDTO.HashtagSaveDto hash : placeUpdateRequest.getHashtag()) {
                 Hashtag save1 = hashtagRepository.save(hash.toEntity(hash.getHashtagName(), place));
@@ -207,10 +208,11 @@ public class PlaceService {
             // file s3에 저장
             List<File> fileList = new ArrayList<>();
 
-            for (FileSaveDTO.FileSaveDto file : placeUpdateRequest.getImage()) {
-                String imgPath = s3Service.upload(file.getFileName(), Base64Decoded.convertBase64ToMultipartFile(file.getFileUrl()));
-                file.setFileUrl(imgPath);
-                File save = fileRepository.save(file.toEntity(file.getFileName(), file.getFileUrl()));
+            for (FileSaveDTO.FileSaveDto files : placeUpdateRequest.getImage()) {
+                String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getFileUrl()));
+                files.setFileUrl(imgPath);
+
+                File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
                 fileList.add(save);
 
                 fileService.save(placeUpdateRequest.getImage().get(0));
@@ -219,6 +221,7 @@ public class PlaceService {
             // 카테고리 insert
             Category category = new Category();
             category.setCategoryName(placeUpdateRequest.getCategoryName());
+            category.setPlace(place);
             categoryRepository.save(category);
 
             // 요일 날짜 insert
@@ -239,13 +242,14 @@ public class PlaceService {
                 facilityInfoList.add(savefacilityInfo);
             }
 
-            return savePlace;
 
+            return savePlace;
         } catch (Exception500 e) {
-            throw new Exception500("공간수정 오류" + e.getMessage());
+            throw new Exception500("공간등록 오류" + e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
     public List<Place> 공간메인보기() {
         return placeJpaRepository.findAll();
@@ -293,20 +297,74 @@ public class PlaceService {
 
         // scrap 정보 넣기
         Scrap scrap = scrapRepository.findByPlaceId(placeId);
-        detailPlaceResponse.setScrap(scrap);
+        detailPlaceResponse.setScrap(null);
 
         // category 정보 넣기
-        Optional<Category> categoryOptional = categoryRepository.findByPlaceId(placeId);
-        if (categoryOptional.isEmpty()){
-            throw new CustomException("카테고리에 대한 정보가 없습니다.");
-        }
+//        Optional<Category> categoryOptional = categoryRepository.findByPlaceId(placeId);
+//        if (categoryOptional.isEmpty()){
+//            throw new CustomException("카테고리에 대한 정보가 없습니다.");
+//        }
 
-        Category category = categoryOptional.get();
-        detailPlaceResponse.setCategory(category);
+//        Category category = categoryOptional.get();
+
+        Category category = categoryRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setCategoryName(category.getCategoryName());
 
         System.out.println("디버그 : " + detailPlaceResponse);
 
         return place;
     }
 
+    public Place 등록된공간보기(Long placePathId, DetailPlaceResponse detailPlaceResponse) {
+        // place 정보 넣기
+        Optional<Place> placeOptional = placeJpaRepository.findById(placePathId);
+        if (placeOptional.isEmpty()){
+            throw new CustomException("공간의 정보를 찾을 수 없습니다");
+        }
+        Place place = placeOptional.get();
+        var placeId = placeOptional.get().getId();
+
+        // file 정보 넣기
+        List<File> file = fileRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setFile(file);
+
+//        FileInfo fileInfo = fileInfoRepository.findByType(FileType.PLACE);
+//        detailPlaceResponse.setFile(fileInfo);
+
+        // host 정보 넣기
+        Host host = hostRepository.findByPlaceId(placeId);
+        HostDTO hostDTO = new HostDTO();
+        hostDTO.setId(hostDTO.getId());
+        hostDTO.setHostName(hostDTO.getHostName());
+        detailPlaceResponse.setHost(hostDTO);
+
+        // review 정보 넣기
+        List<Review> review = reviewRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setReview(review);
+
+        // facility 정보 넣기
+        List<FacilityInfo> facilityList = facilityInfoRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setFacilitys(facilityList);
+
+        // hashtag 정보 넣기
+        List<Hashtag> hashtag = hashtagRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setHashtags(hashtag);
+
+        // date 정보 넣기
+        List<Dates> dates = dateRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setDayOfWeeks(dates);
+
+        // scrap 정보 넣기
+        Scrap scrap = scrapRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setScrap(null);
+
+        // category 정보 넣기
+        Category category = categoryRepository.findByPlaceId(placeId);
+        detailPlaceResponse.setCategoryName(category.getCategoryName());
+
+        System.out.println("디버그 : " + detailPlaceResponse);
+
+        return place;
+
+    }
 }

@@ -19,6 +19,7 @@ import shop.mtcoding.village.util.status.ReservationStatus;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -47,6 +48,8 @@ public class HostControllerTest extends AbstractIntegrated {
                 .andDo(print())
                 .andDo(
                         document("host-save",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 requestFields(postHostRequestField()),
                                 responseFields(postHostnResponseField("data."))
                         )

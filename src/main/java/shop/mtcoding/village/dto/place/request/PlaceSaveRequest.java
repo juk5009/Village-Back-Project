@@ -54,7 +54,14 @@ public class PlaceSaveRequest {
     @NotNull(message = "시간당 금액을 입력해주세요.")
     private Integer pricePerHour;
 
+    private PlaceStatus status;
+
+    private Boolean isConfirmed;
+
     // 다른 엔티티들
+    @NotNull(message = "카테고리를 등록해주세요.")
+    private String categoryName;
+
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
     private List<DateSaveDTO.DateSaveDto> dayOfWeek;
 
@@ -62,14 +69,7 @@ public class PlaceSaveRequest {
 
     private List<FacilityInfoSaveDTO.FacilityInfoSaveDto> facilityInfo;
 
-    @NotNull(message = "카테고리를 등록해주세요.")
-    private String categoryName;
-
     private List<FileSaveDTO.FileSaveDto> image;
-
-    private PlaceStatus status;
-
-    private Boolean isConfirmed;
 
     public Place toEntity() {
 

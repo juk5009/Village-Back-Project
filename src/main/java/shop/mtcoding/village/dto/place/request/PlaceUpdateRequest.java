@@ -1,7 +1,6 @@
 package shop.mtcoding.village.dto.place.request;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import shop.mtcoding.village.dto.address.AddressDTO;
 import shop.mtcoding.village.dto.category.request.CategorySaveDTO;
 import shop.mtcoding.village.dto.date.request.DateSaveDTO;
@@ -12,6 +11,7 @@ import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceAddress;
 import shop.mtcoding.village.util.DateUtils;
+import shop.mtcoding.village.util.status.PlaceStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,10 +20,14 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlaceUpdateRequest {
 
     @NotBlank(message = "제목을 입력해주세요.")
+
     private String title;
 
     private PlaceAddress address;
@@ -51,7 +55,14 @@ public class PlaceUpdateRequest {
     @NotNull(message = "시간당 금액을 입력해주세요.")
     private Integer pricePerHour;
 
+    private PlaceStatus status;
+
+    private Boolean isConfirmed;
+
     // 다른 엔티티들
+    @NotNull(message = "카테고리를 등록해주세요.")
+    private String categoryName;
+
     @NotNull(message = "사용가능한 요일을 설정해주세요.")
     private List<DateSaveDTO.DateSaveDto> dayOfWeek;
 
@@ -59,12 +70,7 @@ public class PlaceUpdateRequest {
 
     private List<FacilityInfoSaveDTO.FacilityInfoSaveDto> facilityInfo;
 
-    @NotNull(message = "카테고리를 등록해주세요.")
-    private String categoryName;
-
     private List<FileSaveDTO.FileSaveDto> image;
-
-    private Boolean isConfirmed;
 
     public Place toEntity() {
 

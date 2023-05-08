@@ -100,8 +100,8 @@ public class PlaceControllerTest extends AbstractIntegrated {
         PlaceAddress address = new PlaceAddress("도로명주소", "시군구", "우편번호", "상세주소", "경도", "위도");
 
         PlaceSaveRequest request = new PlaceSaveRequest("제목", address, "전화번호", "2023-03-03T15:12:22", "2023-03-03T15:12:22", "공간정보"
-                , "유의사항", 5, 3, 3000
-                , List.of(dates), List.of(hashtag), List.of(facility), "카테고리", List.of(file), PlaceStatus.WAIT,true);
+                , "유의사항", 5, 3, 3000, PlaceStatus.WAIT,true
+                , "카테고리", List.of(dates), List.of(hashtag), List.of(facility), List.of(file));
         this.mockMvc.perform(
                         post("/host/places")
                                 .content(objectMapper.writeValueAsString(request))
@@ -150,8 +150,8 @@ public class PlaceControllerTest extends AbstractIntegrated {
         PlaceAddress address = new PlaceAddress("도로명주소", "시군구", "우편번호", "상세주소", "경도", "위도");
 
         PlaceSaveRequest request = new PlaceSaveRequest("제목", address, "전화번호", "2023-03-03T15:12:22", "2023-03-03T15:12:22", "공간정보"
-                , "유의사항", 5, 3, 3000
-                , List.of(dates), List.of(hashtag), List.of(facility), "카테고리", List.of(file), PlaceStatus.WAIT,true);
+                , "유의사항", 5, 3, 3000, PlaceStatus.WAIT,true
+                , "카테고리", List.of(dates), List.of(hashtag), List.of(facility), List.of(file));
         this.mockMvc.perform(
                         put("/host/places")
                                 .content(objectMapper.writeValueAsString(request))
@@ -163,7 +163,7 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 .andDo(
                         document("place-update",
                                 requestFields(getPLaceRequestField()),
-                                responseFields(postPlaceResponseField("data."))
+                                responseFields(updatePlaceResponseField("data."))
                         )
                 );
 
@@ -231,9 +231,11 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath("endTime").description("14:00"),
                 fieldWithPath("placeIntroductionInfo").description("공간정보"),
                 fieldWithPath("notice").description("유의사항"),
-                fieldWithPath("maxPeople").description(5),
-                fieldWithPath("maxParking").description(3),
-                fieldWithPath("pricePerHour").description(3000),
+                fieldWithPath("maxPeople").description("최대 인원"),
+                fieldWithPath("maxParking").description("최대 주차"),
+                fieldWithPath("pricePerHour").description("시간당 금액"),
+//                fieldWithPath("file[]").description("이미지"),
+//                fieldWithPath("review[]").description("리뷰"),
                 fieldWithPath("dayOfWeek[].id").description("요일 id"),
                 fieldWithPath("dayOfWeek[].dayOfWeekName").description("요일 날짜"),
                 fieldWithPath("dayOfWeek[].placeId").description("공간Id"),
@@ -293,6 +295,7 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"address.x").optional().description("경도"),
                 fieldWithPath(prefix+"address.y").optional().description("위도"),
                 fieldWithPath(prefix+"address.detailAddress").optional().description("상세주소"),
+                fieldWithPath(prefix+"review[]").optional().description("리뷰"),
                 fieldWithPath(prefix+"review[].id").optional().description("리뷰 별점"),
                 fieldWithPath(prefix+"review[].starRating").optional().description("리뷰 별점"),
                 fieldWithPath(prefix+"review[].content").optional().description("리뷰 개수"),
@@ -305,12 +308,14 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"hashtags[].hashtagName").description("해시태그 이름"),
                 fieldWithPath(prefix+"facilitys[].id").description("편의시설 id"),
                 fieldWithPath(prefix+"facilitys[].facilityName").description("편의시설 이름"),
+                fieldWithPath(prefix+"file[]").description("파일"),
                 fieldWithPath(prefix+"file[].id").description("파일 id"),
                 fieldWithPath(prefix+"file[].fileName").description("파일이름"),
                 fieldWithPath(prefix+"file[].fileUrl").description("파일URL"),
 //                fieldWithPath(prefix+"file[].extension").description("파일확장자"),
 //                fieldWithPath(prefix+"file[].status").description("파일상태"),
-                fieldWithPath(prefix+"scrap").optional().description("스크랩"),
+                fieldWithPath(prefix+"scrap").description("스크랩"),
+//                fieldWithPath(prefix+"scrap.id").type(Long.class).description("스크랩 id"),
                 fieldWithPath(prefix+"id").description("공간의 id"),
                 fieldWithPath(prefix+"title").description("공간 제목"),
                 fieldWithPath(prefix+"tel").description("공간 전화번호"),
@@ -324,9 +329,8 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath(prefix+"pricePerHour").description("시간당 결제금액"),
                 fieldWithPath(prefix+"host.id").description("호스트 id"),
                 fieldWithPath(prefix+"host.hostName").description("호스트 이름"),
-                fieldWithPath(prefix+"scrap.id").description("스크랩 id"),
-                fieldWithPath(prefix+"category.id").description("카테고리 id"),
-                fieldWithPath(prefix+"category.categoryName").description("카테고리 이름"),
+                fieldWithPath(prefix+"isConfirmed").description("예약승인 필요여부"),
+                fieldWithPath(prefix+"categoryName").description("카테고리 이름"),
 
         };
     }
@@ -336,27 +340,102 @@ public class PlaceControllerTest extends AbstractIntegrated {
                 fieldWithPath("code").description("응답 코드"),
                 fieldWithPath("status").description("응답 상태"),
                 fieldWithPath("msg").description("응답 메시지"),
-                fieldWithPath(prefix+"address").optional().description("공간의 id"),
-                fieldWithPath(prefix+"address.id").optional().description("공간의 주소"),
-                fieldWithPath(prefix+"address.address").optional().description("공간의 도로명 주소"),
-                fieldWithPath(prefix+"address.sigungu").optional().description("공간의 시군구"),
-                fieldWithPath(prefix+"address.zonecode").optional().description("공간의 우편번호"),
-                fieldWithPath(prefix+"address.detailAddress").optional().description("공간의 상세주소"),
-                fieldWithPath(prefix+"address.x").optional().description("공간의 경도"),
-                fieldWithPath(prefix+"address.y").optional().description("공간의 위도"),
+                fieldWithPath(prefix+"address").optional().description("주소"),
+                fieldWithPath(prefix+"address.address").optional().description("주소 도로명주소"),
+                fieldWithPath(prefix+"address.zonecode").optional().description("주소 우편번호"),
+                fieldWithPath(prefix+"address.id").optional().description("주소 id"),
+                fieldWithPath(prefix+"address.sigungu").optional().description("시군구 주소"),
+                fieldWithPath(prefix+"address.x").optional().description("경도"),
+                fieldWithPath(prefix+"address.y").optional().description("위도"),
+                fieldWithPath(prefix+"address.detailAddress").optional().description("상세주소"),
+                fieldWithPath(prefix+"review[]").optional().description("리뷰"),
+//                fieldWithPath(prefix+"review[].id").optional().description("리뷰 별점"),
+//                fieldWithPath(prefix+"review[].starRating").optional().description("리뷰 별점"),
+//                fieldWithPath(prefix+"review[].content").optional().description("리뷰 개수"),
+//                fieldWithPath(prefix+"review[].image").optional().description("리뷰 개수"),
+//                fieldWithPath(prefix+"review[].likeCount").optional().description("리뷰 개수"),
+//                fieldWithPath(prefix+"review[].createdAt").optional().description("리뷰 개수"),
+                fieldWithPath(prefix+"dayOfWeeks[].id").description("요일 id"),
+                fieldWithPath(prefix+"dayOfWeeks[].dayOfWeekName").description("요일 날짜"),
+                fieldWithPath(prefix+"hashtags[].id").description("해시태그 id"),
+                fieldWithPath(prefix+"hashtags[].hashtagName").description("해시태그 이름"),
+                fieldWithPath(prefix+"facilitys[].id").description("편의시설 id"),
+                fieldWithPath(prefix+"facilitys[].facilityName").description("편의시설 이름"),
+                fieldWithPath(prefix+"file[]").description("파일"),
+//                fieldWithPath(prefix+"file[].id").description("파일 id"),
+//                fieldWithPath(prefix+"file[].fileName").description("파일이름"),
+//                fieldWithPath(prefix+"file[].fileUrl").description("파일URL"),
+//                fieldWithPath(prefix+"file[].extension").description("파일확장자"),
+//                fieldWithPath(prefix+"file[].status").description("파일상태"),
+                fieldWithPath(prefix+"scrap").description("스크랩"),
+//                fieldWithPath(prefix+"scrap.id").type(Long.class).description("스크랩 id"),
                 fieldWithPath(prefix+"id").description("공간의 id"),
                 fieldWithPath(prefix+"title").description("공간 제목"),
                 fieldWithPath(prefix+"tel").description("공간 전화번호"),
                 fieldWithPath(prefix+"placeIntroductionInfo").description("공간 정보"),
                 fieldWithPath(prefix+"notice").description("공간 유의사항"),
-                fieldWithPath(prefix+"fileInfo").description("공간 파일"),
+//                fieldWithPath(prefix+"fileInfo").optional().description("공간 파일"),
                 fieldWithPath(prefix+"startTime").description("공간 시작시간"),
                 fieldWithPath(prefix+"endTime").description("공간 마감시간"),
-                fieldWithPath(prefix+"status").description("공간 상태"),
-                fieldWithPath(prefix+"isConfirmed").description("예약 가능 상태"),
                 fieldWithPath(prefix+"maxPeople").description("공간 최대인원수"),
                 fieldWithPath(prefix+"maxParking").description("주차가능대수"),
                 fieldWithPath(prefix+"pricePerHour").description("시간당 결제금액"),
+                fieldWithPath(prefix+"host.id").description("호스트 id"),
+                fieldWithPath(prefix+"host.hostName").description("호스트 이름"),
+                fieldWithPath(prefix+"isConfirmed").description("예약승인 필요여부"),
+                fieldWithPath(prefix+"categoryName").description("카테고리 이름"),
+        };
+    }
+
+    private FieldDescriptor[] updatePlaceResponseField(String prefix) {
+        return new FieldDescriptor[] {
+                fieldWithPath("code").description("응답 코드"),
+                fieldWithPath("status").description("응답 상태"),
+                fieldWithPath("msg").description("응답 메시지"),
+                fieldWithPath(prefix+"address").optional().description("주소"),
+                fieldWithPath(prefix+"address.address").optional().description("주소 도로명주소"),
+                fieldWithPath(prefix+"address.zonecode").optional().description("주소 우편번호"),
+                fieldWithPath(prefix+"address.id").optional().description("주소 id"),
+                fieldWithPath(prefix+"address.sigungu").optional().description("시군구 주소"),
+                fieldWithPath(prefix+"address.x").optional().description("경도"),
+                fieldWithPath(prefix+"address.y").optional().description("위도"),
+                fieldWithPath(prefix+"address.detailAddress").optional().description("상세주소"),
+                fieldWithPath(prefix+"review[]").optional().description("리뷰"),
+//                fieldWithPath(prefix+"review[].id").optional().description("리뷰 별점"),
+//                fieldWithPath(prefix+"review[].starRating").optional().description("리뷰 별점"),
+//                fieldWithPath(prefix+"review[].content").optional().description("리뷰 개수"),
+//                fieldWithPath(prefix+"review[].image").optional().description("리뷰 개수"),
+//                fieldWithPath(prefix+"review[].likeCount").optional().description("리뷰 개수"),
+//                fieldWithPath(prefix+"review[].createdAt").optional().description("리뷰 개수"),
+                fieldWithPath(prefix+"dayOfWeeks[].id").description("요일 id"),
+                fieldWithPath(prefix+"dayOfWeeks[].dayOfWeekName").description("요일 날짜"),
+                fieldWithPath(prefix+"hashtags[].id").description("해시태그 id"),
+                fieldWithPath(prefix+"hashtags[].hashtagName").description("해시태그 이름"),
+                fieldWithPath(prefix+"facilitys[].id").description("편의시설 id"),
+                fieldWithPath(prefix+"facilitys[].facilityName").description("편의시설 이름"),
+                fieldWithPath(prefix+"file[]").description("파일"),
+//                fieldWithPath(prefix+"file[].id").description("파일 id"),
+//                fieldWithPath(prefix+"file[].fileName").description("파일이름"),
+//                fieldWithPath(prefix+"file[].fileUrl").description("파일URL"),
+//                fieldWithPath(prefix+"file[].extension").description("파일확장자"),
+//                fieldWithPath(prefix+"file[].status").description("파일상태"),
+                fieldWithPath(prefix+"scrap").description("스크랩"),
+//                fieldWithPath(prefix+"scrap.id").type(Long.class).description("스크랩 id"),
+                fieldWithPath(prefix+"id").description("공간의 id"),
+                fieldWithPath(prefix+"title").description("공간 제목"),
+                fieldWithPath(prefix+"tel").description("공간 전화번호"),
+                fieldWithPath(prefix+"placeIntroductionInfo").description("공간 정보"),
+                fieldWithPath(prefix+"notice").description("공간 유의사항"),
+//                fieldWithPath(prefix+"fileInfo").optional().description("공간 파일"),
+                fieldWithPath(prefix+"startTime").description("공간 시작시간"),
+                fieldWithPath(prefix+"endTime").description("공간 마감시간"),
+                fieldWithPath(prefix+"maxPeople").description("공간 최대인원수"),
+                fieldWithPath(prefix+"maxParking").description("주차가능대수"),
+                fieldWithPath(prefix+"pricePerHour").description("시간당 결제금액"),
+                fieldWithPath(prefix+"host.id").description("호스트 id"),
+                fieldWithPath(prefix+"host.hostName").description("호스트 이름"),
+                fieldWithPath(prefix+"isConfirmed").description("예약승인 필요여부"),
+                fieldWithPath(prefix+"categoryName").description("카테고리 이름"),
         };
     }
 }
