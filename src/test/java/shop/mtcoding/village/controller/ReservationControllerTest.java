@@ -65,30 +65,30 @@ public class ReservationControllerTest extends AbstractIntegrated {
                 );
     }
 
-//    @Test
-//    @DisplayName("예약 신청하기")
-//    @Transactional
-//    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-//    void postReservation () throws Exception {
-//
-//        ReservationSaveRequest request = new ReservationSaveRequest(2L, 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
-//
-//        this.mockMvc.perform(
-//                        post("/user/reservation")
-////                                .header("Authorization", getUser())
-//                                .content(objectMapper.writeValueAsString(request))
-//                                .accept(MediaType.APPLICATION_JSON_VALUE)
-//                                .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                )
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andDo(
-//                        document("reservation-save",
-//                                requestFields(getReservationRequestField()),
-//                                responseFields(postReservationResponseField("data."))
-//                        )
-//                );
-//    }
+    @Test
+    @DisplayName("예약 신청하기")
+    @Transactional
+    @WithUserDetails(value = "ssar@naver.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void postReservation () throws Exception {
+
+        ReservationSaveRequest request = new ReservationSaveRequest(2L, 3, "2023-03-03T15:12:22", "2023-03-03T15:12:22", "2023-03-03T15:12:22", ReservationStatus.WAIT);
+
+        this.mockMvc.perform(
+                        post("/user/reservation")
+                                .header("Authorization", getUser())
+                                .content(objectMapper.writeValueAsString(request))
+                                .accept(MediaType.APPLICATION_JSON_VALUE)
+                                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(
+                        document("reservation-save",
+                                requestFields(getReservationRequestField()),
+                                responseFields(postReservationResponseField("data."))
+                        )
+                );
+    }
 
     @Test
     @DisplayName("예약내역 삭제하기")

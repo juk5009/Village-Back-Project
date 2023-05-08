@@ -1,125 +1,173 @@
-### hey there <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="25px">
-Hi I'm Kim HoHyeon and I'm working in Busan with development.
-</br></br>
-[![NOTION](https://img.shields.io/badge/-NOTION-222222?style=for-the-badge&logo=NOTION)](https://www.notion.so/f503f6f26b7c4a589ee379b27444f078?pvs=2)
+# 공간 대여 앱 제작 프로젝트
 
----
+> ## 시연영상 ( Youtube )
 
-<!--START_SECTION:Skills & Endorsements-->
-### Skills & Reference
+추가 예정
 
-![JAVA](https://img.shields.io/badge/-JAVA-222222?style=for-the-badge&logo=JAVA)
-![JAVASCRIPT](https://img.shields.io/badge/-JAVASCRIPT-222222?style=for-the-badge&logo=JAVASCRIPT)
-![FlUTTER](https://img.shields.io/badge/-FlUTTER-222222?style=for-the-badge&logo=FlUTTER)
-![SPRINGBOOT](https://img.shields.io/badge/-SPRINGBOOT-222222?style=for-the-badge&logo=SPRINGBOOT)
-![SPRINGBOOT](https://img.shields.io/badge/-MYSQL-222222?style=for-the-badge&logo=MYSQL)
-![SPRINGBOOT](https://img.shields.io/badge/-MYSQL-222222?style=for-the-badge&logo=MYSQL)
----
- 
+<br>
 
 
-### Side Project
+> ## 발표자료 ( PDF )
 
-1. project
-   1. [SpringBoot - project](https://github.com/Khohyeon/Springboot-MyBatis-Recruitment-Project)
-   2. [SpringBoot - project - RestAPI](https://github.com/Khohyeon/Springboot-MyBatis-Recruitment-Project-V2-RestAPI)
-   3. [SpringBoot - project - Final ](https://github.com/Khohyeon/Village-Back-Project)
-2. Codal
-   1. [Flutter](https://github.com/JinhuiStudy/flutter-project-codal)
-   
-   3. [React](https://github.com/JinhuiStudy/react-project-codal)
-    
+추가예정
 
-# 안녕하세요! [미친개발자]입니다. 👋
+<br>
 
-저는 [당신의 직업/직위]로서 [회사/기관/프리랜서]에서 일하고 있습니다. 저는 주로 [사용하는 기술/언어]를 사용하여 [관심 분야]에 대한 프로젝트를 진행합니다.
+> ## 프로젝트 소개
 
-🌱 현재 배우고 있는 것: **새로운 기술/언어**
+- 주변에서 춤 연습을 하거나 회의를 하거나 공부를 하려는 등의 공간을 알아보고 있나요 ? <br>
+  여러분에게 필요한 여러 공간을 여기서 빌려보세요 !<br>
+  호스트는 공간을 등록하고 사용자는 예약, 결제를 통해 공간을 빌리는 서비스 입니다.
 
-🔭 최근 작업 중인 프로젝트: **프로젝트 이름**
+<br>
 
-📫 연락처: [이메일 주소]
+> ## 프로젝트 기간
 
-🌐 웹사이트: [개인 웹사이트 URL]
+- 2023-04-10 ~ 2023.05.10
 
-👩‍💻 GitHub: [GitHub 계정 URL]
+<br>
 
-👉 LinkedIn: [LinkedIn 프로필 URL]
+> ## 기술 스택
 
-## 나의 스킬셋 🚀
+### 서버
 
-### 언어
-- [언어1]
-- [언어2]
-- [언어3]
+- JDK 11
+- Spring Boot 2.7.8
+- MyBatis
+- H2 DB
+- MySql DB
+- Spring Data Jpa
+- Spring Security
+- JUnit5
+- Rest Doc
+- AWS EC2
+- AWS S3
+- Sentry.io
+- Firebase Cloud Message
+- BootPay
 
-### 프레임워크 및 라이브러리
-- [프레임워크/라이브러리1]
-- [프레임워크/라이브러리2]
-- [프레임워크/라이브러리3]
+### 프론트
 
-### 도구 및 기술
-- [도구/기술1]
-- [도구/기술2]
-- [도구/기술3]
+- Flutter
+- Dart
+- Dio
+- Riverpod
 
-## 최근 GitHub 활동 📊
+<br>
 
-![Your GitHub Stats](https://github-readme-stats.vercel.app/api?username=Khohyeon&show_icons=true&theme=radical)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Khohyeon&layout=compact&theme=radical)
+> ## 기능정리
 
 
-![Header Image](/path/to/header_image.png)
 
-<h1 align="center">👋 안녕하세요! <strong>[당신의 이름]</strong>입니다.</h1>
-<h3 align="center">[당신의 직업/직위] | [회사/기관/프리랜서] | [사용하는 기술/언어]</h3>
+<br>
 
-<p align="center">
-  <a href="[개인 블로그 URL]"><img src="https://img.shields.io/badge/-Website-FF7139?style=flat&logo=Google-Chrome&logoColor=white" alt="개인 웹사이트"></a>
-  <a href="[GitHub 계정 URL]"><img src="https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub"></a>
-  <a href="[LinkedIn 프로필 URL]"><img src="https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="mailto:[이메일 주소]"><img src="https://img.shields.io/badge/-Email-D14836?style=flat&logo=Gmail&logoColor=white" alt="이메일"></a>
-</p>
+> ## spring 의존성 주입
 
----
+```
 
-### 🌟 나의 스킬셋
+        // restdoc
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 
-<details>
-<summary>🛠 언어</summary>
-<p>
-  [JAVA] • [JAVAScript] • [SpringBoot] • [SpringFramework]
-  • [Flutter] • [HTML] • [CSS] • [JSP] 
-</p>
-</details>
+	// jsp
+	implementation 'javax.servlet:jstl'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
-<details>
-<summary>🔧 프레임워크 및 라이브러리</summary>
-<p>
-  [프레임워크/라이브러리1] • [프레임워크/라이브러리2] • [프레임워크/라이브러리3]
-</p>
-</details>
+	// AWS S3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
-<details>
-<summary>💻 도구 및 기술</summary>
-<p>
-  [도구/기술1] • [도구/기술2] • [도구/기술3]
-</p>
-</details>
+	//native query qlrm
+	implementation group: 'org.qlrm', name: 'qlrm', version: '2.1.1'
+	
+	// firebase 의존성
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+	implementation 'com.google.firebase:firebase-admin:9.1.1'
 
----
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation group: 'com.auth0', name: 'java-jwt', version: '4.3.0'
+	implementation 'io.sentry:sentry-spring-boot-starter:6.17.0'
+	implementation 'io.sentry:sentry-logback:6.17.0'
+```
 
-### 🔥 최근 GitHub 활동
+> ## 플러터 의존성 주입
 
-![Your GitHub Stats](https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME&show_icons=true&theme=dracula)
+```
+  cupertino_icons: ^1.0.2
+  intl: ^0.18.0
+  animated_text_kit: ^4.2.2
+  animate_do: ^3.0.2
+  dio: ^5.1.1
+  flutter_riverpod: ^2.3.2
+  riverpod: ^2.3.6
+  font_awesome_flutter: ^9.0.0
+  lottie: ^2.3.2
+  http: ^0.13.5
+  geolocator: ^9.0.2
+  fluttertoast: ^8.2.1
+  motion_toast: ^2.6.6
+  remedi_kopo: ^0.0.2
+  image_picker: ^0.8.7+3
+  google_maps_flutter: ^2.2.5
+  validators: ^3.0.0
+  logger: ^1.1.0
+  flutter_secure_storage: ^7.0.0
+  flutter_swiper_null_safety: ^1.0.2
+  bootpay: ^4.6.1
+  api_provider_builder: ^1.0.4
+  firebase_messaging: ^14.4.1
+  scrollable_positioned_list: ^0.3.5
+  async: ^2.10.0
+  firebase_core: ^2.10.0
+  provider: ^6.0.5
+  cached_network_image: ^3.2.3
+  flutter_html: ^2.2.1
+```
+<br>
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_GITHUB_USERNAME&layout=compact&theme=dracula)
+> ## 테이블 모델링
 
----
+<br>
 
-### 📫 연락처
+![img.png](img.png)
 
-📧 이메일: [이메일 주소]
+<br>
+<br>
 
-🌐 개인 웹사이트: [개인 웹사이트 URL]
+> ## 기술 블로그
+
+[![NOTION](https://img.shields.io/badge/-NOTION-222222?style=for-the-badge&logo=NOTION)](https://www.notion.so/getinthere/bc3034ca8e5c4206977c9351124c71c6)
+
+<br>
+
+> ## 담당 기능
+
+추가예정
+
+<br>
+
+> ## 구현 화면
+
+추가예정
+
+<br>
+
+> ## 보완점
+
+추가예정
+
+<br>
+
+> ## 후기
+
+추가예정

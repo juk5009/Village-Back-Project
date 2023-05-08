@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface PaymentRepository extends JpaRepository<Payment,Long> {
 
-    Optional<Payment> findByReceiptIdAndTotalPrice(String receiptId, Integer totalPrice);
+    Optional<Payment> findByOrderIdAndOrderNameAndTotalPrice(String orderId, String orderName, Integer totalPrice);
 }

@@ -13,10 +13,14 @@ import shop.mtcoding.village.util.status.PaymentStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDTO {
-    @JsonProperty("receipt_id")
-    private String receiptId;
+
+    @JsonProperty("order_id")
+    private String orderId;
 
     private Integer price;
+
+    @JsonProperty("order_name")
+    private String orderName;
 
     private PaymentStatus status;
 

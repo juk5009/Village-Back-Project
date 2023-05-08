@@ -41,7 +41,7 @@ public class PaymentService {
     @Transactional
     public BootPay 구매요청(ReceiptDTO receiptDTO) {
 
-        Optional<Payment> paymentOptional = paymentRepository.findByReceiptIdAndTotalPrice(receiptDTO.getReceiptId(), receiptDTO.getPrice());
+        Optional<Payment> paymentOptional = paymentRepository.findByOrderIdAndOrderNameAndTotalPrice(receiptDTO.getOrderId(), receiptDTO.getOrderName(), receiptDTO.getPrice());
 
         if (paymentOptional.isEmpty()) {
             throw new Exception400("payment","결제 정보가 올바르지 않습니다.");
@@ -73,7 +73,8 @@ public class PaymentService {
         return paymentRepository.findById(id);
     }
     public Payment 결제검증(PaymentDTO paymentDTO) {
+
         paymentDTO.setStatus(PaymentStatus.WAIT);
-        return paymentRepository.save(new Payment(paymentDTO.getReceiptId(), paymentDTO.getPrice()));
+        return paymentRepository.save(new Payment(paymentDTO.getOrderId(), paymentDTO.getOrderName(), paymentDTO.getPrice()));
     }
 }

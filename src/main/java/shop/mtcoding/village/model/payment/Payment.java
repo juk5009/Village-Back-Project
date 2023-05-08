@@ -1,5 +1,6 @@
 package shop.mtcoding.village.model.payment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -29,27 +30,30 @@ public class Payment {
     @Comment("유저 정보")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private User user;
 
     @Comment("공간 정보")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Place place;
 
     @Comment("예약 정보")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Reservation reservation;
 
     @Comment("결제 상태")
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
-    @Comment("결제 id")
-    private String receiptId;
+    @Comment("주문 id")
+    private String orderId;
+
+    @Comment("주문 이름")
+    private String orderName;
 
     @Comment("총결제 금액")
     private Integer totalPrice;
@@ -65,8 +69,9 @@ public class Payment {
         this.totalPrice = totalPrice;
     }
 
-    public Payment(String receiptId, Integer totalPrice) {
-        this.receiptId = receiptId;
+    public Payment(String orderId, String orderName, Integer totalPrice) {
+        this.orderId = orderId;
+        this.orderName = orderName;
         this.totalPrice = totalPrice;
     }
 }
