@@ -25,19 +25,21 @@ public class SearchRepository {
     private final PlaceAddressRepository addressRepository;
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
-        String queryString =
-                "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
-                        "FROM place_tb p " +
-                        "INNER JOIN place_address_tb a ON p.address_id = a.id " +
-                        "LEFT JOIN review_tb r ON p.id = r.place_id " +
-                        "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
-                        "LEFT JOIN search_tb s ON p.id = s.place_id " +
-                        "LEFT JOIN file_tb f ON p.id = f.place_id " +
-                        "WHERE p.title LIKE CONCAT('%', ?, '%') OR h.hashtag_name LIKE CONCAT('%', ?, '%') " +
-                        "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id, a.sigungu, h.id, h.hashtag_name, f.id, f.file_url";
+        String queryString = "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, " +
+                "a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, " +
+                "h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
+                "FROM place_tb p " +
+                "INNER JOIN place_address_tb a ON p.address_id = a.id " +
+                "LEFT JOIN review_tb r ON p.id = r.place_id " +
+                "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
+                "LEFT JOIN search_tb s ON p.id = s.place_id " +
+                "LEFT JOIN file_tb f ON p.id = f.place_id " +
+                "LEFT JOIN category_tb c ON p.id = c.place_id " +
+                "WHERE p.title LIKE CONCAT('%', ?, '%') OR h.hashtag_name LIKE CONCAT('%', ?, '%') OR c.category_name LIKE CONCAT('%', ?, '%') " +
+                "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id, a.sigungu, h.id, h.hashtag_name, f.id, f.file_url";
 
 
-        return jdbcTemplate.query(queryString, searchListResultSetExtractor(), keyword, keyword);
+        return jdbcTemplate.query(queryString, searchListResultSetExtractor(), keyword, keyword,keyword);
     }
 
     private ResultSetExtractor<List<SearchList>> searchListResultSetExtractor() {
