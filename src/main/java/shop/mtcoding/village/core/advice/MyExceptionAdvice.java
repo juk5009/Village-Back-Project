@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import shop.mtcoding.village.core.exception.*;
 import shop.mtcoding.village.dto.ResponseDTO;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 @RestControllerAdvice
 public class MyExceptionAdvice {
@@ -79,7 +82,8 @@ public class MyExceptionAdvice {
    @ExceptionHandler(MyConstException.class)
    public ResponseEntity<?> error(MyConstException e) {
        String detail = e.getMessage();
-       ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(-1, 400, detail, HttpStatus.BAD_REQUEST);
+       List<String> data = Arrays.asList();
+       ResponseDTO<?> responseDTO = new ResponseDTO<>().fail(1, 200, detail, data);
        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
    }
 

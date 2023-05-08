@@ -6,10 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import shop.mtcoding.village.core.exception.Exception400;
+import shop.mtcoding.village.core.exception.Exception401;
+import shop.mtcoding.village.core.exception.MyConstException;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.search.SearchList;
 import shop.mtcoding.village.dto.search.SearchOrderby;
 import shop.mtcoding.village.dto.search.SearchRequest;
+import shop.mtcoding.village.notFoundConst.PlaceConst;
+import shop.mtcoding.village.notFoundConst.SearchConst;
 import shop.mtcoding.village.service.SearchService;
 
 import java.util.List;
@@ -26,6 +31,9 @@ public class SearchController {
     @GetMapping
     public ResponseEntity<ResponseDTO<?>> searchPlacesByKeyword(@RequestParam String keyword) {
         List<SearchList> searchLists = searchService.검색(keyword);
+        if (searchLists.isEmpty()){
+            throw new MyConstException(SearchConst.notfound);
+        }
 
 
             SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
