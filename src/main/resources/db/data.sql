@@ -316,12 +316,14 @@ INSERT INTO hashtag_tb (hashtag_name, place_id)VALUES ('홍대스튜디오',7);
 insert into file_info_tb(type) values ('PLACE');
 insert into file_info_tb(type) values ('FACILITY');
 
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '사무실.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 2, '스터디룸.jpg', 'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/77zL/image/TyYkFNfmPe_AJqGcNd7FJjWLWyE', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 2, '연습실.jpg', 'https://playgwangju.co.kr/data/file/hall/33107915_g08TBajx_93755a2ebe44d49d78d2e4b11c2156b29bb73dbf.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 1, '사무실.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, '연습실.jpg', 'https://playgwangju.co.kr/data/file/hall/33107915_g08TBajx_93755a2ebe44d49d78d2e4b11c2156b29bb73dbf.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, '스터디룸2.jpg', 'https://modo-phinf.pstatic.net/20180304_61/1520159998510ED9Yt_JPEG/mosaSDaCsR.jpeg?type=w1100', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, '연습실2.jpg', 'https://www.andong.go.kr/arts/img/content/sub06/photo_practice_01.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, '스터디룸2.jpg', 'https://modo-phinf.pstatic.net/20180304_61/1520159998510ED9Yt_JPEG/mosaSDaCsR.jpeg?type=w1100', 'WAIT');
 
 insert into fcm_tb(user_id, target_token) values (null,'dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx');
 

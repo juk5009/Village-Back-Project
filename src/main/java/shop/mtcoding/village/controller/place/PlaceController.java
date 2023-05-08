@@ -41,7 +41,6 @@ import shop.mtcoding.village.util.status.PlaceStatus;
 //TODO 경로 바뀐 부분 전달하기
 @RestController
 @Slf4j
-//@RequestMapping("/places")
 public class PlaceController {
 
     private final PlaceService placeService;
