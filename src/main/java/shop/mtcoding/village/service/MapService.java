@@ -13,7 +13,6 @@ import shop.mtcoding.village.model.map.ImageMapRepository;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MapService {
-
     private final ImageMapRepository imageMapRepository;
 
     @Transactional
@@ -39,5 +38,4 @@ public class MapService {
             throw new Exception500("구글맵 url 저장 실패 " + e.getMessage());
         }
     }
-
 }

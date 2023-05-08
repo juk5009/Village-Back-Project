@@ -20,7 +20,6 @@ public class MapController {
 
     private final MapService mapService;
 
-
     @PostMapping()
     public ResponseEntity<ResponseDTO<?>> createMap(@RequestBody ImageMapSaveRequest imageMapSaveRequest) {
         ImageMap createdImageMap = mapService.saveMapUrl(imageMapSaveRequest);
@@ -56,6 +55,4 @@ public class MapController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
