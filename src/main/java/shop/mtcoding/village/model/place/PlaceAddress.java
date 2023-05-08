@@ -29,7 +29,7 @@ public class PlaceAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("공간 아이디")
     private Long id;
-//
+
 //    @Comment("공간 정보")
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JsonIgnore

@@ -11,7 +11,6 @@ import shop.mtcoding.village.dto.hashtag.response.HashtagList;
 import shop.mtcoding.village.dto.review.response.ReviewList;
 import shop.mtcoding.village.dto.search.SearchList;
 import shop.mtcoding.village.dto.search.SearchOrderby;
-import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.address.PlaceAddressRepository;
 import shop.mtcoding.village.model.place.PlaceAddress;
 
@@ -27,7 +26,7 @@ public class SearchRepository {
 
     public List<SearchList> searchPlacesByKeyword(String keyword) {
         String queryString =
-                "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, s.keyword, a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
+                "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
                         "FROM place_tb p " +
                         "INNER JOIN place_address_tb a ON p.address_id = a.id " +
                         "LEFT JOIN review_tb r ON p.id = r.place_id " +
@@ -112,7 +111,7 @@ public class SearchRepository {
         String sqlPriceDesc =
                 "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
                         "FROM place_tb p " +
-                        "INNER JOIN address_tb a ON p.address_id = a.id " +
+                        "INNER JOIN place_address_tb a ON p.address_id = a.id " +
                         "LEFT JOIN review_tb r ON p.id = r.place_id " +
                         "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
                         "LEFT JOIN search_tb s ON p.id = s.place_id " +
@@ -128,7 +127,7 @@ public class SearchRepository {
         String sqlPriceAsc =
                 "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
                         "FROM place_tb p " +
-                        "INNER JOIN address_tb a ON p.address_id = a.id " +
+                        "INNER JOIN place_address_tb a ON p.address_id = a.id " +
                         "LEFT JOIN review_tb r ON p.id = r.place_id " +
                         "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
                         "LEFT JOIN search_tb s ON p.id = s.place_id " +
@@ -140,21 +139,21 @@ public class SearchRepository {
         return jdbcTemplate.query(sqlPriceAsc, searchOrderByResultSetExtractor(false));
     }
 
-    public List<SearchOrderby> searchPlaceByStarRaingDescending() {
-        String sqlStarRaingHigh =
+    public List<SearchOrderby> searchPlacesByRatingDescending() {
+        String sqlRatingDesc =
                 "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
                         "FROM place_tb p " +
-                        "INNER JOIN address_tb a ON p.address_id = a.id " +
+                        "INNER JOIN place_address_tb a ON p.address_id = a.id " +
                         "LEFT JOIN review_tb r ON p.id = r.place_id " +
                         "LEFT JOIN hashtag_tb h ON p.id = h.place_id " +
                         "LEFT JOIN search_tb s ON p.id = s.place_id " +
                         "LEFT JOIN file_tb f ON p.id = f.place_id " +
                         "GROUP BY p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, a.id, a.sigungu, h.id, h.hashtag_name, f.id, f.file_url "+
-                        "ORDER BY r.star_rating DESC";
+                        "ORDER BY avg_star_rating DESC";
 
-
-        return jdbcTemplate.query(sqlStarRaingHigh, searchOrderByStarRatingResultSetExtractor());
+        return jdbcTemplate.query(sqlRatingDesc, searchOrderByStarRatingResultSetExtractor());
     }
+
 
     private ResultSetExtractor<List<SearchOrderby>> searchOrderByResultSetExtractor(boolean isOrderby) {
         return rs -> {
@@ -180,8 +179,11 @@ public class SearchRepository {
                             addressList.setId(address.getId());
                             addressList.setSigungu(address.getSigungu());
                             search.setAddress(addressList);
+                        } else {
+                            search.setAddress(null);
                         }
                     }
+
 
                     ReviewList review = new ReviewList();
                     search.setReview(review);
@@ -201,7 +203,7 @@ public class SearchRepository {
                 }
 
                 Long hashtagId = rs.getLong("hashtag_id");
-                if (hashtagId != 0 && !containsHashtag(search.getHashtags(), hashtagId)) {
+                if (hashtagId != null && hashtagId != 0 && !containsHashtag(search.getHashtags(), hashtagId)) {
                     HashtagList hashtag = new HashtagList();
                     hashtag.setId(hashtagId);
                     hashtag.setHashtagName(rs.getString("hashtag_name"));
@@ -209,12 +211,13 @@ public class SearchRepository {
                 }
 
                 Long fileId = rs.getLong("file_id");
-                if (fileId != 0 && !containsFileUrl(search.getFileUrls(), fileId)) {
+                if (fileId != null && fileId != 0 && !containsFileUrl(search.getFileUrls(), fileId)) {
                     FileList file = new FileList();
                     file.setId(fileId);
                     file.setFileUrl(rs.getString("file_url"));
                     search.getFileUrls().add(file);
                 }
+
             }
             List<SearchOrderby> searchList = new ArrayList<>(searchMap.values());
             if (isOrderby) {
@@ -223,6 +226,7 @@ public class SearchRepository {
                 Collections.sort(searchList, Comparator.comparing(SearchOrderby::getPricePerHour));
             }
             return searchList;
+
         };
     }
 
@@ -231,8 +235,8 @@ public class SearchRepository {
             Map<Long, SearchOrderby> searchMap = new HashMap<>();
             while (rs.next()) {
                 Long id = rs.getLong("id");
-
                 SearchOrderby search = searchMap.get(id);
+
                 if (search == null) {
                     search = new SearchOrderby();
                     search.setId(id);
@@ -240,7 +244,6 @@ public class SearchRepository {
                     search.setMaxPeople(rs.getInt("max_people"));
                     search.setMaxParking(rs.getInt("max_parking"));
                     search.setPricePerHour(rs.getInt("price_per_hour"));
-
 
                     Long addressId = rs.getLong("address_id");
                     if (addressId != null) {
@@ -254,10 +257,9 @@ public class SearchRepository {
                     }
 
                     ReviewList review = new ReviewList();
-                    search.setReview(review);
+                    search.setReview(review); // ReviewList 객체 생성
                     search.setHashtags(new ArrayList<>());
                     search.setFileUrls(new ArrayList<>());
-
                     searchMap.put(id, search);
                 }
 
@@ -287,10 +289,15 @@ public class SearchRepository {
                 }
             }
             List<SearchOrderby> searchList = new ArrayList<>(searchMap.values());
-            Collections.sort(searchList, Comparator.comparing(search -> search.getReview().getStarRating(), Comparator.reverseOrder()));
+            Collections.sort(searchList, Comparator.comparing(search -> search.getReview().getStarRating(), Comparator.nullsLast(Comparator.reverseOrder())));
+
             return searchList;
+
         };
     }
+
+
+
 
 
     //중복 확인 코드

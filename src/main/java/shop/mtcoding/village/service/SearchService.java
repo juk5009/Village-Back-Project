@@ -69,7 +69,7 @@ public class SearchService {
     public List<SearchOrderby> 별점높은순정렬() {
 
         try {
-            return searchRepository.searchPlaceByStarRaingDescending();
+            return searchRepository.searchPlacesByRatingDescending();
         }catch (Exception500 e) {
             throw new Exception500("낮은가격순정렬 오류" + e.getMessage());
         }
