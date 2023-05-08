@@ -30,11 +30,6 @@ public class PlaceAddress {
     @Comment("공간 아이디")
     private Long id;
 
-//    @Comment("공간 정보")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    private Place place;
-
     private String address;
 
     private String sigungu;
@@ -43,7 +38,7 @@ public class PlaceAddress {
 
     private String detailAddress;
 
-    private String x;
+    private String x; //lat lng
 
     private String y;
 
