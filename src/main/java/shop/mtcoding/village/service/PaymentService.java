@@ -74,6 +74,8 @@ public class PaymentService {
     }
     public Payment 결제검증(PaymentDTO paymentDTO) {
 
+
+
         paymentDTO.setStatus(PaymentStatus.WAIT);
         return paymentRepository.save(new Payment(paymentDTO.getOrderId(), paymentDTO.getOrderName(), paymentDTO.getPrice()));
     }

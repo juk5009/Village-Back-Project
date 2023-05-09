@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FirebaseCloudMessageService {
 
-    private final String API_URL = "https://fcm.googleapis.com/v1/projects/village-front-project/messages:send";
+    private final String API_URL = "https://fcm.googleapis.com/v1/projects/fcmgood-41ac1/messages:send";
 
     private final ObjectMapper objectMapper;
 
@@ -56,7 +56,7 @@ public class FirebaseCloudMessageService {
     }
 
     private String getAccessToken() throws IOException {
-        String firebaseConfigPath = "/firebase/village-front-project-firebase-adminsdk-8rirr-ed80593bfd.json";
+        String firebaseConfigPath = "/firebase/fcmgood-41ac1-f214841e94d2.json";
 
 
         GoogleCredentials googleCredentials = GoogleCredentials
