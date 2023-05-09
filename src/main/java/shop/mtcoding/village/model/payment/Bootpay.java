@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.HashMap;
 
 
 @Getter
@@ -12,7 +13,7 @@ import java.time.OffsetDateTime;
 @Entity
 @ToString
 @Table(name = "boot_pay_tb")
-public class BootPay {
+public class Bootpay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -84,8 +85,15 @@ public class BootPay {
     ////////////// 결제완료
     private String currency;
 
+
+    ////////////// 결제 취소
+    private String restKey;
+
+    private String privateKey;
+
+
     @Builder
-    public BootPay(BootPay bootPay, String receiptId, String orderId, Integer price, Integer taxFree, Integer cancelledPrice, Integer cancelledTaxFree
+    public Bootpay(Bootpay bootPay, String receiptId, String orderId, Integer price, Integer taxFree, Integer cancelledPrice, Integer cancelledTaxFree
             , String orderName, String companyName, String gatewayUrl, Boolean sandbox, String pg, String method, String methodSymbol, String methodOrigin
             , String methodOriginSymbol, OffsetDateTime purchasedAt, OffsetDateTime cancelledAt, OffsetDateTime requestedAt, String statusLocale, String receiptUrl, Integer status) {
         this.receiptId = receiptId;
@@ -109,6 +117,11 @@ public class BootPay {
         this.statusLocale = statusLocale;
         this.receiptUrl =receiptUrl;
         this.status = status;
+    }
+
+    public Bootpay(String restKey, String privateKey) {
+        this.restKey = restKey;
+        this.privateKey = privateKey;
     }
 
 }

@@ -84,11 +84,12 @@ public class File {
         this.fileUrl = fileUrl;
     }
 
-    public File(String fileName, String fileUrl, String extension, FileStatus status) {
+    public File(String fileName, String fileUrl, String extension, FileStatus status, Place place) {
         this.fileName = fileName;
         this.fileUrl = fileUrl;
         this.extension = extension;
         this.status = status;
+        this.place = place;
     }
 
     public FileDTO toDTO() {

@@ -1,6 +1,5 @@
 package shop.mtcoding.village.service;
 
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,9 @@ import shop.mtcoding.village.model.date.DateRepository;
 import shop.mtcoding.village.model.date.Dates;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfo;
 import shop.mtcoding.village.model.facilityInfo.FacilityInfoRepository;
-import shop.mtcoding.village.model.file.*;
+import shop.mtcoding.village.model.file.File;
+import shop.mtcoding.village.model.file.FileInfoRepository;
+import shop.mtcoding.village.model.file.FileRepository;
 import shop.mtcoding.village.model.hashtag.Hashtag;
 import shop.mtcoding.village.model.hashtag.HashtagRepository;
 import shop.mtcoding.village.model.host.Host;
@@ -114,11 +115,11 @@ public class PlaceService {
 
             for (FileSaveDTO.FileSaveDto files : placeRequest.getFile()) {
                 String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getFileUrl()));
-                files.setFileUrl(imgPath);
+                files.setFileUrl(imgPath + ".jpg");
 
                 System.out.println("디버그 : " + imgPath);
 
-                File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
+                File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl(), place));
                 fileList.add(save);
 
 //                fileService.save(placeRequest.getFile().get(0));
@@ -219,7 +220,7 @@ public class PlaceService {
 
                 System.out.println("디버그 : " + imgPath);
 
-                File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
+                File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl(), place));
                 fileList.add(save);
 
 //                fileService.save(placeRequest.getFile().get(0));

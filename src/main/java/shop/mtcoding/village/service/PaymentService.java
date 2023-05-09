@@ -2,21 +2,16 @@ package shop.mtcoding.village.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.Exception400;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.bootpay.ReceiptDTO;
 import shop.mtcoding.village.dto.payment.PaymentDTO;
 import shop.mtcoding.village.model.cardData.CardDataRepository;
-import shop.mtcoding.village.model.metadata.MetaData;
 import shop.mtcoding.village.model.metadata.MetaRepository;
-import shop.mtcoding.village.model.payment.BootPatRepository;
-import shop.mtcoding.village.model.payment.BootPay;
-import shop.mtcoding.village.model.payment.Payment;
-import shop.mtcoding.village.model.payment.PaymentRepository;
+import shop.mtcoding.village.model.payment.*;
 import shop.mtcoding.village.util.status.PaymentStatus;
 
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service
@@ -39,7 +34,7 @@ public class PaymentService {
     }
 
     @Transactional
-    public BootPay 구매요청(ReceiptDTO receiptDTO) {
+    public Bootpay 구매요청(ReceiptDTO receiptDTO) {
 
         Optional<Payment> paymentOptional = paymentRepository.findByOrderIdAndOrderNameAndTotalPrice(receiptDTO.getOrderId(), receiptDTO.getOrderName(), receiptDTO.getPrice());
 
@@ -74,9 +69,31 @@ public class PaymentService {
     }
     public Payment 결제검증(PaymentDTO paymentDTO) {
 
-
-
         paymentDTO.setStatus(PaymentStatus.WAIT);
         return paymentRepository.save(new Payment(paymentDTO.getOrderId(), paymentDTO.getOrderName(), paymentDTO.getPrice()));
+    }
+
+    public void 결제취소() {
+
+        try {
+            Bootpay bootpay = new Bootpay("6447b7393049c8001d9e06dc", "Ud1mwlNgLWGdL4mC6xdGKHXY3sP6Yg/Qit19ZZ2JLHc=");
+            HashMap token = bootpay.getAccessToken();
+            if(token.get("error_code") != null) { //failed
+                return;
+            }
+            Cancel cancel = new Cancel();
+            cancel.setReceiptId("628b2206d01c7e00209b6087");
+            cancel.setCancleUsername("관리자");
+            cancel.setCancleMessage("테스트 결제");
+
+            HashMap res = bootpay.receiptCancel(cancel);
+            if(res.get("error_code") == null) { //success
+                System.out.println("receiptCancel success: " + res);
+            } else {
+                System.out.println("receiptCancel false: " + res);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

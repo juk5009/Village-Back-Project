@@ -3,6 +3,7 @@ package shop.mtcoding.village.dto.file.dto;
 import lombok.*;
 import shop.mtcoding.village.model.file.File;
 import shop.mtcoding.village.model.file.FileStatus;
+import shop.mtcoding.village.model.place.Place;
 
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class FileSaveDTO {
         private String fileUrl;
         private String type;
 
-        public File toEntity(String fileName, String fileUrl) {
-            return new File(fileName, fileUrl, type, FileStatus.WAIT);
+        public File toEntity(String fileName, String fileUrl, Place place) {
+            return new File(fileName, fileUrl, type, FileStatus.WAIT, place);
         }
 
         public File toEntity() {

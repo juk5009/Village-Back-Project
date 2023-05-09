@@ -107,10 +107,19 @@ public class PaymentController {
         return ResponseEntity.ok(map);
     }
 
+    // 부트페이 처음 시작 시 DB에 저장 하는 메서드
     @PostMapping("/verification")
     public ResponseEntity<?> compare(@RequestBody PaymentDTO paymentDTO){
         Payment payment = paymentService.결제검증(paymentDTO);
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "결제 요청 전 DB 넣기 완료", payment), HttpStatus.OK);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete() {
+
+        paymentService.결제취소();
+
+        return new ResponseEntity<>(new ResponseDTO<>(1, 200, "결제 취소 완료", null), HttpStatus.OK);
     }
 
     @DeleteMapping("/cancel/{receipt_id}")
