@@ -1,17 +1,18 @@
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
-values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '201호' ,'12', '15');
+values ('부산광역시 부산진구 부전동 227-18', '부산 부산진구', '47264', '201호' ,'35.155616', '129.059381');
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
-values ('부산 부산진구 중앙대로 688 한준빌딩 3층', '부산 부산진구', '47296', '301호' ,'112', '115');
+values ('부산광역시 부산진구 서면로 772 ', '부산 부산진구', '47287', '301호' ,'35.157870', '129.058489');
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
-values ('부산 부산진구 중앙대로 688 한준빌딩 4층', '부산 부산진구', '47296', '401호' ,'12', '215');
+values ('부산광역시 부산진구 전포동 626-1 ', '부산 부산진구', '47190', '401호' ,'35.156854', '129.064794');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('서울 강남구 역삼동 123-4', '서울 강남구', '06351', '302호', '127.027943', '37.497907');
+VALUES('서울 강남구 역삼동 123-4', '서울 강남구', '06351', '302호', '35.155616', '129.059381');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('대구 북구 대학로23길 23', '대구 북구', '41588', '101호', '128.607348', '35.886049');
+VALUES('대구 북구 대학로23길 23', '대구 북구', '41588', '101호', '35.157870', '129.058489');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('인천 계양구 장제로 22', '인천 계양구', '21072', '301호', '126.735034', '37.538197');
+VALUES('인천 계양구 장제로 22', '인천 계양구', '21072', '301호', '35.156854', '129.064794');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('부산 해운대구 구남로 29', '부산 해운대구', '48060', '401호', '129.160326', '35.163042');
+VALUES('부산 해운대구 구남로 29', '부산 해운대구', '48060', '401호', '
+35.155616', '129.059381');
 
 
 insert into user_tb (name, password, email, tel, role, profile, status, created_at)
@@ -132,12 +133,14 @@ insert into category_tb (category_name, place_id)
 values ('스터디룸', 2);
 insert into category_tb (category_name, place_id)
 values ('공유오피스', 3);
--- insert into category_tb (category_name, place_id)
--- values ('연습실', 4);
--- insert into category_tb (category_name, place_id)
--- values ('스터디룸', 5);
--- insert into category_tb (category_name, place_id)
--- values ('공유오피스', 6);
+insert into category_tb (category_name, place_id)
+values ('연습실', 4);
+insert into category_tb (category_name, place_id)
+values ('스터디룸', 5);
+insert into category_tb (category_name, place_id)
+values ('공유오피스', 6);
+insert into category_tb (category_name, place_id)
+values ('공유오피스', 7);
 
 
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
@@ -178,7 +181,7 @@ values (1, 1, '연습실');
 insert into search_tb (user_id, place_id, keyword)
 values (2, 2, '스터디룸');
 insert into search_tb (user_id, place_id, keyword)
-values (3, 3, '커피숍');
+values (3, 3, '공유오피스');
 
 insert into chat_tb (user_id, send, chat_room_id, created_at)
 values (1, '안녕하세요!', 1, NOW());
@@ -316,13 +319,16 @@ INSERT INTO hashtag_tb (hashtag_name, place_id)VALUES ('홍대스튜디오',7);
 insert into file_info_tb(type) values ('PLACE');
 insert into file_info_tb(type) values ('FACILITY');
 
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, 'aa.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
-insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, 'bb8.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 1, '사무실.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 2, '스터디룸.jpg', 'https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/77zL/image/TyYkFNfmPe_AJqGcNd7FJjWLWyE', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (1, 2, '연습실.jpg', 'https://playgwangju.co.kr/data/file/hall/33107915_g08TBajx_93755a2ebe44d49d78d2e4b11c2156b29bb73dbf.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 1, '사무실.jpg', 'https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, '연습실.jpg', 'https://playgwangju.co.kr/data/file/hall/33107915_g08TBajx_93755a2ebe44d49d78d2e4b11c2156b29bb73dbf.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (2, 2, '스터디룸2.jpg', 'https://modo-phinf.pstatic.net/20180304_61/1520159998510ED9Yt_JPEG/mosaSDaCsR.jpeg?type=w1100', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, '연습실2.jpg', 'https://www.andong.go.kr/arts/img/content/sub06/photo_practice_01.jpg', 'WAIT');
+insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, '스터디룸2.jpg', 'https://modo-phinf.pstatic.net/20180304_61/1520159998510ED9Yt_JPEG/mosaSDaCsR.jpeg?type=w1100', 'WAIT');
 
 insert into fcm_tb(user_id, target_token) values (null,'dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx');
+insert into fcm_tb(user_id, target_token) values (null,'dSO_7ZL5R1amloMeYN8Ub_%3AAPA91bFSshV21Ab1rgZmcRBmCIMIHKEUAutxdZlH-pQcgRwaGFAPANzdwvZSbXc4oFm3Djyac-FuIp5K-ZHpeR74H6NcaOiMk7aAUtPTAq4e8hbj3o0uCA4E3uq_8-Axzf5ibvBgfJMG');
 
 commit;

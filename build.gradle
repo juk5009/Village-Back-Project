@@ -57,6 +57,7 @@ dependencies {
 	implementation group: 'com.auth0', name: 'java-jwt', version: '4.3.0'
 	implementation 'io.sentry:sentry-spring-boot-starter:6.17.0'
 	implementation 'io.sentry:sentry-logback:6.17.0'
+
 //	testImplementation 'org.projectlombok:lombok:1.18.22'
 
 }

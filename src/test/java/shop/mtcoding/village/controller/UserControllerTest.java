@@ -26,7 +26,7 @@ public class UserControllerTest extends AbstractIntegrated {
     @DisplayName("유저 로그인 테스트")
     void userLogin() throws Exception{
 
-        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("ssar@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("ssar@naver.com", "1234", "USER", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
 
         ResultActions perform = this.mockMvc.perform(
@@ -57,7 +57,7 @@ public class UserControllerTest extends AbstractIntegrated {
     @DisplayName("호스트 로그인 테스트")
     void hostLogin() throws Exception{
 
-        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Jane@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Jane@naver.com", "1234", "USER", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
 
         ResultActions perform = this.mockMvc.perform(
@@ -88,7 +88,7 @@ public class UserControllerTest extends AbstractIntegrated {
     @DisplayName("관리자 로그인 테스트")
     void adminLogin() throws Exception{
 
-        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Bob@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Bob@naver.com", "1234", "USER", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
 
         ResultActions perform = this.mockMvc.perform(
@@ -169,6 +169,7 @@ public class UserControllerTest extends AbstractIntegrated {
                 fieldWithPath("email").description("이메일"),
                 fieldWithPath("password").description("비밀번호"),
                 fieldWithPath("targetToken").description("FCM토큰"),
+                fieldWithPath("role").description("권한"),
         };
     }
 
@@ -179,7 +180,8 @@ public class UserControllerTest extends AbstractIntegrated {
                 fieldWithPath("msg").description("응답 메시지"),
                 fieldWithPath(prefix+"id").description("Id"),
                 fieldWithPath(prefix+"name").description("이름"),
-                fieldWithPath(prefix+"email").description("이메일")
+                fieldWithPath(prefix+"email").description("이메일"),
+                fieldWithPath(prefix+"role").description("권한")
         };
     }
 

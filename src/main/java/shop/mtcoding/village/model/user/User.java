@@ -49,7 +49,7 @@ public class User {
     private LocalDateTime createdAt; // db에는 timestamp로 변경되어 들어감
 
     @Builder
-    public User(Long id, String name, String password, String email, String tel, String role, String profile, LocalDateTime createdAt) {
+    public User(Long id, String name, String password, String email, String tel, String role, String profile) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -57,7 +57,6 @@ public class User {
         this.tel = tel;
         this.role = role;
         this.profile = profile;
-        this.createdAt = createdAt;
     }
 
     public User(Long id, String name, String email, String role) {

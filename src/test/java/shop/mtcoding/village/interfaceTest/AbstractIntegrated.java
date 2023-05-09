@@ -52,7 +52,7 @@ public class AbstractIntegrated {
 
     protected String getHost() {
         try {
-            UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Jane@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+            UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Jane@naver.com", "1234","USER", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
 
             ResultActions perform = this.mockMvc.perform(
@@ -71,7 +71,7 @@ public class AbstractIntegrated {
     }
     protected String getUser() {
         try {
-            UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("ssar@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+            UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("ssar@naver.com", "1234", "USER", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
 
             ResultActions perform = this.mockMvc.perform(
@@ -91,7 +91,7 @@ public class AbstractIntegrated {
 
     protected String getAdmin() {
         try {
-            UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Bob@naver.com", "1234", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
+            UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("Bob@naver.com", "1234","USER", "dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx");
 
 
             ResultActions perform = this.mockMvc.perform(
