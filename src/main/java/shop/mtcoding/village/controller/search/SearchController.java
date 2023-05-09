@@ -27,18 +27,17 @@ public class SearchController {
     private final SearchService searchService;
 
 
-
     @GetMapping
     public ResponseEntity<ResponseDTO<?>> searchPlacesByKeyword(@RequestParam String keyword) {
         List<SearchList> searchLists = searchService.검색(keyword);
-        if (searchLists.isEmpty()){
+        if (searchLists.isEmpty()) {
             throw new MyConstException(SearchConst.notfound);
         }
 
 
-            SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
-            saveSearch.setKeyword(keyword);
-            searchService.키워드저장(saveSearch);
+        SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
+        saveSearch.setKeyword(keyword);
+        searchService.키워드저장(saveSearch);
 
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(searchLists);
 
@@ -61,7 +60,8 @@ public class SearchController {
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(SearchOrderbyPriceAsc);
         return ResponseEntity.ok(responseDTO);
     }
-//
+
+    //
     @GetMapping("/star/high")
     public ResponseEntity<ResponseDTO<?>> searchPlaceByStarRatingDescending() {
         List<SearchOrderby> SearchOrderbyStarRatingDesc = searchService.별점높은순정렬();
@@ -69,5 +69,34 @@ public class SearchController {
         ResponseDTO<?> responseDTO = new ResponseDTO<>().data(SearchOrderbyStarRatingDesc);
         return ResponseEntity.ok(responseDTO);
     }
+
+    @GetMapping("/price")
+    public ResponseEntity<ResponseDTO<?>> searchPlacesByKeywordAndPriceOrdering(@RequestParam String keyword, @RequestParam String ordering) {
+        List<SearchList> searchLists = searchService.검색(keyword);
+        if (searchLists.isEmpty()) {
+            throw new MyConstException(SearchConst.notfound);
+        }
+
+        List<SearchOrderby> orderedSearchLists;
+        switch (ordering) {
+            case "high":
+                orderedSearchLists = searchService.높은가격순정렬();
+                break;
+            case "low":
+                orderedSearchLists = searchService.낮은가격순정렬();
+                break;
+            default:
+                throw new MyConstException(SearchConst.notfound);
+        }
+
+        SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
+        saveSearch.setKeyword(keyword);
+        searchService.키워드저장(saveSearch);
+
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(orderedSearchLists);
+
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
 
 }
