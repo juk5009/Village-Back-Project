@@ -24,7 +24,7 @@ public class SearchRepository {
 
     private final PlaceAddressRepository addressRepository;
 
-    public List<SearchList> searchPlacesByKeyword(String keyword) {
+    public List<SearchOrderby> searchPlacesByKeyword(String keyword) {
         String queryString = "SELECT p.id, p.title, p.max_people, p.max_parking, p.price_per_hour, " +
                 "a.id as address_id, a.sigungu as sigungu, AVG(r.star_rating) as avg_star_rating, COUNT(r.id) as review_count, " +
                 "h.id as hashtag_id, h.hashtag_name, f.id as file_id, f.file_url as file_url " +
@@ -42,15 +42,15 @@ public class SearchRepository {
         return jdbcTemplate.query(queryString, searchListResultSetExtractor(), keyword, keyword,keyword);
     }
 
-    private ResultSetExtractor<List<SearchList>> searchListResultSetExtractor() {
+    private ResultSetExtractor<List<SearchOrderby>> searchListResultSetExtractor() {
         return rs -> {
-            Map<Long, SearchList> searchMap = new HashMap<>();
+            Map<Long, SearchOrderby> searchMap = new HashMap<>();
             while (rs.next()) {
                 Long id = rs.getLong("id");
 
-                SearchList search = searchMap.get(id);
+                SearchOrderby search = searchMap.get(id);
                 if (search == null) {
-                    search = new SearchList();
+                    search = new SearchOrderby();
                     search.setId(id);
                     search.setTitle(rs.getString("title"));
                     search.setMaxPeople(rs.getInt("max_people"));

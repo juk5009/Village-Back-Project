@@ -17,6 +17,8 @@ import shop.mtcoding.village.notFoundConst.PlaceConst;
 import shop.mtcoding.village.notFoundConst.SearchConst;
 import shop.mtcoding.village.service.SearchService;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,7 @@ public class SearchController {
 
     @GetMapping
     public ResponseEntity<ResponseDTO<?>> searchPlacesByKeyword(@RequestParam String keyword) {
-        List<SearchList> searchLists = searchService.검색(keyword);
+        List<SearchOrderby> searchLists = searchService.검색(keyword);
         if (searchLists.isEmpty()) {
             throw new MyConstException(SearchConst.notfound);
         }
@@ -72,21 +74,24 @@ public class SearchController {
 
     @GetMapping("/price")
     public ResponseEntity<ResponseDTO<?>> searchPlacesByKeywordAndPriceOrdering(@RequestParam String keyword, @RequestParam String ordering) {
-        List<SearchList> searchLists = searchService.검색(keyword);
-        if (searchLists.isEmpty()) {
-            throw new MyConstException(SearchConst.notfound);
-        }
-
+        List<SearchOrderby> searchLists = searchService.검색(keyword);
         List<SearchOrderby> orderedSearchLists;
+
         switch (ordering) {
             case "high":
-                orderedSearchLists = searchService.높은가격순정렬();
+                orderedSearchLists = new ArrayList<>(searchLists);
+                Collections.sort(orderedSearchLists, (o1, o2) -> o2.getPricePerHour() - o1.getPricePerHour());
                 break;
             case "low":
-                orderedSearchLists = searchService.낮은가격순정렬();
+                orderedSearchLists = new ArrayList<>(searchLists);
+                Collections.sort(orderedSearchLists, (o1, o2) -> o1.getPricePerHour() - o2.getPricePerHour());
                 break;
             default:
                 throw new MyConstException(SearchConst.notfound);
+        }
+
+        if (orderedSearchLists.isEmpty()) {
+            throw new MyConstException(SearchConst.notfound);
         }
 
         SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
@@ -98,22 +103,26 @@ public class SearchController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
-    @GetMapping("/star")
-    public ResponseEntity<ResponseDTO<?>> searchPlaceByStarRatingDescending(@RequestParam String keyword) {
-        List<SearchList> searchLists = searchService.검색(keyword);
-        if (searchLists.isEmpty()) {
-            throw new MyConstException(SearchConst.notfound);
-        }
 
-        List<SearchOrderby> orderedSearchLists = searchService.별점높은순정렬();
 
-        SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
-        saveSearch.setKeyword(keyword);
-        searchService.키워드저장(saveSearch);
+//    @GetMapping("/star")
+//    public ResponseEntity<ResponseDTO<?>> searchPlaceByStarRatingDescending(@RequestParam String keyword) {
+//        List<SearchOrderby> searchLists = searchService.검색(keyword);
+//        if (searchLists.isEmpty()) {
+//            throw new MyConstException(SearchConst.notfound);
+//        }
+//
+//        List<SearchOrderby> orderedSearchLists = new ArrayList<>(searchLists);
+//        Collections.sort(orderedSearchLists, (o1, o2) -> Double.compare(o2.getReview().getStarRating(), o1.getReview().getStarRating()));
+//
+//        SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
+//        saveSearch.setKeyword(keyword);
+//        searchService.키워드저장(saveSearch);
+//
+//        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(orderedSearchLists);
+//        return ResponseEntity.ok(responseDTO);
+//    }
 
-        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(orderedSearchLists);
-        return ResponseEntity.ok(responseDTO);
-    }
 
 
 
