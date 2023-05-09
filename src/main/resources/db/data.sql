@@ -1,17 +1,18 @@
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
-values ('부산 부산진구 중앙대로 688 한준빌딩 2층', '부산 부산진구', '47296', '201호' ,'12', '15');
+values ('부산광역시 부산진구 부전동 227-18', '부산 부산진구', '47264', '201호' ,'35.155616', '129.059381');
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
-values ('부산 부산진구 중앙대로 688 한준빌딩 3층', '부산 부산진구', '47296', '301호' ,'112', '115');
+values ('부산광역시 부산진구 서면로 772 ', '부산 부산진구', '47287', '301호' ,'35.157870', '129.058489');
 insert into place_address_tb(address, sigungu, zonecode, detail_address, x, y)
-values ('부산 부산진구 중앙대로 688 한준빌딩 4층', '부산 부산진구', '47296', '401호' ,'12', '215');
+values ('부산광역시 부산진구 전포동 626-1 ', '부산 부산진구', '47190', '401호' ,'35.156854', '129.064794');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('서울 강남구 역삼동 123-4', '서울 강남구', '06351', '302호', '127.027943', '37.497907');
+VALUES('서울 강남구 역삼동 123-4', '서울 강남구', '06351', '302호', '35.155616', '129.059381');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('대구 북구 대학로23길 23', '대구 북구', '41588', '101호', '128.607348', '35.886049');
+VALUES('대구 북구 대학로23길 23', '대구 북구', '41588', '101호', '35.157870', '129.058489');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('인천 계양구 장제로 22', '인천 계양구', '21072', '301호', '126.735034', '37.538197');
+VALUES('인천 계양구 장제로 22', '인천 계양구', '21072', '301호', '35.156854', '129.064794');
 INSERT INTO place_address_tb(address,sigungu,zonecode,detail_address,x,y)
-VALUES('부산 해운대구 구남로 29', '부산 해운대구', '48060', '401호', '129.160326', '35.163042');
+VALUES('부산 해운대구 구남로 29', '부산 해운대구', '48060', '401호', '
+35.155616', '129.059381');
 
 
 insert into user_tb (name, password, email, tel, role, profile, status, created_at)
@@ -180,7 +181,7 @@ values (1, 1, '연습실');
 insert into search_tb (user_id, place_id, keyword)
 values (2, 2, '스터디룸');
 insert into search_tb (user_id, place_id, keyword)
-values (3, 3, '커피숍');
+values (3, 3, '공유오피스');
 
 insert into chat_tb (user_id, send, chat_room_id, created_at)
 values (1, '안녕하세요!', 1, NOW());
