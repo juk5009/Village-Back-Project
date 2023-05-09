@@ -27,10 +27,10 @@ import java.util.List;
 @AllArgsConstructor
 public class PlaceUpdateRequest {
 
+
     private User user;
 
     @NotBlank(message = "제목을 입력해주세요.")
-
     private String title;
 
     private PlaceAddress address;
@@ -73,7 +73,7 @@ public class PlaceUpdateRequest {
 
     private List<FacilityInfoSaveDTO.FacilityInfoSaveDto> facilityInfo;
 
-    private List<FileSaveDTO.FileSaveDto> image;
+    private List<FileSaveDTO.FileSaveDto> file;
 
     public Place toEntity() {
 

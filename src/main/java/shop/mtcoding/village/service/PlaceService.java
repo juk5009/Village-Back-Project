@@ -121,7 +121,7 @@ public class PlaceService {
                 File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
                 fileList.add(save);
 
-                fileService.save(placeRequest.getFile().get(1));
+//                fileService.save(placeRequest.getFile().get(0));
             }
 
             // 카테고리 insert
@@ -188,11 +188,12 @@ public class PlaceService {
     }
 
     @Transactional
-    public Place 공간수정하기(PlaceUpdateRequest placeUpdateRequest) {
+    public Place 공간수정하기(PlaceUpdateRequest placeUpdateRequest, User user) {
         try {
 
             // 공간 insert
             placeUpdateRequest.setStatus(PlaceStatus.INACTIVE);
+            placeUpdateRequest.setUser(user);
 
             Place savePlace = placeJpaRepository.save(placeUpdateRequest.toEntity());
 
@@ -212,14 +213,16 @@ public class PlaceService {
             // file s3에 저장
             List<File> fileList = new ArrayList<>();
 
-            for (FileSaveDTO.FileSaveDto files : placeUpdateRequest.getImage()) {
+            for (FileSaveDTO.FileSaveDto files : placeUpdateRequest.getFile()) {
                 String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getFileUrl()));
                 files.setFileUrl(imgPath);
+
+                System.out.println("디버그 : " + imgPath);
 
                 File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
                 fileList.add(save);
 
-                fileService.save(placeUpdateRequest.getImage().get(0));
+//                fileService.save(placeRequest.getFile().get(0));
             }
 
             // 카테고리 insert

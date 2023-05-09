@@ -119,7 +119,7 @@ public class PlaceController {
             throw new MyConstException(RoleConst.notFound);
         }
 
-        var update = placeService.공간수정하기(placeUpdateRequest);
+        var update = placeService.공간수정하기(placeUpdateRequest, myUserDetails.getUser());
 
         var savePlace = placeService.등록된공간보기(update.getId(), detailPlaceResponse);
 
