@@ -67,8 +67,8 @@ public class DetailPlaceResponse {
 
     private String categoryName;
 
-    public DetailPlaceResponse(Long id, PlaceAddress address, String title, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer maxPeople, Integer maxParking
-            , Integer pricePerHour, String notice, List<File> file, HostDTO host, List<Review> review, Integer scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
+    public DetailPlaceResponse(Long id, PlaceAddress address, String title, String tel, String startTime, String endTime, String placeIntroductionInfo, Integer pricePerHour, Integer maxPeople, Integer maxParking
+            ,  String notice, List<File> file, HostDTO host, List<Review> review, Integer scrap, List<Hashtag> hashtags, List<FacilityInfo> facilitys, List<Dates> dayOfWeeks
             , String categoryName, Boolean isConfirmed) {
         this.id = id;
         this.address = address;
