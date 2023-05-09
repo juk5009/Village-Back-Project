@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.village.dto.ResponseDTO;
 import shop.mtcoding.village.dto.imagemap.request.ImageMapSaveRequest;
+import shop.mtcoding.village.dto.imagemap.response.MapDTO;
 import shop.mtcoding.village.model.map.ImageMap;
 import shop.mtcoding.village.service.MapService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,6 +21,16 @@ import java.util.Map;
 public class MapController {
 
     private final MapService mapService;
+
+    @GetMapping()
+    public ResponseEntity<ResponseDTO<?>> getPlaceMap() {
+        List<MapDTO> places = mapService.getPlaceMap();
+
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(places);
+
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
 
     @PostMapping()
     public ResponseEntity<ResponseDTO<?>> createMap(@RequestBody ImageMapSaveRequest imageMapSaveRequest) {
