@@ -44,6 +44,8 @@ public class UserRequest {
         @NotEmpty(message = "Password를 입력해주세요.")
         private String password;
 
+        private String role;
+
         private String targetToken;
     }
 }

@@ -60,10 +60,20 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public User(Long id, String name, String email, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.role = role;
+    }
+
     @PrePersist // insert시 동작 / 비영속 -> 영속
     public void onCreate(){
         this.createdAt = LocalDateTime.now();
     }
 
 
+    public User toResponse() {
+        return new User(id, name, email, role);
+    }
 }

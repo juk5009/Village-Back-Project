@@ -67,6 +67,7 @@ public class UserService {
                     loginViewList.add(String.valueOf(userPS.getId()));
                     loginViewList.add(userPS.getName());
                     loginViewList.add(userPS.getEmail());
+                    loginViewList.add(userPS.getRole());
 
                     return loginViewList;
 

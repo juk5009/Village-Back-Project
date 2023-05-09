@@ -32,7 +32,6 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
-
     private final UserRepository userRepository;
     private final UserService userService;
     private final FcmRepository fcmRepository;
@@ -49,14 +48,23 @@ public class UserController {
 
 
     @GetMapping("/jwtToken")
-    public ResponseEntity<ResponseDTO<?>> jwtToken() {
+    public ResponseEntity<ResponseDTO<?>> jwtToken(
+            @AuthenticationPrincipal MyUserDetails myUserDetails
+    ) {
         String jwtToken = MyJwtProvider.createToken(); // JWT 토큰 생성
-        ResponseDTO<?> responseDTO = new ResponseDTO<>();
+
+        Long userId = myUserDetails.getUser().getId();
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()){
+            throw new CustomException("유저의 정보가 없습니다.");
+        }
+        User user = userOptional.get();
+
+        UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO(user.getId(), user.getName(), user.getEmail(), user.getRole());
+
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(1, 200, "성공", loginViewDTO);
         return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwtToken).body(responseDTO);
     }
-
-
-
 
     @PostMapping("/join")
     public ResponseEntity<ResponseDTO<?>> join(@RequestBody @Valid UserRequest.JoinDTO joinDTO, Errors Errors) {
@@ -75,7 +83,7 @@ public class UserController {
 
         String jwt = (String) loginViewList.get(0);
         UserResponse.LoginDTO loginViewDTO = new UserResponse.LoginDTO(Long.parseLong(loginViewList.get(1)) ,
-                (String) loginViewList.get(2), (String) loginViewList.get(3));
+                (String) loginViewList.get(2), (String) loginViewList.get(3), (String) loginViewList.get(4));
 
         // User가 로그인 시 FcmToken 같이 넣기
         Optional<Fcm> fcmTokenOptional = fcmRepository.findByTargetToken(loginDTO.getTargetToken());

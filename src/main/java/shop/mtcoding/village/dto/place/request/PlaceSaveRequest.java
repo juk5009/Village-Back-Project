@@ -72,7 +72,7 @@ public class PlaceSaveRequest {
 
     private List<FacilityInfoSaveDTO.FacilityInfoSaveDto> facilityInfo;
 
-    private List<FileSaveDTO.FileSaveDto> image;
+    private List<FileSaveDTO.FileSaveDto> file;
 
     public Place toEntity() {
 

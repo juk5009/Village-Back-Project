@@ -18,13 +18,13 @@ public class FileSaveDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class FileSaveDto extends File {
-        private Long id;
+//        private Long id;
         private String fileName;
         private String fileUrl;
         private String type;
 
         public File toEntity(String fileName, String fileUrl) {
-            return new File(null, null, fileName, fileUrl, type, FileStatus.WAIT);
+            return new File(fileName, fileUrl, type, FileStatus.WAIT);
         }
 
         public File toEntity() {

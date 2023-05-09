@@ -84,6 +84,13 @@ public class File {
         this.fileUrl = fileUrl;
     }
 
+    public File(String fileName, String fileUrl, String extension, FileStatus status) {
+        this.fileName = fileName;
+        this.fileUrl = fileUrl;
+        this.extension = extension;
+        this.status = status;
+    }
+
     public FileDTO toDTO() {
         return new FileDTO(id, fileInfo.toDTO(), fileName, fileUrl, extension, status.name());
     }

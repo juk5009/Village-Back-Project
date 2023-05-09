@@ -112,14 +112,16 @@ public class PlaceService {
             // file s3에 저장
             List<File> fileList = new ArrayList<>();
 
-            for (FileSaveDTO.FileSaveDto files : placeRequest.getImage()) {
+            for (FileSaveDTO.FileSaveDto files : placeRequest.getFile()) {
                 String imgPath = s3Service.upload(files.getFileName(), Base64Decoded.convertBase64ToMultipartFile(files.getFileUrl()));
                 files.setFileUrl(imgPath);
+
+                System.out.println("디버그 : " + imgPath);
 
                 File save = fileRepository.save(files.toEntity(files.getFileName(), files.getFileUrl()));
                 fileList.add(save);
 
-                fileService.save(placeRequest.getImage().get(0));
+                fileService.save(placeRequest.getFile().get(1));
             }
 
             // 카테고리 insert

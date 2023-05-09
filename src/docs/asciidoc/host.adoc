@@ -20,8 +20,8 @@ endif::[]
 === 요청 정보 [HTTP]
 include::{snippets}/host-save/http-request.adoc[]
 
-=== 요청 정보 [Header]
-include::{snippets}/host-save/header-request.adoc[]
+// === 요청 정보 [Header]
+// include::{snippets}/host-save/header-request.adoc[]
 
 === 요청 정보 [Path Parameter]
 include::{snippets}/host-save/httpie-request.adoc[]

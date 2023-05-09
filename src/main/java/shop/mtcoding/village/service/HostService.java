@@ -3,6 +3,7 @@ package shop.mtcoding.village.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.village.core.exception.CustomException;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.address.AddressDTO;
 import shop.mtcoding.village.dto.host.request.HostSaveRequest;
@@ -25,6 +26,9 @@ public class HostService {
     public Host 호스트신청(HostSaveRequest hostSaveDto) {
         try {
             User user = userRepository.findByName(hostSaveDto.getHostName());
+            if (user.getName() == hostSaveDto.getHostName()) {
+                throw new CustomException("이미 신청을 하셨습니다.");
+            }
 
             Host host = hostRepository.findByUserId(user.getId());
             host.setStatus(HostStatus.WAIT);
