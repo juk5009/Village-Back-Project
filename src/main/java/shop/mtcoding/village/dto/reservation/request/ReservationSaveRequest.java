@@ -4,6 +4,7 @@ package shop.mtcoding.village.dto.reservation.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.reservation.Reservation;
 import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.DateUtils;
@@ -35,7 +36,7 @@ public class ReservationSaveRequest {
     private ReservationStatus reservationStatus;
 
 
-    public Reservation toEntity(User user) {
+    public Reservation toEntity(User user, Place place) {
 
         LocalDateTime dateParser = DateUtils.parseLocalDateTime(date);
         LocalDateTime startTimeParser = DateUtils.parseLocalDateTime(startTime);
@@ -47,7 +48,7 @@ public class ReservationSaveRequest {
         reservation.setStartTime(startTimeParser);
         reservation.setEndTime(endTimeParser);
         reservation.setStatus(reservationStatus);
-        return new Reservation(user, dateParser, startTimeParser, endTimeParser, peopleNum, reservationStatus);
+        return new Reservation(user, place, dateParser, startTimeParser, endTimeParser, peopleNum, reservationStatus);
 
     }
 

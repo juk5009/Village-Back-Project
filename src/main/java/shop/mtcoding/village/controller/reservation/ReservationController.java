@@ -89,14 +89,16 @@ public class ReservationController {
             @AuthenticationPrincipal MyUserDetails myUserDetails
             ) throws IOException {
 
-        var saveReservation = reservationService.예약신청(reservationSaveRequest, myUserDetails.getUser());
-
         var placeOptional = placeJpaRepository.findById(reservationSaveRequest.getPlaceId());
         if (placeOptional.isEmpty()){
             throw new CustomException("조회 할 수 있는 공간이 존재 하지 않습니다.");
         }
 
         Place place = placeOptional.get();
+        System.out.println("디버그 : " + place);
+
+        var saveReservation = reservationService.예약신청(reservationSaveRequest, myUserDetails.getUser(), place);
+
         LocalDate date = DateUtils.fromLocalDateTime(DateUtils.parseLocalDateTime(reservationSaveRequest.getDate()));
 
         Long id = myUserDetails.getUser().getId();
