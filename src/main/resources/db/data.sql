@@ -138,6 +138,8 @@ insert into category_tb (category_name, place_id)
 values ('스터디룸', 5);
 insert into category_tb (category_name, place_id)
 values ('공유오피스', 6);
+insert into category_tb (category_name, place_id)
+values ('공유오피스', 7);
 
 
 insert into reservation_tb (user_id, place_id, date, start_time, end_time, people_num, status)
@@ -326,5 +328,6 @@ insert into file_tb(place_id, file_info_id, file_name, file_url, status) values 
 insert into file_tb(place_id, file_info_id, file_name, file_url, status) values (3, 2, '스터디룸2.jpg', 'https://modo-phinf.pstatic.net/20180304_61/1520159998510ED9Yt_JPEG/mosaSDaCsR.jpeg?type=w1100', 'WAIT');
 
 insert into fcm_tb(user_id, target_token) values (null,'dVimDFTAQJCHMrFDJD2W18:APA91bFef_eC8HUP_PPjtGnt3_1hJR4m-BJMDr2PSfFqA9eNtnYh4XTOqCStmPKnWgv6XDCkzur7kCrxlvghvtTPttD58zYKrz8OhkZn8Pc40vO9YCRIpJhHPaMT3wEMEkF7l7TCZkDx');
+insert into fcm_tb(user_id, target_token) values (null,'dSO_7ZL5R1amloMeYN8Ub_%3AAPA91bFSshV21Ab1rgZmcRBmCIMIHKEUAutxdZlH-pQcgRwaGFAPANzdwvZSbXc4oFm3Djyac-FuIp5K-ZHpeR74H6NcaOiMk7aAUtPTAq4e8hbj3o0uCA4E3uq_8-Axzf5ibvBgfJMG');
 
 commit;

@@ -34,6 +34,7 @@ import shop.mtcoding.village.model.review.Review;
 import shop.mtcoding.village.model.review.ReviewRepository;
 import shop.mtcoding.village.model.scrap.Scrap;
 import shop.mtcoding.village.model.scrap.ScrapRepository;
+import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.Base64Decoded;
 import shop.mtcoding.village.util.status.PlaceStatus;
 
@@ -86,11 +87,12 @@ public class PlaceService {
 
     // TODO file 이름 고유값
     @Transactional
-    public Place 공간등록하기(PlaceSaveRequest placeRequest) {
+    public Place 공간등록하기(PlaceSaveRequest placeRequest, User user) {
         try {
 
             // 공간 insert
             placeRequest.setStatus(PlaceStatus.INACTIVE);
+            placeRequest.setUser(user);
 
             Place savePlace = placeJpaRepository.save(placeRequest.toEntity());
 

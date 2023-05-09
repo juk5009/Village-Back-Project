@@ -10,6 +10,7 @@ import shop.mtcoding.village.dto.hashtag.request.HashtagSaveDTO;
 import shop.mtcoding.village.model.address.Address;
 import shop.mtcoding.village.model.place.Place;
 import shop.mtcoding.village.model.place.PlaceAddress;
+import shop.mtcoding.village.model.user.User;
 import shop.mtcoding.village.util.DateUtils;
 import shop.mtcoding.village.util.status.PlaceStatus;
 
@@ -25,6 +26,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlaceUpdateRequest {
+
+    private User user;
 
     @NotBlank(message = "제목을 입력해주세요.")
 
@@ -89,7 +92,7 @@ public class PlaceUpdateRequest {
         place.setMaxParking(maxParking);
         place.setPricePerHour(pricePerHour);
         return new Place(
-                title, tel, address, startTimePaser, endTimePaser, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour, isConfirmed
+                user, title, tel, address, startTimePaser, endTimePaser, placeIntroductionInfo, notice, maxPeople, maxParking, pricePerHour, isConfirmed
         );
     }
 

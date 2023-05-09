@@ -136,9 +136,10 @@ public class Place {
     }
 
 
-    public Place(String title, String tel, PlaceAddress address, LocalDateTime startTime, LocalDateTime endTime,
+    public Place(User user, String title, String tel, PlaceAddress address, LocalDateTime startTime, LocalDateTime endTime,
                  String placeIntroductionInfo,
                  String notice, Integer maxPeople, Integer maxParking, Integer pricePerHour, Boolean isConfirmed) {
+        this.user = user;
         this.title = title;
         this.tel = tel;
         this.address = address;

@@ -92,12 +92,13 @@ public class PlaceController {
             @Valid @RequestBody PlaceSaveRequest placeSaveRequest, Errors Errors,
             DetailPlaceResponse detailPlaceResponse,  @AuthenticationPrincipal MyUserDetails myUserDetails
     ) {
-        var save = placeService.공간등록하기(placeSaveRequest);
+        Long userId = myUserDetails.getUser().getId();
+
+        var save = placeService.공간등록하기(placeSaveRequest, myUserDetails.getUser());
 
         var savePlace = placeService.등록된공간보기(save.getId(), detailPlaceResponse);
 
-        Long id1 = myUserDetails.getUser().getId();
-        Host host = hostRepository.findByUserId(id1);
+        Host host = hostRepository.findByUserId(userId);
 
         DetailPlaceResponse savePlaceResponse = savePlace.toDetailResponse(detailPlaceResponse.getFile(), host, detailPlaceResponse.getReview(),
                 detailPlaceResponse.getScrap(), detailPlaceResponse.getHashtags(), detailPlaceResponse.getFacilitys(), detailPlaceResponse.getDayOfWeeks()
