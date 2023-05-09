@@ -5,8 +5,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.village.core.exception.Exception500;
 import shop.mtcoding.village.dto.imagemap.request.ImageMapSaveRequest;
+import shop.mtcoding.village.dto.imagemap.response.MapDTO;
 import shop.mtcoding.village.model.map.ImageMap;
 import shop.mtcoding.village.model.map.ImageMapRepository;
+import shop.mtcoding.village.model.place.Place;
+import shop.mtcoding.village.model.place.PlaceJpaRepository;
+import shop.mtcoding.village.model.place.PlaceRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -14,6 +21,35 @@ import shop.mtcoding.village.model.map.ImageMapRepository;
 @RequiredArgsConstructor
 public class MapService {
     private final ImageMapRepository imageMapRepository;
+
+    private final PlaceJpaRepository placeRepository;
+
+
+    public List<MapDTO> getPlaceMap() {
+
+        try {
+            List<Place> places = placeRepository.findAll();
+            List<MapDTO> mapDTOs = new ArrayList<>();
+            for (Place place : places) {
+                MapDTO mapDTO = new MapDTO();
+                mapDTO.setId(place.getId());
+                mapDTO.setTitle(place.getTitle());
+                mapDTO.setX(place.getAddress().getX());
+                mapDTO.setY(place.getAddress().getY());
+                mapDTOs.add(mapDTO);
+            }
+            return mapDTOs;
+        }catch (Exception500 e) {
+            throw new Exception500("MAP 좌표 저장 실패 " + e.getMessage());
+        }
+
+    }
+
+
+
+
+
+
 
     @Transactional
     public ImageMap saveMapUrl(ImageMapSaveRequest imageMapSaveRequest) {
@@ -38,5 +74,6 @@ public class MapService {
             throw new Exception500("구글맵 url 저장 실패 " + e.getMessage());
         }
     }
+
 
 }
