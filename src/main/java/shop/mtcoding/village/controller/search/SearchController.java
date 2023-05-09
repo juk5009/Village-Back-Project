@@ -105,23 +105,37 @@ public class SearchController {
 
 
 
-//    @GetMapping("/star")
-//    public ResponseEntity<ResponseDTO<?>> searchPlaceByStarRatingDescending(@RequestParam String keyword) {
-//        List<SearchOrderby> searchLists = searchService.검색(keyword);
-//        if (searchLists.isEmpty()) {
-//            throw new MyConstException(SearchConst.notfound);
-//        }
-//
-//        List<SearchOrderby> orderedSearchLists = new ArrayList<>(searchLists);
-//        Collections.sort(orderedSearchLists, (o1, o2) -> Double.compare(o2.getReview().getStarRating(), o1.getReview().getStarRating()));
-//
-//        SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
-//        saveSearch.setKeyword(keyword);
-//        searchService.키워드저장(saveSearch);
-//
-//        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(orderedSearchLists);
-//        return ResponseEntity.ok(responseDTO);
-//    }
+    @GetMapping("/star")
+    public ResponseEntity<ResponseDTO<?>> searchPlaceByStarRatingDescending(@RequestParam String keyword) {
+        List<SearchOrderby> searchLists = searchService.검색(keyword);
+        if (searchLists.isEmpty()) {
+            throw new MyConstException(SearchConst.notfound);
+        }
+
+        List<SearchOrderby> orderedSearchLists = new ArrayList<>(searchLists);
+        Collections.sort(orderedSearchLists, (o1, o2) -> {
+            Double rating1 = o1.getReview() != null ? o1.getReview().getStarRating() : null;
+            Double rating2 = o2.getReview() != null ? o2.getReview().getStarRating() : null;
+            if (rating1 == null && rating2 == null) {
+                return 0;
+            } else if (rating1 == null) {
+                return 1;
+            } else if (rating2 == null) {
+                return -1;
+            } else {
+                return Double.compare(rating2, rating1);
+            }
+        });
+
+        SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
+        saveSearch.setKeyword(keyword);
+        searchService.키워드저장(saveSearch);
+
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(orderedSearchLists);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+
 
 
 
