@@ -23,9 +23,9 @@ public class SearchService {
     private final SearchJpaRepository searchJpaRepository;
 
     @Transactional
-    public List<SearchList> 검색(String keyword) {
+    public List<SearchOrderby> 검색(String keyword) {
         try {
-            List<SearchList> searchLists = searchRepository.searchPlacesByKeyword(keyword);
+            List<SearchOrderby> searchLists = searchRepository.searchPlacesByKeyword(keyword);
             return searchLists;
         } catch (Exception500 e) {
             throw new Exception500("검색 오류" + e.getMessage());
@@ -56,6 +56,8 @@ public class SearchService {
             throw new Exception500("높은가격순정렬 오류" + e.getMessage());
         }
     }
+
+
     @Transactional
     public List<SearchOrderby> 낮은가격순정렬() {
 
@@ -74,5 +76,7 @@ public class SearchService {
             throw new Exception500("낮은가격순정렬 오류" + e.getMessage());
         }
     }
+
+
 
 }
