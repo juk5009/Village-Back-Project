@@ -98,5 +98,23 @@ public class SearchController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
+    @GetMapping("/star")
+    public ResponseEntity<ResponseDTO<?>> searchPlaceByStarRatingDescending(@RequestParam String keyword) {
+        List<SearchList> searchLists = searchService.검색(keyword);
+        if (searchLists.isEmpty()) {
+            throw new MyConstException(SearchConst.notfound);
+        }
+
+        List<SearchOrderby> orderedSearchLists = searchService.별점높은순정렬();
+
+        SearchRequest.SaveSearch saveSearch = new SearchRequest.SaveSearch();
+        saveSearch.setKeyword(keyword);
+        searchService.키워드저장(saveSearch);
+
+        ResponseDTO<?> responseDTO = new ResponseDTO<>().data(orderedSearchLists);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+
 
 }
