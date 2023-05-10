@@ -75,15 +75,15 @@ public class SearchController {
     @GetMapping("/price")
     public ResponseEntity<ResponseDTO<?>> searchPlacesByKeywordAndPriceOrdering(@RequestParam String keyword, @RequestParam String ordering) {
         List<SearchOrderby> searchLists = searchService.검색(keyword);
-        List<SearchOrderby> orderedSearchLists;
+        List<SearchOrderby> orderedSearchLists = new ArrayList<>();
 
         switch (ordering) {
             case "high":
-                orderedSearchLists = new ArrayList<>(searchLists);
+                orderedSearchLists.addAll(searchLists);
                 Collections.sort(orderedSearchLists, (o1, o2) -> o2.getPricePerHour() - o1.getPricePerHour());
                 break;
             case "low":
-                orderedSearchLists = new ArrayList<>(searchLists);
+                orderedSearchLists.addAll(searchLists);
                 Collections.sort(orderedSearchLists, (o1, o2) -> o1.getPricePerHour() - o2.getPricePerHour());
                 break;
             default:
