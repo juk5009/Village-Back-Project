@@ -117,7 +117,7 @@ public class PaymentController {
     @PostMapping("/delete")
     public ResponseEntity<?> delete() {
 
-        paymentService.결제취소();
+//        paymentService.결제취소();
 
         return new ResponseEntity<>(new ResponseDTO<>(1, 200, "결제 취소 완료", null), HttpStatus.OK);
     }

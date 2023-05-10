@@ -73,27 +73,27 @@ public class PaymentService {
         return paymentRepository.save(new Payment(paymentDTO.getOrderId(), paymentDTO.getOrderName(), paymentDTO.getPrice()));
     }
 
-    public void 결제취소() {
+//    public void 결제취소() {
 
-        try {
-            Bootpay bootpay = new Bootpay("6447b7393049c8001d9e06dc", "Ud1mwlNgLWGdL4mC6xdGKHXY3sP6Yg/Qit19ZZ2JLHc=");
-            HashMap token = bootpay.getAccessToken();
-            if(token.get("error_code") != null) { //failed
-                return;
-            }
-            Cancel cancel = new Cancel();
-            cancel.setReceiptId("628b2206d01c7e00209b6087");
-            cancel.setCancleUsername("관리자");
-            cancel.setCancleMessage("테스트 결제");
-
-            HashMap res = bootpay.receiptCancel(cancel);
-            if(res.get("error_code") == null) { //success
-                System.out.println("receiptCancel success: " + res);
-            } else {
-                System.out.println("receiptCancel false: " + res);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//        try {
+//            Bootpay bootpay = new Bootpay("6447b7393049c8001d9e06dc", "Ud1mwlNgLWGdL4mC6xdGKHXY3sP6Yg/Qit19ZZ2JLHc=");
+//            HashMap token = bootpay.getAccessToken();
+//            if(token.get("error_code") != null) { //failed
+//                return;
+//            }
+//            Cancel cancel = new Cancel();
+//            cancel.setReceiptId("628b2206d01c7e00209b6087");
+//            cancel.setCancleUsername("관리자");
+//            cancel.setCancleMessage("테스트 결제");
+//
+//            HashMap res = bootpay.receiptCancel(cancel);
+//            if(res.get("error_code") == null) { //success
+//                System.out.println("receiptCancel success: " + res);
+//            } else {
+//                System.out.println("receiptCancel false: " + res);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
