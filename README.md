@@ -1,9 +1,9 @@
 # Village 프로젝트 ( 공간 대여 )
 
-
-<img src="https://github.com/clean17/Village-Front-Project/assets/118657689/a2dd9193-0d37-4caa-bf03-c1114a6c49eb" alt="profile" width="300" height="300">
+![village-sample](https://github.com/clean17/clean17.github.io/assets/118657689/2aef4ac3-8c93-4a97-997a-30290b98f5ce)
 
 > ## 프로젝트 소개
+
 - 주변에서 춤 연습을 하거나 회의를 하거나 공부를 하려는 등의 공간을 알아보고 있나요 ? <br>
 - 여러분에게 필요한 여러 공간을 여기서 빌려보세요 !<br>
 - 호스트는 공간을 등록하고 사용자는 예약, 결제를 통해 공간을 빌리는 서비스 입니다.
@@ -12,12 +12,16 @@
 
 
 > ## 시연영상 ( Youtube )
-추가 예정
+
+![image](https://github.com/clean17/Village-Back-Project/assets/118657689/2d43b2f6-b82d-4fe1-9f8f-637b43cb3e0f)
+
+- <a href="[https://github.com/clean17/mini-project2/files/11340918/6._.2_PPT.pdf](https://www.youtube.com/watch?v=X2QB7HTBATU&ab_channel=%EB%A9%94%ED%83%80%EC%BD%94%EB%94%A9)">[3조 시연영상]</a>
 
 <br>
 
 
 > ## 발표자료 ( PDF )
+
 ![image](https://github.com/clean17/Village-Front-Project/assets/118657689/ac1cebd2-3086-429b-b48f-f2eaf2e5ad87)
 
 [4조 village.pdf](https://github.com/clean17/Village-Front-Project/files/11440847/4.village.pdf)
@@ -27,11 +31,13 @@
 
 
 > ## 프로젝트 기간
+
 - 2023-04-10 ~ 2023.05.10
 
 <br>
 
 > ## 팀원 소개
+
 ### Front-End
 |                                                 박인우(팀장)                                                  |                                                 이인화                                                  |
 | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | 
@@ -50,6 +56,7 @@
 <br>
 
 > ## 기술 스택
+
 ### 개발 툴<br>
 ![image](https://github.com/clean17/Village-Front-Project/assets/118657689/2a81747e-306b-43e3-9fa1-9adebb8b91d6)
 ![image](https://github.com/clean17/Village-Front-Project/assets/118657689/c0ebe32a-0db1-4b6e-8e3a-7744ad702753)
@@ -87,6 +94,7 @@
 <br>
 
 > ## 기능정리
+
 - 등록된 공간 목록 조회
 - 키워드로 특정한 공간 조회
 - 카테고리 검색 조회
@@ -102,31 +110,39 @@
 
 <br>
 
-> ## 스프링 부트 의존성 주입
+> ## 플러터 의존성 주입
+
 ```
-	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-	implementation 'javax.servlet:jstl'
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-	implementation group: 'org.qlrm', name: 'qlrm', version: '2.1.1'
-	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
-	implementation 'com.google.firebase:firebase-admin:9.1.1'
-	implementation 'org.springframework.boot:spring-boot-starter-aop'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-mustache'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.h2database:h2'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	implementation group: 'com.auth0', name: 'java-jwt', version: '4.3.0'
-	implementation 'io.sentry:sentry-spring-boot-starter:6.17.0'
-	implementation 'io.sentry:sentry-logback:6.17.0'
+  cupertino_icons: ^1.0.2
+  intl: ^0.18.0
+  animated_text_kit: ^4.2.2
+  animate_do: ^3.0.2
+  dio: ^5.1.1
+  flutter_riverpod: ^2.3.2
+  riverpod: ^2.3.6
+  font_awesome_flutter: ^9.0.0
+  lottie: ^2.3.2
+  http: ^0.13.5
+  geolocator: ^9.0.2
+  fluttertoast: ^8.2.1
+  motion_toast: ^2.6.6
+  remedi_kopo: ^0.0.2
+  image_picker: ^0.8.7+3
+  google_maps_flutter: ^2.2.5
+  validators: ^3.0.0
+  logger: ^1.1.0
+  flutter_secure_storage: ^7.0.0
+  flutter_swiper_null_safety: ^1.0.2
+  bootpay: ^4.6.1
+  api_provider_builder: ^1.0.4
+  firebase_messaging: ^14.4.1
+  scrollable_positioned_list: ^0.3.5
+  async: ^2.10.0
+  firebase_core: ^2.10.0
+  provider: ^6.0.5
+  cached_network_image: ^3.2.3
+  flutter_html: ^2.2.1
+  badges: ^3.1.1
 ```
 
 <br>
@@ -140,6 +156,7 @@
 <br>
 
 > ## 구현 화면
+
 ![Honeycam 2023-05-10 20-10-03](https://github.com/clean17/Village-Front-Project/assets/118657689/06427e23-3639-49d5-bde3-1f258f608225)
 ![Honeycam 2023-05-10 20-10-34](https://github.com/clean17/Village-Front-Project/assets/118657689/bb4efc0f-4f8f-4f29-a8cd-bfa5a434e82e)
 ![Honeycam 2023-05-10 20-11-08](https://github.com/clean17/Village-Front-Project/assets/118657689/76fa9d22-011e-46f9-93dd-5d1774780257)
@@ -170,6 +187,7 @@
 <br>
 
 > ## 기술 블로그
+
 김정욱 <br>
 https://snapdragon-maple-d1e.notion.site/34fc09fac7684501a4a29bd6da6bb8b5<br>
 
@@ -185,6 +203,7 @@ https://geode-krill-9ab.notion.site/Sliver-0fb83d2a0b7c4a069c73b3a2724a199a<br>
 <br>
 
 > ## 담당 기능
+
 박인우(프론트)
 
 - Riverpod 상태 관리
@@ -230,6 +249,7 @@ https://geode-krill-9ab.notion.site/Sliver-0fb83d2a0b7c4a069c73b3a2724a199a<br>
 
 
 > ## 보완점
+
 - 리뷰나 스크랩기능은 어렵지 않은데 시간이 부족해 끝내지 못한 점이 아쉽다.<br>
 - 비밀번호 찾기 기능을 하고 싶었지만 못해서 아쉽다.<br>
 - rebase 머지를 처음 하면서 여러 어려움을 겪었지만 다음에는 경험을 바탕으로 잘 처리할 것이다.<br>
@@ -237,6 +257,7 @@ https://geode-krill-9ab.notion.site/Sliver-0fb83d2a0b7c4a069c73b3a2724a199a<br>
 <br>
 
 > ## 후기
+
 박인우
 - 프로젝트를 진행하면서 초기 계획과 많이 달라져 힘든 부분도 있었지만 조금 더 개발이라는 업무와 가까워진것 같다.
 - 팀원들을 이끌면서 팀장이라는 역할에 대해 다시 한번 생각하는 계기가 되었다.
@@ -256,3 +277,6 @@ https://geode-krill-9ab.notion.site/Sliver-0fb83d2a0b7c4a069c73b3a2724a199a<br>
 김호현
 - 프론트 와 백엔드로 나누어 프로젝트를 처음 해봤기에 소통을 하는 부분이 부족하다는 것을 느꼈습니다.
 - JPA를 처음 사용하면서 처음에는 복잡하고 힘들다고 생각을 했지만 잘 이해를 하면 오히려 편하게 사용 할 수 있다고 생각이 들었고 무엇보다도 Restdoc을 사용 하기 위해 test코드를 작성을 하며 좋은 결과를 이루었다.
+
+
+
