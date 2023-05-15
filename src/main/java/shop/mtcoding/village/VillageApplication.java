@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 		org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration.class
 })
 //@SpringBootApplication
-@EnableJpaAuditing
+@EnableJpaAuditing 
 public class VillageApplication {
 
 	public static void main(String[] args) {
