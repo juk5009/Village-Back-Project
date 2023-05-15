@@ -14,7 +14,7 @@ sentry:
   logging: # 범위
     minimum-event-level: "WARN"
     minimum-breadcrumb-level: "INFO"
-  dsn: https://56ab2b3b2d344c9cac66ca3d3fa4efe1@o4504986976124928.ingest.sentry.io/4504986986217472
+  dsn: ${sentry.dsn}
   sample-rate: 0.5 # 샘플링 비율 1=100% 다 보냄
   #traces-sample-rate # 트랜잭션 비율 설정
 
@@ -27,24 +27,16 @@ cloud:
     s3:
       bucket: villages-3
     credentials:
-      access-key: AKIAQQ5QPUSNTPXXS7BC
-      secret-key: 0S/lJhMR4xmYK6h2dijZF3iPQcE7op3Bn56mKeQ3
+      access-key: ${s3.access.key}
+      secret-key: ${s3.secret.key}
     stack:
       auto: false
 
-#meta:
-#  bucket: ${bucket}
-#  access-key: ${access-key}
-#  secret-key: ${secret-key}
-#  staticval: ${static}
-
-
-
 spring:
-  sql:
-    init:
-      data-locations: classpath:db/data.sql
-      mode: always
+  # sql:
+  #   init:
+  #     data-locations: classpath:db/data.sql
+  #     mode: always
   mvc:
     view:
       prefix: /WEB-INF/view/
@@ -55,19 +47,19 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
 
   datasource:
-    # url: jdbc:mariadb://${rds.hostname}:${rds.port}/${rds.db.name}?allowPublicKeyRetrieval=true&useSSL=false
-    # driver-class-name: org.mariadb.jdbc.Driver
-    # username: ${rds.username}
-    # password: ${rds.password}
-    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mariadb://${rds.hostname}:${rds.port}/${rds.db.name}?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: ${rds.username}
+    password: ${rds.password}
+    # url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+    # driver-class-name: org.h2.Driver
+    # username: sa
+    # password:
 
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       # naming:
       #   physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
@@ -93,8 +85,3 @@ logging:
     '[shop.mtcoding.securityapp]': INFO # DEBUG 레벨부터 에러 확인할 수 있게 설정하기
     '[org.hibernate.type]': TRACE # 콘솔 쿼리에 ? 에 주입된 값 보기
     
-# mybatis:
-#   mapper-locations:
-#   - classpath:mapper/**.xml
-#   configuration:
-#     map-underscore-to-camel-case: true
