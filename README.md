@@ -242,6 +242,7 @@ https://geode-krill-9ab.notion.site/Sliver-0fb83d2a0b7c4a069c73b3a2724a199a<br>
 - 메인 공간 조회
 - 공간 검색(키워드, 카테고리)
 - 공간 필터링(정렬)
+- 구글맵
 
 <br>
 
